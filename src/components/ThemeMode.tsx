@@ -1,5 +1,5 @@
-"use client";
-import { useTheme } from "next-themes";
+'use client';
+import { useTheme } from 'next-themes';
 
 type ThemeModeButtonProps = {
   sizeIcon?: number;
@@ -7,14 +7,14 @@ type ThemeModeButtonProps = {
 
 export function ThemeModeButton({ sizeIcon = 25 }: ThemeModeButtonProps) {
   const { systemTheme, theme, setTheme } = useTheme();
-  const currentTheme = theme === "system" ? systemTheme : theme;
+  const currentTheme = theme === 'system' ? systemTheme : theme;
 
   return (
     <button
-      onClick={() => (theme == "dark" ? setTheme("light") : setTheme("dark"))}
+      onClick={() => (theme == 'dark' ? setTheme('light') : setTheme('dark'))}
       className="group p-1 rounded-full text-secondary-dm hover:text-text-lm dark:hover:text-text-dm"
     >
-      {theme == "dark" ? (
+      {theme == 'dark' ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={sizeIcon}
