@@ -1,3 +1,3 @@
 export default function landing() {
-  return <h1>Hola soy landing</h1>;
+  return <h1>Hola soy Contact</h1>;
 }
