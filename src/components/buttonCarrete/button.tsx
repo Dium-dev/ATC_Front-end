@@ -9,11 +9,11 @@ const ButtonCarrete: React.FC<ButtonCarreteProps> = ({ type, text }) => {
   switch (type) {
     case "search":
       buttonContent = (
-        <button className="flex justify-center p-0.5 gap-1 w-20 bg-secondary-lm text-text-dm ">
+        <button className="flex justify-center p-0.5 gap-1 w-fit bg-secondary-lm text-text-dm text-[1rem] items-center hover:bg-primary-lm">
           {text || "Buscar"}
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
+            className="h-[2rem] w-6"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -30,7 +30,7 @@ const ButtonCarrete: React.FC<ButtonCarreteProps> = ({ type, text }) => {
       break;
     case "white":
       buttonContent = (
-        <button className="flex justify-center w-fit p-0.5 gap-1  text-backgorund-lm border border-solid border-background-lm">
+        <button className="flex justify-center w-fit p-0.5 gap-1  text-backgorund-lm hover:bg-background-dm hover:bg-opacity-40 ">
           {text || "Añadir al carrito"}
           <svg
             className="h-[20px] w-[20px]"
@@ -49,7 +49,7 @@ const ButtonCarrete: React.FC<ButtonCarreteProps> = ({ type, text }) => {
 
     case "red":
       buttonContent = (
-        <button className="flex justify-center p-0.5 gap-1 w-32 bg-secondary-lm text-text-dm text-xs">
+        <button className="flex justify-center p-0.5 gap-1 w-32 bg-secondary-lm text-text-dm text-xs hover:bg-primary-lm">
           {text || "Añadir al carrito"}
           <svg
             className="h-[15px] w-[15px]"
