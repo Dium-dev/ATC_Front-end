@@ -3,7 +3,7 @@ interface ButtonCarreteProps {
   text?: string;
 }
 
-const ButtonCarrete: React.FC<ButtonCarreteProps> = ({ type, text }) => {
+const ButtonComponent: React.FC<ButtonCarreteProps> = ({ type, text }) => {
   let buttonContent;
 
   switch (type) {
@@ -32,7 +32,7 @@ const ButtonCarrete: React.FC<ButtonCarreteProps> = ({ type, text }) => {
       buttonContent = (
         <button className="flex justify-center w-fit p-0.5 gap-1  text-backgorund-lm hover:bg-background-dm hover:bg-opacity-40 ">
           {text || "Añadir al carrito"}
-          <svg
+          {/* <svg
             className="h-[20px] w-[20px]"
             viewBox="0 0 25 24"
             fill="none"
@@ -42,7 +42,7 @@ const ButtonCarrete: React.FC<ButtonCarreteProps> = ({ type, text }) => {
               d="M6.9219 13.5H18.0782C19.0813 13.5 19.5828 14.7141 18.875 15.4219L13.2969 21C12.8563 21.4406 12.1438 21.4406 11.7078 21L6.12503 15.4219C5.41721 14.7141 5.91878 13.5 6.9219 13.5ZM18.875 8.57815L13.2969 3.00002C12.8563 2.5594 12.1438 2.5594 11.7078 3.00002L6.12503 8.57815C5.41721 9.28596 5.91878 10.5 6.9219 10.5H18.0782C19.0813 10.5 19.5828 9.28596 18.875 8.57815Z"
               fill="black"
             />
-          </svg>
+          </svg> */}
         </button>
       );
       break;
@@ -73,4 +73,4 @@ const ButtonCarrete: React.FC<ButtonCarreteProps> = ({ type, text }) => {
   return buttonContent;
 };
 
-export default ButtonCarrete;
+export default ButtonComponent;

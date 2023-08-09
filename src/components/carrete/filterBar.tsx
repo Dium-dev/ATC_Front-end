@@ -1,13 +1,25 @@
 import React from 'react'
-import ButtonCarrete from '../buttonCarrete/button'
+import ButtonComponent from '../button/button'
 // const title = (texto : string) => {
 //     return (
 //         <button>{texto}</button>
 //     )
 // }
 
-const categories = [
-    "Categorías", "Marcas", "Precio"
+const navigation = [
+    {
+        label: "Categorías",
+        route: ""
+    },
+    {
+        label: "Marcas",
+        route: "",
+    },
+    {
+        label: "Precio",
+        route: "",
+    }
+    
 ]
 
 const FilterBar = () => {
@@ -15,16 +27,16 @@ const FilterBar = () => {
   return (
       <div className='h-fit w-[1080px] w-fit min-w-[800px] flex flex-row justify-between items-center bg-text-dm'>
           <div className='flex flex-row'>
-              {categories.map((e,id) => {
+              {navigation.map((e,id) => {
                     return (
                         <div className='pr-8' key={id}>
-                            <ButtonCarrete type='white' text={e}/>
+                            <ButtonComponent type='white' text={e.label}/>
                         </div>
                     )
               })}
           </div>
           <div>
-              <ButtonCarrete type='search'/>
+              <ButtonComponent type='search'/>
           </div>
 
           
