@@ -1,4 +1,4 @@
-import FilterBar from "@/components/carrete/filterBar";
+import FilterBar from "@/components/filterBar/filterBar";
 
 export default function Home() {
   return (
