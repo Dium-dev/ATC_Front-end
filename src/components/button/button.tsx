@@ -1,9 +1,9 @@
-interface ButtonCarreteProps {
+interface ButtonProps {
   type: string;
   text?: string;
 }
 
-const ButtonCarrete: React.FC<ButtonCarreteProps> = ({ type, text }) => {
+const Button: React.FC<ButtonProps> = ({ type, text }) => {
   let buttonContent;
 
   switch (type) {
@@ -73,4 +73,4 @@ const ButtonCarrete: React.FC<ButtonCarreteProps> = ({ type, text }) => {
   return buttonContent;
 };
 
-export default ButtonCarrete;
+export default Button;
