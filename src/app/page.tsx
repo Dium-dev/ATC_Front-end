@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Cart from "@/components/cartLanding/cart";
+import Card from "@/components/cardLanding/card";
 
 export default function Home() {
   return (
     <>
       <p>Hola soy landing</p>
-      <Cart />
+      <Card />
     </>
   );
 }
