@@ -26,10 +26,10 @@ export default function RootLayout({
 
       <body className={inter.className}>
         <ThemeProvider attribute="class">
-           <AuthContextProvider>
-                  <NavBar />
-                  {children}
-            </AuthContextProvider>
+          <AuthContextProvider>
+            <NavBar />
+            {children}
+          </AuthContextProvider>
         </ThemeProvider>
       </body>
     </html>
