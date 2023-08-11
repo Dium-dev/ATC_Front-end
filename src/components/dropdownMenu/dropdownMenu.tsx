@@ -7,7 +7,7 @@ type AnchorProps = {
   to?: string
 }
 
-export const Anchor: FunctionComponent<AnchorProps> = ({ title, to }) => {
+export const Anchor: React.FC<AnchorProps> = ({ title, to }) => {
   return (
     <span className="w-full block p-2 hover:bg-primary-lm">
       <a href={to} target="_blank">{title}</a>
@@ -20,10 +20,7 @@ type DropDownMenuProps = {
   anchorArray: AnchorProps[];
 };
 
-export const DropDownMenu = ({
-  title,
-  anchorArray,
-}: DropDownMenuProps) => {
+export const DropDownMenu: React.FC<DropDownMenuProps> = ({ title, anchorArray }) => {
   const [clickOpenMenu, setClickOpenMenu] = useState<boolean>(false);
   const [hoverOpenMenu, setHoverOpenMenu] = useState<boolean>(true);
 
