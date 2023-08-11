@@ -28,6 +28,7 @@ export default function RootLayout({
           <AuthContextProvider>
             <NavBar />
             {children}
+          </AuthContextProvider>
         </ThemeProvider>
       </body>
     </html>
