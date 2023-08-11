@@ -28,8 +28,6 @@ export default function RootLayout({
           <AuthContextProvider>
             <NavBar />
             {children}
-            <Footer />
-          </AuthContextProvider>
         </ThemeProvider>
       </body>
     </html>
