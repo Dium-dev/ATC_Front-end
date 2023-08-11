@@ -7,7 +7,6 @@ import { NavBar } from '../components/navBar/navBar';
 import { AuthContextProvider } from '../context/AuthContext';
 
 import { ThemeProvider } from 'next-themes';
-import { Footer } from '@/components/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -28,6 +27,7 @@ export default function RootLayout({
           <AuthContextProvider>
             <NavBar />
             {children}
+          </AuthContextProvider>
         </ThemeProvider>
       </body>
     </html>
