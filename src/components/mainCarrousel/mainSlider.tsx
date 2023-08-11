@@ -58,7 +58,7 @@ const [current, setCurrent] = useState<number>(0);
         <BsChevronCompactLeft size={30} />
         
       </div>
-      <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-background-lm text-text-dm cursor-pointer bg-opacity-40 ' onClick={next}>
+      <div className='lg:hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-background-lm text-text-dm cursor-pointer bg-opacity-40 ' onClick={next}>
         <BsChevronCompactRight size={30} />
       </div>
       <div className='flex top-4 justify-center py-2 cursor-pointer'>
