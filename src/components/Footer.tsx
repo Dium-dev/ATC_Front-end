@@ -7,7 +7,7 @@ export function Footer() {
     <footer className="min-w-[390px] bg-background-lm text-text-dm px-8 py-[50px] sm:px-[5%]">
       <div className="grid grid-cols-4 mb-10 gap-y-10 md:grid-cols-3 xl:grid-cols-4 max-w-7xl xl:mx-auto">
         <picture className="col-span-4 md:col-span-1 ">
-          <Image src="/ATC_LOGO.png" alt="icono" width={200} height={100} />
+          <Image src="/ATC_LOGO.png" alt="Actualiza tu carro icono" width={200} height={100} />
         </picture>
         <ListItems className="col-span-2 md:col-span-1" title="Correo">
           <p>actualizatucarro@gmail.com</p>
