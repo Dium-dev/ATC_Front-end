@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import Image from "next/image";
+import ButtonComponent from "../button/button";
 
 interface CardProps {}
 
@@ -8,41 +9,42 @@ const products = [
     id: 1,
     name: "Basic Tee",
     href: "#",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
+    imageSrc: "/img/Actualizatucarro_Facebook.jpg",
     imageAlt: "Image product",
     price: "$35",
     color: "Black",
   },
 ];
+// 227 + 268
 
 const Card: FC<CardProps> = () => {
   return (
-    <div className="relative w-[227px] h-[268px] border rounded-xl ">
-      <img
+    <div className="flex flex-col w-1/2 max-w-sm  pb-3 gap-2  border border-background-lm rounded-xl md:w-[14.1875rem] md:h-[268px] ">
+      <Image
         src={products[0].imageSrc}
         alt="Cubre Volante"
-        className="object-center absolute w-[227px] h-[154px] border-t rounded-xl"
+        width={227}
+        height={154}
+        className="w-full h-[154px] rounded-t-xl "
       />
-      <div className="absolute bottom-0 flex flex-col h-[114px] w-full">
-        <div className="w-[227px] h-[57px] p-[10px] overflow-hidden">
-          <h3 className="w-[206px] h-[38px] font-oswald font-bold text-sm text-black ">
-            Cubre Volante Alta Calidad Cuerina Cocido Negro Hilo Rojo casa
-          </h3>
-        </div>
-        <div className="w-[227px] h-[33px]">
-          <p className="font-oswald font-bold text-xl text-black text-center">
-            $ 29500
-          </p>
-        </div>
-        <div className="w-[227px] h-[27px] flex justify-between px-[10px] pb-[10px] ">
-          <p className="font-oswald font-bold text-xs text-black">
-            Performance
-          </p>
-          <p className="font-oswald font-bold text-xs text-black">
-            Envío Gratis
-          </p>
-        </div>
+
+      <div className=" p-[0.625rem] w-full  overflow-hidden">
+        <h3 className="font-oswald font-bold text-sm text-background-lm  ">
+          Cubre Volante Alta Calidad Cuerina Cocido Negro
+        </h3>
+      </div>
+
+      <div className="w-full  overflow-hidden">
+        <p className="font-oswald font-bold text-xl text-background-lm text-center ">
+          $ 29500
+        </p>
+      </div>
+
+      <div className="flex justify-between items-center px-[10px] pb-[5px] w-full  overflow-hidden">
+        <p className=" font-oswald font-bold text-xs text-background-lm ">
+          Performance
+        </p>
+        <ButtonComponent variant="red" text="Añadir al carrito" />
       </div>
     </div>
   );
