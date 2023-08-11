@@ -26,7 +26,7 @@ export const DropDownMenu: React.FC<DropDownMenuProps> = ({ title, anchorArray }
 
   function clickHandleMenu() {
     setHoverOpenMenu(false);
-    setClickOpenMenu(!open);
+    setClickOpenMenu(!clickOpenMenu);
   }
 
   function hoverHandleMenu() {
