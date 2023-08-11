@@ -1,7 +1,13 @@
 'use client'
 import { useState, useEffect, useCallback} from 'react'
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs"
-import {RxDotFilled} from "react-icons/rx"
+import { RxDotFilled } from "react-icons/rx"
+
+interface Slide {
+  url: string;
+}
+
+
 const slides = [
     {
      url: "https://www.megautos.com/wp-content/uploads/2021/01/autorepuestos-en-linea.jpg"
@@ -19,24 +25,18 @@ const slides = [
 ]
 
 
-const MainCarrousel = () => {
+const MainCarrousel: React.FC  = () => {
     
-const [current, setCurrent] = useState(0);
+const [current, setCurrent] = useState<number>(0);
 
   const prev = () => {
-    if (current === 0) {
-      setCurrent(slides.length - 1);
-    } else {
-      setCurrent(current - 1);
-    }
+
+    setCurrent(cur => cur === 0 ? slides.length - 1 : cur -1 )
+
   };
 
   const next = useCallback(() => {
-    if (current === slides.length - 1) {
-      setCurrent(0);
-    } else {
-      setCurrent(current + 1);
-    }
+   setCurrent(cur => cur === slides.length - 1 ? 0 : cur + 1  )
   }, [current]);
 
   useEffect(() => {
