@@ -7,6 +7,7 @@ import { FaAtlas, FaUser } from "react-icons/fa";
 import { BsCartFill } from "react-icons/bs";
 import Link from "next/link";
 import { DropDownMenu } from "../dropdownMenu/dropdownMenu";
+import { ThemeModeButton } from "../ThemeMode";
 
 export const NavBar = () => {
   return (
@@ -48,6 +49,7 @@ export const NavBar = () => {
         <FaAtlas className="cursor-pointer" />
         <FaUser className="cursor-pointer" />
         <BsCartFill className="cursor-pointer" />
+        <ThemeModeButton />
       </div>
     </div>
   );

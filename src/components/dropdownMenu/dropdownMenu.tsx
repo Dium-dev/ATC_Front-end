@@ -1,18 +1,19 @@
 "use-client";
 import { useState } from "react";
 import { FunctionComponent, ReactNode } from "react";
+import Link from "next/link";
 
 type AnchorProps = {
   title: string;
   to?: string;
 };
 
-export const Anchor: React.FC<AnchorProps> = ({ title, to }) => {
+export const Anchor: React.FC<AnchorProps> = ({ title, to="" }) => {
   return (
     <span className="w-full block p-2 hover:bg-primary-lm">
-      <a href={to} target="_blank">
+      <Link href={to} target="_blank">
         {title}
-      </a>
+      </Link>
     </span>
   );
 };
