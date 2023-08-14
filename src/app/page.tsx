@@ -1,6 +1,5 @@
-import { DropDownMenu } from "@/components/dropdownMenu/dropdownMenu";
-import MainCarrousel from "@/components/mainCarrousel/mainSlider";
-import Card from "../components/Card/card";
+import MainCarrousel from '~/components/mainCarrousel/mainSlider';
+import Card from '../components/Card/card';
 
 export default function Home() {
   return (
