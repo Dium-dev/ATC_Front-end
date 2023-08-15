@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import logo from "../../../public/ATC_LOGO.png";
+import logo from "../../assets/img/logo/LogoATCRedColor.webp";
 import ButtonComponent from "../button/button";
 import { FaAtlas, FaUser } from "react-icons/fa";
 import { BsCartFill } from "react-icons/bs";
