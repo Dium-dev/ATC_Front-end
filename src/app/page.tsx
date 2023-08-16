@@ -1,10 +1,10 @@
-import MainCarrousel from '~/components/mainCarrousel/mainSlider';
-import Card from '../components/Card/card';
+import MainCarousel from '~/components/carousels/mainCarousel';
+import Card from '../components/cards/landingCard';
 
 export default function Home() {
   return (
     <>
-      <MainCarrousel />
+      <MainCarousel />
       <div className="flex justify-center items-center m-16 gap-5">
         <Card
           title="Llanta de caucho tamaño mediano para marcas mazda"
