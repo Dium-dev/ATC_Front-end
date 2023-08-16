@@ -1,7 +1,7 @@
-"use client";
-import { useState, useEffect, useCallback } from "react";
-import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
-import { RxDotFilled } from "react-icons/rx";
+'use client';
+import { useState, useEffect, useCallback } from 'react';
+import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
+import { RxDotFilled } from 'react-icons/rx';
 
 interface Slide {
   url: string;
@@ -9,21 +9,21 @@ interface Slide {
 
 const slides = [
   {
-    url: "https://www.megautos.com/wp-content/uploads/2021/01/autorepuestos-en-linea.jpg",
+    url: 'https://www.megautos.com/wp-content/uploads/2021/01/autorepuestos-en-linea.jpg',
   },
 
   {
-    url: "https://www.comparaonline.cl/blog-statics/cl/uploads/2014/04/CC3B3mo_evitar_una_estafa_en_el_taller_mecC3A1nico__uuck6h.jpg",
+    url: 'https://www.comparaonline.cl/blog-statics/cl/uploads/2014/04/CC3B3mo_evitar_una_estafa_en_el_taller_mecC3A1nico__uuck6h.jpg',
   },
   {
-    url: "https://www.autoparteseltaca.com.ar/img/banner-02.jpg",
+    url: 'https://www.autoparteseltaca.com.ar/img/banner-02.jpg',
   },
   {
-    url: "https://www.rutamotor.com/wp-content/uploads/2022/02/Piezas-delicadas-del-vehiculo.jpg",
+    url: 'https://www.rutamotor.com/wp-content/uploads/2022/02/Piezas-delicadas-del-vehiculo.jpg',
   },
 ];
 
-const MainCarrousel: React.FC = () => {
+const MainCarousel: React.FC = () => {
   const [current, setCurrent] = useState<number>(0);
 
   const prev = () => {
@@ -69,7 +69,7 @@ const MainCarrousel: React.FC = () => {
             key={index}
             onClick={() => setCurrent(index)}
             className={
-              current === index ? "text-primary-lm" : "text-primary-dm"
+              current === index ? 'text-primary-lm' : 'text-primary-dm'
             }
           >
             <RxDotFilled size={30} />
@@ -80,4 +80,4 @@ const MainCarrousel: React.FC = () => {
   );
 };
 
-export default MainCarrousel;
+export default MainCarousel;
