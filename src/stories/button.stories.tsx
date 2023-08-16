@@ -27,7 +27,7 @@ export const Red: Story = {
 };
 export const Search: Story = {
   args: {
-    variant: 'Search',
+    variant: 'search',
     text: 'search',
     to: '',
   },
