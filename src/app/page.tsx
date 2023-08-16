@@ -1,5 +1,5 @@
 import MainCarousel from '~/components/carousels/mainCarousel';
-import Card from '../components/Card/card';
+import Card from '../components/cards/landingCard';
 
 export default function Home() {
   return (
