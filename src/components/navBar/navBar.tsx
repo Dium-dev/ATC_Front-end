@@ -8,6 +8,7 @@ import { BsCartFill } from "react-icons/bs";
 import Link from "next/link";
 import { DropDownMenu } from "../dropdownMenu/dropdownMenu";
 import { ThemeModeButton } from "../ThemeMode";
+import { Images } from "~/assets/img";
 
 export const NavBar = () => {
   return (
@@ -16,7 +17,7 @@ export const NavBar = () => {
         <Link href={"/"}>
           <Image
             className="h-18 w-18"
-            src={logo}
+            src={Images.LogoRedColor}
             alt="Your Company"
             width={150}
 
