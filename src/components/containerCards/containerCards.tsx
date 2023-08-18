@@ -32,31 +32,51 @@ type ContainerCardProps = {
 };
 
 export function ContainerCard({ products }: ContainerCardProps) {
-  const [page, setPage] = useState(1);
-  const [itemsPage, setitemsPage] = useState(5);
+  const [pagination, setPagination] = useState({
+    page: 1,
+    itemsPage: 5,
+  });
 
-  const maximo = products.length / itemsPage;
+  const maximo = products.length / pagination.itemsPage;
+  const startIndex = (pagination.page - 1) * pagination.itemsPage;
+  const endIndex = startIndex + pagination.itemsPage;
+
+  type AccionPagina = 'Anterior' | 'Siguiente';
+  const anteriorSiguiente = (prop: AccionPagina) => {
+    if (prop === 'Anterior')
+      setPagination({
+        ...pagination,
+        page: pagination.page - 1,
+      });
+    else if (prop === 'Siguiente')
+      setPagination({
+        ...pagination,
+        page: pagination.page + 1,
+      });
+  };
 
   return (
     <div>
       <div className="grid justify-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
-        {products
-          .slice((page - 1) * itemsPage, (page - 1) * itemsPage + itemsPage)
-          .map((producto: Products) => {
-            const { title, id, price, image } = producto;
-            return (
-              <Card
-                key={id}
-                title={title}
-                price={price.toString()}
-                nota={title}
-                imageSrc={image[0]}
-              />
-            );
-          })}
+        {products.slice(startIndex, endIndex).map((producto: Products) => {
+          const { title, id, price, image } = producto;
+          return (
+            <Card
+              key={id}
+              title={title}
+              price={price.toString()}
+              nota={title}
+              imageSrc={image[0]}
+            />
+          );
+        })}
       </div>
       <div className="flex justify-center items-center text-center m-10">
-        <Pagination page={page} setPage={setPage} maximo={maximo} />
+        <Pagination
+          page={pagination.page}
+          anteriorSiguiente={anteriorSiguiente}
+          maximo={maximo}
+        />
       </div>
     </div>
   );

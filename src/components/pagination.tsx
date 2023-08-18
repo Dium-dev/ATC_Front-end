@@ -3,16 +3,20 @@ import ButtonComponent from './button/button';
 
 interface paginationProps {
   page: number;
-  setPage: Function;
+  anteriorSiguiente: Function;
   maximo: number;
 }
 
-const Pagination: FC<paginationProps> = ({ page, setPage, maximo }) => {
+const Pagination: FC<paginationProps> = ({
+  page,
+  anteriorSiguiente,
+  maximo,
+}) => {
   return (
     <div className=" flex gap-2 ">
       <ButtonComponent
         variant="white"
-        onClick={() => setPage(page - 1)}
+        onClick={() => anteriorSiguiente('Anterior')}
         disabled={page <= 1}
         text={'Anterior'}
       ></ButtonComponent>
@@ -26,7 +30,7 @@ const Pagination: FC<paginationProps> = ({ page, setPage, maximo }) => {
 
       <ButtonComponent
         variant="white"
-        onClick={() => setPage(page + 1)}
+        onClick={() => anteriorSiguiente('Siguiente')}
         disabled={page >= maximo}
         text={'Siguiente'}
       ></ButtonComponent>
