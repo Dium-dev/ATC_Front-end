@@ -37,18 +37,17 @@ export function ContainerCard({ products }: ContainerCardProps) {
     itemsPage: 5,
   });
 
-  const maximo = products.length / pagination.itemsPage;
+  const maximo = Math.ceil(products.length / pagination.itemsPage);
   const startIndex = (pagination.page - 1) * pagination.itemsPage;
   const endIndex = startIndex + pagination.itemsPage;
 
-  type AccionPagina = 'Anterior' | 'Siguiente';
-  const anteriorSiguiente = (prop: AccionPagina) => {
-    if (prop === 'Anterior')
+  const anteriorSiguiente = (action: 'Anterior' | 'Siguiente') => {
+    if (action === 'Anterior')
       setPagination({
         ...pagination,
         page: pagination.page - 1,
       });
-    else if (prop === 'Siguiente')
+    else if (action === 'Siguiente')
       setPagination({
         ...pagination,
         page: pagination.page + 1,
