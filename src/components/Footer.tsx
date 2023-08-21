@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Icon from '~/assets/icons/icon';
 import { IconTypes } from '~/types/icons';
+import IconText from './IconText';
 
 export function Footer() {
   return (
@@ -54,16 +55,5 @@ function ListItems({ className, title, children }: ListItemsProps) {
         {children}
       </div>
     </div>
-  );
-}
-
-function IconText({ icon, text }: { text: string; icon: IconTypes }) {
-  return (
-    <p className="flex gap-3">
-      <i className="h-6 w-6">
-        <Icon icon={icon} />
-      </i>
-      <span>{text}</span>
-    </p>
   );
 }
