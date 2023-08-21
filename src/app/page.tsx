@@ -1,7 +1,9 @@
 import MainCarousel from '~/components/carousels/mainCarousel';
 import Card from '../components/cards/landingCard';
+import { createIconsTypes } from '~/utils/createIcons';
 
 export default function Home() {
+  createIconsTypes();
   return (
     <>
       <MainCarousel />

@@ -1,6 +1,6 @@
 import { readdirSync, writeFileSync } from 'fs';
 
-const PATH_ICONS = './src/atoms/icons';
+const PATH_ICONS = './src/assets/icons';
 const PATH_CREATE_TYPES_ICONS = './src/types/icons.d.ts';
 
 const cleanFileName = (fileName: string) => fileName.split('.')[0];
