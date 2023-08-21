@@ -1,7 +1,6 @@
 import Image from 'next/image';
-import Icon from '~/assets/icons/icon';
-import { IconTypes } from '~/types/icons';
 import IconText from './IconText';
+import ListItems from './ListItems';
 
 export function Footer() {
   return (
@@ -38,22 +37,5 @@ export function Footer() {
         <span className="text-sm">Copyright ©</span>
       </p>
     </footer>
-  );
-}
-
-type ListItemsProps = {
-  className?: string;
-  title: string;
-  children: React.ReactNode;
-};
-
-function ListItems({ className, title, children }: ListItemsProps) {
-  return (
-    <div className={`whitespace-nowrap space-y-2.5 ${className}`}>
-      <h3 className="text-lg sm:text-xl">{title}</h3>
-      <div className="text-sm sm:text-base flex flex-col gap-y-2">
-        {children}
-      </div>
-    </div>
   );
 }
