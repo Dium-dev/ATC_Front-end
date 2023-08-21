@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Images } from "~/assets/img";
 
 export function Footer() {
   const style_svg = 'w-5 h-5';
@@ -8,7 +9,7 @@ export function Footer() {
       <div className="grid grid-cols-4 mb-10 gap-y-10 md:grid-cols-3 xl:grid-cols-4 max-w-7xl xl:mx-auto">
         <picture className="col-span-4 md:col-span-1 ">
           <Image
-            src="/ATC_LOGO.png"
+            src={Images.LogoRedColor}
             alt="Actualiza tu carro icono"
             width={200}
             height={100}
