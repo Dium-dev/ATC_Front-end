@@ -25,13 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider attribute="class">
-          <AuthContextProvider>
-            <NavBar />
-            {children}
-            <div>
-              <Footer />
-            </div>
-          </AuthContextProvider>
+          <AuthContextProvider>{children}</AuthContextProvider>
         </ThemeProvider>
       </body>
     </html>
