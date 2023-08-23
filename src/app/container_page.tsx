@@ -3,8 +3,8 @@ import { NavBar } from '~/components/navBar/navBar';
 
 type ContainerPageProps = {
   children: React.ReactNode;
-  nav: boolean | React.ReactNode;
-  footer: boolean;
+  nav?: boolean | React.ReactNode;
+  footer?: boolean;
 };
 
 export function ContainerPage({
@@ -15,7 +15,7 @@ export function ContainerPage({
   return (
     <>
       {typeof nav === 'boolean' && nav ? <NavBar /> : nav}
-      <main className="min-h-screen sm:px-[5%]">{children}</main>
+      <main className="min-h-screen">{children}</main>
       {footer && <Footer />}
     </>
   );
