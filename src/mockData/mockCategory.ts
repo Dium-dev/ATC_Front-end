@@ -1,4 +1,12 @@
-export const category = [
+type Category = {
+    id: string;
+    name: string;
+    image: string[];
+    description: string;
+  };
+
+
+export const category: Category[] = [
     {
      id: '1',
      name: 'Farolas',
