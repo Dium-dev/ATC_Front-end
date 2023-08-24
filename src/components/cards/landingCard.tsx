@@ -1,6 +1,6 @@
-import React, { FC } from "react";
-import Image from "next/image";
-import ButtonComponent from "../button/button";
+import React, { FC } from 'react';
+import Image from 'next/image';
+import ButtonComponent from '../button/button';
 
 interface CardProps {
   title: string;
@@ -33,7 +33,7 @@ const Card: FC<CardProps> = ({ title, price, nota, imageSrc }) => {
       </div>
 
       <div className="flex justify-between items-center px-[10px] pb-[5px] w-full h-[27px] gap-2 overflow-hidden">
-        <p className=" font-oswald font-bold text-xs text-background-lm w-1/3  overflow-hidden ">
+        <p className=" font-oswald font-bold text-xs text-background-lm w-1/3  overflow-hidden line-clamp-1">
           {nota}
         </p>
         <ButtonComponent variant="red" text="Añadir al carrito" />
