@@ -1,4 +1,27 @@
-export const productos = [
+interface Brand {
+  id: string;
+  name: string;
+}
+
+interface Category {
+  id: string;
+  name: string;
+}
+
+interface Products {
+  id: string;
+  title: string;
+  state: string;
+  stock: number;
+  price: number;
+  availability: number;
+  image: string[];
+  model: string;
+  year: string;
+  brand: Brand;
+  category: Category;
+}
+export const productos:Products[] = [
   {
     id: 'MCO564861395',
     title: 'Farola Hyundai I35 Elantra 2012 - 2016 tipo OEM Halogena',
