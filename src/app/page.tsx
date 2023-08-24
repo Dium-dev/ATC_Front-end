@@ -3,6 +3,7 @@ import { productos } from '~/mockData/mockProducts';
 import { ContainerCard } from '~/components/containerCards/containerCards';
 import { createIconsTypes } from '~/utils/createIcons';
 import { ContainerPage } from './container_page';
+import CategoryCategory from '~/components/containerCardsCategory/containerCategoty';
 
 export default function Home() {
   createIconsTypes();
@@ -10,6 +11,7 @@ export default function Home() {
     <ContainerPage>
       <MainCarousel />
       <ContainerCard products={productos} />
+      <CategoryCategory />
     </ContainerPage>
   );
 }
