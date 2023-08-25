@@ -9,6 +9,7 @@ import { category } from '~/mockData/mockCategory';
 import BrandCategory from '~/components/containerCards/containerCardsBrands';
 
 
+
 export default function Home() {
   createIconsTypes();
   return (

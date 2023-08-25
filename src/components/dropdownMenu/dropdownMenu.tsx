@@ -1,7 +1,8 @@
 'use-client';
 import { useState } from 'react';
-import { FunctionComponent, ReactNode } from 'react';
 import Link from 'next/link';
+import Icon from '~/assets/icons/icon';
+import { IconTypes } from '~/types/icons';
 
 type AnchorProps = {
   title: string;
@@ -19,12 +20,14 @@ export const Anchor: React.FC<AnchorProps> = ({ title, to }) => {
 };
 
 type DropDownMenuProps = {
-  title: string;
+  title?: string;
+  icon?: IconTypes;
   anchorArray: AnchorProps[];
 };
 
 export const DropDownMenu: React.FC<DropDownMenuProps> = ({
   title,
+  icon,
   anchorArray,
 }) => {
   const [clickOpenMenu, setClickOpenMenu] = useState<boolean>(false);
@@ -46,14 +49,21 @@ export const DropDownMenu: React.FC<DropDownMenuProps> = ({
 
   return (
     <div
-      className="w-fit"
+      className="w-20 flex flex-col items-center"
       onMouseEnter={hoverHandleMenu}
       onMouseLeave={closeHoverMenu}
       onClick={clickHandleMenu}
     >
-      <span className="w-full block p-2 hover:bg-primary-lm rounded-md">
-        {title}
-      </span>
+      {title && (
+        <span className="w-full block p-2 hover:bg-primary-lm rounded-md">
+          {title}
+        </span>
+      )}
+      {icon && (
+        <div className="h-5 w-5 flex items-center">
+          <Icon icon={icon} />
+        </div>
+      )}
       <ul
         id="lista"
         className={`flex flex-col items-center mt-4 border-2 border-solid border-secondary-dm rounded-md ${
