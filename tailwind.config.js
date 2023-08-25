@@ -18,7 +18,7 @@ module.exports = {
       "secondary-dm": "#555555",
       "background-dm": "#666666",
       "text-dm": "#f1f1f1",
-      "secondary-background": "#D6D6D6",
+      "secondary-background": "#ffff",
     },
     screen: {
       xs: "480px",
