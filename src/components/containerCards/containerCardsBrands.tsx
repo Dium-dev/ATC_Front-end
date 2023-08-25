@@ -41,7 +41,7 @@ const BrandCategory = ({ brand }: ContainerCardProps) => {
 
   return (
     <div>
-      <h1>
+      <h1 className='titulo'>
         Marcas
       </h1>
       <div className="flex flex-wrap justify-center">
