@@ -4,6 +4,9 @@
 
 
 h1 {
-    font-size: 3.2em;
-    line-height: 1.1;
-  }
+  font-size: 4rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}

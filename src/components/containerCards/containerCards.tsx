@@ -56,7 +56,7 @@ export function ContainerCard({ products }: ContainerCardProps) {
 
   return (
     <div>
-      <h1 className="text-6xl font-bold text-center my-8">
+      <h1>
         Productos
       </h1>
       <div className="grid justify-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">

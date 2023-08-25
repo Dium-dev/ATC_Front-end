@@ -42,7 +42,7 @@ const CategoryCategory = ({ category }: ContainerCardProps) => {
 
   return (
     <div>
-      <h1 className="text-6xl font-bold text-center">
+      <h1>
         Categorías
       </h1>
       <div className="flex flex-wrap justify-center">
