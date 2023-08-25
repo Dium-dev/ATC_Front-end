@@ -1,6 +1,5 @@
 'use-client';
 import { useState } from 'react';
-import { FunctionComponent, ReactNode } from 'react';
 import Link from 'next/link';
 import Icon from '~/assets/icons/icon';
 import { IconTypes } from '~/types/icons';
