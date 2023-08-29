@@ -4,7 +4,6 @@ import PaymentMethod from './payMethod';
 const PaymentMethodsComponent: React.FC = () => {
   return (
     <>
-      <h1 className="titulo">Medios de pago</h1>
       <div className="flex justify-center bg-gray-200">
         <div className="max-w-6xl p-4">
           <div className="bg-white rounded-lg shadow-md p-4  flex flex-row">
