@@ -7,6 +7,7 @@ import { ContainerPage } from './container_page';
 import CategoryCategory from '~/components/containerCards/containerCardsCategoty';
 import { category } from '~/mockData/mockCategory';
 import BrandCategory from '~/components/containerCards/containerCardsBrands';
+import PaymentMethodsList from '~/components/paymentMethod/paymentMethodsList';
 
 
 
@@ -15,6 +16,7 @@ export default function Home() {
   return (
     <ContainerPage>
       <MainCarousel />
+      <PaymentMethodsList /> 
       <ContainerCard products={productos} />
       <CategoryCategory category={category}/> 
       <BrandCategory brand={brands}/>
