@@ -1,5 +1,7 @@
+import { IconTypes } from '~/types/icons';
+import IconText from '../IconText';
 interface PaymentMethodProps {
-  imageSrc: string;
+  imageSrc: IconTypes;
   title: string;
   link: string;
 }
@@ -12,12 +14,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ imageSrc, title, link }) 
         href={link}
         data-title="Medios de pago"
       >
-        <img
-          className="w-10 h-10 mr-2"
-          decoding="async"
-          src={imageSrc}
-          alt={title}
-        />
+        <IconText icon={imageSrc} text='' />
         <div>{title}</div>
       </a>
     </div>

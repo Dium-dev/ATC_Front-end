@@ -8,28 +8,28 @@ const PaymentMethodsComponent: React.FC = () => {
         <div className="max-w-6xl p-4">
           <div className="bg-white rounded-lg shadow-md p-4  flex flex-row">
             <PaymentMethod
-              imageSrc="https://http2.mlstatic.com/storage/homes-korriban/assets/images/payments/credit-card.svg"
+              imageSrc='CardCredit'
               title="Tarjeta de Credito"
               link="/gz/home/payments/methods"
             />
             <PaymentMethod
-              imageSrc="https://http2.mlstatic.com/storage/homes-korriban/assets/images/payments/view-more.svg"
+              imageSrc='CardCredit'
               title="Efectivo"
               link="/gz/home/payments/methods"
             />
             <PaymentMethod
-              imageSrc="https://http2.mlstatic.com/storage/homes-korriban/assets/images/payments/view-more.svg"
-              title="Más medios de pago"
+              imageSrc='CardCredit'
+              title="Envio a todo el pais"
               link="/gz/home/payments/methods"
             />
             <PaymentMethod
-              imageSrc="https://http2.mlstatic.com/storage/homes-korriban/assets/images/payments/view-more.svg"
-              title="Más medios de pago"
+              imageSrc='CardCredit'
+              title="Compra Segura"
               link="/gz/home/payments/methods"
             />
             <PaymentMethod
-              imageSrc="https://http2.mlstatic.com/storage/homes-korriban/assets/images/payments/view-more.svg"
-              title="Más medios de pago"
+              imageSrc='CardCredit'
+              title="Grarantia"
               link="/gz/home/payments/methods"
             />
           </div>
