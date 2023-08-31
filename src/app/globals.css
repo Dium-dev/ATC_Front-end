@@ -3,9 +3,16 @@
 @tailwind utilities;
 
 
-.titulo {
-  font-size: 4rem;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 2rem;
-}
+
+@layer base {
+  /*Cambio de estilos para etiquetas como h1, h2,, h3, p, span, div, 
+  es decir estilos por default*/
+  }
+  @layer utilities {
+    .title {
+      font-size: 4rem;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 2rem;
+    }
+  }
