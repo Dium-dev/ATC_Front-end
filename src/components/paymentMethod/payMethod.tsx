@@ -8,7 +8,7 @@ interface PaymentMethodProps {
 
 const PaymentMethod: React.FC<PaymentMethodProps> = ({ imageSrc, title, link }) => {
   return (
-    <div className="flex justify-between items-center mt-4 mr-5 ml-5 w-80">
+    <div className="flex justify-between items-center mr-5 ml-5">
       <a
         className="flex items-center"
         href={link}

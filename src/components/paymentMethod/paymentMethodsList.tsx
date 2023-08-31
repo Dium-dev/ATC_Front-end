@@ -5,31 +5,36 @@ const PaymentMethodsComponent: React.FC = () => {
   return (
     <>
       <div className="flex justify-center bg-gray-200">
-        <div className="max-w-6xl p-4">
-          <div className="bg-white rounded-lg shadow-md p-4  flex flex-row">
+        <div className="max-w-6xl p-4 ">
+          <div className="rounded-lg shadow-md p-4 flex flex-row h-20 justify-center bg-secondary-background ">
             <PaymentMethod
               imageSrc='CardCredit'
               title="Tarjeta de Credito"
               link="/gz/home/payments/methods"
             />
             <PaymentMethod
-              imageSrc='CardCredit'
+              imageSrc='Cash'
               title="Efectivo"
               link="/gz/home/payments/methods"
             />
             <PaymentMethod
-              imageSrc='CardCredit'
+              imageSrc='Truck'
               title="Envio a todo el pais"
               link="/gz/home/payments/methods"
             />
             <PaymentMethod
-              imageSrc='CardCredit'
+              imageSrc='Shield'
               title="Compra Segura"
               link="/gz/home/payments/methods"
             />
             <PaymentMethod
-              imageSrc='CardCredit'
+              imageSrc='warranty'
               title="Grarantia"
+              link="/gz/home/payments/methods"
+            />
+            <PaymentMethod
+              imageSrc='MapLocation'
+              title="Bogota D.C"
               link="/gz/home/payments/methods"
             />
           </div>
