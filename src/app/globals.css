@@ -3,7 +3,17 @@
 @tailwind utilities;
 
 
-h1 {
-    font-size: 3.2em;
-    line-height: 1.1;
+
+@layer base {
+  /*Cambio de estilos para etiquetas como h1, h2,, h3, p, span, div, 
+  es decir estilos por default*/
+  }
+  @layer utilities {
+    .title {
+      font-size: 4rem;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
   }
