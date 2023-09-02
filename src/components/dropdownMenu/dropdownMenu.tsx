@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Icon from '~/assets/icons/icon';
 import { IconTypes } from '~/types/icons';
+import { MainButton } from '../button/button';
 
 type AnchorProps = {
   title: string;
@@ -11,7 +12,7 @@ type AnchorProps = {
 
 export const Anchor: React.FC<AnchorProps> = ({ title, to }) => {
   return (
-    <span className="w-full block p-2 hover:bg-primary-lm">
+    <span className="w-full block p-2 hover:bg-primary-lm hover:text-white">
       <Link href={`${to}`} target="_blank">
         {title}
       </Link>
@@ -49,16 +50,12 @@ export const DropDownMenu: React.FC<DropDownMenuProps> = ({
 
   return (
     <div
-      className="w-20 flex flex-col items-center"
+      className="relative"
       onMouseEnter={hoverHandleMenu}
       onMouseLeave={closeHoverMenu}
       onClick={clickHandleMenu}
     >
-      {title && (
-        <span className="w-full block p-2 hover:bg-primary-lm rounded-md">
-          {title}
-        </span>
-      )}
+      {title && <MainButton variant='tertiary'>{title}</MainButton>}
       {icon && (
         <div className="h-5 w-5 flex items-center">
           <Icon icon={icon} />
@@ -66,7 +63,7 @@ export const DropDownMenu: React.FC<DropDownMenuProps> = ({
       )}
       <ul
         id="lista"
-        className={`flex flex-col items-center mt-4 border-2 border-solid border-secondary-dm rounded-md ${
+        className={`absolute inset-x-0 top-full flex flex-col items-center rounded-b-md z-50 bg-white shadow-md  ${
           hoverOpenMenu ? 'hidden' : clickOpenMenu ? 'visible' : 'hidden'
         }`}
       >

@@ -20,7 +20,7 @@ const ButtonComponent: React.FC<ButtonComponentProps> = ({
 }) => {
   const buttonClass =
     variant === 'white'
-      ? 'bg-white text-background-lm text-xs hover:text-background-dm hover:text-opacity-40'
+      ? 'text-background-lm text-xs hover:text-background-dm hover:text-opacity-40'
       : variant === 'red'
       ? 'bg-secondary-lm text-xs hover:text-primary-lm'
       : variant === 'search'
@@ -46,4 +46,29 @@ const ButtonComponent: React.FC<ButtonComponentProps> = ({
   );
 };
 
+type MainButtonProps = {
+  variant?: 'default' | 'secondary' | 'tertiary';
+  color?: 'default' | 'red';
+  children: React.ReactNode;
+};
+export const MainButton: React.FC<MainButtonProps> = ({
+  variant = 'default',
+  color = 'default',
+  children,
+}) => {
+  const variant_style =
+    variant === 'secondary'
+      ? `border ${color === 'red' ? 'border-primary-lm text-primary-lm' : ''}`
+      : variant === 'tertiary'
+      ? `${color === 'red' ? 'text-primary-lm' : ''}`
+      : `${color === 'red' ? 'bg-primary-lm text-white' : 'bg-white'}`;
+
+  return (
+    <button
+      className={`px-3 py-1 text-base font-medium rounded ${variant_style}`}
+    >
+      {children}
+    </button>
+  );
+};
 export default ButtonComponent;
