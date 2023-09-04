@@ -29,7 +29,7 @@ const ButtonComponent: React.FC<ButtonComponentProps> = ({
 
   const textvariant = variant === 'search' ? 'Buscar' : 'Boton';
 
-  const StylesDefaul = ` text-text-lm min-w-[4.34rem] max-w-[8.6875rem] min-h-2.75[rem] max-h-[2.75rem] p-2 flex justify-center items-center font-bold ${buttonClass}`;
+  const StylesDefaul = `text-base text-text-lm min-w-[4.34rem] max-w-[8.6875rem] min-h-2.75[rem] max-h-[2.75rem] p-2 flex justify-center items-center font-medium ${buttonClass}`;
 
   if (to) {
     return (
