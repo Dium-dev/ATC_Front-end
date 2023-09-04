@@ -50,10 +50,12 @@ type MainButtonProps = {
   variant?: 'default' | 'secondary' | 'tertiary';
   color?: 'default' | 'red';
   children: React.ReactNode;
+  className?: string;
 };
 export const MainButton: React.FC<MainButtonProps> = ({
   variant = 'default',
   color = 'default',
+  className,
   children,
 }) => {
   const variant_style =
@@ -65,7 +67,7 @@ export const MainButton: React.FC<MainButtonProps> = ({
 
   return (
     <button
-      className={`px-3 py-1 text-base font-medium rounded ${variant_style}`}
+      className={`px-3 py-1 text-base font-medium rounded ${variant_style} ${className}`}
     >
       {children}
     </button>
