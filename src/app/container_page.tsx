@@ -4,18 +4,23 @@ import { NavBar } from '~/components/navBar/navBar';
 type ContainerPageProps = {
   children: React.ReactNode;
   nav?: boolean | React.ReactNode;
+  header?: React.ReactNode;
   footer?: boolean;
 };
 
 export function ContainerPage({
   nav = true,
+  header,
   footer = true,
   children,
 }: ContainerPageProps) {
   return (
     <>
       {typeof nav === 'boolean' && nav ? <NavBar /> : nav}
-      <main className="min-h-screen">{children}</main>
+      {header && header}
+      <main className="min-h-screen overflow-hidden mx-auto max-w-7xl px-4">
+        {children}
+      </main>
       {footer && <Footer />}
     </>
   );

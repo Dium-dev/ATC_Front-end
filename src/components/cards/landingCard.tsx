@@ -11,7 +11,7 @@ interface CardProps {
 
 const Card: FC<CardProps> = ({ title, price, nota, imageSrc }) => {
   return (
-    <div className="flex flex-col w-[15.3125rem] h-[268px] pb-1 border border-background-lm   ">
+    <div className="flex flex-col w-[15.3125rem] h-[268px] pb-1 border bg-white">
       <Image
         src={imageSrc}
         alt="Cubre Volante"
@@ -21,19 +21,19 @@ const Card: FC<CardProps> = ({ title, price, nota, imageSrc }) => {
       />
 
       <div className=" p-[0.625rem] w-full  h-[57px] overflow-hidden flex items-center justify-center">
-        <h3 className="font-oswald font-bold text-sm text-background-lm text-center line-clamp-2 ">
+        <h3 className="font-oswald font-bold text-sm  text-center line-clamp-2 ">
           {title}
         </h3>
       </div>
 
       <div className="w-full  overflow-hidden h-[33px] pb-2">
-        <p className="font-oswald font-bold text-xl text-background-lm text-center line-clamp-1">
+        <p className="font-oswald font-bold text-xl text-center line-clamp-1">
           {`$ ${price}`}
         </p>
       </div>
 
       <div className="flex justify-between items-center px-[10px] pb-[5px] w-full h-[27px] gap-2 overflow-hidden">
-        <p className=" font-oswald font-bold text-xs text-background-lm w-1/3  overflow-hidden line-clamp-1">
+        <p className=" font-oswald font-bold text-xs  w-1/3  overflow-hidden line-clamp-1">
           {nota}
         </p>
         <ButtonComponent variant="red" text="Añadir al carrito" />

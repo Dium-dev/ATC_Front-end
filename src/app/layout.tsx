@@ -22,7 +22,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider attribute="class">
-          <AuthContextProvider>{children}</AuthContextProvider>
+          <AuthContextProvider>
+            <div className="w-full h-full bg-background-lm dark:bg-background-dm  text-text-lm dark:text-text-dm text-base">
+              {children}
+            </div>
+          </AuthContextProvider>
         </ThemeProvider>
       </body>
     </html>

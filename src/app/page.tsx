@@ -9,17 +9,14 @@ import { category } from '~/mockData/mockCategory';
 import BrandCategory from '~/components/containerCards/containerCardsBrands';
 import PaymentMethodsList from '~/components/paymentMethod/paymentMethodsList';
 
-
-
 export default function Home() {
   createIconsTypes();
   return (
-    <ContainerPage>
-      <MainCarousel />
-      <PaymentMethodsList /> 
+    <ContainerPage header={<MainCarousel />}>
+      <PaymentMethodsList />
       <ContainerCard products={productos} />
-      <CategoryCategory category={category}/> 
-      <BrandCategory brand={brands}/>
+      <CategoryCategory category={category} />
+      <BrandCategory brand={brands} />
     </ContainerPage>
   );
 }
