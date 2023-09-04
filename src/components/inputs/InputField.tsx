@@ -43,15 +43,15 @@ export function InputField({
           </div>
         )}
         <input
+          {...props}
           id="input-field"
           type="text"
-          className={`w-full py-1.5  px-3 outline-none border rounded-md text-secondary-dm
+          className={`w-full py-1.5 px-3 outline-none border rounded-md text-secondary-dm
           ${leftIcon && 'pl-9'} 
           ${rightIcon && 'pr-9'}
           border-${currentColor}`}
           required={required}
           autoComplete="off"
-          {...props}
         />
         {rightIcon && (
           <div
