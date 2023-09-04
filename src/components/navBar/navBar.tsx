@@ -1,24 +1,26 @@
 'use client';
 import Image from 'next/image';
 import React from 'react';
-import { Images } from "~/assets/img";
+import { Images } from '~/assets/img';
 import ButtonComponent from '../button/button';
 import { FaAtlas, FaUser } from 'react-icons/fa';
 import { BsCartFill } from 'react-icons/bs';
 import Link from 'next/link';
 import { DropDownMenu } from '../dropdownMenu/dropdownMenu';
 import { ThemeModeButton } from '../ThemeMode';
+import { InputField } from '../inputs/InputField';
 
 export const NavBar = () => {
   return (
-    <div className="w-full h-10 flex relative justify-between bg-text-dm">
-      <div className="flex">
-        <Link className=" flex items-center" href={'/'}>
-          <Image 
-          src={Images.LogoRedColor} 
-          width={100} 
-          height={100} 
-          alt="Your Company" />
+    <div className="w-full h-20 flex bg-text-dm">
+      <div className="flex items-center justify-center gap-[11px] mr-[26px] ">
+        <Link className="pl-5 w-fit mr-[76px] " href={'/'}>
+          <Image
+            src={Images.LogoRedColor}
+            width={200}
+            height={30}
+            alt="Your Company"
+          />
         </Link>
         <DropDownMenu
           title="Categorias"
@@ -34,17 +36,22 @@ export const NavBar = () => {
             { title: 'Toyota', to: '/products/Toyota' },
           ]}
         />
+        <ButtonComponent variant="white" text="Nosotros" to="/aboutUs" />
+        <ButtonComponent variant="white" text="Contacto" to="/contact" />
       </div>
-      <input type="text" className="" />
-      <ButtonComponent variant="white" text="Inicio" to="/" />
-      <ButtonComponent variant="white" text="Sobre nosotros" to="/aboutUs" />
-      <ButtonComponent variant="white" text="Contacto" to="/contact" />
-      <div className="flex items-center">
-        <FaAtlas className="cursor-pointer" />
-        <FaUser className="cursor-pointer" />
-        <BsCartFill className="cursor-pointer" />
+      <div className="flex items-center justify-center">
+        {
+          <InputField
+            className="w-[309px] h-[40px]"
+            placeholder="Buscar productos"
+          />
+        }
       </div>
-      <ThemeModeButton />
+      <div className="flex items-center justify-start">
+        <ButtonComponent variant="white" text="Ingresar" to="/login" />
+        <ThemeModeButton />
+        <BsCartFill className="cursor-pointer" />I
+      </div>
     </div>
   );
 };
