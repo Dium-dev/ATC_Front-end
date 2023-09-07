@@ -51,12 +51,17 @@ type MainButtonProps = {
   color?: 'default' | 'red';
   children: React.ReactNode;
   className?: string;
-};
+} & React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+>;
+
 export const MainButton: React.FC<MainButtonProps> = ({
   variant = 'default',
   color = 'default',
   className,
   children,
+  ...props
 }) => {
   const variant_style =
     variant === 'secondary'
@@ -68,6 +73,7 @@ export const MainButton: React.FC<MainButtonProps> = ({
   return (
     <button
       className={`px-3 py-1 text-base font-medium rounded ${variant_style} ${className}`}
+      {...props}
     >
       {children}
     </button>

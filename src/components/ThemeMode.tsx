@@ -6,7 +6,7 @@ type ThemeModeButtonProps = {
   sizeIcon?: number;
 };
 
-export function ThemeModeButton({ sizeIcon = 30 }: ThemeModeButtonProps) {
+export function ThemeModeButton({ sizeIcon = 35 }: ThemeModeButtonProps) {
   const { systemTheme, theme, setTheme } = useTheme();
   const currentTheme = theme === 'system' ? systemTheme : theme;
 

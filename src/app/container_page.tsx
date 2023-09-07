@@ -1,5 +1,5 @@
 import { Footer } from '~/components/Footer';
-import { NavBar } from '~/components/navBar/navBar';
+import NavBar from '~/components/navBar/navBar';
 
 type ContainerPageProps = {
   children: React.ReactNode;

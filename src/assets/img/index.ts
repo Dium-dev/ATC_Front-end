@@ -10,11 +10,11 @@ import LogoShieldRed from './logo/LogoATCShieldRed.webp';
 import CompraSegura from './iconsImg/IconCompraSegura.webp';
 import GarantiaServicioCliente from './iconsImg/IconGarantiaServicoAlCliente.webp';
 import SelloGarantia from './iconsImg/SelloGarantia.webp';
-import FaviconRed from './favicon/FaviconRed.webp'
+import FaviconRed from './favicon/FaviconRed.webp';
 import FaviconRedWhite from './favicon/FaviconRedWhite.webp';
-import BannerCarrucelFarolas from './banners/BannerCarucelFarolas.webp'
+import BannerCarrucelFarolas from './banners/BannerCarucelFarolas.webp';
 import BannerCarrucelMainCategory from './banners/BannerCarucelMainCategory.webp';
-import BannerCarucelMainCategoryWithLogo from './banners/BannerCarucelMainCategoryWithLogo.webp'
+import BannerCarucelMainCategoryWithLogo from './banners/BannerCarucelMainCategoryWithLogo.webp';
 import BannnerCarrucelMainCategoryWhithLogo2 from './banners/BannerCarucelMainCategoryWithLogo2.webp';
 import BannerCategoryCarRed from './banners/BannerCategoryCarRed.webp';
 import BannerCarGreyLogo from './banners/BannerCategoryCarGreyLogo.webp';
@@ -23,7 +23,7 @@ import BannerWomenAndCar from './banners/BannerWomenAndCar.webp';
 import CategoryFarolas from './banners/CategoryFarolas.webp';
 import FlyerCategores from './banners/FlyerCategories.webp';
 import LogoCardBanner from './banners/LogoCardBanner.webp';
-
+import ActLogo from './logo/AtcLogoNavBar.png';
 
 export const Images = {
   LogoATCBubbleBlack,
@@ -50,5 +50,6 @@ export const Images = {
   BannerWomenAndCar,
   CategoryFarolas,
   FlyerCategores,
-  LogoCardBanner
+  LogoCardBanner,
+  ActLogo,
 };
