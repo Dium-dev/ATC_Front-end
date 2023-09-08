@@ -1,66 +1,19 @@
 'use client';
-import { useState } from 'react';
 import Card from '../cards/landingCard';
-import Pagination from '../pagination';
+import { productos } from '~/mockData/mockProducts';
+import { Carousel } from '../carousels/carousel';
+import { ProductsProps } from '~/types/products';
 
-type Brand = {
-  id: string;
-  name: string;
-};
-
-type Category = {
-  id: string;
-  name: string;
-};
-
-type Products = {
-  id: string;
-  title: string;
-  state: string;
-  stock: number;
-  price: number;
-  availability: number;
-  image: string[];
-  model: string;
-  year: string;
-  brand: Brand;
-  category: Category;
-};
-
-type ContainerCardProps = {
-  products: Products[];
-};
-
-export function ContainerCard({ products }: ContainerCardProps) {
-  const [pagination, setPagination] = useState({
-    page: 1,
-    itemsPage: 5,
-  });
-
-  const maximo = Math.ceil(products.length / pagination.itemsPage);
-  const startIndex = (pagination.page - 1) * pagination.itemsPage;
-  const endIndex = startIndex + pagination.itemsPage;
-
-  const anteriorSiguiente = (action: 'Anterior' | 'Siguiente') => {
-    if (action === 'Anterior')
-      setPagination({
-        ...pagination,
-        page: pagination.page - 1,
-      });
-    else if (action === 'Siguiente')
-      setPagination({
-        ...pagination,
-        page: pagination.page + 1,
-      });
-  };
+export function TopSellers() {
+  const products = productos;
 
   return (
-    <div>
-      <h1 className='title'>
-        Productos
-      </h1>
-      <div className="grid justify-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
-        {products.slice(startIndex, endIndex).map((producto: Products) => {
+    <div className='my-8'>
+      <div className="grid place-content-center bg-[#13131D] text-white border-b-4 border-b-[#ff0000] py-5 mb-6">
+        <h2 className="text-2xl">Lo más vendidos</h2>
+      </div>
+      <Carousel>
+        {products.map((producto: ProductsProps) => {
           const { title, id, price, image } = producto;
           return (
             <Card
@@ -72,14 +25,7 @@ export function ContainerCard({ products }: ContainerCardProps) {
             />
           );
         })}
-      </div>
-      <div className="flex justify-center items-center text-center m-10">
-        <Pagination
-          page={pagination.page}
-          anteriorSiguiente={anteriorSiguiente}
-          maximo={maximo}
-        />
-      </div>
+      </Carousel>
     </div>
   );
 }
