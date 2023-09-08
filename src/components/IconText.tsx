@@ -1,3 +1,4 @@
+'use client';
 import Icon from '~/assets/icons/icon';
 import { IconTypes } from '~/types/icons';
 

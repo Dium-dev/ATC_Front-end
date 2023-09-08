@@ -40,6 +40,7 @@ import Cat05 from './categories/Cat05.png';
 import Cat06 from './categories/Cat06.png';
 import Cat07 from './categories/Cat07.png';
 import Cat08 from './categories/Cat08.png';
+import ActLogo from './logo/AtcLogoNavBar.png';
 
 // Exporta todas las imágenes organizadas en un objeto
 export const Images = {
@@ -53,6 +54,7 @@ export const Images = {
     LogoShieldBlack,
     LogoShieldLight,
     LogoShieldRed,
+    ActLogo,
   },
   icons: {
     CompraSegura,

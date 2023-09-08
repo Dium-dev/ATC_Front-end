@@ -6,6 +6,7 @@ type InputFieldProps = {
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   color?: 'default' | 'red';
+  className?: string;
 } & React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
@@ -17,9 +18,10 @@ export function InputField({
   leftIcon,
   rightIcon,
   color,
+  className,
   ...props
 }: InputFieldProps) {
-  const currentColor = color === 'red' ? 'primary-lm' : 'secondary-dm';
+  const currentColor = color === 'red' ? 'primary-lm' : '';
 
   return (
     <div className="max-w-md">
@@ -37,21 +39,21 @@ export function InputField({
       <div className="rounded relative">
         {leftIcon && (
           <div
-            className={`absolute left-0 inset-y-0 py-2 px-1 aspect-square  text-${currentColor}`}
+            className={`absolute left-0 inset-y-0 py-2 pl-2 px-1 aspect-square  text-${currentColor}`}
           >
             {leftIcon}
           </div>
         )}
         <input
+          {...props}
           id="input-field"
           type="text"
-          className={`w-full py-1.5  px-3 outline-none border rounded-md text-secondary-dm
+          className={`w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm
           ${leftIcon && 'pl-9'} 
           ${rightIcon && 'pr-9'}
-          border-${currentColor}`}
+          border-${currentColor} ${className}`}
           required={required}
           autoComplete="off"
-          {...props}
         />
         {rightIcon && (
           <div

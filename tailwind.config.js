@@ -21,12 +21,12 @@ module.exports = {
       'text-dm': '#f1f1f1',
       white: '#fff',
     },
-    screen: {
+    screens: {
       xs: '480px',
       ms: '768px',
-      md: '990px',
+      md: '1080px',
       lg: '1200px',
-      xl: '1480',
+      xl: '1480px',
     },
     extend: {},
   },

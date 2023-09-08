@@ -29,7 +29,7 @@ const ButtonComponent: React.FC<ButtonComponentProps> = ({
 
   const textvariant = variant === 'search' ? 'Buscar' : 'Boton';
 
-  const StylesDefaul = ` min-w-[4.34rem] max-w-[8.6875rem] min-h-2.75[rem] max-h-[2.75rem] p-2 flex justify-center items-center font-bold ${buttonClass}`;
+  const StylesDefaul = `text-base text-text-lm min-w-[4.34rem] max-w-[8.6875rem] min-h-2.75[rem] max-h-[2.75rem] p-2 flex justify-center items-center font-medium ${buttonClass}`;
 
   if (to) {
     return (
@@ -50,22 +50,30 @@ type MainButtonProps = {
   variant?: 'default' | 'secondary' | 'tertiary';
   color?: 'default' | 'red';
   children: React.ReactNode;
-};
+  className?: string;
+} & React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+>;
+
 export const MainButton: React.FC<MainButtonProps> = ({
   variant = 'default',
   color = 'default',
+  className,
   children,
+  ...props
 }) => {
   const variant_style =
     variant === 'secondary'
       ? `border ${color === 'red' ? 'border-primary-lm text-primary-lm' : ''}`
       : variant === 'tertiary'
       ? `${color === 'red' ? 'text-primary-lm' : ''}`
-      : `${color === 'red' ? 'bg-primary-lm text-white' : 'bg-white'}`;
+      : `${color === 'red' ? 'bg-primary-lm text-white' : 'bg-none'}`;
 
   return (
     <button
-      className={`px-3 py-1 text-base font-medium rounded ${variant_style}`}
+      className={`px-3 py-1 text-base font-medium rounded ${variant_style} ${className}`}
+      {...props}
     >
       {children}
     </button>

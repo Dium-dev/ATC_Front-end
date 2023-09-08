@@ -11,7 +11,7 @@ interface CardProps {
 
 const Card: FC<CardProps> = ({ title, price, nota, imageSrc }) => {
   return (
-    <div className="flex flex-col w-[15.3125rem] h-[268px] pb-1 border bg-white">
+    <div className="flex flex-col w-[15.3125rem] h-[268px] pb-1  bg-white shadow-md">
       <Image
         src={imageSrc}
         alt="Cubre Volante"

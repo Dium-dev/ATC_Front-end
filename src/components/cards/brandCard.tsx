@@ -20,7 +20,7 @@ const Card: FC<CardProps> = ({ title, imageSrc }) => {
       </div>
 
       <div className="w-full h-[2.3125rem] overflow-hidden flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity group">
-        <h3 className="font-oswald font-bold text-xs text-background-lm text-center line-clamp-1 ">
+        <h3 className="font-oswald font-bold text-xs text-center line-clamp-1 ">
           {title.toUpperCase()}
         </h3>
       </div>
