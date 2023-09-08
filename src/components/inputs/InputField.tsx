@@ -21,7 +21,7 @@ export function InputField({
   className,
   ...props
 }: InputFieldProps) {
-  const currentColor = color === 'red' ? 'primary-lm' : 'secondary-dm';
+  const currentColor = color === 'red' ? 'primary-lm' : '';
 
   return (
     <div className="max-w-md">
@@ -48,7 +48,7 @@ export function InputField({
           {...props}
           id="input-field"
           type="text"
-          className={`w-full py-1.5 px-3 outline-none border rounded-md text-secondary-dm
+          className={`w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm
           ${leftIcon && 'pl-9'} 
           ${rightIcon && 'pr-9'}
           border-${currentColor} ${className}`}

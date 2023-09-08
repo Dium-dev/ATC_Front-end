@@ -68,7 +68,7 @@ export const MainButton: React.FC<MainButtonProps> = ({
       ? `border ${color === 'red' ? 'border-primary-lm text-primary-lm' : ''}`
       : variant === 'tertiary'
       ? `${color === 'red' ? 'text-primary-lm' : ''}`
-      : `${color === 'red' ? 'bg-primary-lm text-white' : 'bg-white'}`;
+      : `${color === 'red' ? 'bg-primary-lm text-white' : 'bg-none'}`;
 
   return (
     <button
