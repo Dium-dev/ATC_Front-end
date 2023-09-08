@@ -13,9 +13,9 @@ export default function Home() {
   createIconsTypes();
   return (
     <ContainerPage header={<MainCarousel />}>
+      <CategoryCategory category={category} />
       <PaymentMethodsList />
       <ContainerCard products={productos} />
-      <CategoryCategory category={category} />
       <BrandCategory brand={brands} />
     </ContainerPage>
   );
