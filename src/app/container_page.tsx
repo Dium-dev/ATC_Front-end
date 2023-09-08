@@ -18,7 +18,7 @@ export function ContainerPage({
     <>
       {typeof nav === 'boolean' && nav ? <NavBar /> : nav}
       {header && header}
-      <main className="min-h-screen overflow-hidden mx-auto max-w-7xl px-4">
+      <main className="min-h-screen overflow-hidden mx-auto">
         {children}
       </main>
       {footer && <Footer />}
