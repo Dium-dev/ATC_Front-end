@@ -1,19 +1,19 @@
-"use client";
-import { useState } from "react";
-import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
+'use client';
+import { useState } from 'react';
+import { useAuth } from '~/context/AuthContext';
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
   const router = useRouter();
   const { login } = useAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
     try {
       await login(email, password);
-      console.log("Login successful");
-      router.push("/protected");
+      console.log('Login successful');
+      router.push('/protected');
     } catch (error) {
       console.log(error);
       // Handle login error here if needed.
@@ -47,7 +47,7 @@ const Login = () => {
         <button
           className="bg-secondary-dm text-text-dm w-2/12 px-4 py-3 hover:bg-green-800 transition-all duration-500 my-8 ease-in-out rounded font-semibold"
           onClick={() => {
-            router.push("/signin");
+            router.push('/signin');
           }}
         >
           Register

@@ -78,10 +78,14 @@ const NavBar: FC<NavBarProps> = ({}) => {
           {/* Contenedor lado derecho iconos*/}
           <div className="flex items-center gap-6">
             <div className="h-[35px] w-[35px]">
-              <Icon icon="Login" />
+              <Link href={'/login'}>
+                <Icon icon="Login" />
+              </Link>
             </div>
             <div className="h-[35px] w-[35px]">
-              <Icon icon="CarShoping" />
+              <Link href={'#'}>
+                <Icon icon="CarShoping" />
+              </Link>
             </div>
 
             <ThemeModeButton />
