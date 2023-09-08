@@ -30,17 +30,13 @@ const NavBar: FC<NavBarProps> = ({}) => {
               {/* Iconos menu mobile */}
               <MainButton onClick={toggleNavbar}>
                 {isOpen ? (
-                  <IconText
-                    icon="HamburguerClose"
-                    text=""
-                    className="h-14 w-14"
-                  />
+                  <div className="h-14 w-14">
+                    <Icon icon="HamburguerClose" />
+                  </div>
                 ) : (
-                  <IconText
-                    icon="HamburguerOpen"
-                    text=""
-                    className="w-[36px] h-[30px]"
-                  />
+                  <div className="h-[30px] w-[36px]">
+                    <Icon icon="HamburguerOpen" />
+                  </div>
                 )}
               </MainButton>
             </div>
@@ -49,7 +45,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
               <div className="hidden md:flex justify-center items-center">
                 <Link href="/">
                   <Image
-                    src={Images.LogoRedColor}
+                    src={Images.logos.LogoRedColor}
                     width={200}
                     height={30}
                     alt="Your Company"
@@ -60,7 +56,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
               <div className="md:hidden flex justify-center items-center">
                 <Link href="/">
                   <Image
-                    src={Images.ActLogo}
+                    src={Images.logos.ActLogo}
                     width={55}
                     height={32}
                     alt="Your Company"
@@ -81,8 +77,13 @@ const NavBar: FC<NavBarProps> = ({}) => {
           </div>
           {/* Contenedor lado derecho iconos*/}
           <div className="flex items-center gap-6">
-            <IconText icon="Login" className="h-[35px] w-[35px]" />
-            <IconText icon="CarShoping" className="h-[35px] w-[35px]" />
+            <div className="h-[35px] w-[35px]">
+              <Icon icon="Login" />
+            </div>
+            <div className="h-[35px] w-[35px]">
+              <Icon icon="CarShoping" />
+            </div>
+
             <ThemeModeButton />
           </div>
         </nav>
