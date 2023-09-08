@@ -9,6 +9,7 @@ import { InputField } from '../inputs/InputField';
 import Link from 'next/link';
 import IconText from '../IconText';
 import Icon from '~/assets/icons/icon';
+import MenuMobile from './MenuMobile';
 
 interface NavBarProps {}
 
@@ -22,7 +23,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
   return (
     <div className="bg-white">
       <div className="z-50 fixed top-0 bg-opacity-70 bg-white w-full backdrop-blur-sm flex-col">
-        <nav className="p-4 flex items-center h-[60px] justify-between">
+        <nav className="p-4 flex items-center h-[60px] justify-between max-w-[1480px] mx-auto">
           {/* Contenedor lado izquierdo menu hamburguesa-imagenes*/}
           <div className="flex items-center gap-2">
             <div className="">
@@ -70,26 +71,6 @@ const NavBar: FC<NavBarProps> = ({}) => {
           </div>
           {/* Contenedor central dropDownMenus e input */}
           <div className="hidden md:flex items-center justify-center gap-5">
-            <ul className="flex items-center justify-center">
-              <li>
-                <DropDownMenu
-                  title="Categorias"
-                  anchorArray={[
-                    { title: 'Farolas', to: '/products/Farolas' },
-                    { title: 'Stops', to: '/products/Stops' },
-                  ]}
-                />
-              </li>
-              <li>
-                <DropDownMenu
-                  title="Marcas"
-                  anchorArray={[
-                    { title: 'Mazda', to: '/products/Mazda' },
-                    { title: 'Toyota', to: '/products/Toyota' },
-                  ]}
-                />
-              </li>
-            </ul>
             {/* input */}
             <div className="flex items-center justify-center">
               <InputField
@@ -112,21 +93,10 @@ const NavBar: FC<NavBarProps> = ({}) => {
             leftIcon={<Icon icon="SearchIcon" />}
           />
         </div>
-        {/* Menu mobile */}
+        {/* Menu */}
         {isOpen && (
-          <div className="xs:hidden flex flex-col items-center border-t-2 border-t-white">
-            <a href="#" className="block p-4 hover:text-2xl hover:font-bold">
-              Inicio
-            </a>
-            <a href="#" className="block p-4 hover:text-2xl hover:font-bold">
-              Nosotros
-            </a>
-            <a href="#" className="block p-4 hover:text-2xl hover:font-bold">
-              Productos
-            </a>
-            <a href="#" className="block p-4 hover:text-2xl hover:font-bold">
-              Contacto
-            </a>
+          <div className="border-t-2 border-t-white">
+            <MenuMobile />
           </div>
         )}
       </div>
