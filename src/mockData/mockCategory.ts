@@ -1,49 +1,51 @@
+import { StaticImageData } from 'next/image';
+import { Images } from '~/assets/img';
 
 type Category = {
   id: string;
   name: string;
-  image: string[];
+  image: StaticImageData[];
 };
 
 export const category: Category[] = [
   {
    id: '1',
    name: 'Farolas',
-   image: ['https://i.ebayimg.com/images/g/rcgAAOSw~2Jjhupf/s-l1600.jpg'],
+   image: [Images.categories.Cat04],
  },
  {
   id: '2',
   name: 'Stops',
-  image: ['https://i.postimg.cc/hGXcvMz4/H-i3r.jpg'],
+  image: [Images.categories.Cat05],
 },
 {
   id: '3',
   name: 'Audio',
-  image: ['https://i.ebayimg.com/images/g/rcgAAOSw~2Jjhupf/s-l1600.jpg'],
+  image: [Images.categories.Cat07],
 },
 {
   id: '4',
   name: 'Exploradoras',
-  image: ['https://i.ebayimg.com/images/g/rcgAAOSw~2Jjhupf/s-l1600.jpg'],
+  image: [Images.categories.Cat06],
 },
 {
   id: '5',
   name: 'Exterior',
-  image: ['https://i.ebayimg.com/images/g/rcgAAOSw~2Jjhupf/s-l1600.jpg'],
+  image: [Images.categories.Cat02],
 },
 {
   id: '6',
   name: 'Interior',
-  image: ['https://i.ebayimg.com/images/g/rcgAAOSw~2Jjhupf/s-l1600.jpg'],
+  image: [Images.categories.Cat08],
 },
 {
   id: '7',
   name: 'Bombillos',
-  image: ['https://i.ebayimg.com/images/g/rcgAAOSw~2Jjhupf/s-l1600.jpg'],
+  image: [Images.categories.Cat03],
 },
 {
   id: '8',
   name: 'Repuestos',
-  image: ['https://i.ebayimg.com/images/g/rcgAAOSw~2Jjhupf/s-l1600.jpg'],
+  image: [Images.categories.Cat01],
 },
 ]
