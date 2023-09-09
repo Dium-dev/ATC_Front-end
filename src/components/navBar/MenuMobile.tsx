@@ -4,35 +4,27 @@ import React, { FC } from 'react';
 interface MenuMobileProps {}
 
 const MenuMobile: FC<MenuMobileProps> = ({}) => {
+  const navItems = [
+    { label: 'Productos', url: '/products' },
+    { label: 'Como comprar', url: '/how-to-buy' },
+    { label: 'Blog', url: '/blog' },
+    { label: 'Nosotros', url: '/about-us' },
+    { label: 'Contacto', url: '/contact' },
+  ];
+
   return (
     <div className="flex flex-col items-center">
-      <Link
-        href="/products"
-        className="block p-4 hover:text-2xl hover:font-bold"
-      >
-        Productos
-      </Link>
-      <Link
-        href="/how-to-buy"
-        className="block p-4 hover:text-2xl hover:font-bold"
-      >
-        Como comprar
-      </Link>
-      <Link href="/blog" className="block p-4 hover:text-2xl hover:font-bold">
-        Blog
-      </Link>
-      <Link
-        href="/about-us"
-        className="block p-4 hover:text-2xl hover:font-bold"
-      >
-        Nosotros
-      </Link>
-      <Link
-        href="/contact"
-        className="block p-4 hover:text-2xl hover:font-bold"
-      >
-        Contacto
-      </Link>
+      {navItems.map((item) => (
+        <>
+          <Link
+            key={item.url}
+            href={item.url}
+            className="block p-4 hover:text-2xl hover:font-bold"
+          >
+            {item.label}
+          </Link>
+        </>
+      ))}
     </div>
   );
 };
