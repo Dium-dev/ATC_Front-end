@@ -62,7 +62,7 @@ export function Carousel({ children }: CarouselProps) {
 
   return (
     <>
-      <div className="flex gap-1 relative items-center">
+      <div className="flex gap-1 relative items-center px-2">
         <button
           onClick={() => previus()}
           className={`w-10 aspect-square rounded-full p-2 bg-white shadow-lg ${''}`}
