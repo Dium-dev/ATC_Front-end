@@ -1,17 +1,20 @@
 import Image from 'next/image';
 import { MainButton } from '../button/button';
 import Icon from '~/assets/icons/icon';
+import { ProductCardProps } from '~/types/products';
+import { useState } from 'react';
+import Heart from '~/assets/icons/Heart';
 
-interface ProductCardProps {
-  title: string;
-  price: number;
-  nota: string;
-  imageSrc: string;
-}
-
-export function ProductCard({ title, price, imageSrc }: ProductCardProps) {
+export function ProductCard({
+  title,
+  price,
+  offer,
+  imageSrc,
+}: ProductCardProps) {
+  const [favorite, setFavorite] = useState(false);
+  const handleFavorite = () => setFavorite((cur) => !cur);
   return (
-    <div className="p-6 shadow-lg rounded-md overflow-hidden bg-white w-[250px] min-h-[330px] relative space-y-3">
+    <div className="p-6 shadow-md hover:shadow-xl rounded-md overflow-hidden bg-white w-[250px] min-h-[330px] relative space-y-3">
       <Image
         src={imageSrc}
         alt="Cubre Volante"
@@ -25,19 +28,29 @@ export function ProductCard({ title, price, imageSrc }: ProductCardProps) {
           price
         )}`}</p>
         <p className="font-semibold text-primary-lm ">{`${toCurrency(
-          price
+          price - price * offer
         )}`}</p>
       </div>
       <div className="grid place-content-center">
-        <MainButton color="red">
-          <div className=" flex gap-2">
-            Añadir al Carrito
-            <div className="w-6 aspect-square">
-              <Icon icon="CardCredit" />
-            </div>
+        <MainButton color="red" className="flex gap-x-2 py-2 pl-5">
+          Añadir al Carrito
+          <div className="w-6 aspect-square">
+            <Icon icon="CarShoping" />
           </div>
         </MainButton>
       </div>
+      <button
+        onClick={handleFavorite}
+        className="group absolute right-2 top-0 w-8 aspect-square rounded-full bg-white p-0.5 grid place-content-center"
+      >
+        <Heart
+          className={
+            favorite
+              ? 'fill-primary-lm stroke-primary-lm group-hover:stroke-text-lm group-hover:fill-text-lm'
+              : 'fill-none stroke-text-lm group-hover:stroke-primary-lm'
+          }
+        />
+      </button>
     </div>
   );
 }

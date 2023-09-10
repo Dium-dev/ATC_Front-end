@@ -20,3 +20,10 @@ type Category = {
   id: string;
   name: string;
 };
+
+export interface ProductCardProps {
+  title: string;
+  price: number;
+  offer: number;
+  imageSrc: string;
+}

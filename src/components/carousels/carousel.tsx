@@ -65,7 +65,7 @@ export function Carousel({ children }: CarouselProps) {
       <div className="flex gap-1 relative items-center px-2">
         <button
           onClick={() => previus()}
-          className={`w-10 aspect-square rounded-full p-2 bg-white shadow-lg ${''}`}
+          className={`w-10 aspect-square rounded-full p-2 bg-white hover:scale-105 hover:text-primary-lm shadow hover:shadow-lg ${''}`}
         >
           <BsChevronCompactLeft size="100%" />
         </button>
@@ -90,7 +90,7 @@ export function Carousel({ children }: CarouselProps) {
         </div>
         <button
           onClick={() => next()}
-          className={`w-10 aspect-square rounded-full p-2 bg-white shadow-lg ${''}`}
+          className={`w-10 aspect-square rounded-full p-2 bg-white shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg ${''}`}
         >
           <BsChevronCompactRight size="100%" />
         </button>

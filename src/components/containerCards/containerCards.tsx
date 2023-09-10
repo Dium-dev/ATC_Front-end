@@ -5,7 +5,7 @@ import { Carousel } from '../carousels/carousel';
 import { ProductsProps } from '~/types/products';
 
 export function TopSellers() {
-  const products = productos;
+  const products = productos.slice(0, 10);
 
   return (
     <div className="my-8">
@@ -20,7 +20,7 @@ export function TopSellers() {
               key={id}
               title={title}
               price={price}
-              nota={title}
+              offer={0.1}
               imageSrc={image[0]}
             />
           );
