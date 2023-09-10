@@ -12,10 +12,10 @@ export default function Home() {
   createIconsTypes();
   return (
     <ContainerPage header={<MainCarousel />}>
+      <CategoryCategory category={category} />
       <PaymentMethodsList />
       <TopSellers />
       <BrandCategory brand={brands} />
-      <CategoryCategory category={category} />
     </ContainerPage>
   );
 }
