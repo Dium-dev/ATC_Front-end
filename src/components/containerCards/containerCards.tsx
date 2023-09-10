@@ -1,5 +1,5 @@
 'use client';
-import Card from '../cards/landingCard';
+import { ProductCard } from '../cards/ProductCard';
 import { productos } from '~/mockData/mockProducts';
 import { Carousel } from '../carousels/carousel';
 import { ProductsProps } from '~/types/products';
@@ -16,10 +16,10 @@ export function TopSellers() {
         {products.map((producto: ProductsProps) => {
           const { title, id, price, image } = producto;
           return (
-            <Card
+            <ProductCard
               key={id}
               title={title}
-              price={price.toString()}
+              price={price}
               nota={title}
               imageSrc={image[0]}
             />

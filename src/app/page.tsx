@@ -13,8 +13,8 @@ export default function Home() {
   return (
     <ContainerPage header={<MainCarousel />}>
       <CategoryCategory category={category} />
-      <PaymentMethodsList />
       <TopSellers />
+      <PaymentMethodsList />
       <BrandCategory brand={brands} />
     </ContainerPage>
   );
