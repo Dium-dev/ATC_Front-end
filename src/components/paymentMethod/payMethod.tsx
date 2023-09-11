@@ -14,7 +14,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({
   return (
     <div className="flex justify-between items-center mr-5 ml-5">
       <a className="flex items-center" href={link} data-title="Medios de pago">
-        <IconText icon={imageSrc} text="" className="h-6 w-6" />
+        <IconText icon={imageSrc} text=""/>
         <div>{title}</div>
       </a>
     </div>
