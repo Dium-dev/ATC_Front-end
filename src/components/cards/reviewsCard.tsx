@@ -1,7 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 'use client'
 import React, { useState } from 'react';
-// import Image from 'next/image';
+import Icon from '~/assets/icons/icon';
+import Image from 'next/image';
 
 interface ReviewsProps {
   description: string;
@@ -11,34 +12,34 @@ interface ReviewsProps {
 }
 
 const Reviews: React.FC<ReviewsProps> = ({ userName ,description, userImage, rating }) => {
-  // Función para renderizar las estrellas de calificación
-  const renderRatingStars = () => {
-    const maxRating = 5;
-    const filledStars = Math.min(maxRating, Math.max(0, rating)); // Limita la calificación entre 0 y 5
-    const stars = Array.from({ length: maxRating }, (_, index) => (
-      <span
-        key={index}
-        className={`text-2xl ${index < filledStars ? 'text-primary-lm' : 'text-secondary-dm'}`}
-      >
-        ★
-      </span>
-    ));
-    return stars;
-  };
-
-  const [showMore, setShowMore] = useState(false);
-
-  const toggleShowMore = () => {
-    setShowMore(!showMore);
-  };
-
-  const truncatedDescription = description.slice(0, 350);
+    // Función para renderizar las estrellas de calificación
+    const renderRatingStars = () => {
+      const maxRating = 5;
+      const filledStars = Math.min(maxRating, Math.max(0, rating)); // Limita la calificación entre 0 y 5
+      const stars = Array.from({ length: maxRating }, (_, index) => (
+        <span
+          key={index}
+          className={`text-2xl ${index < filledStars ? 'text-primary-lm' : 'text-secondary-dm'}`}
+        >
+          ★
+        </span>
+      ));
+      return stars;
+    };
+  
+    const [showMore, setShowMore] = useState(false);
+  
+    const toggleShowMore = () => {
+      setShowMore(!showMore);
+    };
+  
+    const truncatedDescription = description.slice(0, 350);
+  
 
   return (
-    <div className="px-10 w-[100%]">
+    <div className="px-10">
     <div className="bg-white p-4 shadow-md rounded-lg">
-    
-      <p className='text-5xl text-primary-lm '>"</p>
+      <Icon icon="quotationMarks" />
       <div className="mb-4 min-h-[220px]">
           <p className="text-gray-700">
             {showMore ? description : truncatedDescription}
@@ -54,7 +55,7 @@ const Reviews: React.FC<ReviewsProps> = ({ userName ,description, userImage, rat
       </div>
       <div className="border-t border-secondary-dm opacity-20"></div>
       <div className="flex items-center mb-2 mt-4">
-        <img 
+        <Image 
           src={userImage} 
           alt={`Imagen de ${userName}`} 
           className="w-12 h-12 rounded-full mr-2"         

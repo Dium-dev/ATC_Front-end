@@ -14,22 +14,22 @@ interface ReviewsContainerProps {
 }
 
 const ReviewsContainer: React.FC<ReviewsContainerProps> = ({ reviwes }: ReviewsContainerProps) => {
+
+  const filteredReviews = reviwes.filter((review) => review.rating >= 3);
+
   return (
     <div className="my-8">
-        <Carousel>
-            {reviwes.map((reviwes) => {
-                const { description, userImage, userName, rating } = reviwes;
-                return (<Reviews
-                    key={userName}
-                    description={description}
-                    userImage={userImage}
-                    rating={rating}
-                    userName={userName}
-                />
-                );
-            }
-            )}
-        </Carousel>
+     <Carousel>
+        {filteredReviews.map((review) => (
+          <Reviews
+            key={review.userName}
+            description={review.description}
+            userImage={review.userImage}
+            rating={review.rating}
+            userName={review.userName}
+          />
+        ))}
+      </Carousel>
     </div>
   );
 };
