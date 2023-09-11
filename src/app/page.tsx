@@ -1,7 +1,6 @@
 import MainCarousel from '~/components/carousels/mainCarousel';
-import { productos } from '~/mockData/mockProducts';
 import { brands } from '~/mockData/mockBrands';
-import { ContainerCard } from '~/components/containerCards/containerCards';
+import { TopSellers } from '~/components/containerCards/containerCards';
 import { createIconsTypes } from '~/utils/createIcons';
 import { ContainerPage } from './container_page';
 import CategoryCategory from '~/components/containerCards/containerCardsCategoty';
@@ -14,8 +13,8 @@ export default function Home() {
   return (
     <ContainerPage header={<MainCarousel />}>
       <CategoryCategory category={category} />
+      <TopSellers />
       <PaymentMethodsList />
-      <ContainerCard products={productos} />
       <BrandCategory brand={brands} />
     </ContainerPage>
   );
