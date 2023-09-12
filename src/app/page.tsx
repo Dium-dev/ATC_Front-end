@@ -9,6 +9,7 @@ import BrandCategory from '~/components/containerCards/containerCardsBrands';
 import PaymentMethodsList from '~/components/paymentMethod/paymentMethodsList';
 import ReviewsContainer from '~/components/containerCards/containerCardsReviews';
 import reviews from '~/mockData/mockReviwes';
+import Banner from '~/components/Banner';
 
 export default function Home() {
   createIconsTypes();
@@ -16,9 +17,10 @@ export default function Home() {
     <ContainerPage header={<MainCarousel />}>
       <CategoryCategory category={category} />
       <TopSellers />
-      <PaymentMethodsList />
       <BrandCategory brand={brands} />
+      <Banner/>
       <ReviewsContainer reviwes={reviews}/>
+      <PaymentMethodsList />
     </ContainerPage>
   );
 }
