@@ -4,9 +4,7 @@ import PaymentMethod from './payMethod';
 const PaymentMethodsComponent: React.FC = () => {
   return (
     <>
-      <div>
-        <div>
-          <div className="p-4 flex justify-center">
+          <div className="p-4 flex flex-wrap justify-around items-center">
             <PaymentMethod
               imageSrc='CardCredit'
               title="Todos los medios de pago"
@@ -23,8 +21,6 @@ const PaymentMethodsComponent: React.FC = () => {
               description="trud nisi nostrud nostrud incididunt fugiat. Enim nostrud tempor cillum ea velit."
             />
           </div>
-        </div>
-      </div>
     </>
   );
 };

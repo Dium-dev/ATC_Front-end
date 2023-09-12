@@ -13,7 +13,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({
   description
 }) => {
   return (
-    <div className="flex flex-col w-1/3 items-center mr-5 ml-5">
+    <div className="flex flex-col items-center mr-5 ml-5">
         <div className="h-[100px] w-[100px]">
           <Icon icon={imageSrc}/>          
         </div>
