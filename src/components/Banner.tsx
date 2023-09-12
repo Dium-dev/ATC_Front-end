@@ -16,6 +16,7 @@ const Banner: React.FC = () => {
           />
         </div>
       </div>
+      <div className="absolute inset-0 bg-background-dm opacity-50"></div>
       <div className="inset-0 flex items-center justify-center">
         {/* Imagen del título con efecto de paralaje */}
         <Image
