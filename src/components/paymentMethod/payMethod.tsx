@@ -1,22 +1,24 @@
 import { IconTypes } from '~/types/icons';
 import IconText from '../IconText';
+import Icon from '~/assets/icons/icon';
 interface PaymentMethodProps {
   imageSrc: IconTypes;
   title: string;
-  link: string;
+  description: string;
 }
 
 const PaymentMethod: React.FC<PaymentMethodProps> = ({
   imageSrc,
   title,
-  link,
+  description
 }) => {
   return (
-    <div className="flex justify-between items-center mr-5 ml-5">
-      <a className="flex items-center" href={link} data-title="Medios de pago">
-        <IconText icon={imageSrc} text="" className="h-6 w-6" />
-        <div>{title}</div>
-      </a>
+    <div className="flex flex-col items-center mr-5 ml-5">
+        <div className="h-[100px] w-[100px]">
+          <Icon icon={imageSrc}/>          
+        </div>
+        <h2 className='text-2xl font-bold text-primary-lm'>{title}</h2>
+        <div className='w-[300px] text-center'>{description}</div>
     </div>
   );
 };
