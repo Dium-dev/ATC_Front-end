@@ -1,3 +1,7 @@
+import { ContainerPage } from '../container_page';
+
 export default function Landing() {
-  return <h1>Hola soy products</h1>;
+  return <ContainerPage>
+    Products page
+  </ContainerPage>;
 }

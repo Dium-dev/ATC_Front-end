@@ -1,19 +1,26 @@
+@layer base {
+  ::-webkit-scrollbar {
+    background: #ededed;
+    width: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #41444384;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3a3b3b;
+  }
+}
+@layer utilities {
+  .title {
+    font-size: 4rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
-
-@layer base {
-  /*Cambio de estilos para etiquetas como h1, h2,, h3, p, span, div, 
-  es decir estilos por default*/
-  }
-  @layer utilities {
-    .title {
-      font-size: 4rem;
-      font-weight: bold;
-      text-align: center;
-      margin-top: 2rem;
-      margin-bottom: 2rem;
-    }
-  }
