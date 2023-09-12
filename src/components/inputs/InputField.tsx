@@ -24,7 +24,7 @@ export function InputField({
   const currentColor = color === 'red' ? 'primary-lm' : '';
 
   return (
-    <div className="max-w-md">
+    <div className="">
       <div className="flex">
         <label
           className={`flex-grow font-semibold text-${currentColor}`}
@@ -39,7 +39,7 @@ export function InputField({
       <div className="rounded relative">
         {leftIcon && (
           <div
-            className={`absolute left-0 inset-y-0 py-2 pl-2 px-1 aspect-square  text-${currentColor}`}
+            className={`absolute left-0 inset-y-0 py-2 pl-2 px-1 aspect-square text-${currentColor}`}
           >
             {leftIcon}
           </div>

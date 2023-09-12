@@ -23,7 +23,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
   return (
     <div className="bg-white">
       <div className="z-50 fixed top-0 bg-opacity-70 bg-white w-full backdrop-blur-sm flex-col">
-        <nav className="p-4 flex items-center h-[60px] justify-between max-w-[1480px] mx-auto">
+        <nav className="p-4 flex items-center h-[60px] justify-between mx-auto">
           {/* Contenedor lado izquierdo menu hamburguesa-imagenes*/}
           <div className="flex items-center gap-2">
             <div className="">
