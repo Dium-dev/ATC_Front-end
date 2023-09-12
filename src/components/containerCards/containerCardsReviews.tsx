@@ -18,17 +18,17 @@ const ReviewsContainer: React.FC<ReviewsContainerProps> = ({ reviwes }: ReviewsC
   const filteredReviews = reviwes.filter((review) => review.rating >= 3);
 
   return (
-    <div className="my-8">
-     <Carousel>
-        {filteredReviews.map((review) => (
-          <Reviews
-            key={review.userName}
-            description={review.description}
-            userImage={review.userImage}
-            rating={review.rating}
-            userName={review.userName}
-          />
-        ))}
+    <div>
+     <Carousel>      
+          {filteredReviews.map((review) => (
+              <Reviews
+                key={review.userName}
+                description={review.description}
+                userImage={review.userImage}
+                rating={review.rating}
+                userName={review.userName}
+              />
+          ))}
       </Carousel>
     </div>
   );

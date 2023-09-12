@@ -27,30 +27,14 @@ const Reviews: React.FC<ReviewsProps> = ({ userName ,description, userImage, rat
       return stars;
     };
   
-    const [showMore, setShowMore] = useState(false);
-  
-    const toggleShowMore = () => {
-      setShowMore(!showMore);
-    };
-  
-    const truncatedDescription = description.slice(0, 350);
-  
 
   return (
-    <div className="px-10">
-    <div className="bg-white p-4 shadow-md rounded-lg">
-      <Icon icon="quotationMarks" />
-      <div className="mb-4 min-h-[220px]">
+    <div className="">
+    <div className="bg-white m-3 p-4 lg:shadow-md rounded-lg">
+      <Icon icon="quotationMarks"/>
+      <div className="mb-4 h-[470px] ms:min-h-[400px] md:">
           <p className="text-gray-700">
-            {showMore ? description : truncatedDescription}
-            {description.length > 350 && (
-              <span
-                className="cursor-pointer text-primary-lm"
-                onClick={toggleShowMore}
-              >
-                {showMore ? ' ...' : ' ...'}
-              </span>
-            )}
+            {description}
           </p>
       </div>
       <div className="border-t border-secondary-dm opacity-20"></div>
