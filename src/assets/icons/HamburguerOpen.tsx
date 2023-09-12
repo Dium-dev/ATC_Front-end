@@ -2,17 +2,23 @@ import React from 'react';
 
 export default function HamburguerClose() {
   return (
-    <svg
-      width="100%"
-      height="100%"
-      viewBox="0 0 36 30"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M2.52379 30H33.6349C34.7043 30 35.5793 28.875 35.5793 27.5C35.5793 26.125 34.7043 25 33.6349 25H2.52379C1.45435 25 0.579346 26.125 0.579346 27.5C0.579346 28.875 1.45435 30 2.52379 30ZM2.52379 17.5H33.6349C34.7043 17.5 35.5793 16.375 35.5793 15C35.5793 13.625 34.7043 12.5 33.6349 12.5H2.52379C1.45435 12.5 0.579346 13.625 0.579346 15C0.579346 16.375 1.45435 17.5 2.52379 17.5ZM0.579346 2.5C0.579346 3.875 1.45435 5 2.52379 5H33.6349C34.7043 5 35.5793 3.875 35.5793 2.5C35.5793 1.125 34.7043 0 33.6349 0H2.52379C1.45435 0 0.579346 1.125 0.579346 2.5Z"
-        fill="black"
-      />
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        {' '}
+        <path
+          d="M4 6H20M4 12H20M4 18H20"
+          stroke="#000000"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        ></path>{' '}
+      </g>
     </svg>
   );
 }

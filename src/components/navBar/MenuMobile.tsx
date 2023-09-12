@@ -19,7 +19,7 @@ const MenuMobile: FC<MenuMobileProps> = ({}) => {
           <Link
             key={item.url}
             href={item.url}
-            className="block p-4 hover:text-2xl hover:font-bold"
+            className="block p-4 transform  hover:scale-125"
           >
             {item.label}
           </Link>
