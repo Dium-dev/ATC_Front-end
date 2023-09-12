@@ -61,7 +61,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
           {/* input */}
           <div className="flex items-center justify-center ">
             <InputField
-              className="w-[40vw] shadow-md bg-opacity-70 bg-white "
+              className="w-[50vw] shadow-md bg-opacity-70 bg-white "
               placeholder="Buscar Productos"
               leftIcon={<Icon icon="SearchIcon" />}
             />
@@ -86,7 +86,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
       {/* Input mobile*/}
       <div className="md:hidden flex items-center justify-center pb-3">
         <InputField
-          className="w-[70vw] max-w-md shadow-md bg-opacity-70 bg-white"
+          className="w-[60vw] max-w-md shadow-md bg-opacity-70 bg-white"
           placeholder="Buscar Productos"
           leftIcon={<Icon icon="SearchIcon" />}
         />
