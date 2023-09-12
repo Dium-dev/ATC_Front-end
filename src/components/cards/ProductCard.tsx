@@ -23,7 +23,7 @@ export function ProductCard({
         className="w-full h-[9.625rem] "
       />
       <div>
-        <h3 className="font-semibold mb-2">{title}</h3>
+        <h3 className="font-semibold mb-2 line-clamp-3">{title}</h3>
         <p className="line-through text-secondary-dm text-sm">{`${toCurrency(
           price
         )}`}</p>
