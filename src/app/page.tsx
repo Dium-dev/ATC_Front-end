@@ -7,6 +7,8 @@ import CategoryCategory from '~/components/containerCards/containerCardsCategoty
 import { category } from '~/mockData/mockCategory';
 import BrandCategory from '~/components/containerCards/containerCardsBrands';
 import PaymentMethodsList from '~/components/paymentMethod/paymentMethodsList';
+import ReviewsContainer from '~/components/containerCards/containerCardsReviews';
+import reviews from '~/mockData/mockReviwes';
 
 export default function Home() {
   createIconsTypes();
@@ -16,6 +18,7 @@ export default function Home() {
       <TopSellers />
       <PaymentMethodsList />
       <BrandCategory brand={brands} />
+      <ReviewsContainer reviwes={reviews}/>
     </ContainerPage>
   );
 }

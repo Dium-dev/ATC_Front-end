@@ -80,7 +80,7 @@ export function Carousel({ children }: CarouselProps) {
                   key={i}
                   className={`${
                     i < 4 ? '' : ''
-                  } min-w-full sm:min-w-[calc(100%/2)] md:min-w-[calc(100%/3)] lg:min-w-[calc(100%/4)] px-1 grid place-content-center overflow-hidden`}
+                  } min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/3)] lg:min-w-[calc(100%/4)] px-1 grid place-content-center overflow-hidden`}
                 >
                   {child}
                 </div>
