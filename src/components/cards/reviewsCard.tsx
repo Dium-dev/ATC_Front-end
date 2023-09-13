@@ -32,8 +32,8 @@ const Reviews: React.FC<ReviewsProps> = ({ userName ,description, userImage, rat
     <div className="">
     <div className="bg-white m-3 p-4 lg:shadow-md rounded-lg">
       <Icon icon="quotationMarks"/>
-      <div className="mb-4 h-[470px] ms:min-h-[400px] md:">
-          <p className="text-gray-700">
+      <div className="mb-4 xl:h-[260px] lg:h-[410px] md:h-[390px] ms:h-[380px]" >
+          <p className=" ">
             {description}
           </p>
       </div>
