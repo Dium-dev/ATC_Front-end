@@ -8,7 +8,8 @@ const nextConfig = {
       'www.autopista.es',
       'assets.stickpng.com',
       'media.gm.com',
-      'cdn-icons-png.flaticon.com'
+      'cdn-icons-png.flaticon.com',
+      'user-images.githubusercontent.com',
     ], // Agrega aquí los dominios permitidos para las imágenes
   },
 };
