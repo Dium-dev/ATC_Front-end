@@ -20,7 +20,7 @@ export function ProductCard({
         alt="Cubre Volante"
         width={245}
         height={154}
-        className="w-full h-[9.625rem] "
+        className="w-[200px] h-[200px]"
       />
       <div>
         <h3 className="font-semibold mb-2">{title}</h3>
