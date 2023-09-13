@@ -32,10 +32,10 @@ const Reviews: React.FC<ReviewsProps> = ({ userName ,description, userImage, rat
     <div className="">
     <div className="bg-white m-3 p-4 lg:shadow-md rounded-lg">
       <Icon icon="quotationMarks"/>
-      <div className="mb-4 xl:h-[260px] lg:h-[410px] md:h-[390px] ms:h-[380px]" >
-          <p className=" ">
-            {description}
-          </p>
+      <div className="mb-4 xl:h-[260px] lg:h-[410px] md:h-[390px] ms:h-[380px]">
+        <p className="overflow-hidden xl:h-[260px] lg:h-[410px] md:h-[390px] ms:h-[380px]l">
+          {description}
+        </p>
       </div>
       <div className="border-t border-secondary-dm opacity-20"></div>
       <div className="flex items-center mb-2 mt-4">
