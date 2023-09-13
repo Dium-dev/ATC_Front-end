@@ -30,7 +30,6 @@ import BannerWomenAndCar from './banners/BannerWomenAndCar.webp';
 import CategoryFarolas from './banners/CategoryFarolas.webp';
 import FlyerCategores from './banners/FlyerCategories.webp';
 import LogoCardBanner from './banners/LogoCardBanner.webp';
-import BannerBg from './banners/BannerBg.webp'
 import BannerTitle from './banners/BannerTitle.webp'
 
 // Importa las imágenes de la carpeta 'categories'
@@ -79,7 +78,6 @@ export const Images = {
     CategoryFarolas,
     FlyerCategores,
     LogoCardBanner,
-    BannerBg,
     BannerTitle
   },
   categories: {

@@ -4,28 +4,15 @@ import { Images } from '~/assets/img';
 
 const Banner: React.FC = () => {
   return (
-    <div className="relative h-360">
-      <div className=" inset-0">
-        {/* Fondo del banner (imagen) */}
-        <div className="h-full bg-no-repeat bg-bottom">
+      <div className="bg-cover bg-center bg-fixed bg-no-repeat bg-banner w-full flex items-center justify-center">
           <Image
-            src={Images.banners.BannerBg}
-            alt="Fondo del Blog"
-            layout="fill" // Ocupar todo el espacio disponible
-            objectFit="cover" // Ajustar la imagen sin distorsionarla
-          />
-        </div>
+            src={Images.banners.BannerTitle}
+            alt="Título del Blog"
+            className="w-1920"
+            />
       </div>
-      <div className="absolute inset-0 bg-background-dm opacity-50"></div>
-      <div className="inset-0 flex items-center justify-center">
-        {/* Imagen del título con efecto de paralaje */}
-        <Image
-          src={Images.banners.BannerTitle}
-          alt="Título del Blog"
-          className="w-1920 transition-transform transform -translate-y-1/5" // Clases para el efecto de paralaje
-        />
-      </div>
-    </div>
+          
+      
   );
 };
 

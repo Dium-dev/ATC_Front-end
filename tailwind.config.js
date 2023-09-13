@@ -28,7 +28,11 @@ module.exports = {
       lg: '1200px',
       xl: '1480px',
     },
-    extend: {},
+    extend: {
+      backgroundImage:{
+        'banner': 'url("https://i0.wp.com/citymagazine.si/wp-content/uploads/2022/05/2023-audi-rs5-coupe-competition.jpg?fit=1920%2C1080&ssl=1")'
+      }
+    },
   },
   plugins: [],
 };
