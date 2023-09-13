@@ -86,7 +86,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
           </div>
         </nav>
         {/* Input mobile*/}
-        <div className="md:hidden flex items-center justify-center pb-3">
+        <div className="md:hidden flex items-center justify-center pb-3 shadow-md">
           <InputField
             style={{ width: '60vw' }}
             className="max-w-md shadow-md bg-opacity-70 bg-white"
@@ -99,7 +99,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
         {/* Menu */}
         {isOpen && (
           <div
-            className="fixed top-[60px] left-0 w-screen xs:max-w-[303px] backdrop-blur-sm bg-white bg-opacity-70 shadow-sm z-50 flex justify-center items-center"
+            className="fixed top-[108px] md:top-[60px] left-0 w-screen xs:max-w-[303px] backdrop-blur-sm bg-white bg-opacity-70 shadow-sm z-50 flex justify-center items-center"
             onMouseLeave={toggleNavbar}
           >
             <MenuMobile />
