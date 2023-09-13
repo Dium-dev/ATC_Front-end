@@ -8,7 +8,7 @@ const nextConfig = {
       'www.autopista.es',
       'assets.stickpng.com',
       'media.gm.com',
-      'us.123rf.com'
+      'cdn-icons-png.flaticon.com'
     ], // Agrega aquí los dominios permitidos para las imágenes
   },
 };
