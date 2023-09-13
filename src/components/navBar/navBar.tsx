@@ -19,84 +19,93 @@ const NavBar: FC<NavBarProps> = ({}) => {
   };
 
   return (
-    <div className="z-50 fixed top-0 bg-opacity-70 bg-white w-full backdrop-blur-sm flex-col shadow-sm">
-      <nav className="p-4 flex items-center h-[60px] justify-between mx-auto">
-        {/* Contenedor lado izquierdo menu hamburguesa-imagenes*/}
-        <div className="flex items-center gap-2">
-          {/* Icono hamburguesa */}
+    <div>
+      <div className="z-50 fixed top-0 bg-opacity-70 bg-white w-full backdrop-blur-sm flex-col shadow-sm">
+        <nav className="p-4 flex items-center h-[60px] justify-between mx-auto">
+          {/* Contenedor lado izquierdo menu hamburguesa-imagenes*/}
           <div className="flex items-center gap-2">
-            <MainButton onClick={toggleNavbar}>
-              <div className={isOpen ? 'h-14 w-14' : 'h-h-14 w-14'}>
-                <Icon icon={isOpen ? 'HamburguerClose' : 'HamburguerOpen'} />
+            {/* Icono hamburguesa */}
+            <div className="flex items-center gap-2">
+              <MainButton onClick={toggleNavbar}>
+                <div className={isOpen ? 'h-14 w-14' : 'h-h-14 w-14'}>
+                  <Icon icon={isOpen ? 'HamburguerClose' : 'HamburguerOpen'} />
+                </div>
+              </MainButton>
+            </div>
+            <div>
+              {/* imagenes tablet y desktop */}
+              <div className="hidden md:flex justify-center items-center">
+                <Link href="/">
+                  <Image
+                    src={Images.logos.LogoRedColor}
+                    width={200}
+                    height={30}
+                    alt="Your Company"
+                  />
+                </Link>
               </div>
-            </MainButton>
-          </div>
-          <div>
-            {/* imagenes tablet y desktop */}
-            <div className="hidden md:flex justify-center items-center">
-              <Link href="/">
-                <Image
-                  src={Images.logos.LogoRedColor}
-                  width={200}
-                  height={30}
-                  alt="Your Company"
-                />
-              </Link>
-            </div>
-            {/* imagen mobile */}
-            <div className="md:hidden flex justify-center items-center">
-              <Link href="/">
-                <Image
-                  src={Images.logos.ActLogo}
-                  width={55}
-                  height={32}
-                  alt="Your Company"
-                />
-              </Link>
+              {/* imagen mobile */}
+              <div className="md:hidden flex justify-center items-center">
+                <Link href="/">
+                  <Image
+                    src={Images.logos.ActLogo}
+                    width={55}
+                    height={32}
+                    alt="Your Company"
+                  />
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-        {/* Contenedor central dropDownMenus e input */}
-        <div className="hidden md:flex items-center justify-center gap-5">
-          {/* input */}
-          <div className="flex items-center justify-center ">
-            <InputField
-              className="w-[50vw] shadow-md bg-opacity-70 bg-white "
-              placeholder="Buscar Productos"
-              leftIcon={<Icon icon="SearchIcon" />}
-            />
+          {/* Contenedor central dropDownMenus e input */}
+          <div className="hidden md:flex items-center justify-center gap-5">
+            {/* input */}
+            <div className="flex items-center justify-center ">
+              <InputField
+                style={{ width: '50vw' }}
+                className="shadow-md bg-opacity-70 bg-white "
+                placeholder="Buscar Productos"
+                leftIcon={<Icon icon="SearchIcon" />}
+              />
+            </div>
           </div>
-        </div>
-        {/* Contenedor lado derecho iconos*/}
-        <div className="flex items-center gap-6">
-          <div className="h-[35px] w-[35px]">
-            <Link href={'/login'}>
-              <Icon icon="Login" />
-            </Link>
-          </div>
-          <div className="h-[35px] w-[35px]">
-            <Link href={'#'}>
-              <Icon icon="CarShoping" />
-            </Link>
-          </div>
+          {/* Contenedor lado derecho iconos*/}
+          <div className="flex items-center gap-6">
+            <div className="h-[35px] w-[35px]">
+              <Link href={'/login'}>
+                <Icon icon="Login" />
+              </Link>
+            </div>
+            <div className="h-[35px] w-[35px]">
+              <Link href={'#'}>
+                <Icon icon="CarShoping" />
+              </Link>
+            </div>
 
-          <ThemeModeButton />
+            <ThemeModeButton />
+          </div>
+        </nav>
+        {/* Input mobile*/}
+        <div className="md:hidden flex items-center justify-center pb-3 shadow-md">
+          <InputField
+            style={{ width: '60vw' }}
+            className="max-w-md shadow-md bg-opacity-70 bg-white"
+            placeholder="Buscar Productos"
+            leftIcon={<Icon icon="SearchIcon" />}
+          />
         </div>
-      </nav>
-      {/* Input mobile*/}
-      <div className="md:hidden flex items-center justify-center pb-3">
-        <InputField
-          className="w-[60vw] max-w-md shadow-md bg-opacity-70 bg-white"
-          placeholder="Buscar Productos"
-          leftIcon={<Icon icon="SearchIcon" />}
-        />
       </div>
-      {/* Menu */}
-      {isOpen && (
-        <div className="border-t-2 border-t-white" onMouseLeave={toggleNavbar}>
-          <MenuMobile />
-        </div>
-      )}
+      <div>
+        {/* Menu */}
+        {isOpen && (
+          <div
+            className="fixed top-[108px] md:top-[60px] left-0 w-screen xs:max-w-[303px] backdrop-blur-sm bg-white bg-opacity-70 shadow-sm z-50 flex justify-center items-center"
+            onMouseLeave={toggleNavbar}
+          >
+            <MenuMobile />
+          </div>
+        )}
+      </div>
     </div>
   );
 };
