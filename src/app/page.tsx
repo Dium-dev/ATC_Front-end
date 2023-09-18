@@ -4,7 +4,7 @@ import { TopSellers } from '~/components/containerCards/containerCards';
 import { createIconsTypes } from '~/utils/createIcons';
 import { ContainerPage } from './container_page';
 import CategoryCategory from '~/components/containerCards/containerCardsCategoty';
-import { category } from '~/mockData/mockCategory';
+// import { category } from '~/mockData/mockCategory';
 import BrandCategory from '~/components/containerCards/containerCardsBrands';
 import PaymentMethodsList from '~/components/paymentMethod/paymentMethodsList';
 import ReviewsContainer from '~/components/containerCards/containerCardsReviews';
