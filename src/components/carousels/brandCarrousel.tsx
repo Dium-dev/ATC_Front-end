@@ -14,7 +14,7 @@ export default function BrandCarrousel() {
   };
   return (
     <div
-      className="flex  flex-col items-center justify-between bg-background-dm "
+      className="flex  flex-col items-center justify-between bg-[#13131D] "
       style={style}
     >
       <section className="overflow-hidden w-full max-w-f-hd relative bg-black pt-9 pb-9">
