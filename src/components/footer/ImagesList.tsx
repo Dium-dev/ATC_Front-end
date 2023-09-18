@@ -8,7 +8,11 @@ const socialMediaImages = {
   Youtube: 'https://i.postimg.cc/V6Q8nkkP/youtube.png',
 };
 
-const SocialMediaImages = () =>
+import React, { FC } from 'react';
+
+interface ImagesListProps {}
+
+const ImagesList: FC<ImagesListProps> = () =>
   Object.entries(socialMediaImages).map(
     ([socialMediaName, socialMediaImageUrl]) => (
       <Image
@@ -21,4 +25,4 @@ const SocialMediaImages = () =>
     )
   );
 
-export default SocialMediaImages;
+export default ImagesList;

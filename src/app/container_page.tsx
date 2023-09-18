@@ -1,4 +1,4 @@
-import { Footer } from '~/components/footer/Footer';
+import Footer from '~/components/footer/Footer';
 import NavBar from '~/components/navBar/navBar';
 
 type ContainerPageProps = {

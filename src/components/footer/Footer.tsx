@@ -1,11 +1,13 @@
 import Image from 'next/image';
-import Icon from '../../assets/icons/icon';
-import ListItems from '../ListItems';
 import { Images } from '~/assets/img';
+import ImagesList from './ImagesList';
+import React, { FC } from 'react';
 import Link from 'next/link';
-import SocialMediaImages from './ImagesList';
+import Links from './Links';
 
-export function Footer() {
+interface FooterProps {}
+
+const Footer: FC<FooterProps> = ({}) => {
   return (
     <div className="h-[532px] md:h-[362px] bg-[black] p-6 relative">
       <footer
@@ -20,19 +22,14 @@ export function Footer() {
             width="200"
             height="120"
           />
-          <div className="flex gap-4">{SocialMediaImages()}</div>
+          <div className="flex gap-4">
+            <ImagesList />
+          </div>
         </div>
         <div className="hidden md:flex w-[2px] h-60 bg-gradient-to-t from-background-dm via-white to-background-dm md:ml-16 "></div>
         <div className="flex flex-col gap-6 items-center flex-1">
           <div className="flex text-white gap-4 items-center justify-center">
-            <Link href="/aboutUs">Nosotros</Link>
-            <div className="w-[3px] h-4 bg-primary-lm"></div>
-            <Link href="/comoComprar">Como comprar</Link>
-            <div className="w-[3px] h-4 bg-primary-lm"></div>
-            <Link href="/contact">Contacto</Link>
-            <div className="w-[3px] h-4 bg-primary-lm"></div>
-            <Link href="/blog">Blog</Link>
-            <div className="w-[3px] h-4 bg-primary-lm"></div>
+            <Links />
           </div>
           <Image
             src="https://i.postimg.cc/7Ymwd4mS/Mercado-Pago.png"
@@ -49,4 +46,6 @@ export function Footer() {
       </p>
     </div>
   );
-}
+};
+
+export default Footer;
