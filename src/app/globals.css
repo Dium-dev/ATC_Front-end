@@ -21,6 +21,27 @@
   }
 }
 
+:root {
+  --animation: -1625px;
+  --duration: 30s;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes carousel {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(var(--animation));
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-carousel {
+  animation: carousel var(--duration) linear infinite;
+  white-space: nowrap;
+}

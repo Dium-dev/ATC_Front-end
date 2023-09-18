@@ -29,9 +29,19 @@ module.exports = {
       xl: '1480px',
     },
     extend: {
-      backgroundImage:{
-        'banner': 'url("https://i0.wp.com/citymagazine.si/wp-content/uploads/2022/05/2023-audi-rs5-coupe-competition.jpg?fit=1920%2C1080&ssl=1")'
-      }
+      backgroundImage: {
+        banner:
+          'url("https://i0.wp.com/citymagazine.si/wp-content/uploads/2022/05/2023-audi-rs5-coupe-competition.jpg?fit=1920%2C1080&ssl=1")',
+      },
+    },
+    maxWidth: {
+      'f-hd': '1920px',
+    },
+    minWidth: {
+      100: '100px',
+    },
+    gap: {
+      50: '50px',
     },
   },
   plugins: [],
