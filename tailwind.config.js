@@ -19,6 +19,7 @@ module.exports = {
       'secondary-background': '#ffff',
       'text-lm': '#333333',
       'text-dm': '#f1f1f1',
+      'input-bg': '#FFF2F7',
       white: '#fff',
     },
     screens: {

@@ -1,6 +1,8 @@
 'use client';
 import React, { FC } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { InputField } from '../inputs/InputField';
+import { MainButton } from '../button/button';
 
 interface FormProps {
   name: string;
@@ -20,41 +22,48 @@ const Form: FC = () => {
     reset();
   };
 
-  console.log(errors);
-
   const onSubmit: SubmitHandler<FormProps> = (data) => {
     console.log(data);
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center justify-center"
-    >
-      <label htmlFor="name">
-        Nombre
-        <input {...register('name', { required: true })} />
-        {errors.name && <p>Este campo es obligatorio</p>}
-      </label>
+    <div className="fixed inset-0 flex items-center justify-center z-50">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex border p-6 px-14 flex-col bg-white w-[440px] gap-4 rounded-xl"
+      >
+        <h1 className="text-[40px] font-bold">Contacto</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem,
+          unde. Iusto minus placeat at vitae.
+        </p>
+        <InputField
+          placeholder="Nombre"
+          {...register('name', { required: true })}
+          className="bg-input-bg"
+        />
 
-      <label htmlFor="phone">
-        Telefono/Correo
-        <input {...register('phone', { required: true })} />
-        {errors.phone && <p>Este campo es obligatorio</p>}
-      </label>
+        <InputField
+          placeholder="Telefono / Correo"
+          {...register('phone', { required: true })}
+          className="bg-input-bg"
+        />
 
-      <label htmlFor="message">
-        Mensaje
-        <input {...register('message', { required: true })} />
-        {errors.message && <p>Este campo es obligatorio</p>}
-      </label>
-      <div className="flex items-center justify-center">
-        <button type="submit">Enviar</button>
-        <button type="button" onClick={handleClearClick}>
-          Limpiar
-        </button>
-      </div>
-    </form>
+        <InputField
+          placeholder="Mensaje"
+          {...register('message', { required: true })}
+          className="bg-input-bg"
+        />
+
+        <MainButton
+          variant="tertiary"
+          type="submit"
+          className="bg-primary-lm mt-12 text-white"
+        >
+          ENVIAR
+        </MainButton>
+      </form>
+    </div>
   );
 };
 
