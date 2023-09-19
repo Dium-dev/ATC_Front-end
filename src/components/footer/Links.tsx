@@ -18,7 +18,7 @@ const Links: FC<LinksProps> = () => {
           <Link href={link.route} key={link.name}>
             {link.name}
           </Link>
-          <div key={link.name} className="w-[3px] h-4 bg-primary-lm"></div>
+          <div key={link.name + 1} className="w-[3px] h-4 bg-primary-lm"></div>
         </>
       ))}
     </>
