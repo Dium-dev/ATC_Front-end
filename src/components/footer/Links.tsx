@@ -19,7 +19,10 @@ const Links: FC<LinksProps> = () => {
             {link.name}
           </Link>
           {index !== LinksRoutes.length - 1 && (
-            <div className="w-[3px] h-4 bg-primary-lm"></div>
+            <div
+              key={link.name + 1}
+              className="w-[3px] h-4 bg-primary-lm"
+            ></div>
           )}
         </>
       ))}
