@@ -19,15 +19,15 @@ const Footer: FC<FooterProps> = ({}) => {
           <Image
             src={Images.logos.LogoShieldLight}
             alt=""
-            width="200"
-            height="120"
+            width="180"
+            height="90"
           />
           <div className="flex gap-4">
             <ImagesList />
           </div>
         </div>
         <div className="hidden md:flex w-[2px] h-60 bg-gradient-to-t from-background-dm via-white to-background-dm md:ml-16 "></div>
-        <div className="flex flex-col gap-6 items-center flex-1">
+        <div className="flex flex-col gap-14 items-center flex-1">
           <div className="flex text-white gap-4 items-center justify-center">
             <Links />
           </div>
