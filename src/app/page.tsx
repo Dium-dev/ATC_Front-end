@@ -24,7 +24,6 @@ export default function Home() {
       <Banner />
       <ReviewsContainer reviwes={reviews} />
       <PaymentMethodsList />
-      <Form />
     </ContainerPage>
   );
 }
