@@ -6,7 +6,6 @@ interface LinksProps {}
 const LinksRoutes = [
   { name: 'Nosotros', route: '/aboutUs' },
   { name: 'Como comprar', route: '/como-comprar' },
-  { name: 'Contacto', route: '/contact' },
   { name: 'Blog', route: 'https://actualizatucarro.blogspot.com/' },
 ];
 
@@ -18,12 +17,7 @@ const Links: FC<LinksProps> = () => {
           <Link href={link.route} key={link.name}>
             {link.name}
           </Link>
-          {index !== LinksRoutes.length - 1 && (
-            <div
-              key={link.name + 1}
-              className="w-[3px] h-4 bg-primary-lm"
-            ></div>
-          )}
+          <div key={link.name + 1} className="w-[3px] h-4 bg-primary-lm"></div>
         </>
       ))}
     </>
