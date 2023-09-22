@@ -26,13 +26,12 @@ const MenuMobile: FC<MenuMobileProps> = ({ updateState }) => {
           </Link>
         </>
       ))}
-      <Link
-        href={''}
+      <button
         className="block p-4 transform  hover:scale-125"
         onClick={() => updateState(true)}
       >
         Contacto
-      </Link>
+      </button>
     </div>
   );
 };

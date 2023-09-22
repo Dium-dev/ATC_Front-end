@@ -8,17 +8,17 @@ import MenuMobile from './MenuMobile';
 import { InputField } from '../inputs/InputField';
 import { ThemeModeButton } from '../ThemeMode';
 import { MainButton } from '../button/button';
-import { useContactState } from '~/hooks/useContactState';
+import { useFlagState } from '~/hooks/useFlagState';
 import Form from '../form/Form';
 
 interface NavBarProps {}
 
 const NavBar: FC<NavBarProps> = ({}) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpenContact, updateState] = useContactState(false);
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const [flagState, updateState] = useFlagState(false);
 
   const toggleNavbar = () => {
-    setIsOpen(!isOpen);
+    setIsOpenMenu(!isOpenMenu);
   };
 
   return (
@@ -30,8 +30,10 @@ const NavBar: FC<NavBarProps> = ({}) => {
             {/* Icono hamburguesa */}
             <div className="flex items-center gap-2">
               <MainButton onClick={toggleNavbar}>
-                <div className={isOpen ? 'h-14 w-14' : 'h-h-14 w-14'}>
-                  <Icon icon={isOpen ? 'HamburguerClose' : 'HamburguerOpen'} />
+                <div className={isOpenMenu ? 'h-14 w-14' : 'h-h-14 w-14'}>
+                  <Icon
+                    icon={isOpenMenu ? 'HamburguerClose' : 'HamburguerOpen'}
+                  />
                 </div>
               </MainButton>
             </div>
@@ -100,7 +102,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
       </div>
       <div>
         {/* Menu */}
-        {isOpen && (
+        {isOpenMenu && (
           <div
             className="fixed top-[108px] md:top-[60px] left-0 w-screen xs:max-w-[303px] backdrop-blur-sm bg-white bg-opacity-70 shadow-sm z-50 flex justify-center items-center"
             onMouseLeave={toggleNavbar}
@@ -109,7 +111,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
           </div>
         )}
       </div>
-      {isOpenContact && <Form updateState={updateState} />}
+      {flagState && <Form updateState={updateState} />}
     </div>
   );
 };
