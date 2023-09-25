@@ -53,9 +53,11 @@ const Form: FC<FormProp> = ({ updateState }) => {
       onSubmit={handleSubmit(handleFormSubmit)}
       className="fixed inset-0 flex items-center justify-center z-50 bg-[rgba(0,0,0,.5)]"
     >
-      <div className="relative flex p-6 px-14 pt-10 flex-col bg-white w-[440px] gap-4 rounded-xl shadow-xl">
-        <h1 className="text-[40px] font-bold">Contacto</h1>
-        <p>
+      <div className="relative flex p-6 px-14 pt-10 flex-col bg-white xs:w-[440px] gap-4 rounded-xl shadow-xl w-full">
+        <h1 className="text-[40px] font-bold py-1 overflow-hidden text-ellipsis">
+          Contacto
+        </h1>
+        <p className="text-xs">
           ¿Tienes preguntas o necesitas ayuda para tu compra? ¡Contáctanos!
           Nuestro equipo está aquí para asistirte.
         </p>
@@ -67,9 +69,13 @@ const Form: FC<FormProp> = ({ updateState }) => {
               value: 3,
               message: 'Debe tener minimo 3 caracteres',
             },
+            pattern: {
+              value: /^[A-Za-z]+$/,
+              message: 'Ingresa solo letras',
+            },
           })}
           autoComplete="off"
-          className="bg-input-bg `w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm "
+          className="bg-input-bg `w-full px-3 outline-none rounded-md text-secondary-dm text-xs py-3"
         />
         {errors.name && (
           <p className="text-primary-lm">{errors.name.message}</p>
@@ -78,7 +84,7 @@ const Form: FC<FormProp> = ({ updateState }) => {
         <input
           placeholder={
             errors.phone
-              ? 'Mobil empieza por 3, longitud minima 10'
+              ? 'Mobil empieza por 3, longitud minima 10 caracteres'
               : 'Mobil / Correo'
           }
           {...register('phone', {
@@ -91,7 +97,7 @@ const Form: FC<FormProp> = ({ updateState }) => {
               'Mobil o Correo invalidos',
           })}
           autoComplete="off"
-          className="bg-input-bg `w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm"
+          className="bg-input-bg `w-full px-3 outline-none rounded-md text-secondary-dm text-xs py-3"
         />
         {errors.phone && (
           <p className="text-primary-lm">{errors.phone.message}</p>
@@ -107,7 +113,7 @@ const Form: FC<FormProp> = ({ updateState }) => {
             },
           })}
           autoComplete="off"
-          className="bg-input-bg px-3 py-1.5 rounded-md autocomplete=off outline-none min-h-[100px] "
+          className="bg-input-bg px-3 py-3 rounded-md autocomplete=off outline-none min-h-[100px] text-xs"
         />
         {errors.message && (
           <p className="text-primary-lm">{errors.message.message}</p>
