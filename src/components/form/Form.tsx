@@ -24,7 +24,8 @@ const Form: FC<FormProp> = ({ updateState }) => {
     formState: { errors },
   } = useForm<FormProps>();
 
-  const handleFormSubmit: SubmitHandler<FormProps> = (data) => {
+  const handleFormSubmit: SubmitHandler<FormProps> = (data, event) => {
+    event?.preventDefault();
     if (!errors.name || !errors.phone || !errors.message) {
       updateState(false);
       alertSuccess();
