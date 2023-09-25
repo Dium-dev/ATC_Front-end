@@ -25,26 +25,22 @@ const Form: FC<FormProp> = ({ updateState }) => {
   } = useForm<FormProps>();
 
   const handleFormSubmit: SubmitHandler<FormProps> = (data) => {
-    !errors.name || !errors.phone || !errors.message
-      ? alertSuccess()
-      : alertError();
-    console.log(data);
+    if (!errors.name || !errors.phone || !errors.message) {
+      updateState(false);
+      alertSuccess();
+      console.log(data);
+    }
   };
 
   const alertSuccess = () => {
     Swal.fire({
+      toast: true,
+      position: 'top-end',
       title: 'Enviado!',
       text: 'El mensaje a sido enviado correctamente',
       icon: 'success',
-      confirmButtonText: 'Cool',
-    });
-  };
-  const alertError = () => {
-    Swal.fire({
-      title: 'Error!',
-      text: 'Do you want to continue',
-      icon: 'error',
-      confirmButtonText: 'Cool',
+      showConfirmButton: false,
+      timer: 2000,
     });
   };
 
