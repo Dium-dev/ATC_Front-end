@@ -11,6 +11,7 @@ import ReviewsContainer from '~/components/containerCards/containerCardsReviews'
 import reviews from '~/mockData/mockReviwes';
 import Banner from '~/components/Banner';
 import BrandCarrousel from '~/components/carousels/brandCarrousel';
+import Form from '~/components/form/Form';
 
 export default function Home() {
   createIconsTypes();

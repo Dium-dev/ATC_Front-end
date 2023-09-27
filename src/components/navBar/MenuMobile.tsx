@@ -1,15 +1,16 @@
 import Link from 'next/link';
 import React, { FC } from 'react';
 
-interface MenuMobileProps {}
+interface MenuMobileProps {
+  updateState: (isOpenContact: boolean) => void;
+}
 
-const MenuMobile: FC<MenuMobileProps> = ({}) => {
+const MenuMobile: FC<MenuMobileProps> = ({ updateState }) => {
   const navItems = [
     { label: 'Productos', url: '/products' },
     { label: 'Como comprar', url: '/how-to-buy' },
     { label: 'Blog', url: '/blog' },
     { label: 'Nosotros', url: '/about-us' },
-    { label: 'Contacto', url: '/contact' },
   ];
 
   return (
@@ -25,6 +26,12 @@ const MenuMobile: FC<MenuMobileProps> = ({}) => {
           </Link>
         </>
       ))}
+      <button
+        className="block p-4 transform  hover:scale-125"
+        onClick={() => updateState(true)}
+      >
+        Contacto
+      </button>
     </div>
   );
 };
