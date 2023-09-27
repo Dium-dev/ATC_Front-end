@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Image from 'next/image';
 import { MainButton } from '~/components/button/button';
+import Link from 'next/link';
 
 interface notFoundProps {}
 
@@ -26,7 +27,7 @@ const notFound: FC<notFoundProps> = ({}) => {
         variant="tertiary"
         className="bg-primary-lm text-white border font-bold"
       >
-        <a href="/">Ir Pagina Principal</a>
+        <Link href="/">Ir Pagina Principal</Link>
       </MainButton>
     </div>
   );
