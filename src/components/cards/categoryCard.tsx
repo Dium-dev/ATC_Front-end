@@ -1,27 +1,20 @@
-import React, { FC } from "react";
-import Image from "next/image";
+import Image from 'next/image';
+import { CategoryProps } from '~/types/products';
 
-interface CardPropsCategory {
-  name: string;
-  imageSrc: string;
-}
-
-const CardCategory: FC<CardPropsCategory> = ({ name, imageSrc }) => {
+const CardCategory: React.FC<CategoryProps> = ({ name, image }) => {
   return (
     <div className="flex w-[10rem] h-[200px] flex-col items-center overflow-hidden m-8">
       <div className="w-full h-[78%] relative">
         <Image
-          src={imageSrc}
+          src={image[0]}
           alt="Imagen de Categoria"
           layout="fill"
           objectFit="cover"
         />
       </div>
-        <div>
-          <h3 className="font-bold text-2xl w-[100%] h-[22%] mt-2">
-            {name}
-          </h3>
-        </div>
+      <div>
+        <h3 className="font-bold text-2xl w-[100%] h-[22%] mt-2">{name}</h3>
+      </div>
     </div>
   );
 };
