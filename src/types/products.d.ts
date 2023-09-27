@@ -29,6 +29,6 @@ export interface ProductCardProps {
 }
 
 export type CategoryProps = {
-  image: StaticImageData[];
+  image: string;
   name: string;
 }

@@ -2,40 +2,39 @@
 import React from 'react';
 import CardCategory from '../cards/categoryCard';
 import { CategoryProps } from '~/types/products';
-import { Images } from '~/assets/img';
 
 const CATEGORIES: CategoryProps[] = [
   {
     name: 'Farolas',
-    image: [Images.categories.Cat04],
+    image: 'https://i.postimg.cc/Gp1QbGmD/Cat04.png',
   },
   {
     name: 'Stops',
-    image: [Images.categories.Cat05],
+    image: 'https://i.postimg.cc/6qQcDK51/Cat05.png',
   },
   {
     name: 'Audio',
-    image: [Images.categories.Cat07],
+    image: 'https://i.postimg.cc/02bZn94z/Cat07.png',
   },
   {
     name: 'Exploradoras',
-    image: [Images.categories.Cat06],
+    image: 'https://i.postimg.cc/gcMN3xg9/Cat06.png',
   },
   {
     name: 'Exterior',
-    image: [Images.categories.Cat02],
+    image: 'https://i.postimg.cc/8P94nq8t/Cat03.png',
   },
   {
     name: 'Interior',
-    image: [Images.categories.Cat08],
+    image: 'https://i.postimg.cc/Sx9d0Dkq/Cat08.png',
   },
   {
     name: 'Bombillos',
-    image: [Images.categories.Cat03],
+    image: 'https://i.postimg.cc/63czjqwv/Cat02.png',
   },
   {
     name: 'Repuestos',
-    image: [Images.categories.Cat01],
+    image: 'https://i.postimg.cc/rsYjTHDy/Cat01.png',
   },
 ];
 
