@@ -10,6 +10,7 @@ const nextConfig = {
       'media.gm.com',
       'cdn-icons-png.flaticon.com',
       'user-images.githubusercontent.com',
+      'postlmg.cc/7GxXNxBz',
     ], // Agrega aquí los dominios permitidos para las imágenes
   },
 };
