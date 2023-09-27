@@ -14,13 +14,13 @@ export function ProductCard({
   const [favorite, setFavorite] = useState(false);
   const handleFavorite = () => setFavorite((cur) => !cur);
   return (
-    <div className="p-6 shadow-md hover:shadow-xl rounded-md overflow-hidden bg-white w-[250px] min-h-[330px] relative space-y-3">
+    <div className="px-10 py-6 shadow-md hover:shadow-xl rounded-md overflow-hidden bg-white w-[270px] min-h-[415px] relative space-y-3 dark:text-text-lm">
       <Image
         src={imageSrc}
         alt="Cubre Volante"
-        width={245}
-        height={154}
-        className="w-[200px] h-[200px]"
+        width={500}
+        height={500}
+        className="w-full aspect-square"
       />
       <div>
         <h3 className="font-semibold mb-2 line-clamp-3">{title}</h3>
@@ -41,7 +41,7 @@ export function ProductCard({
       </div>
       <button
         onClick={handleFavorite}
-        className="group absolute right-2 top-0 w-8 aspect-square rounded-full bg-white p-0.5 grid place-content-center"
+        className="group absolute right-1 top-1 w-8 aspect-square rounded-full p-0.5 grid place-content-center"
       >
         <Heart
           className={
