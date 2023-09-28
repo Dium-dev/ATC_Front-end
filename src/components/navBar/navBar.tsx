@@ -104,7 +104,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
         {/* Menu */}
         {isOpenMenu && (
           <div
-            className="fixed top-[108px] md:top-[60px] left-0 w-screen xs:max-w-[303px] backdrop-blur-sm bg-white bg-opacity-70 shadow-sm z-50 flex justify-center items-center"
+            className="fixed top-[108px] md:top-[60px] left-0 w-screen xs:max-w-[303px] backdrop-blur-sm bg-white bg-opacity-70 shadow-sm z-50 flex justify-center items-center rounded-b-md"
             onMouseLeave={toggleNavbar}
           >
             <MenuMobile updateState={updateState} />
