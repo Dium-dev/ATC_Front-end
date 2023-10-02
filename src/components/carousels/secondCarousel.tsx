@@ -1,6 +1,7 @@
 'use client';
 import React, { FC, useState, useEffect } from 'react';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
+import { Images } from '~/assets/img';
 
 interface SecondCarouselProps {}
 
@@ -48,26 +49,28 @@ const SecondCarousel: FC<SecondCarouselProps> = ({}) => {
     };
   }, [currentIndex]);
 
-  const containerClass = isMobile ? 'mobile-carousel' : 'desktop-carousel';
+  const backgroundImageStyle = isMobile
+    ? {
+        backgroundImage: `url(${mobileSlidesList[currentIndex].url})`,
+      }
+    : {
+        backgroundImage: `url(${slidesList[currentIndex].url})`,
+      };
 
   return (
     <div
-      className={`max-w[1920px] h-[600px] w-full m-auto relative group ${containerClass}`}
+      className={`mt-[109px] md:mt-[60px] w-full h-screen m-auto relative group `}
     >
       <div
-        style={{
-          backgroundImage: `url(${
-            isMobile
-              ? mobileSlidesList[currentIndex].url
-              : slidesList[currentIndex].url
-          })`,
-        }}
-        className="w-full h-full bg-center bg-cover duration-700"
+        style={backgroundImageStyle}
+        className={`w-full bg-cover bg-no-repeat duration-700 ${
+          isMobile ? 'h-[calc(100%-109px)]' : 'h-[calc(100%-60px)]'
+        }`}
       ></div>
-      <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-white/50 text-background-dm cursor-pointer">
+      <div className="hidden group-hover:block absolute top-[40%] md:top-[45%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-white/50 text-background-dm cursor-pointer">
         <BsChevronCompactLeft onClick={prevSlide} size={30} />
       </div>
-      <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-white/50 text-background-dm cursor-pointer">
+      <div className="hidden group-hover:block absolute top-[40%] md:top-[45%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-white/50 text-background-dm cursor-pointer">
         <BsChevronCompactRight onClick={nextSlide} size={30} />
       </div>
     </div>

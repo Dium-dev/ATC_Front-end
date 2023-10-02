@@ -22,9 +22,9 @@ const NavBar: FC<NavBarProps> = ({}) => {
   };
 
   return (
-    <div>
+    <nav>
       <div className="z-50 fixed top-0 bg-opacity-70 bg-white w-full backdrop-blur-sm flex-col shadow-sm">
-        <nav className="p-4 flex items-center h-[60px] justify-between mx-auto">
+        <div className="p-4 flex items-center h-[60px] justify-between mx-auto">
           {/* Contenedor lado izquierdo menu hamburguesa-imagenes*/}
           <div className="flex items-center gap-2">
             {/* Icono hamburguesa */}
@@ -89,7 +89,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
 
             <ThemeModeButton />
           </div>
-        </nav>
+        </div>
         {/* Input mobile*/}
         <div className="md:hidden flex items-center justify-center pb-3 shadow-md">
           <InputField
@@ -112,7 +112,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
         )}
       </div>
       {flagState && <Form updateState={updateState} />}
-    </div>
+    </nav>
   );
 };
 
