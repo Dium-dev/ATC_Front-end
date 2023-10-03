@@ -8,11 +8,12 @@ import ReviewsContainer from '~/components/containerCards/containerCardsReviews'
 import reviews from '~/mockData/mockReviwes';
 import Banner from '~/components/Banner';
 import BrandCarrousel from '~/components/carousels/brandCarrousel';
+import SecondCarousel from '~/components/carousels/secondCarousel';
 
 export default function Home() {
   createIconsTypes();
   return (
-    <ContainerPage header={<MainCarousel />}>
+    <ContainerPage header={<SecondCarousel />}>
       <Categories />
       <TopSellers />
       <BrandCarrousel />
