@@ -22,9 +22,9 @@ const NavBar: FC<NavBarProps> = ({}) => {
   };
 
   return (
-    <div>
-      <div className="z-50 fixed top-0 bg-opacity-70 bg-white w-full backdrop-blur-sm flex-col">
-        <nav className="p-4 flex items-center h-[60px] justify-between mx-auto my-1">
+    <nav>
+      <div className="z-50 fixed top-0 bg-opacity-70 bg-white w-full backdrop-blur-sm flex-col shadow-sm">
+        <div className="p-4 flex items-center h-[60px] justify-between mx-auto my-1">
           {/* Contenedor lado izquierdo menu hamburguesa-imagenes*/}
           <div className="flex items-center gap-2">
             {/* Icono hamburguesa */}
@@ -89,7 +89,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
 
             <ThemeModeButton />
           </div>
-        </nav>
+        </div>
         {/* Input mobile*/}
         <div className="md:hidden flex items-center justify-center pb-3 shadow-md">
           <InputField
@@ -104,7 +104,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
         {/* Menu */}
         {isOpenMenu && (
           <div
-            className="fixed top-[108px] md:top-[60px] left-0 w-screen xs:max-w-[303px] backdrop-blur-sm bg-white bg-opacity-70 shadow-sm z-50 flex justify-center items-center"
+            className="fixed top-[108px] md:top-[60px] left-0 w-screen xs:max-w-[303px] backdrop-blur-sm bg-white bg-opacity-70 shadow-sm z-50 flex justify-center items-center rounded-b-md"
             onMouseLeave={toggleNavbar}
           >
             <MenuMobile updateState={updateState} />
@@ -112,7 +112,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
         )}
       </div>
       {flagState && <Form updateState={updateState} />}
-    </div>
+    </nav>
   );
 };
 
