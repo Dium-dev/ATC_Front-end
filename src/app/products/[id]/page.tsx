@@ -1,10 +1,11 @@
-"use client";
-import { usePathname } from "next/navigation";
+'use client';
+import { usePathname } from 'next/navigation';
+import { BuyDetail } from './buy_detail';
 
 export default function Dinamica() {
   const Pathname = usePathname();
 
-  const RouteName = Pathname.split("/").pop() || "";
+  const RouteName = Pathname.split('/').pop() || '';
 
-  return <h1>Hola, soy {RouteName}</h1>;
+  return <BuyDetail />;
 }
