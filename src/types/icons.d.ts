@@ -1,1 +1,1 @@
-export type IconTypes = | 'CardCredit' | 'CarShoping' | 'Cash' | 'Close' | 'Facebook' | 'HamburguerClose' | 'HamburguerOpen' | 'Heart' | 'icon' | 'Instagram' | 'Login' | 'MapLocation' | 'Moon' | 'quotationMarks' | 'SearchIcon' | 'Shield' | 'Sun' | 'Truck' | 'warranty' | 'Whatsapp' 
+export type IconTypes = | 'CarShoping' | 'CardCredit' | 'Cash' | 'Close' | 'Facebook' | 'HamburguerClose' | 'HamburguerOpen' | 'Heart' | 'Instagram' | 'Login' | 'MapLocation' | 'Moon' | 'SearchIcon' | 'Shield' | 'Sun' | 'Truck' | 'Whatsapp' | 'icon' | 'quotationMarks' | 'warranty' 
