@@ -24,7 +24,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
   return (
     <nav>
       <div className="z-50 fixed top-0 bg-opacity-70 bg-white w-full backdrop-blur-sm flex-col shadow-sm">
-        <div className="p-4 flex items-center h-[60px] justify-between mx-auto">
+        <div className="p-4 flex items-center h-[60px] justify-between mx-auto my-1">
           {/* Contenedor lado izquierdo menu hamburguesa-imagenes*/}
           <div className="flex items-center gap-2">
             {/* Icono hamburguesa */}
@@ -68,7 +68,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
             <div className="flex items-center justify-center ">
               <InputField
                 style={{ width: '50vw' }}
-                className="shadow-md bg-opacity-70 bg-white "
+                className="bg-opacity-70 bg-white "
                 placeholder="Buscar Productos"
                 leftIcon={<Icon icon="SearchIcon" />}
               />
