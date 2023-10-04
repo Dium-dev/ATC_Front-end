@@ -10,7 +10,7 @@ const slidesList = [
     url: 'https://user-images.githubusercontent.com/124757365/267684986-ff0802dd-37d4-496a-9665-53dd8ae362b6.png',
   },
   {
-    url: 'https://user-images.githubusercontent.com/124757365/267684986-ff0802dd-37d4-496a-9665-53dd8ae362b6.png',
+    url: 'https://i.postimg.cc/RhvtgjwS/02.jpg',
   },
 ];
 
@@ -19,7 +19,7 @@ const mobileSlidesList = [
     url: 'https://user-images.githubusercontent.com/124757365/267684987-30227360-5971-48d3-952e-ee05519a2002.png',
   },
   {
-    url: 'https://user-images.githubusercontent.com/124757365/267684987-30227360-5971-48d3-952e-ee05519a2002.png',
+    url: 'https://i.postimg.cc/W3Gr62FY/02m.jpg',
   },
 ];
 
@@ -58,19 +58,19 @@ const SecondCarousel: FC<SecondCarouselProps> = ({}) => {
       };
 
   return (
-    <div
-      className={`mt-[109px] md:mt-[60px] w-full h-screen m-auto relative group `}
-    >
-      <div
-        style={backgroundImageStyle}
-        className={`w-full bg-cover bg-no-repeat duration-700 ${
-          isMobile ? 'h-[calc(100%-109px)]' : 'h-[calc(100%-60px)]'
-        }`}
-      ></div>
-      <div className="hidden group-hover:block absolute top-[40%] md:top-[45%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-white/50 text-background-dm cursor-pointer">
+    <div className="mt-[109px] md:mt-[60px] relative group max-w-[1920px] max-h-[600px] m-auto">
+      <img
+        className="w-full "
+        src={
+          isMobile
+            ? mobileSlidesList[currentIndex].url
+            : slidesList[currentIndex].url
+        }
+      ></img>
+      <div className="hidden group-hover:block absolute top-[50%]  -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-white/50 text-background-dm cursor-pointer">
         <BsChevronCompactLeft onClick={prevSlide} size={30} />
       </div>
-      <div className="hidden group-hover:block absolute top-[40%] md:top-[45%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-white/50 text-background-dm cursor-pointer">
+      <div className="hidden group-hover:block absolute top-[50%]  -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-white/50 text-background-dm cursor-pointer">
         <BsChevronCompactRight onClick={nextSlide} size={30} />
       </div>
     </div>
