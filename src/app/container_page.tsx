@@ -2,6 +2,7 @@
 import Footer from '~/components/footer/Footer';
 import NavBar from '~/components/navBar/navBar';
 import Categories from '~/components/categories/categories';
+import ContainerProducts from '~/components/containerProducts';
 import { usePathname } from 'next/navigation';
 
 type ContainerPageProps = {
@@ -22,8 +23,9 @@ export function ContainerPage({
     <>
       {typeof nav === 'boolean' && nav ? <NavBar /> : nav}
       {header && header}
-      <main className="min-h-screen overflow-hidden mx-auto">
+      <main className="min-h-screen overflow-hidden mx-auto border-primary-lm">
         {pathname !== '/' && <Categories />}
+        {pathname === '/products' && <ContainerProducts/>}
         {children}
       </main>
       {footer && <Footer />}
