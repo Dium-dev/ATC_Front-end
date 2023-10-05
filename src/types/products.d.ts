@@ -27,3 +27,8 @@ export interface ProductCardProps {
   offer: number;
   imageSrc: string;
 }
+
+export type CategoryProps = {
+  image: string;
+  name: string;
+}

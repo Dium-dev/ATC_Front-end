@@ -23,7 +23,7 @@ export function ContainerPage({
     <>
       {typeof nav === 'boolean' && nav ? <NavBar /> : nav}
       {header && header}
-      <main className="min-h-screen overflow-hidden mx-auto border-primary-lm">
+      <main className="min-h-screen overflow-hidden mx-auto">
         {pathname !== '/' && <Categories />}
         {pathname === '/products' && <ContainerProducts/>}
         {children}
