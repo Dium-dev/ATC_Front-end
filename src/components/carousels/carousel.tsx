@@ -4,9 +4,12 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 
 type CarouselProps = {
   children: React.ReactNode[];
+  lg?: number;
+  md?: number;
+  sm?: number;
 };
 
-export function Carousel({ children }: CarouselProps) {
+export function Carousel({ children, lg = 4, md = 3, sm = 2 }: CarouselProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   function next() {
@@ -80,7 +83,7 @@ export function Carousel({ children }: CarouselProps) {
                   key={i}
                   className={`${
                     i < 4 ? '' : ''
-                  } min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/3)] lg:min-w-[calc(100%/4)] px-1 grid place-content-center overflow-hidden`}
+                  } min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/${md})] lg:min-w-[calc(100%/${lg})] px-1 grid place-content-center overflow-hidden`}
                 >
                   {child}
                 </div>

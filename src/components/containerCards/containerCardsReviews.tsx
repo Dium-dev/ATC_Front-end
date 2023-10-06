@@ -10,29 +10,29 @@ interface TestimonialData {
 }
 
 interface ReviewsContainerProps {
-    reviwes: TestimonialData[];
+  reviwes: TestimonialData[];
 }
 
-const ReviewsContainer: React.FC<ReviewsContainerProps> = ({ reviwes }: ReviewsContainerProps) => {
-
+const ReviewsContainer: React.FC<ReviewsContainerProps> = ({
+  reviwes,
+}: ReviewsContainerProps) => {
   const filteredReviews = reviwes.filter((review) => review.rating >= 3);
 
   return (
     <div>
-     <Carousel>      
-          {filteredReviews.map((review) => (
-              <Reviews
-                key={review.userName}
-                description={review.description}
-                userImage={review.userImage}
-                rating={review.rating}
-                userName={review.userName}
-              />
-          ))}
+      <Carousel lg={3} md={2}>
+        {filteredReviews.map((review) => (
+          <Reviews
+            key={review.userName}
+            description={review.description}
+            userImage={review.userImage}
+            rating={review.rating}
+            userName={review.userName}
+          />
+        ))}
       </Carousel>
     </div>
   );
 };
 
 export default ReviewsContainer;
-

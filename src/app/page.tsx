@@ -1,4 +1,3 @@
-import MainCarousel from '~/components/carousels/mainCarousel';
 import { TopSellers } from '~/components/containerCards/containerCards';
 import { createIconsTypes } from '~/utils/createIcons';
 import { ContainerPage } from './container_page';
