@@ -40,7 +40,7 @@ const Reviews: React.FC<ReviewsProps> = ({
         <Icon icon="quotationMarks" />
       </div>
       <div className="mb-4 h-[200px] ">
-        <p className="overflow-hidden line-clamp-6">{description}</p>
+        <p className=" h-[9em] overflow-auto">{description}</p>
       </div>
       <div className="border-t border-secondary-dm opacity-20"></div>
       <div className="flex items-center mb-2 mt-4">
