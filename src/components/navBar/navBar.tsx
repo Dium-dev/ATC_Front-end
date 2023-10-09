@@ -9,6 +9,7 @@ import { InputField } from '../inputs/InputField';
 import { ThemeModeButton } from '../ThemeMode';
 import { MainButton } from '../button/button';
 import { useFlagState } from '~/hooks/useFlagState';
+import { usePathname } from 'next/navigation';
 import Form from '../form/Form';
 
 interface NavBarProps {}
@@ -20,11 +21,11 @@ const NavBar: FC<NavBarProps> = ({}) => {
   const toggleNavbar = () => {
     setIsOpenMenu(!isOpenMenu);
   };
-
+  const pathname = usePathname()
   return (
     <nav>
-      <div className="z-50 fixed top-0 bg-opacity-70 bg-white w-full backdrop-blur-sm flex-col shadow-sm">
-        <div className="p-4 flex items-center h-[60px] justify-between mx-auto my-1">
+      <div className={`z-50 fixed top-0 bg-opacity-70 bg-white w-full backdrop-blur-sm flex-col ${pathname !== '/' ? 'shadow-none' : 'shadow-md'}`}>
+        <div className="p-4 flex items-center h-[60px] justify-between mx-auto">
           {/* Contenedor lado izquierdo menu hamburguesa-imagenes*/}
           <div className="flex items-center gap-2">
             {/* Icono hamburguesa */}
@@ -68,7 +69,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
             <div className="flex items-center justify-center ">
               <InputField
                 style={{ width: '50vw' }}
-                className="bg-opacity-70 bg-white "
+                className="shadow-md bg-opacity-70 bg-white "
                 placeholder="Buscar Productos"
                 leftIcon={<Icon icon="SearchIcon" />}
               />
