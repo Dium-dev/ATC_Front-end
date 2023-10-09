@@ -1,8 +1,9 @@
-'use client'
+'use client';
 import Footer from '~/components/footer/Footer';
 import NavBar from '~/components/navBar/navBar';
 import Categories from '~/components/categories/categories';
 import ContainerProducts from '~/components/containerProducts';
+import Filters from '~/components/filters';
 import { usePathname } from 'next/navigation';
 
 type ContainerPageProps = {
@@ -25,7 +26,10 @@ export function ContainerPage({
       {header && header}
       <main className="min-h-screen overflow-hidden mx-auto">
         {pathname !== '/' && <Categories />}
-        {pathname === '/products' && <ContainerProducts/>}
+        <section className="w-full h-full flex flex-col items-start justify-between mt-20 md:mt-0 py-10 px-10 md:flex-row md:gap-x-5 gap-y-6 md:gap-y-0">
+          {pathname === '/products' && <Filters />}
+          {pathname === '/products' && <ContainerProducts />}
+        </section>
         {children}
       </main>
       {footer && <Footer />}
