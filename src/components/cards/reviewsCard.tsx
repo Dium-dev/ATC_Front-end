@@ -35,15 +35,15 @@ const Reviews: React.FC<ReviewsProps> = ({
   };
 
   return (
-    <div className="flex flex-col w-[320px] h-80 bg-white m-5 p-4 lg:shadow-md rounded-lg ">
+    <div className="flex flex-col w-[320px]  bg-white m-5 p-4 lg:shadow-md rounded-lg ">
       <div>
         <Icon icon="quotationMarks" />
       </div>
-      <div className="mb-4 h-[200px] ">
-        <p className=" h-[9em] overflow-auto">{description}</p>
+      <div className="mb-4 ">
+        <p className="  line-clamp-3 hover:overflow-auto">{description}</p>
       </div>
-      <div className="border-t border-secondary-dm opacity-20"></div>
-      <div className="flex items-center mb-2 mt-4">
+      <div className="border-t border-secondary-dm opacity-20 "></div>
+      <div className="object flex items-center mb-2 mt-4 ">
         <Image
           src={userImage}
           alt={`Imagen de ${userName}`}
