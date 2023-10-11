@@ -4,13 +4,21 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 
 type CarouselProps = {
   children: React.ReactNode[];
-  lg?: number;
-  md?: number;
-  sm?: number;
+  items?: 1 | 2 | 3 | 4 | 5;
 };
 
-export function Carousel({ children, lg = 4, md = 3, sm = 2 }: CarouselProps) {
+export function Carousel({ children, items = 4 }: CarouselProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
+  const itemsView =
+    items === 1
+      ? 'min-w-full'
+      : items === 2
+      ? 'min-w-full ms:min-w-[calc(100%/2)]'
+      : items === 3
+      ? 'min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/3)]'
+      : items === 5
+      ? 'min-w-full ms:min-w-[calc(100%/2)]  md:min-w-[calc(100%/3)] lg:min-w-[calc(100%/5)]'
+      : 'min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/3)] lg:min-w-[calc(100%/4)]';
 
   function next() {
     if (!carouselRef.current) return;
@@ -83,7 +91,7 @@ export function Carousel({ children, lg = 4, md = 3, sm = 2 }: CarouselProps) {
                   key={i}
                   className={`${
                     i < 4 ? '' : ''
-                  } min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/${md})] lg:min-w-[calc(100%/${lg})] px-1 grid place-content-center overflow-hidden`}
+                  } ${itemsView} px-1 grid place-content-center overflow-hidden`}
                 >
                   {child}
                 </div>
