@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useRef } from 'react';
 import Link from 'next/link';
 import { Images } from '~/assets/img';
 import Icon from '~/assets/icons/icon';
@@ -10,6 +10,9 @@ import { ThemeModeButton } from '../ThemeMode';
 import { MainButton } from '../button/button';
 import { useFlagState } from '~/hooks/useFlagState';
 import Form from '../form/Form';
+import { BiSearch } from 'react-icons/bi';
+import { AiOutlineClose } from 'react-icons/ai';
+import { useProductStore } from '~/store/productStore';
 
 interface NavBarProps {}
 
@@ -17,8 +20,18 @@ const NavBar: FC<NavBarProps> = ({}) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [flagState, updateState] = useFlagState(false);
 
+  const searchBarRef = useRef<HTMLInputElement>(null);
+
   const toggleNavbar = () => {
     setIsOpenMenu(!isOpenMenu);
+  };
+  const updateBody = useProductStore((state) => state.updateBody);
+  const products = useProductStore((state) => state.products);
+
+  const clearSearchBar = () => {
+    if (searchBarRef.current) {
+      searchBarRef.current.value = ''; // Clear the input value
+    }
   };
 
   return (
@@ -65,13 +78,31 @@ const NavBar: FC<NavBarProps> = ({}) => {
           {/* Contenedor central dropDownMenus e input */}
           <div className="hidden md:flex items-center justify-center gap-5">
             {/* input */}
-            <div className="flex items-center justify-center ">
-              <InputField
-                style={{ width: '50vw' }}
-                className="bg-opacity-70 bg-white "
-                placeholder="Buscar Productos"
-                leftIcon={<Icon icon="SearchIcon" />}
+            <div className="flex items-center justify-center bg-white px-2 rounded-lg">
+              <BiSearch size={22} />
+              <input
+                id="searchBar"
+                ref={searchBarRef}
+                type="text"
+                placeholder='Buscar productos'
+                className="w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm"
+                onChange={(event) => {
+                  updateBody('name', event.target.value);
+                  products.length
+                    ? updateBody('page', 1)
+                    : updateBody('page', 0);
+                }}
+                disabled={!products.length}
               />
+              <span
+                onClick={() => {
+                  updateBody('name', '');
+                  clearSearchBar();
+                }}
+                className='cursor-pointer'
+              >
+                <AiOutlineClose size={21}/>
+              </span>
             </div>
           </div>
           {/* Contenedor lado derecho iconos*/}
