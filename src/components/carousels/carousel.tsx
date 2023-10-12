@@ -4,7 +4,7 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 
 type CarouselProps = {
   children: React.ReactNode[];
-  items?: 1 | 2 | 3 | 4;
+  items?: 1 | 2 | 3 | 4 | 5;
 };
 
 export function Carousel({ children, items = 4 }: CarouselProps) {
@@ -16,7 +16,9 @@ export function Carousel({ children, items = 4 }: CarouselProps) {
       ? 'min-w-full ms:min-w-[calc(100%/2)]'
       : items === 3
       ? 'min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/3)]'
-      : 'min-w-full ms:min-w-[calc(100%/2)]  lg:min-w-[calc(100%/4)]';
+      : items === 5
+      ? 'min-w-full ms:min-w-[calc(100%/2)]  md:min-w-[calc(100%/3)] lg:min-w-[calc(100%/5)]'
+      : 'min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/3)] lg:min-w-[calc(100%/4)]';
 
   function next() {
     if (!carouselRef.current) return;
