@@ -9,7 +9,7 @@ import { Brand } from '~/types/products';
 const Filters = () => {
   const updateBody = useProductStore((state) => state.updateBody);
   const resetBody = useProductStore((state) => state.resetBody)
- 
+  const products = useProductStore((state) => state.products)
   const selectRef = useRef<HTMLSelectElement>(null);
 
   const [state, setState] = useState({
@@ -96,7 +96,10 @@ const Filters = () => {
               <div
                 className="flex items-center gap-1"
                 key={category.id}
-                onClick={() => updateBody('categoryId', category.id)}
+                onClick={() => {
+                  updateBody('categoryId', category.id)
+                  products.length ? updateBody('page', 1) : updateBody('page', 0)
+                }}
               >
                 <BiCategoryAlt/>
                 <label>{category.name}</label>
@@ -121,7 +124,10 @@ const Filters = () => {
               <div
                 className="flex items-center gap-1"
                 key={brand.id}
-                onClick={() => updateBody('brandId', brand.id)}
+                onClick={() => {
+                  updateBody('brandId', brand.id)
+                  products.length ? updateBody('page', 1) : updateBody('page', 0)
+                }}
               >
                 <AiOutlineCar/>
                 <label htmlFor="">{brand.name}</label>
