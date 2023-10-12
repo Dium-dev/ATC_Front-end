@@ -9,6 +9,7 @@ import { InputField } from '../inputs/InputField';
 import { ThemeModeButton } from '../ThemeMode';
 import { MainButton } from '../button/button';
 import { useFlagState } from '~/hooks/useFlagState';
+import { usePathname } from 'next/navigation';
 import Form from '../form/Form';
 import { BiSearch } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -33,11 +34,11 @@ const NavBar: FC<NavBarProps> = ({}) => {
       searchBarRef.current.value = ''; // Clear the input value
     }
   };
-
+  const pathname = usePathname()
   return (
     <nav>
-      <div className="z-50 fixed top-0 bg-opacity-70 bg-white w-full backdrop-blur-sm flex-col shadow-sm">
-        <div className="p-4 flex items-center h-[60px] justify-between mx-auto my-1">
+      <div className={`z-50 fixed top-0 bg-opacity-70 bg-white w-full backdrop-blur-sm flex-col ${pathname !== '/' ? 'shadow-none' : 'shadow-md'}`}>
+        <div className="p-4 flex items-center h-[60px] justify-between mx-auto">
           {/* Contenedor lado izquierdo menu hamburguesa-imagenes*/}
           <div className="flex items-center gap-2">
             {/* Icono hamburguesa */}
