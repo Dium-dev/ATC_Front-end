@@ -3,7 +3,7 @@ import Footer from '~/components/footer/Footer';
 import NavBar from '~/components/navBar/navBar';
 import Categories from '~/components/categories/categories';
 import ContainerProducts from '~/components/containerProducts';
-import Filters from '~/components/filters';
+import { TopSellers } from '~/components/containerCards/containerCards';
 import { usePathname } from 'next/navigation';
 
 type ContainerPageProps = {
@@ -24,12 +24,10 @@ export function ContainerPage({
     <>
       {typeof nav === 'boolean' && nav ? <NavBar /> : nav}
       {header && header}
-      <main className="min-h-screen overflow-hidden mx-auto">
+      <main className="min-h-screen overflow-hidden mx-auto flex items-center flex-col">
         {pathname !== '/' && <Categories />}
-        <section className="w-full h-full flex flex-col items-start justify-between mt-20 md:mt-0 py-10 px-10 md:flex-row md:gap-x-5 gap-y-6 md:gap-y-0">
-          {pathname === '/products' && <Filters />}
-          {pathname === '/products' && <ContainerProducts />}
-        </section>
+        {pathname === '/products' && <ContainerProducts />}
+        {pathname === '/products' && <TopSellers/>}
         {children}
       </main>
       {footer && <Footer />}
