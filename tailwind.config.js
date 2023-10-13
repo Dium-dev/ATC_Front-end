@@ -7,7 +7,26 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/stories/**/*.{js,ts,jsx,tsx}',
   ],
-
+    safelist: [
+    // 'xs:min-w-[calc(100%/1)]',
+    'xs:min-w-[calc(100%/3)]',
+    'xs:min-w-[calc(100%/5)]',
+    'ms:min-w-[calc(100%/3)]',
+    'ms:min-w-[calc(100%/4)]',
+    'ms:min-w-[calc(100%/5)]',
+    'md:min-w-[calc(100%/4)]',
+    'md:min-w-[calc(100%/5)]',
+    'lg:min-w-[calc(100%/5)]',
+    {
+        // pattern: /xl:min-w-[calc(100%/(1|2|3|4|5))]/,
+        // pattern: /lg:min-w-[calc(100%/(1|2|3|4|5))]/,
+        // pattern: /md:min-w-[calc(100%/(1|2|3|4|5))]/,
+        // pattern: /ms:min-w-[calc(100%/(1|2|3|4|5))]/,
+        // pattern: /xs:min-w-[calc(100%/(1|2|3|4|5))]/,
+        pattern: /min-w-./,
+        variants: ['xl', 'lg', 'md', 'ms', 'xs']
+    }
+  ],
   theme: {
     colors: {
       'background-lm': '#f1f1f1',
