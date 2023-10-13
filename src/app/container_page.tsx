@@ -3,6 +3,7 @@ import Footer from '~/components/footer/Footer';
 import NavBar from '~/components/navBar/navBar';
 import Categories from '~/components/categories/categories';
 import ContainerProducts from '~/components/containerProducts';
+import PaginationProducts from '~/components/paginationProducts';
 import { TopSellers } from '~/components/containerCards/containerCards';
 import { usePathname } from 'next/navigation';
 
@@ -27,6 +28,7 @@ export function ContainerPage({
       <main className="min-h-screen overflow-hidden mx-auto flex items-center flex-col">
         {pathname !== '/' && <Categories />}
         {pathname === '/products' && <ContainerProducts />}
+        {pathname === '/products' && <PaginationProducts />}
         {pathname === '/products' && <TopSellers/>}
         {children}
       </main>
