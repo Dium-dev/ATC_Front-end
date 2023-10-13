@@ -123,13 +123,31 @@ const NavBar: FC<NavBarProps> = ({}) => {
           </div>
         </div>
         {/* Input mobile*/}
-        <div className="md:hidden flex items-center justify-center pb-3 shadow-md">
-          <InputField
-            style={{ width: '60vw' }}
-            className="max-w-md shadow-md bg-opacity-70 bg-white"
-            placeholder="Buscar Productos"
-            leftIcon={<Icon icon="SearchIcon" />}
-          />
+        <div className="md:hidden flex items-center justify-center px-2 py-1 rounded-lg mx-auto w-5/6 bg-white">
+          <BiSearch size={22} />
+              <input
+                id="searchBar"
+                ref={searchBarRef}
+                type="text"
+                placeholder='Buscar productos'
+                className="w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm"
+                onChange={(event) => {
+                  updateBody('name', event.target.value);
+                  products.length
+                    ? updateBody('page', 1)
+                    : updateBody('page', 0);
+                }}
+                disabled={!products.length}
+              />
+              <span
+                onClick={() => {
+                  updateBody('name', '');
+                  clearSearchBar();
+                }}
+                className='cursor-pointer'
+              >
+                <AiOutlineClose size={21}/>
+              </span>
         </div>
       </div>
       <div>
