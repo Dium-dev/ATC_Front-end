@@ -37,9 +37,9 @@ export default function Dinamica() {
     return (
         <ContainerPage>
             <div className="flex flex-col items-center w-full bg-background-lm dark:bg-background-dm ms:flex-row ms:justify-center">
-                {/* IMAGES */}
                 <div className="flex flex-col items-center w-[75%] ms:flex-row ms:justify-center">
-                    <div className="flex flex-col items-center w-[250px] xs:w-[500px]">
+                {/* IMAGES */}
+                    <div className="flex flex-col items-center min-w-[250px] max-w-[500px]">
                         <div
                             className="min-w-full mb-2 hover:cursor-pointer"
                             onClick={toggleModalVisibility}
@@ -47,19 +47,19 @@ export default function Dinamica() {
                             <img src={mainImage} className="w-full h-auto" />
                         </div>
                         <div
-                            className={`${isModalVisible ? "grid" : "hidden"} z-[9999] fixed top-0 left-0 place-items-center min-w-full min-h-screen bg-[rgb(15,15,15,0.9)]`}
+                            className={`${isModalVisible ? "grid" : "hidden"} z-[9999] fixed top-0 left-0 place-items-center min-w-full min-h-screen bg-[rgb(15,15,15,0.9)] xxl:bg-primary-lm`}
                             onClick={toggleModalVisibility}
                         >
-                            <div className="absolute right-4 top-4 text-background-lm w-10 hover:cursor-pointer hover:opacity-80">
+                            <div className="absolute right-4 top-4 text-background-lm w-8 hover:cursor-pointer hover:opacity-80">
                                 <Close />
                             </div>
                             <img
                                 src={mainImage}
-                                className={`${isModalVisible ? "opacity-100" : "opacity-0"} w-[500px] h-auto select-none transition-opacity`}
+                                className={`${isModalVisible ? "opacity-100" : "opacity-0"} p-4 w-[600px] h-auto select-none transition-opacity`}
                                 onClick={(e) => e.stopPropagation()}
                             />
                         </div>
-                        <div className="w-[100%]">
+                        <div className="flex-1">
                             <Carousel
                                 items={5}
                                 setMainImage={setMainImage}
