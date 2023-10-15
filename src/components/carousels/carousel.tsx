@@ -1,13 +1,15 @@
 'use client';
 import { useRef } from 'react';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
+import { useEffect } from 'react';
 
 type CarouselProps = {
   children: React.ReactNode[];
   items?: 1 | 2 | 3 | 4 | 5 | 9;
+  auto?: boolean;
 };
 
-export function Carousel({ children, items = 4 }: CarouselProps) {
+export function Carousel({ children, items = 4, auto = false }: CarouselProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
   const itemsView =
     items === 1
@@ -71,7 +73,17 @@ export function Carousel({ children, items = 4 }: CarouselProps) {
     }
   }
 
-  if (!children.length) return;
+  useEffect(() => {
+    if (auto) {
+      const interval = setInterval(() => {
+        next();
+      }, 4000);
+
+      return () => {
+        clearInterval(interval);
+      };
+    }
+  }, [auto]);
 
   return (
     <>

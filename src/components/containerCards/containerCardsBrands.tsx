@@ -55,7 +55,7 @@ const ContainerCardsBrands: React.FC = () => {
   return (
     <div className=" flex  flex-col items-center justify-between bg-[#13131D] mb-9 ">
       <div className=" w-full max-w-f-hd  bg-black py-9">
-        <Carousel items={9}>
+        <Carousel items={9} auto={true}>
           {imagesBrands.map((brand, index) => (
             <BrandCard key={index} imageSrc={brand.image} title={brand.name} />
           ))}
