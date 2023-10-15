@@ -25,11 +25,11 @@ export function ContainerPage({
     <>
       {typeof nav === 'boolean' && nav ? <NavBar /> : nav}
       {header && header}
-      <main className="min-h-screen overflow-hidden mx-auto flex items-center flex-col">
+      <main className="min-h-screen overflow-hidden mx-auto ">
         {pathname !== '/' && <Categories />}
         {pathname === '/products' && <ContainerProducts />}
         {pathname === '/products' && <PaginationProducts />}
-        {pathname === '/products' && <TopSellers/>}
+        {pathname === '/products' && <TopSellers />}
         {children}
       </main>
       {footer && <Footer />}
