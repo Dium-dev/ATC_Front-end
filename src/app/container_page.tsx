@@ -27,7 +27,7 @@ export function ContainerPage({
       {header && header}
       <main className="min-h-screen overflow-hidden mx-auto">
         {pathname !== '/' && <Categories />}
-        <section className='w-full h-full flex flex-col items-start justify-between p-10 md:gap-x-5 gap-y-6 md:gap-y-0'>
+        <section className='w-full h-full flex flex-col items-start justify-between p-1 md:p-10 md:gap-x-5 gap-y-6 md:gap-y-0'>
           {pathname === '/products' && <ContainerProducts />}
           {pathname === '/products' && <PaginationProducts />}
           {pathname === '/products' && <TopSellers />}

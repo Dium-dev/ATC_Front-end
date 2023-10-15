@@ -7,9 +7,9 @@ const NotFoundProducts = () => {
       <Image
         src={banner}
         alt={'Producto no encontrado'}
-        style={{height: '60vh', width: 'auto'}}
+        className='h-[30vh] ms:h-[50vh] md:h-[60vh] w-auto'
       />
-      <p className='w-[50%] text-center text-sm'>Te invitamos a ponerte en contacto con nosotros para que podamos verificar la disponibilidad a través de nuestros proveedores y ofrecerte la mejor solución. Estaremos encantados de ayudarte a encontrar lo que necesitas.</p>
+      <p className='w-full ms:w-[80%] md:w-[50%] text-center text-sm'>Te invitamos a ponerte en contacto con nosotros para que podamos verificar la disponibilidad a través de nuestros proveedores y ofrecerte la mejor solución. Estaremos encantados de ayudarte a encontrar lo que necesitas.</p>
       <Link href={'/contact'} className='text-primary-lm underline font-extrabold'>CONTACTANOS</Link>
     </section>
   );
