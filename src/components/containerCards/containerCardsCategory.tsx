@@ -51,13 +51,16 @@ const Categories = () => {
     }
 
     return (
-        <div className="grid grid-cols-2 xs:grid-cols-3 ms:grid-cols-3 md:grid-cols-4 place-items-center mt-12">
-            {
-                CATEGORIES.map(({ name, image }, id) => (
-                    <CardCategory key={id} name={name} image={image} handleCardHovering={() => handleCardHovering(name)} isHovered={isHovered} handleCardLeave={handleCardLeave} />
-                ))
-            }
-        </div>
+        <section className="flex flex-col items-center w-full xxl:w-[1920px]">
+            <h2 className="w-full my-4 text-[clamp(1rem,calc(2vw+1rem+0.5vh),3rem)] uppercase text-start leading-normal">Categorías destacadas</h2>
+            <div className="grid grid-cols-2 xs:grid-cols-3 ms:grid-cols-3 md:grid-cols-4 place-items-center mt-12 w-[70%]">
+                {
+                    CATEGORIES.map(({ name, image }, id) => (
+                        <CardCategory key={id} name={name} image={image} handleCardHovering={() => handleCardHovering(name)} isHovered={isHovered} handleCardLeave={handleCardLeave} />
+                    ))
+                }
+            </div>
+        </section>
     );
 };
 

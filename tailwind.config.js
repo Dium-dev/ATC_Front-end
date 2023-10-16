@@ -11,7 +11,7 @@ module.exports = {
   theme: {
     colors: {
       'background-lm': '#f1f1f1',
-      'background-dm': '#13131d',
+      'background-dm': '#121212',
       'primary-lm': '#8C0303',
       'primary-dm': '#444444',
       'secondary-lm': '#F20505',
@@ -28,6 +28,7 @@ module.exports = {
       md: '1080px',
       lg: '1200px',
       xl: '1480px',
+      xxl: '1920px'
     },
     extend: {
       backgroundImage: {
@@ -44,6 +45,13 @@ module.exports = {
       gap: {
         50: '50px',
       },
+      boxShadow: {
+        'category-lm': '0 2px 6px 0 rgba(0, 0, 0, 0.1), 0 1px 6px 0 rgba(0, 0, 0, 0.1)',
+        'category-dm': '0 2px 6px 0 rgba(255, 255, 255, 0.1), 0 1px 6px 0 rgba(255, 255, 255, 0.1)'
+      },
+      transitionProperty: {
+        'transform&shadow': 'transform, box-shadow'
+      }
     },
     plugins: [],
   },
