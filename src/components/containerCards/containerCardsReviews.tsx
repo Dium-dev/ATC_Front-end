@@ -20,7 +20,7 @@ const ReviewsContainer: React.FC<ReviewsContainerProps> = ({
 
   return (
     <div>
-      <Carousel items={5}>
+      <Carousel items={3}>
         {filteredReviews.map((review) => (
           <Reviews
             key={review.userName}

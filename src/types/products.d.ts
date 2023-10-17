@@ -11,6 +11,16 @@ export type ProductsProps = {
   brand: Brand;
   category: Category;
 };
+
+export type Body = {
+  page: number;
+  limit: number;
+  order: string;
+  categoryId: string;
+  brandId: string;
+  name: string;
+};
+
 type Brand = {
   id: string;
   name: string;
@@ -22,6 +32,8 @@ type Category = {
 };
 
 export interface ProductCardProps {
+  id: string;
+  imageSrc: string;
   title: string;
   price: number;
   offer: number;
@@ -31,4 +43,4 @@ export interface ProductCardProps {
 export type CategoryProps = {
   image: string;
   name: string;
-}
+};
