@@ -1,41 +1,28 @@
 'use client';
-import { useRef, useState, useEffect } from 'react';
+import { useRef } from 'react';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { useEffect } from 'react';
 
 type CarouselProps = {
   children: React.ReactNode[];
   items?: 1 | 2 | 3 | 4 | 5 | 9;
-  // products/[id]:
-  setMainImage?: Function,
-  // products/[id]:
-  highlight?: boolean,
-  // styles:
-  stl?: {
-    width?: string,
-    padding?: string,
-    height?: string,
-    buttonSquared?: boolean
-  };
   auto?: boolean;
-
 };
 
-export function Carousel({ children, items = 4, setMainImage, highlight, auto = false, stl }: CarouselProps) {
+export function Carousel({ children, items = 4, auto = false }: CarouselProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
   const itemsView =
     items === 1
       ? 'min-w-full'
       : items === 2
-        ? 'min-w-full ms:min-w-[calc(100%/2)]'
-        : items === 3
-        ? 'min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/3)]'
-        : items === 5
-        ? 'min-w-[calc(100%/5)]'
-        : 'min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/3)] lg:min-w-[calc(100%/4)]';
-        : items === 9
-        ? 'min-w-full ms:min-w-[calc(100%/2)]  md:min-w-[calc(100%/3)] lg:min-w-[calc(100%/9)]'
-        : 'min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/3)] lg:min-w-[calc(100%/4)]';
+      ? 'min-w-full ms:min-w-[calc(100%/2)]'
+      : items === 3
+      ? 'min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/3)]'
+      : items === 5
+      ? 'min-w-full ms:min-w-[calc(100%/2)]  md:min-w-[calc(100%/3)] lg:min-w-[calc(100%/5)]'
+      : items === 9
+      ? 'min-w-full ms:min-w-[calc(100%/2)]  md:min-w-[calc(100%/3)] lg:min-w-[calc(100%/9)]'
+      : 'min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/3)] lg:min-w-[calc(100%/4)]';
 
   function next() {
     if (!carouselRef.current) return;
@@ -86,19 +73,6 @@ export function Carousel({ children, items = 4, setMainImage, highlight, auto = 
     }
   }
 
-
-  const [highlighted, setHighlighted] = useState<string>("");
-
-  // Función solo válida para app/products/[id]/page.
-  // Setear la propiedad src de "child", no funcionará de otra manera.
-  function handleClickOnElement(child: any) {
-    setMainImage && setMainImage(child.props.src);
-    // En los estilos comparar child.props.src con el estado "highlighted".
-    highlight && setHighlighted(child.props.src);
-  };
-
-  if (!children.length) return null;
-
   useEffect(() => {
     if (auto) {
       const interval = setInterval(() => {
@@ -113,10 +87,10 @@ export function Carousel({ children, items = 4, setMainImage, highlight, auto = 
 
   return (
     <>
-      <div className={`flex gap-1 relative ${stl?.buttonSquared ? "" : "items-center"} ${stl ? stl?.padding : "px-2"}`}>
+      <div className="flex gap-1 relative items-center px-2">
         <button
           onClick={() => previus()}
-          className={`${stl ? stl?.width : "w-10"} ${stl?.buttonSquared ? "" : "apect-square rounded-full"} p-2 bg-white text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all`}
+          className={`w-10 aspect-square rounded-full p-2 bg-white hover:scale-105 hover:text-primary-lm shadow hover:shadow-lg ${''}`}
         >
           <BsChevronCompactLeft size="100%" />
         </button>
@@ -125,17 +99,13 @@ export function Carousel({ children, items = 4, setMainImage, highlight, auto = 
             ref={carouselRef}
             className="flex flex-nowrap justify-start min-h-[50px]"
           >
-            {children.map((child: any, i) => {
-              // child: any => para poder acceder a child?.props.src
+            {children.map((child, i) => {
               return (
                 <div
                   key={i}
-                  className={`
-                    ${itemsView} 
-                    ${highlight ? (child?.props?.src === highlighted ? "opacity-1 transition-opacity duration-300" : "opacity-40") : ""}
-                    px-1 grid place-content-center overflow-hidden
-                  `}
-                  onClick={() => handleClickOnElement(child)}
+                  className={`${
+                    i < 4 ? '' : ''
+                  } ${itemsView} px-1 grid place-content-center overflow-hidden`}
                 >
                   {child}
                 </div>
@@ -145,7 +115,7 @@ export function Carousel({ children, items = 4, setMainImage, highlight, auto = 
         </div>
         <button
           onClick={() => next()}
-          className={`${stl ? stl?.width : "w-10"} ${stl?.buttonSquared ? "" : "apect-square rounded-full"} p-2 bg-white text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all`}
+          className={`w-10 aspect-square rounded-full p-2 bg-white shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg ${''}`}
         >
           <BsChevronCompactRight size="100%" />
         </button>
