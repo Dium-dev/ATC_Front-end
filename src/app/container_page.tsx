@@ -21,7 +21,6 @@ export function ContainerPage({
   children,
 }: ContainerPageProps) {
   const pathname = usePathname();
-
   return (
     <>
       {/* nav === true? */}
