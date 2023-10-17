@@ -1,7 +1,7 @@
 'use client';
 import { useRef, useState, useEffect } from 'react';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
-import { useEffect } from 'react';
+
 
 type CarouselProps = {
   children: React.ReactNode[];
@@ -32,7 +32,6 @@ export function Carousel({ children, items = 4, setMainImage, highlight, auto = 
         ? 'min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/3)]'
         : items === 5
         ? 'min-w-[calc(100%/5)]'
-        : 'min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/3)] lg:min-w-[calc(100%/4)]';
         : items === 9
         ? 'min-w-full ms:min-w-[calc(100%/2)]  md:min-w-[calc(100%/3)] lg:min-w-[calc(100%/9)]'
         : 'min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/3)] lg:min-w-[calc(100%/4)]';
