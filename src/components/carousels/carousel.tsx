@@ -1,10 +1,11 @@
 'use client';
 import { useRef, useState, useEffect } from 'react';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
+import { useEffect } from 'react';
 
 type CarouselProps = {
   children: React.ReactNode[];
-  items?: 1 | 2 | 3 | 4 | 5;
+  items?: 1 | 2 | 3 | 4 | 5 | 9;
   // products/[id]:
   setMainImage?: Function,
   // products/[id]:
@@ -15,10 +16,12 @@ type CarouselProps = {
     padding?: string,
     height?: string,
     buttonSquared?: boolean
-  }
+  };
+  auto?: boolean;
+
 };
 
-export function Carousel({ children, items, setMainImage, highlight, stl }: CarouselProps) {
+export function Carousel({ children, items = 4, setMainImage, highlight, auto = false, stl }: CarouselProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
   const itemsView =
     items === 1
@@ -26,10 +29,13 @@ export function Carousel({ children, items, setMainImage, highlight, stl }: Caro
       : items === 2
         ? 'min-w-full ms:min-w-[calc(100%/2)]'
         : items === 3
-          ? 'min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/3)]'
-          : items === 5
-            ? 'min-w-[calc(100%/5)]'
-            : 'min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/3)] lg:min-w-[calc(100%/4)]';
+        ? 'min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/3)]'
+        : items === 5
+        ? 'min-w-[calc(100%/5)]'
+        : 'min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/3)] lg:min-w-[calc(100%/4)]';
+        : items === 9
+        ? 'min-w-full ms:min-w-[calc(100%/2)]  md:min-w-[calc(100%/3)] lg:min-w-[calc(100%/9)]'
+        : 'min-w-full ms:min-w-[calc(100%/2)] md:min-w-[calc(100%/3)] lg:min-w-[calc(100%/4)]';
 
   function next() {
     if (!carouselRef.current) return;
@@ -80,6 +86,7 @@ export function Carousel({ children, items, setMainImage, highlight, stl }: Caro
     }
   }
 
+
   const [highlighted, setHighlighted] = useState<string>("");
 
   // Función solo válida para app/products/[id]/page.
@@ -92,6 +99,17 @@ export function Carousel({ children, items, setMainImage, highlight, stl }: Caro
 
   if (!children.length) return null;
 
+  useEffect(() => {
+    if (auto) {
+      const interval = setInterval(() => {
+        next();
+      }, 4000);
+
+      return () => {
+        clearInterval(interval);
+      };
+    }
+  }, [auto]);
 
   return (
     <>
