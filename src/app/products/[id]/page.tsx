@@ -7,7 +7,7 @@ import { Carousel } from "~/components/carousels/carousel";
 import { productos } from "~/mockData/mockProducts";
 
 import Close from "~/assets/icons/Close";
-
+import { BuyDetail } from "~/components/buyDetail";
 
 export default function Dinamica() {
     const Pathname = usePathname();
@@ -36,10 +36,10 @@ export default function Dinamica() {
     // COMPONENT:
     return (
         <ContainerPage>
-            <div className="flex flex-col items-center w-full bg-background-lm dark:bg-background-dm ms:flex-row ms:justify-center">
-                <div className="flex flex-col items-center w-[75%] ms:flex-row ms:justify-center">
+            <div className="flex flex-col items-center w-full h-[60vh] md:h-[85vh] bg-background-lm dark:bg-background-dm ms:flex-row ms:justify-center">
+                <div className="flex flex-col items-center w-[75%] ms:flex-row ms:justify-center h-full ms:gap-x-20">
                 {/* IMAGES */}
-                    <div className="flex flex-col items-center min-w-[250px] max-w-[500px]">
+                    <div className="flex flex-col items-center min-w-[250px] max-w-[500px] h-[84%]">
                         <div
                             className="min-w-full mb-2 hover:cursor-pointer"
                             onClick={toggleModalVisibility}
@@ -82,8 +82,8 @@ export default function Dinamica() {
                         </div>
                     </div>
                     {/* DETAILS */}
-                    <div className="flex flex-col w-1/2">
-                        <h1>PRODUCT DETAILS</h1>
+                    <div className="flex flex-col w-1/2 h-full">
+                        <BuyDetail/>
                     </div>
                 </div>
             </div>
