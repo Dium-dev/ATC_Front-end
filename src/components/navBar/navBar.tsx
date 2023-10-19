@@ -1,11 +1,10 @@
 'use client';
 import Image from 'next/image';
-import React, { FC, useState, useRef } from 'react';
+import React, { FC, useState } from 'react';
 import Link from 'next/link';
 import { Images } from '~/assets/img';
 import Icon from '~/assets/icons/icon';
 import MenuMobile from './MenuMobile';
-import { InputField } from '../inputs/InputField';
 import { ThemeModeButton } from '../ThemeMode';
 import { MainButton } from '../button/button';
 import { useFlagState } from '~/hooks/useFlagState';
@@ -21,8 +20,6 @@ const NavBar: FC<NavBarProps> = ({}) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [flagState, updateState] = useFlagState(false);
 
-  const searchBarRef = useRef<HTMLInputElement>(null);
-
   const toggleNavbar = () => {
     setIsOpenMenu(!isOpenMenu);
   };
@@ -30,14 +27,20 @@ const NavBar: FC<NavBarProps> = ({}) => {
   const products = useProductStore((state) => state.products);
 
   const clearSearchBar = () => {
-    if (searchBarRef.current) {
-      searchBarRef.current.value = ''; // Clear the input value
+    const searchBar: HTMLInputElement | null | HTMLElement =
+      document.getElementById('searchBar');
+    if (searchBar !== null && searchBar instanceof HTMLInputElement) {
+      searchBar.value = '';
     }
   };
-  const pathname = usePathname()
+  const pathname = usePathname();
   return (
     <nav>
-      <div className={`z-50 fixed top-0 bg-opacity-70 bg-white w-full backdrop-blur-sm flex-col ${pathname !== '/' ? 'shadow-none' : 'shadow-md'}`}>
+      <div
+        className={`z-50 fixed top-0 bg-opacity-70 bg-white w-full backdrop-blur-sm flex-col ${
+          pathname !== '/' ? 'shadow-none' : 'shadow-md'
+        }`}
+      >
         <div className="p-4 flex items-center h-[60px] justify-between mx-auto">
           {/* Contenedor lado izquierdo menu hamburguesa-imagenes*/}
           <div className="flex items-center gap-2">
@@ -83,26 +86,22 @@ const NavBar: FC<NavBarProps> = ({}) => {
               <BiSearch size={22} />
               <input
                 id="searchBar"
-                ref={searchBarRef}
                 type="text"
-                placeholder='Buscar productos'
+                placeholder="Buscar productos"
                 className="w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm"
                 onChange={(event) => {
                   updateBody('name', event.target.value);
-                  products.length
-                    ? updateBody('page', 1)
-                    : updateBody('page', 0);
+                  products.length && updateBody('page', 1);
                 }}
-                disabled={!products.length}
               />
               <span
                 onClick={() => {
                   updateBody('name', '');
                   clearSearchBar();
                 }}
-                className='cursor-pointer'
+                className="cursor-pointer"
               >
-                <AiOutlineClose size={21}/>
+                <AiOutlineClose size={21} />
               </span>
             </div>
           </div>
@@ -125,29 +124,25 @@ const NavBar: FC<NavBarProps> = ({}) => {
         {/* Input mobile*/}
         <div className="md:hidden flex items-center justify-center px-2 py-1 rounded-lg mx-auto w-5/6 bg-white">
           <BiSearch size={22} />
-              <input
-                id="searchBar"
-                ref={searchBarRef}
-                type="text"
-                placeholder='Buscar productos'
-                className="w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm"
-                onChange={(event) => {
-                  updateBody('name', event.target.value);
-                  products.length
-                    ? updateBody('page', 1)
-                    : updateBody('page', 0);
-                }}
-                disabled={!products.length}
-              />
-              <span
-                onClick={() => {
-                  updateBody('name', '');
-                  clearSearchBar();
-                }}
-                className='cursor-pointer'
-              >
-                <AiOutlineClose size={21}/>
-              </span>
+          <input
+            id="searchBar"
+            type="text"
+            placeholder="Buscar productos"
+            className="w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm"
+            onChange={(event) => {
+              updateBody('name', event.target.value);
+              products.length && updateBody('page', 1);
+            }}
+          />
+          <span
+            onClick={() => {
+              updateBody('name', '');
+              clearSearchBar();
+            }}
+            className="cursor-pointer"
+          >
+            <AiOutlineClose size={21} />
+          </span>
         </div>
       </div>
       <div>
