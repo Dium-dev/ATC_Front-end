@@ -1,4 +1,3 @@
-import MainCarousel from '~/components/carousels/mainCarousel';
 import { TopSellers } from '~/components/containerCards/containerCards';
 import { createIconsTypes } from '~/utils/createIcons';
 import { ContainerPage } from './container_page';
@@ -7,8 +6,8 @@ import PaymentMethodsList from '~/components/paymentMethod/paymentMethodsList';
 import ReviewsContainer from '~/components/containerCards/containerCardsReviews';
 import reviews from '~/mockData/mockReviwes';
 import Banner from '~/components/Banner';
-import BrandCarrousel from '~/components/carousels/brandCarrousel';
 import SecondCarousel from '~/components/carousels/secondCarousel';
+import ContainerCardsBrands from '~/components/containerCards/containerCardsBrands';
 
 export default function Home() {
   createIconsTypes();
@@ -16,7 +15,7 @@ export default function Home() {
     <ContainerPage header={<SecondCarousel />}>
       <Categories />
       <TopSellers />
-      <BrandCarrousel />
+      <ContainerCardsBrands />
       <Banner />
       <ReviewsContainer reviwes={reviews} />
       <PaymentMethodsList />

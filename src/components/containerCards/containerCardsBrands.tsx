@@ -1,59 +1,68 @@
 'use client';
-import React from 'react';
-import { useState } from 'react';
-import Pagination from '../pagination';
-import Card from '../cards/brandCard';
+import Image from 'next/image';
+import { Carousel } from '../carousels/carousel';
+import BrandCard from '../cards/brandCard';
 
-type Brand = {
-  id: string;
-  name: string;
-  image: string[];
-};
+const imagesBrands = [
+  {
+    name: 'Ford',
+    image:
+      'https://user-images.githubusercontent.com/124757365/266650645-7b118906-6a8d-4c07-84be-b6ad1e7f3e7a.png',
+  },
+  {
+    name: 'Mazda',
+    image:
+      'https://user-images.githubusercontent.com/124757365/266650645-7b118906-6a8d-4c07-84be-b6ad1e7f3e7a.png',
+  },
+  {
+    name: 'Toyota',
+    image:
+      'https://user-images.githubusercontent.com/124757365/266650645-7b118906-6a8d-4c07-84be-b6ad1e7f3e7a.png',
+  },
+  {
+    name: 'Honda',
+    image:
+      'https://user-images.githubusercontent.com/124757365/266650645-7b118906-6a8d-4c07-84be-b6ad1e7f3e7a.png',
+  },
+  {
+    name: 'Nissan',
+    image:
+      'https://user-images.githubusercontent.com/124757365/266650645-7b118906-6a8d-4c07-84be-b6ad1e7f3e7a.png',
+  },
+  {
+    name: 'Chevrolet',
+    image:
+      'https://user-images.githubusercontent.com/124757365/266650645-7b118906-6a8d-4c07-84be-b6ad1e7f3e7a.png',
+  },
+  {
+    name: 'Volkswagen',
+    image:
+      'https://user-images.githubusercontent.com/124757365/266650645-7b118906-6a8d-4c07-84be-b6ad1e7f3e7a.png',
+  },
+  {
+    name: 'Mercedes Benz',
+    image:
+      'https://user-images.githubusercontent.com/124757365/266650645-7b118906-6a8d-4c07-84be-b6ad1e7f3e7a.png',
+  },
+  {
+    name: 'BMW',
+    image:
+      'https://user-images.githubusercontent.com/124757365/266650645-7b118906-6a8d-4c07-84be-b6ad1e7f3e7a.png',
+  },
+];
 
-type ContainerCardProps = {
-  brand: Brand[];
-};
-
-const BrandCategory = ({ brand }: ContainerCardProps) => {
-  const [pagination, setPagination] = useState({
-    page: 1,
-    itemsPage: 5,
-  });
-
-  const maximo = Math.ceil(brand.length / pagination.itemsPage);
-  const startIndex = (pagination.page - 1) * pagination.itemsPage;
-  const endIndex = startIndex + pagination.itemsPage;
-
-  const anteriorSiguiente = (action: 'Anterior' | 'Siguiente') => {
-    if (action === 'Anterior')
-      setPagination({
-        ...pagination,
-        page: pagination.page - 1,
-      });
-    else if (action === 'Siguiente')
-      setPagination({
-        ...pagination,
-        page: pagination.page + 1,
-      });
-  };
-
+const ContainerCardsBrands: React.FC = () => {
   return (
-    <div>
-      <h1 className="title">Marcas</h1>
-      <div className="flex flex-wrap justify-center">
-        {brand.slice(startIndex, endIndex).map((brand) => (
-          <Card key={brand.id} title={brand.name} imageSrc={brand.image[0]} />
-        ))}
-      </div>
-      <div className="flex justify-center items-center text-center my-8">
-        <Pagination
-          page={pagination.page}
-          anteriorSiguiente={anteriorSiguiente}
-          maximo={maximo}
-        />
+    <div className=" flex  flex-col items-center justify-between bg-[#13131D] mb-9 ">
+      <div className=" w-full max-w-f-hd  bg-black py-9">
+        <Carousel items={9} auto={true}>
+          {imagesBrands.map((brand, index) => (
+            <BrandCard key={index} imageSrc={brand.image} title={brand.name} />
+          ))}
+        </Carousel>
       </div>
     </div>
   );
 };
 
-export default BrandCategory;
+export default ContainerCardsBrands;
