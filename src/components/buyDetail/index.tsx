@@ -75,3 +75,4 @@ export const BuyDetail: FC<ProductDetail> = (product) => {
     </div>
   );
 };
+export default BuyDetail;
