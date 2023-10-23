@@ -98,7 +98,7 @@ const Filters = () => {
                 key={category.id}
                 onClick={() => {
                   updateBody('categoryId', category.id)
-                  products.length ? updateBody('page', 1) : updateBody('page', 0)
+                  products.length && updateBody('page', 1);
                 }}
               >
                 <BiCategoryAlt/>
@@ -126,7 +126,7 @@ const Filters = () => {
                 key={brand.id}
                 onClick={() => {
                   updateBody('brandId', brand.id)
-                  products.length ? updateBody('page', 1) : updateBody('page', 0)
+                  products.length && updateBody('page', 1);
                 }}
               >
                 <AiOutlineCar/>
