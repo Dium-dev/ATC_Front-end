@@ -88,7 +88,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
                 id="searchBar"
                 type="text"
                 placeholder="Buscar productos"
-                className="w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm"
+                className="w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm bg-white"
                 onChange={(event) => {
                   updateBody('name', event.target.value);
                   products.length && updateBody('page', 1);
