@@ -9,6 +9,9 @@ import { ThemeProvider } from 'next-themes';
 const inter = Inter({ subsets: ['latin'] });
 
 
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
+
 export default function RootLayout({
   children,
 }: {
