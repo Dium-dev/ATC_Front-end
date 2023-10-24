@@ -1,11 +1,10 @@
 'use client';
 import Image from 'next/image';
-import React, { FC, useState, useRef } from 'react';
+import React, { FC, useState } from 'react';
 import Link from 'next/link';
 import { Images } from '~/assets/img';
 import Icon from '~/assets/icons/icon';
 import MenuMobile from './MenuMobile';
-import { InputField } from '../inputs/InputField';
 import { ThemeModeButton } from '../ThemeMode';
 import { MainButton } from '../button/button';
 import { useFlagState } from '~/hooks/useFlagState';
@@ -21,8 +20,6 @@ const NavBar: FC<NavBarProps> = ({}) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [flagState, updateState] = useFlagState(false);
 
-  const searchBarRef = useRef<HTMLInputElement>(null);
-
   const toggleNavbar = () => {
     setIsOpenMenu(!isOpenMenu);
   };
@@ -30,8 +27,10 @@ const NavBar: FC<NavBarProps> = ({}) => {
   const products = useProductStore((state) => state.products);
 
   const clearSearchBar = () => {
-    if (searchBarRef.current) {
-      searchBarRef.current.value = ''; // Clear the input value
+    const searchBar: HTMLInputElement | null | HTMLElement =
+      document.getElementById('searchBar');
+    if (searchBar !== null && searchBar instanceof HTMLInputElement) {
+      searchBar.value = '';
     }
   };
   const pathname = usePathname();
@@ -87,17 +86,13 @@ const NavBar: FC<NavBarProps> = ({}) => {
               <BiSearch size={22} />
               <input
                 id="searchBar"
-                ref={searchBarRef}
                 type="text"
                 placeholder="Buscar productos"
                 className="w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm"
                 onChange={(event) => {
                   updateBody('name', event.target.value);
-                  products.length
-                    ? updateBody('page', 1)
-                    : updateBody('page', 0);
+                  products.length && updateBody('page', 1);
                 }}
-                disabled={!products.length}
               />
               <span
                 onClick={() => {
@@ -131,15 +126,13 @@ const NavBar: FC<NavBarProps> = ({}) => {
           <BiSearch size={22} />
           <input
             id="searchBar"
-            ref={searchBarRef}
             type="text"
             placeholder="Buscar productos"
             className="w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm"
             onChange={(event) => {
               updateBody('name', event.target.value);
-              products.length ? updateBody('page', 1) : updateBody('page', 0);
+              products.length && updateBody('page', 1);
             }}
-            disabled={!products.length}
           />
           <span
             onClick={() => {

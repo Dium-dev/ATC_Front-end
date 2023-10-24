@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { ContainerPage } from "~/app/container_page";
 import { Carousel } from "~/components/carousels/carousel";
 import { productos } from "~/mockData/mockProducts";
-
+import BuyDetail from '~/components/buyDetail';
 import Close from "~/assets/icons/Close";
 
 
@@ -83,7 +83,7 @@ export default function Dinamica() {
                     </div>
                     {/* DETAILS */}
                     <div className="flex flex-col w-1/2">
-                        <h1>PRODUCT DETAILS</h1>
+                        <BuyDetail />
                     </div>
                 </div>
             </div>
