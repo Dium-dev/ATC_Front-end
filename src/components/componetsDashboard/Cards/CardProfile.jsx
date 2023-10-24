@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 // components
 
@@ -12,7 +12,7 @@ export default function CardProfile() {
               <div className="relative">
                 <img
                   alt="..."
-                  src={require("assets/img/team-2-800x800.jpg").default}
+                  src={require("~/assets/img/team-2-800x800.jpg").default}
                   className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
                 />
               </div>
@@ -45,7 +45,7 @@ export default function CardProfile() {
               Jenna Stones
             </h3>
             <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-              <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
+              <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{' '}
               Los Angeles, California
             </div>
             <div className="mb-2 text-blueGray-600 mt-10">

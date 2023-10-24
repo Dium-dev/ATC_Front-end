@@ -12,11 +12,15 @@ import FooterAdmin from '~/components/componetsDashboard//Footers/FooterAdmin.js
 // views
 
 import Dashboard from '~/app/dashboardUser/page';
+import { type } from 'os';
 // import Maps from 'views/admin/Maps.js';
 // import Settings from 'views/admin/Settings.js';
 // import Tables from 'views/admin/Tables.js';
+type AdminProps = {
+  children: React.ReactNode;
+};
 
-export default function Admin() {
+export default function Admin({ children }: AdminProps) {
   return (
     <>
       <Sidebar />
@@ -25,7 +29,7 @@ export default function Admin() {
         {/* Header */}
         <HeaderStats />
               <div className="px-4 md:px-10 mx-auto w-full -m-24">
-            <Dashboard />
+           {children}
           {/* <Switch>
             <Route path="/admin/dashboard" exact component={Dashboard} />
             <Route path="/admin/maps" exact component={Maps} />
