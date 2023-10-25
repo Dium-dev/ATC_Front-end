@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { MainButton } from "../button/button";
 import Cookie from "~/assets/icons/Cookie";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function CookieConsent() {
 
