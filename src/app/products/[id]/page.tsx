@@ -1,13 +1,20 @@
+/* eslint-disable react/jsx-no-comment-textnodes */
+/* eslint-disable react/jsx-key */
 "use client";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-
+import { TopSellers } from '~/components/containerCards/containerCards';
 import { ContainerPage } from "~/app/container_page";
 import { Carousel } from "~/components/carousels/carousel";
 import { productos } from "~/mockData/mockProducts";
+import Breadcrumb from "~/components/breadcrumb/index";
 import BuyDetail from '~/components/buyDetail';
-import Close from "~/assets/icons/Close";
 
+
+/* este es un nuevo moc donde se agrega la descripcion del producto, */
+import { product } from '~/mockData/mocProductsD';
+
+import Close from '~/assets/icons/Close';
 
 export default function Dinamica() {
     const Pathname = usePathname();
@@ -16,29 +23,29 @@ export default function Dinamica() {
     // MockProducts como las imágenes de un mismo producto *hasta conseguir las imágenes correspondientes de un mismo producto.
     // Max: 10 images/product
     const productImagesSliced = productos.slice(0, 10);
+
     // Array of URL's:
     const productImages = productImagesSliced.map((product): string[] => product.image);
-
 
     // STATES:
     // La imagen principal.
     const [mainImage, setMainImage] = useState<string>(productImages[0][0]);
+
     // El modal para la imagen.
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
-
     // FUNCTIONS:
     const toggleModalVisibility = () => {
-        setIsModalVisible((prev) => !prev)
+        setIsModalVisible((prev) => !prev);
     };
-
 
     // COMPONENT:
     return (
         <ContainerPage>
+            <Breadcrumb />
             <div className="flex flex-col items-center w-full bg-background-lm dark:bg-background-dm ms:flex-row ms:justify-center">
                 <div className="flex flex-col items-center w-[75%] ms:flex-row ms:justify-center">
-                {/* IMAGES */}
+                    {/* IMAGES */}
                     <div className="flex flex-col items-center min-w-[250px] max-w-[500px]">
                         <div
                             className="min-w-full mb-2 hover:cursor-pointer"
@@ -70,23 +77,37 @@ export default function Dinamica() {
                                     buttonSquared: true
                                 }}
                             >
-                                {
-                                    productImagesSliced.map((product, idx) => (
-                                        <img
-                                            key={idx}
-                                            src={product.image[0]}
-                                        />
-                                    ))
-                                }
+                                {productImagesSliced.map((product, idx) => (
+                                    <img
+                                        key={idx}
+                                        src={product.image[0]}
+                                    />
+                                ))}
                             </Carousel>
                         </div>
                     </div>
                     {/* DETAILS */}
                     <div className="flex flex-col w-1/2">
                         <BuyDetail />
+                        </div>
                     </div>
                 </div>
-            </div>
-        </ContainerPage>
-    );
-};
+            {/* Descripcion Detail */}
+        <div className="h-auto bg-background-lm dark:bg-background-dm flex justify-center pt-5">
+        <div className="ms:w-[90%] md:w-[90%] lg:w-[64%] xl:w-[64%] w-[90%]">
+          <div className="bg-primary-lm justify-center items-center flex w-52 h-10 rounded-ss-[10px] rounded-se-[10px]">
+            <h1 className="text-2xl items-center text-white">Descripción</h1>
+          </div>
+          <hr className="w-full bg-background-dm border-background-dm dark:bg-background-lm dark:border-background-lm h-[2px]" />
+          <div className=" pl-2 pr-2 pt-5 pb-7">
+          <p className="text-background-dm dark:text-background-lm text-2x">
+            {/* para agregar un salto de línea en el renderizado, divido el contenido de la descripción del producto en líneas separadas utilizando el carácter de salto de línea ("\n") */}
+          {product[0].description.split ("\n").map (function (item) { return ( <span> {item} <br /> </span> ); })}
+            </p>
+          </div>
+        </div>
+      </div>
+      <TopSellers />
+    </ContainerPage>
+  );
+}
