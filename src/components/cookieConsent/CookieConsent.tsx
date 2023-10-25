@@ -42,7 +42,7 @@ function CookieConsent() {
             <div className="flex flex-col justify-center mb-4 xs:mr-4 xs:mb-0">
                 <strong className="text-[clamp(0.4rem,1rem+0.3vw,4rem)]">Uso de cookies</strong>
                 <p className="text-[clamp(0.25rem,0.75rem+0.25vw,3rem)]">
-                    Al navegar por nuestro portal, consideramos que aceptas nuestras <Link href="/politica-de-datos-de-navegacion" className="underline hover:cursor-pointer">políticas de datos de navegación</Link>.
+                    Al navegar por nuestro portal, consideramos que aceptas nuestras <Link href="/politica-de-datos-de-navegacion" target="_blank" className="underline hover:cursor-pointer">políticas de datos de navegación</Link>.
                 </p>
             </div>
             <div
