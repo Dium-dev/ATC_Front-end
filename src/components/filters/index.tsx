@@ -1,8 +1,7 @@
 'use client';
 import { useProductStore } from '~/store/productStore';
 import { useEffect, useState, useRef } from 'react';
-import { AiFillCaretUp, AiFillCaretDown, AiOutlineCar } from 'react-icons/ai';
-import {BiCategoryAlt} from 'react-icons/bi'
+import { AiFillCaretUp, AiFillCaretDown } from 'react-icons/ai';
 import { Category } from '~/types/products';
 import { Brand } from '~/types/products';
 
@@ -98,11 +97,10 @@ const Filters = () => {
                 key={category.id}
                 onClick={() => {
                   updateBody('categoryId', category.id)
-                  products.length ? updateBody('page', 1) : updateBody('page', 0)
+                  products.length && updateBody('page', 1);
                 }}
               >
-                <BiCategoryAlt/>
-                <label>{category.name}</label>
+                <label>• {category.name}</label>
               </div>
             ))}
           </div>
@@ -126,11 +124,10 @@ const Filters = () => {
                 key={brand.id}
                 onClick={() => {
                   updateBody('brandId', brand.id)
-                  products.length ? updateBody('page', 1) : updateBody('page', 0)
+                  products.length && updateBody('page', 1);
                 }}
               >
-                <AiOutlineCar/>
-                <label htmlFor="">{brand.name}</label>
+                <label>• {brand.name}</label>
               </div>
             ))}
           </div>

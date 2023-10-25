@@ -11,7 +11,18 @@ export type ProductsProps = {
   brand: Brand;
   category: Category;
 };
-
+export type ProductDetail = {
+  id: string;
+  title: string;
+  state: string;
+  stock: number;
+  price: number;
+  availability: number;
+  image: string[];
+  model: string;
+  year: string;
+  brandId: string;
+}
 export type Body = {
   page: number;
   limit: number;

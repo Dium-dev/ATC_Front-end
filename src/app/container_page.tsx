@@ -21,26 +21,26 @@ export function ContainerPage({
     footer = true,
     children,
 }: ContainerPageProps) {
-    const pathname = usePathname();
-    return (
-        <>
-            {/* nav === true? */}
-            {typeof nav === 'boolean' && nav ? <NavBar /> : nav}
-            {header && header}
-            <main className="min-h-screen overflow-hidden mx-auto">
-                {pathname !== '/' && <Categories />}
-                {pathname === '/products' ? (
-                    <section className="w-full h-full flex flex-col items-start justify-between p-1 md:p-10 md:gap-x-5 gap-y-6 md:gap-y-0">
-                        <ContainerProducts />
-                        <PaginationProducts />
-                        <TopSellers />
-                    </section>
-                ) : null}
-                {children}
-            </main>
-            {footer && <Footer />}
-            {/* Renderizar en todas las páginas hasta que el usuario lo cierre. La condición debe estar almacenada en localStorage */}
-            <CookieConsent />
-        </>
-    );
+  const pathname = usePathname();
+  return (
+    <>
+      {/* nav === true? */}
+      {typeof nav === 'boolean' && nav ? <NavBar /> : nav}
+      {header && header}
+      <main className="min-h-screen overflow-hidden mx-auto">
+        {pathname !== '/' && <Categories />}
+        {pathname === '/products' ? (
+          <section className="w-full h-full flex flex-col items-start justify-between md:gap-x-5 gap-y-6 md:gap-y-0">
+            <ContainerProducts />
+            <PaginationProducts />
+            <TopSellers />
+          </section>
+        ) : null}
+        {children}
+      </main>
+      {footer && <Footer />}
+      {/* Renderizar en todas las páginas hasta que el usuario lo cierre. La condición debe estar almacenada en localStorage */}
+      <CookieConsent />
+    </>
+  );
 }
