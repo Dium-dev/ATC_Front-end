@@ -31,10 +31,6 @@ function CookieConsent() {
         setCookiesConsent(true);
     };
 
-    useEffect(() => {
-        console.log(cookiesConsent)
-    }, [cookiesConsent]);
-
 
     // COMPONENT:
     if (cookiesConsent === true) return null;
