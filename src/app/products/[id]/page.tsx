@@ -16,13 +16,6 @@ import { product } from '~/mockData/mocProductsD';
 
 import Close from '~/assets/icons/Close';
 
-import { ContainerPage } from "~/app/container_page";
-import { Carousel } from "~/components/carousels/carousel";
-import { productos } from "~/mockData/mockProducts";
-import BuyDetail from '~/components/buyDetail';
-import Close from "~/assets/icons/Close";
-
-
 export default function Dinamica() {
     const Pathname = usePathname();
     const RouteName = Pathname.split("/").pop() || "";
@@ -30,20 +23,13 @@ export default function Dinamica() {
     // MockProducts como las imágenes de un mismo producto *hasta conseguir las imágenes correspondientes de un mismo producto.
     // Max: 10 images/product
     const productImagesSliced = productos.slice(0, 10);
-<<<<<<< HEAD
 
     // Array of URL's:
     const productImages = productImagesSliced.map((product): string[] => product.image);
-=======
-    // Array of URL's:
-    const productImages = productImagesSliced.map((product): string[] => product.image);
-
->>>>>>> 0528e788e92d02f16c4b4cca14fe601742fcc869
 
     // STATES:
     // La imagen principal.
     const [mainImage, setMainImage] = useState<string>(productImages[0][0]);
-<<<<<<< HEAD
 
     // El modal para la imagen.
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
@@ -60,24 +46,6 @@ export default function Dinamica() {
             <div className="flex flex-col items-center w-full bg-background-lm dark:bg-background-dm ms:flex-row ms:justify-center">
                 <div className="flex flex-col items-center w-[75%] ms:flex-row ms:justify-center">
                     {/* IMAGES */}
-=======
-    // El modal para la imagen.
-    const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-
-
-    // FUNCTIONS:
-    const toggleModalVisibility = () => {
-        setIsModalVisible((prev) => !prev)
-    };
-
-
-    // COMPONENT:
-    return (
-        <ContainerPage>
-            <div className="flex flex-col items-center w-full bg-background-lm dark:bg-background-dm ms:flex-row ms:justify-center">
-                <div className="flex flex-col items-center w-[75%] ms:flex-row ms:justify-center">
-                {/* IMAGES */}
->>>>>>> 0528e788e92d02f16c4b4cca14fe601742fcc869
                     <div className="flex flex-col items-center min-w-[250px] max-w-[500px]">
                         <div
                             className="min-w-full mb-2 hover:cursor-pointer"
@@ -109,30 +77,18 @@ export default function Dinamica() {
                                     buttonSquared: true
                                 }}
                             >
-<<<<<<< HEAD
                                 {productImagesSliced.map((product, idx) => (
                                     <img
                                         key={idx}
                                         src={product.image[0]}
                                     />
                                 ))}
-=======
-                                {
-                                    productImagesSliced.map((product, idx) => (
-                                        <img
-                                            key={idx}
-                                            src={product.image[0]}
-                                        />
-                                    ))
-                                }
->>>>>>> 0528e788e92d02f16c4b4cca14fe601742fcc869
                             </Carousel>
                         </div>
                     </div>
                     {/* DETAILS */}
                     <div className="flex flex-col w-1/2">
                         <BuyDetail />
-<<<<<<< HEAD
                         </div>
                     </div>
                 </div>
@@ -155,11 +111,3 @@ export default function Dinamica() {
     </ContainerPage>
   );
 }
-=======
-                    </div>
-                </div>
-            </div>
-        </ContainerPage>
-    );
-};
->>>>>>> 0528e788e92d02f16c4b4cca14fe601742fcc869
