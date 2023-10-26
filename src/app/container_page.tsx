@@ -6,19 +6,20 @@ import ContainerProducts from '~/components/containerProducts';
 import PaginationProducts from '~/components/paginationProducts';
 import { TopSellers } from '~/components/containerCards/containerCards';
 import { usePathname } from 'next/navigation';
+import CookieConsent from '~/components/cookieConsent/CookieConsent';
 
 type ContainerPageProps = {
-  children: React.ReactNode;
-  nav?: boolean | React.ReactNode;
-  header?: React.ReactNode;
-  footer?: boolean;
+    children: React.ReactNode;
+    nav?: boolean | React.ReactNode;
+    header?: React.ReactNode;
+    footer?: boolean;
 };
 
 export function ContainerPage({
-  nav = true,
-  header,
-  footer = true,
-  children,
+    nav = true,
+    header,
+    footer = true,
+    children,
 }: ContainerPageProps) {
   const pathname = usePathname();
   return (
@@ -38,6 +39,8 @@ export function ContainerPage({
         {children}
       </main>
       {footer && <Footer />}
+      {/* Renderizar en todas las páginas hasta que el usuario lo cierre. La condición debe estar almacenada en localStorage */}
+      <CookieConsent />
     </>
   );
 }
