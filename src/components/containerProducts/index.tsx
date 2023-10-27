@@ -25,7 +25,7 @@ const ContainerProducts = () => {
     fetchProducts();
   }, [brandId, categoryId, limit, name, order, page, setPages, updateProducts]);
   return (
-    <section className="w-full min-h-screen flex flex-col items-center md:items-start justify-between mt-20 md:mt-0 py-10 px-10 md:flex-row md:gap-x-5 gap-y-6 md:gap-y-0">
+    <section className="w-full min-h-screen flex flex-col items-center md:items-start justify-between py-10 px-10 md:flex-row md:gap-x-5 gap-y-6 md:gap-y-0">
       <Filters />
       <section className="w-full h-full border-red border-width-2 border-style-solid flex flex-wrap gap-6 mx-auto items-start justify-evenly">
         {!products.length && <NotFoundProducts />}
