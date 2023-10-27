@@ -25,6 +25,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
   };
   const updateBody = useProductStore((state) => state.updateBody);
   const products = useProductStore((state) => state.products);
+  const name = useProductStore((state) => state.body.name);
 
   const clearSearchBar = () => {
     const searchBar: HTMLInputElement | null | HTMLElement =
@@ -94,15 +95,17 @@ const NavBar: FC<NavBarProps> = ({}) => {
                   products.length && updateBody('page', 1);
                 }}
               />
-              <span
-                onClick={() => {
-                  updateBody('name', '');
-                  clearSearchBar();
-                }}
-                className="cursor-pointer"
-              >
-                <AiOutlineClose size={21} />
-              </span>
+              {name && (
+                <span
+                  onClick={() => {
+                    updateBody('name', '');
+                    clearSearchBar();
+                  }}
+                  className="cursor-pointer"
+                >
+                  <AiOutlineClose size={20} />
+                </span>
+              )}
             </div>
           </div>
           {/* Contenedor lado derecho iconos*/}
@@ -122,7 +125,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
           </div>
         </div>
         {/* Input mobile*/}
-        <div className="md:hidden flex items-center justify-center px-2 py-1 rounded-lg mx-auto w-5/6 bg-white">
+        <div className="md:hidden flex items-center justify-center px-2 py-1 rounded-lg mx-6 bg-white">
           <BiSearch size={22} />
           <input
             id="searchBar"
@@ -134,15 +137,17 @@ const NavBar: FC<NavBarProps> = ({}) => {
               products.length && updateBody('page', 1);
             }}
           />
-          <span
-            onClick={() => {
-              updateBody('name', '');
-              clearSearchBar();
-            }}
-            className="cursor-pointer"
-          >
-            <AiOutlineClose size={21} />
-          </span>
+          {name && (
+            <span
+              onClick={() => {
+                updateBody('name', '');
+                clearSearchBar();
+              }}
+              className="cursor-pointer"
+            >
+              <AiOutlineClose size={20} />
+            </span>
+          )}
         </div>
       </div>
       <div>
