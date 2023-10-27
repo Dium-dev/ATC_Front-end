@@ -35,7 +35,7 @@ interface ImagesListProps {}
 
 const ImagesList: FC<ImagesListProps> = () =>
   socialMediaImages.map((socialMedia) => (
-    <Link href={socialMedia.route}>
+    <Link href={socialMedia.route} className="hover:scale-[1.2] transition-all duration-300">
       <Image
         key={socialMedia.name}
         src={socialMedia.image}
