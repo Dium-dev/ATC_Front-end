@@ -42,7 +42,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
           pathname !== '/' ? 'shadow-none' : 'shadow-md'
         }`}
       >
-        <div className="p-4 flex items-center h-[60px] justify-between mx-auto">
+        <div className="p-4 flex items-center h-[60px] xxxl:px-0 justify-between mx-auto max-w-[1920px]">
           {/* Contenedor lado izquierdo menu hamburguesa-imagenes*/}
           <div className="flex items-center gap-2">
             {/* Icono hamburguesa */}
