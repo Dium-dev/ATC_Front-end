@@ -112,7 +112,7 @@ export function Carousel({ children, items = 4, setMainImage, highlight, auto = 
 
   return (
     <>
-      <div className={`flex gap-1 relative ${stl?.buttonSquared ? "" : "items-center"} ${stl ? stl?.padding : "px-2"}`}>
+      <div className={`flex gap-1 relative ${stl?.buttonSquared ? "" : "items-center"} ${stl ? stl?.padding : "px-2"} max-w-[1920px] mx-auto`}>
         <button
           onClick={() => previus()}
           className={`${stl ? stl?.width : "w-10"} ${stl?.buttonSquared ? "" : "apect-square rounded-full"} p-2 bg-white text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all`}
