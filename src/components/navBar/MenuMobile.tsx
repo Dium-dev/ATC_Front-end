@@ -9,7 +9,7 @@ const MenuMobile: FC<MenuMobileProps> = ({ updateState }) => {
   const navItems = [
     { label: 'Productos', url: '/products' },
     { label: 'Como comprar', url: '/how-to-buy' },
-    { label: 'Blog', url: '/blog' },
+    { label: 'Blog', url: 'https://actualizatucarro.blogspot.com' },
     { label: 'Nosotros', url: '/about-us' },
   ];
 
