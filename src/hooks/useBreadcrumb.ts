@@ -1,6 +1,16 @@
 import create from 'zustand';
 
-export const useBreadcrumb = create((set) => ({ // Crear una tienda que administre el estado del componente breadcrumb
+interface BreadcrumbItem {
+  label: string;
+  path: string;
+}
+
+interface BreadcrumbStore {
+  breadcrumb: BreadcrumbItem[];
+  setBreadcrumb: (breadcrumb: BreadcrumbItem[]) => void;
+}
+
+export const useBreadcrumb = create<BreadcrumbStore>((set) => ({
   breadcrumb: [
     { label: 'Categorias', path: '/category' },
     { label: 'Repuestos', path: '/repuestos' },
@@ -11,6 +21,6 @@ export const useBreadcrumb = create((set) => ({ // Crear una tienda que administ
     { label: 'Exploradoras', path: '/exploradoras' },
     { label: 'Audio', path: '/audio' },
     { label: 'Interior', path: '/interior' },
-  ], // Inicializar el estado del breadcrumb con las categorías
-  setBreadcrumb: (breadcrumb) => set({ breadcrumb }), // Agregar una función para actualizar el estado del breadcrumb
+  ],
+  setBreadcrumb: (breadcrumb) => set({ breadcrumb }),
 }));
