@@ -3,56 +3,54 @@ import Image from 'next/image';
 import { Images } from '~/assets/img';
 import ImagesList from './ImagesList';
 import React, { FC, useState } from 'react';
-import { MainButton } from '~/components/button/button';
 import Links from './Links';
-import Link from 'next/link';
 import { useFlagState } from '~/hooks/useFlagState';
 import Form from '~/components/form/Form';
 
-interface FooterProps {}
+interface FooterProps { }
 
-const Footer: FC<FooterProps> = ({}) => {
-  const [flagState, updateState] = useFlagState(false);
+const Footer: FC<FooterProps> = ({ }) => {
+    const [flagState, updateState] = useFlagState(false);
 
-  return (
-    <div className="h-[532px] md:h-[362px] bg-[black] p-6 relative">
-      <footer
-        className="
-      flex flex-col gap-8 
-      md:flex-row md:items-center md:px-16 md:mt-4"
-      >
-        <div className="flex flex-col items-center gap-6 ">
-          <Image
-            src={Images.logos.LogoShieldLight}
-            alt=""
-            width="180"
-            height="90"
-          />
-          <div className="flex gap-4">
-            <ImagesList />
-          </div>
-        </div>
-        <div className="hidden md:flex w-[2px] h-60 bg-gradient-to-t from-background-dm via-white to-background-dm md:ml-16 "></div>
-        <div className="flex flex-col gap-14 items-center flex-1">
-          <div className="flex text-white gap-4 items-center justify-center">
-            <Links />
-            <button onClick={() => updateState(true)}>Contacto</button>
-          </div>
-          <Image
-            src="https://i.postimg.cc/7Ymwd4mS/Mercado-Pago.png"
-            alt=""
-            width="400"
-            height="240"
-          />
-        </div>
-        {flagState && <Form updateState={updateState} />}
-      </footer>
-      <p className="text-xs text-white text-center absolute bottom-0 left-0 right-0 pb-4">
-        ©Copyrigth 2023. Todos los derechos reservados - Desarrollado por: Work
-        Team
-      </p>
-    </div>
-  );
+    return (
+        <footer className="flex flex-col items-center justify-center md:px-20 w-full bg-[#000]">
+            <div className="flex flex-col md:flex-row pt-16 gap-12 max-w-[1920px] w-full min-h-[300px]">
+                {/* LOGO */}
+                <div className="flex flex-col items-center justify-between gap-8 px-4">
+                    <Image
+                        src={Images.logos.LogoShieldLight}
+                        alt=""
+                        width="180"
+                        height="90"
+                    />
+                    <div className="flex gap-4">
+                        <ImagesList />
+                    </div>
+                </div>
+                {/* LINKS */}
+                <div className="flex flex-col gap-12 items-center justify-between flex-1 px-4">
+                    <nav className="flex flex-col xs:flex-row items-center justify-center gap-[clamp(.8rem,calc(1rem+3vw),4rem)] text-[clamp(.9rem,calc(0.5rem+.7vw),1.3rem)] text-white whitespace-nowrap">
+                        <Links />
+                        <button
+                            onClick={() => updateState(true)}
+                            className="relative uppercase after:content-[''] after:absolute after:-bottom-[5px] after:left-0 after:w-full after:h-[2.5px] after:bg-secondary-lm after:scale-x-0 after:transform after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left"
+                        >Contacto</button>
+                    </nav>
+                    <Image
+                        src="https://i.postimg.cc/7Ymwd4mS/Mercado-Pago.png"
+                        alt=""
+                        width="450"
+                        height="290"
+                    />
+                </div>
+            </div>
+            <hr className="w-[90%] md:w-full max-w-[1920px] bg-gradient-to-r from-background-dm via-secondary-lm to-background-dm mt-[2.25rem] h-[2px]" />
+            <p className="text-xs text-white text-center pb-4 pt-4 max-w-[1920px]">
+                ©Copyrigth 2023. Todos los derechos reservados - Desarrollado por: <strong>Work Team</strong>
+            </p>
+            {flagState && <Form updateState={updateState} />}
+        </footer>
+    );
 };
 
 export default Footer;
