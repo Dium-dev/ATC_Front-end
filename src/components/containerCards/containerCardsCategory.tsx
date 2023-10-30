@@ -41,7 +41,7 @@ const CATEGORIES: CategoryProps[] = [
 const Categories = () => {
   return (
     <div>
-      <div className="flex flex-wrap justify-around mt-12">
+      <div className="flex flex-wrap justify-around xxxl:justify-between mt-12 max-w-[1920px] mx-auto">
         {CATEGORIES.map(({ name, image }, id) => (
           <CardCategory key={id} name={name} image={image} />
         ))}
