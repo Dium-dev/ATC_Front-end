@@ -9,7 +9,13 @@ import {
 import { auth } from '~/config/firebase-config';
 const AuthContext = createContext<any>({});
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthContextProvider');
+  }
+  return context;
+};
 
 export const AuthContextProvider = ({
   children,

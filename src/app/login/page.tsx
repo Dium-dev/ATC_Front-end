@@ -47,7 +47,7 @@ const Login = () => {
         <button
           className="bg-secondary-dm text-text-dm w-2/12 px-4 py-3 hover:bg-green-800 transition-all duration-500 my-8 ease-in-out rounded font-semibold"
           onClick={() => {
-            router.push('/signin');
+            router.push('/signup');
           }}
         >
           Register
