@@ -125,7 +125,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
           </div>
         </div>
         {/* Input mobile*/}
-        <div className="md:hidden flex items-center justify-center px-2 py-1 rounded-lg mx-6 bg-white">
+        <div className="md:hidden flex items-center justify-center px-2 py-1 rounded-lg mx-6 bg-white mb-4">
           <BiSearch size={22} />
           <input
             id="searchBar"

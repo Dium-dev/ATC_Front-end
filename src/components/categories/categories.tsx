@@ -1,6 +1,6 @@
 const Categories = () => {
     return(
-        <div className="w-full h-[60px] md:block mt-14 bg-opacity-70 bg-white shadow-md">
+        <div className="w-full h-[60px] hidden md:block mt-14 bg-opacity-70 bg-white shadow-md">
             <ul className="flex xxxl:justify-between justify-evenly items-center w-full h-full font-medium max-w-[1920px] mx-auto">
                 <li>Repuestos</li>
                 <li>Exterior</li>
