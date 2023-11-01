@@ -13,12 +13,15 @@ import Form from '../form/Form';
 import { BiSearch } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useProductStore } from '~/store/productStore';
+import { useAuth } from '~/context/AuthContext';
 
 interface NavBarProps {}
 
 const NavBar: FC<NavBarProps> = ({}) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [flagState, updateState] = useFlagState(false);
+
+  const { user, logout } = useAuth();
 
   const toggleNavbar = () => {
     setIsOpenMenu(!isOpenMenu);
@@ -110,11 +113,22 @@ const NavBar: FC<NavBarProps> = ({}) => {
           </div>
           {/* Contenedor lado derecho iconos*/}
           <div className="flex items-center gap-6">
+            {user ? (
+              <Link href="/dashboardUser">
+                <p className="hidden md:block">¡Bienvenido!</p>
+              </Link>
+            ) : (
+              <Link href="/login">
+                <p>Iniciar Sesión</p>
+              </Link>
+            )}
+
             <div className="h-[35px] w-[35px]">
-              <Link href={'/login'}>
+              <Link href={user ? '/dashboardUser' : '/login'}>
                 <Icon icon="Login" />
               </Link>
             </div>
+
             <div className="h-[35px] w-[35px]">
               <Link href={'#'}>
                 <Icon icon="CarShoping" />
