@@ -12,7 +12,7 @@ const Signup = () => {
   const handleSignup = async (e: any) => {
     try {
       await signup(email, password);
-      router.push('/protected');
+      router.push('/login');
     } catch (error) {
       console.log(error);
     }
