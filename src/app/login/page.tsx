@@ -13,7 +13,7 @@ const Login = () => {
     try {
       await login(email, password);
       console.log('Login successful');
-      router.push('/protected');
+      router.push('/dashboardUser');
     } catch (error) {
       console.log(error);
       // Handle login error here if needed.
