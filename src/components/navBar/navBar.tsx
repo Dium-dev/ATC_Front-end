@@ -42,7 +42,15 @@ const NavBar: FC<NavBarProps> = ({}) => {
           pathname !== '/' ? 'shadow-none' : 'shadow-md'
         }`}
       >
-        <div className="p-4 flex items-center h-[60px] xxxl:px-0 justify-between mx-auto max-w-[1920px]">
+        <div className="p-4 flex items-center h-[60px] xxxl:px-0 justify-between mx-auto max-w-[1920px] relative">
+          {isOpenMenu && (
+            <div
+              className="absolute top-[108px] md:top-[60px] left-0 w-screen xs:max-w-[303px] backdrop-blur-sm bg-white bg-opacity-70 shadow-sm z-50 flex justify-center items-center rounded-b-md"
+              onMouseLeave={toggleNavbar}
+            >
+              <MenuMobile updateState={updateState} />
+            </div>
+          )}
           {/* Contenedor lado izquierdo menu hamburguesa-imagenes*/}
           <div className="flex items-center gap-2">
             {/* Icono hamburguesa */}
@@ -83,7 +91,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
           {/* Contenedor central dropDownMenus e input */}
           <div className="hidden md:flex items-center justify-center gap-5">
             {/* input */}
-            <div className="flex items-center justify-center bg-white px-2 rounded-lg">
+            <div className="flex items-center justify-center bg-white px-2 rounded-lg shadow-md">
               <BiSearch size={22} />
               <input
                 id="searchBar"
@@ -150,17 +158,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
           )}
         </div>
       </div>
-      <div>
-        {/* Menu */}
-        {isOpenMenu && (
-          <div
-            className="fixed top-[108px] md:top-[60px] left-0 w-screen xs:max-w-[303px] backdrop-blur-sm bg-white bg-opacity-70 shadow-sm z-50 flex justify-center items-center rounded-b-md xxxl:left-[19.7rem]"
-            onMouseLeave={toggleNavbar}
-          >
-            <MenuMobile updateState={updateState} />
-          </div>
-        )}
-      </div>
+      <div>{/* Menu */}</div>
       {flagState && <Form updateState={updateState} />}
     </nav>
   );
