@@ -46,7 +46,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
           {/* Contenedor lado izquierdo menu hamburguesa-imagenes*/}
           <div className="flex items-center gap-2">
             {/* Icono hamburguesa */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 xxxl:gap-0">
               <MainButton onClick={toggleNavbar}>
                 <div className={isOpenMenu ? 'h-14 w-14' : 'h-h-14 w-14'}>
                   <Icon
@@ -125,7 +125,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
           </div>
         </div>
         {/* Input mobile*/}
-        <div className="md:hidden flex items-center justify-center px-2 py-1 rounded-lg mx-6 bg-white">
+        <div className="md:hidden flex items-center justify-center px-2 py-1 rounded-lg mx-6 bg-white mb-4">
           <BiSearch size={22} />
           <input
             id="searchBar"
@@ -154,7 +154,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
         {/* Menu */}
         {isOpenMenu && (
           <div
-            className="fixed top-[108px] md:top-[60px] left-0 w-screen xs:max-w-[303px] backdrop-blur-sm bg-white bg-opacity-70 shadow-sm z-50 flex justify-center items-center rounded-b-md"
+            className="fixed top-[108px] md:top-[60px] left-0 w-screen xs:max-w-[303px] backdrop-blur-sm bg-white bg-opacity-70 shadow-sm z-50 flex justify-center items-center rounded-b-md xxxl:left-[19.7rem]"
             onMouseLeave={toggleNavbar}
           >
             <MenuMobile updateState={updateState} />

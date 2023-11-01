@@ -72,7 +72,7 @@ export const MainButton: React.FC<MainButtonProps> = ({
 
   return (
     <button
-      className={`px-3 py-1 text-base font-medium rounded ${variant_style} ${className}`}
+      className={`px-3 py-1 text-base font-medium rounded ${variant_style} ${className} xxxl:px-0`}
       {...props}
     >
       {children}
