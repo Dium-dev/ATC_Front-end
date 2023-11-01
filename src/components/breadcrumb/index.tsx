@@ -24,14 +24,14 @@ const Breadcrumb = () => {
   return (
     <nav className="flex mb-5" aria-label="Breadcrumb">
       <section className="bg-gray-200 py-2">
-      <div className="container mx-auto flex items-center">
+      <div className="container mx-auto flex items-center" style={{ marginLeft: '50px' }}>
         <Link href="/">
-          <span className="text-blue-300 mr-2">Volver</span>
+          <span className="text-blue-300 hover:text-blue-500 mr-2">Volver</span>
         </Link>
           <ol className="inline-flex items-center space-x-1 md:space-x-2">
             <li className="inline-flex items-center">
               <Link href="/">
-                <span className="text-gray-700 hover:text-gray-900 inline-flex items-center">
+                <span className="text-gray-700 hover:text-blue-500 inline-flex items-center">
                   <svg
                     className="w-5 h-5 mr-2.5"
                     fill="currentColor"
@@ -66,14 +66,6 @@ const Breadcrumb = () => {
               </div>
             </li>
           </ol>
-  
-        <select className="text-sm text-gray-500" value={selectedOption.label} onChange={handleOptionChange}>
-          {breadcrumb.map((item, index) => (
-            <option key={index} value={item.label}>
-              {item.label}
-            </option>
-          ))}
-        </select>
       </div>
     </section>
     </nav>
