@@ -24,7 +24,7 @@ const handleLogout = (e) => {
   }
   };
   
- !user? redirect('/login') : null;
+ !user? redirect('/') : null;
 
   return (
     <>
