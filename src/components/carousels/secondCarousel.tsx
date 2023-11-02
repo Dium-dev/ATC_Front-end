@@ -58,6 +58,7 @@ const SecondCarousel: FC<SecondCarouselProps> = ({}) => {
       };
 
   return (
+    <section className='w-full bg-black'>
     <div className="mt-[109px] md:mt-[60px] relative group max-w-[1920px] max-h-[600px] m-auto">
       <img
         className="w-full "
@@ -74,6 +75,7 @@ const SecondCarousel: FC<SecondCarouselProps> = ({}) => {
         <BsChevronCompactRight onClick={nextSlide} size={30} />
       </div>
     </div>
+    </section>
   );
 };
 

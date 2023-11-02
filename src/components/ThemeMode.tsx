@@ -37,7 +37,7 @@ type IconButtonProps = {
 function IconButton({ icon, ...props }: IconButtonProps) {
   return (
     <button
-      className="group p-1 rounded-full text-background-dm hover:text-text-lm dark:hover:text-text-dm"
+      className="group p-1 rounded-full text-background-dm hover:text-text-lm dark:hover:text-text-dm xxxl:px-0"
       {...props}
     >
       {icon}
