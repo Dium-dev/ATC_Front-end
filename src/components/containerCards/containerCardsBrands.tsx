@@ -1,5 +1,4 @@
 'use client';
-import Image from 'next/image';
 import { Carousel } from '../carousels/carousel';
 import BrandCard from '../cards/brandCard';
 

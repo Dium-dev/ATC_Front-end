@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { Images } from '~/assets/img';
 import ImagesList from './ImagesList';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import Links from './Links';
 import { useFlagState } from '~/hooks/useFlagState';
 import Form from '~/components/form/Form';
