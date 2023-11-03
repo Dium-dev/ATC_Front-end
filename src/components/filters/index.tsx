@@ -37,7 +37,7 @@ const Filters = () => {
       .then((data) => {
         setBrands(data);
       });
-  });
+  },[]);
 
   const toggleDisplay = (name: string) => {
     setState((prevState) => {
