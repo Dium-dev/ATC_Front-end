@@ -59,7 +59,7 @@ const SecondCarousel: FC<SecondCarouselProps> = ({}) => {
       };
 
   return (
-    <section className='w-full bg-black'>
+    <section className='w-full bg-black mt-[7.5rem] md:mt-0'>
     <div className="mt-[109px] md:mt-[60px] relative group max-w-[1920px] max-h-[600px] m-auto">
       <Image
         className="w-full "
