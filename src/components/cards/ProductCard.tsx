@@ -14,7 +14,7 @@ export function ProductCard({
   const [favorite, setFavorite] = useState(false);
   const handleFavorite = () => setFavorite((cur) => !cur);
   return (
-    <div className="px-10 py-6 shadow-md hover:shadow-xl rounded-md overflow-hidden bg-white w-[270px] min-h-[415px] relative space-y-3 dark:text-text-lm">
+    <div className="px-10 py-6 shadow-md hover:shadow-xl rounded-md overflow-hidden bg-white w-[270px] min-h-[415px] relative space-y-3 dark:text-text-lm dark:bg-secondary-dm">
       <Image
         src={imageSrc}
         alt="Cubre Volante"
@@ -23,11 +23,11 @@ export function ProductCard({
         className="w-full aspect-square"
       />
       <div>
-        <h3 className="font-semibold mb-2 line-clamp-3">{title}</h3>
-        <p className="line-through text-secondary-dm text-sm">{`${toCurrency(
+        <h3 className="font-semibold mb-2 line-clamp-3 dark:text-white">{title}</h3>
+        <p className="line-through text-secondary-dm text-sm dark:text-black">{`${toCurrency(
           price
         )}`}</p>
-        <p className="font-semibold text-primary-lm ">{`${toCurrency(
+        <p className="font-semibold text-primary-lm text-lg">{`${toCurrency(
           price - price * offer
         )}`}</p>
       </div>
