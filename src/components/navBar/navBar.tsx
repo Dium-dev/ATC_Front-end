@@ -72,6 +72,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
                     width={200}
                     height={30}
                     alt="Your Company"
+                    className='w-52 h-9'
                   />
                 </Link>
               </div>
