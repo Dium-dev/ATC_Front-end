@@ -5,8 +5,8 @@ import { AiFillHeart } from 'react-icons/ai';
 import { AiOutlineShopping } from 'react-icons/ai';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import Link from 'next/link';
-import { FC, useEffect, useState } from 'react';
-export const BuyDetail: FC<ProductDetail> = (product) => {
+import { useEffect, useState } from 'react';
+export const BuyDetail = ({product}: {product: ProductDetail}) => {
   const [brand, setBrand] = useState('');
 
   useEffect(() => {
@@ -24,9 +24,9 @@ export const BuyDetail: FC<ProductDetail> = (product) => {
   }, [product.brandId]);
 
   return (
-    <div className="w-full h-[79%] my-auto ms:w-5/6 flex flex-col justify-between">
+    <div className="w-full md:h-[74vh] my-auto md:w-full flex flex-col justify-between">
       <div className="flex w-full justify-between">
-        <p className="flex items-center text-secondary-lm">
+        <p className={`flex items-center ${product.stock > 0 ? 'text-green' : 'text-secondary-lm'}`}>
           {product.stock > 0 ? (
             <GoDotFill color={'green'} />
           ) : (
