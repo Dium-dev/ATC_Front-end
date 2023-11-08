@@ -34,8 +34,8 @@ const Form: FC<FormProp> = ({ updateStateRegister, updateState }) => {
     Swal.fire({
       toast: true,
       position: 'top-end',
-      title: 'Enviado!',
-      text: 'El mensaje a sido enviado correctamente',
+      title: 'Registro exitoso!',
+      text: 'Bienvenido, Inicie sesion para continuar',
       icon: 'success',
       showConfirmButton: false,
       timer: 2000,
