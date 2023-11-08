@@ -110,7 +110,7 @@ const Form: FC<FormProp> = ({ updateState }) => {
             },
           })}
           autoComplete="off"
-          className="bg-input-bg px-3 py-3 rounded-md autocomplete=off outline-none min-h-[100px] text-xs"
+          className="bg-input-bg px-3 py-3 rounded-md autocomplete=off outline-none min-h-[100px] text-xs max-h-[55vh]"
         />
         {errors.message && (
           <p className="text-primary-lm">{errors.message.message}</p>
