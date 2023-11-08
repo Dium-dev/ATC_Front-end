@@ -50,13 +50,21 @@ const NavBar: FC<NavBarProps> = ({}) => {
       <div
         className={`z-50 fixed top-0 bg-opacity-70 bg-white w-full backdrop-blur-sm flex-col ${
           pathname !== '/' ? 'shadow-none' : 'shadow-md'
-        }`}
+        } dark:bg-primary-dm`}
       >
-        <div className="p-4 flex items-center h-[60px] xxxl:px-0 justify-between mx-auto max-w-[1920px]">
+        <div className="p-4 flex items-center h-[60px] xxxl:px-0 justify-between mx-auto max-w-[1920px] relative">
+          {isOpenMenu && (
+            <div
+              className="absolute top-[108px] md:top-[60px] left-0 w-screen xs:max-w-[303px] md:backdrop-blur-sm bg-white bg-opacity-95 md:bg-opacity-70 shadow-sm z-50 flex justify-center items-center rounded-b-md dark:bg-primary-dm mt-3 md:mt-0"
+              onMouseLeave={toggleNavbar}
+            >
+              <MenuMobile updateState={updateState} />
+            </div>
+          )}
           {/* Contenedor lado izquierdo menu hamburguesa-imagenes*/}
           <div className="flex items-center gap-2">
             {/* Icono hamburguesa */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 xxxl:gap-0">
               <MainButton onClick={toggleNavbar}>
                 <div className={isOpenMenu ? 'h-14 w-14' : 'h-h-14 w-14'}>
                   <Icon
@@ -74,6 +82,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
                     width={200}
                     height={30}
                     alt="Your Company"
+                    className='w-52 h-9'
                   />
                 </Link>
               </div>
@@ -93,13 +102,13 @@ const NavBar: FC<NavBarProps> = ({}) => {
           {/* Contenedor central dropDownMenus e input */}
           <div className="hidden md:flex items-center justify-center gap-5">
             {/* input */}
-            <div className="flex items-center justify-center bg-white px-2 rounded-lg">
+            <div className="flex items-center justify-center bg-white px-2 rounded-lg shadow-md dark:shadow-sm dark:shadow-white dark:bg-primary-dm">
               <BiSearch size={22} />
               <input
                 id="searchBar"
                 type="text"
                 placeholder="Buscar productos"
-                className="w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm bg-white"
+                className="w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm bg-white dark:bg-primary-dm"
                 onChange={(event) => {
                   updateBody('name', event.target.value);
                   products.length && updateBody('page', 1);
@@ -150,13 +159,13 @@ const NavBar: FC<NavBarProps> = ({}) => {
           </div>
         </div>
         {/* Input mobile*/}
-        <div className="md:hidden flex items-center justify-center px-2 py-1 rounded-lg mx-6 bg-white">
+        <div className="md:hidden flex items-center justify-center px-2 py-1 rounded-lg mx-6 bg-white mb-4 shadow-md dark:shadow-sm dark:shadow-white dark:bg-primary-dm">
           <BiSearch size={22} />
           <input
             id="searchBar"
             type="text"
             placeholder="Buscar productos"
-            className="w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm"
+            className="w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm dark:bg-primary-dm"
             onChange={(event) => {
               updateBody('name', event.target.value);
               products.length && updateBody('page', 1);
@@ -175,17 +184,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
           )}
         </div>
       </div>
-      <div>
-        {/* Menu */}
-        {isOpenMenu && (
-          <div
-            className="fixed top-[108px] md:top-[60px] left-0 w-screen xs:max-w-[303px] backdrop-blur-sm bg-white bg-opacity-70 shadow-sm z-50 flex justify-center items-center rounded-b-md"
-            onMouseLeave={toggleNavbar}
-          >
-            <MenuMobile updateState={updateState} />
-          </div>
-        )}
-      </div>
+      <div>{/* Menu */}</div>
       {flagState && <Form updateState={updateState} />}
       {flagStateRegister && (
         <FormSignUp

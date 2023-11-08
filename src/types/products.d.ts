@@ -52,6 +52,7 @@ export interface ProductCardProps {
 }
 
 export type CategoryProps = {
+  id: string;
   image: string;
   name: string;
 };

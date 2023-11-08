@@ -1,5 +1,4 @@
 import { IconTypes } from '~/types/icons';
-import IconText from '../IconText';
 import Icon from '~/assets/icons/icon';
 interface PaymentMethodProps {
   imageSrc: IconTypes;
