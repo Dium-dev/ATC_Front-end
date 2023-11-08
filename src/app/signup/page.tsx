@@ -9,6 +9,7 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
+
   const handleSignup = async (e: any) => {
     try {
       await signup(email, password);
@@ -17,6 +18,7 @@ const Signup = () => {
       console.log(error);
     }
   };
+  
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center">
       <div className="max-w-3xl w-full py-20  flex flex-col justify-center items-center shadow rounded border border-primary-dm">

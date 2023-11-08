@@ -14,12 +14,16 @@ import { BiSearch } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useProductStore } from '~/store/productStore';
 import { useAuth } from '~/context/AuthContext';
+import FormSignUp from '../form/FormSignUp';
+import FormLogin from '../form/FormLogin';
 
 interface NavBarProps {}
 
 const NavBar: FC<NavBarProps> = ({}) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [flagState, updateState] = useFlagState(false);
+  const [flagStateRegister, updateStateRegister] = useFlagState(false);
+  const [flagStateLogin, updateStateLogin] = useFlagState(false);
 
   const { user, logout } = useAuth();
 
@@ -37,6 +41,9 @@ const NavBar: FC<NavBarProps> = ({}) => {
       searchBar.value = '';
     }
   };
+
+  user && console.log(user)
+
   const pathname = usePathname();
   return (
     <nav>
@@ -114,20 +121,24 @@ const NavBar: FC<NavBarProps> = ({}) => {
           {/* Contenedor lado derecho iconos*/}
           <div className="flex items-center gap-6">
             {user ? (
-              <Link href="/dashboardUser">
-                <p className="hidden md:block">¡Bienvenido!</p>
-              </Link>
+              <>
+                <Link href="/dashboardUser">
+                  <p className="hidden md:block">¡Bienvenido!</p>
+                </Link>
+                <div className="h-[35px] w-[35px]">
+                  <Icon icon="Login" />
+                </div>
+              </>
             ) : (
-              <Link href="/login">
-                <p>Iniciar Sesión</p>
-              </Link>
+              <>
+                <button onClick={() => updateStateLogin(true)}>
+                  <p>Iniciar Sesión</p>
+                </button>
+                <div className="h-[35px] w-[35px]">
+                  <Icon icon="Login" />
+                </div>
+              </>
             )}
-
-            <div className="h-[35px] w-[35px]">
-              <Link href={user ? '/dashboardUser' : '/login'}>
-                <Icon icon="Login" />
-              </Link>
-            </div>
 
             <div className="h-[35px] w-[35px]">
               <Link href={'#'}>
@@ -176,6 +187,18 @@ const NavBar: FC<NavBarProps> = ({}) => {
         )}
       </div>
       {flagState && <Form updateState={updateState} />}
+      {flagStateRegister && (
+        <FormSignUp
+          updateStateRegister={updateStateRegister}
+          updateState={updateStateLogin}
+        />
+      )}
+      {flagStateLogin && (
+        <FormLogin
+          updateState={updateStateLogin}
+          updateStateRegister={updateStateRegister}
+        />
+      )}
     </nav>
   );
 };

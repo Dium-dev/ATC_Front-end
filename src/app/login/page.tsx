@@ -5,20 +5,22 @@ import { useRouter } from 'next/navigation';
 
 const Login = () => {
   const router = useRouter();
-  const { login } = useAuth();
+  const { user, login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
     try {
       await login(email, password);
-      console.log('Login successful');
+      console.log('Login successful' + user);
       router.push('/dashboardUser');
     } catch (error) {
       console.log(error);
       // Handle login error here if needed.
     }
   };
+
+
 
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center">
