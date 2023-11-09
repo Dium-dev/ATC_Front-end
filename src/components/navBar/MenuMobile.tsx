@@ -26,7 +26,7 @@ const MenuMobile: FC<MenuMobileProps> = ({ updateState }) => {
             key={item.url}
             href={item.url}
             className="block p-4 transform  hover:scale-125"
-            target='_blank'
+            target={item.url === 'https://actualizatucarro.blogspot.com' ? '_blank' : '_self'}
           >
             {item.label}
           </Link>
