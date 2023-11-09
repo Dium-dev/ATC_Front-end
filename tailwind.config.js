@@ -40,7 +40,8 @@ module.exports = {
       'text-dm': '#f1f1f1',
       'input-bg': '#FFF2F7',
       white: '#fff',
-      black: '#000'
+      black: '#000',
+      green: '#008000'
     },
     screens: {
       xs: '480px',

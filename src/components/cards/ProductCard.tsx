@@ -4,17 +4,20 @@ import Icon from '~/assets/icons/icon';
 import { ProductCardProps } from '~/types/products';
 import { useState } from 'react';
 import Heart from '~/assets/icons/Heart';
+import Link from 'next/link';
 
 export function ProductCard({
   title,
   price,
   offer,
   imageSrc,
+  id
 }: ProductCardProps) {
   const [favorite, setFavorite] = useState(false);
   const handleFavorite = () => setFavorite((cur) => !cur);
   return (
-    <div className="px-10 py-6 shadow-md hover:shadow-xl rounded-md overflow-hidden bg-white w-[270px] min-h-[415px] relative space-y-3 dark:text-text-lm dark:bg-secondary-dm">
+    <Link className="px-10 py-6 shadow-md hover:shadow-xl rounded-md overflow-hidden bg-white w-[270px] min-h-[415px] relative space-y-3 dark:text-text-lm dark:bg-secondary-dm"
+    href={`/products/${id}`}>
       <Image
         src={imageSrc}
         alt="Cubre Volante"
@@ -51,7 +54,7 @@ export function ProductCard({
           }
         />
       </button>
-    </div>
+    </Link>
   );
 }
 
