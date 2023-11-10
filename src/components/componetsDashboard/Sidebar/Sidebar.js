@@ -7,6 +7,8 @@ import { useAuth } from '~/context/AuthContext';
 
 import NotificationDropdown from '~/components/componetsDashboard/Dropdowns/NotificationDropdown.js';
 import UserDropdown from '~/components/componetsDashboard/Dropdowns/UserDropdown.js';
+import { Images } from '~/assets/img';
+import Image from 'next/image';
 
 import { Images } from '~/assets/img';
 import { redirect } from 'next/navigation';
@@ -147,7 +149,7 @@ const handleLogout = (e) => {
                   className={
                     'text-xs uppercase py-3 font-bold block ' +
                     (window.location.href.indexOf('/dashboardUser/settings') !==
-                    -1
+                      -1
                       ? 'text-lightBlue-500 hover:text-lightBlue-600'
                       : 'text-blueGray-700 hover:text-blueGray-500')
                   }
@@ -181,7 +183,7 @@ const handleLogout = (e) => {
                     className={
                       'fas fa-table mr-2 text-sm ' +
                       (window.location.href.indexOf('/dashboardUser/Tables') !==
-                      -1
+                        -1
                         ? 'opacity-75'
                         : 'text-blueGray-300')
                     }
@@ -204,7 +206,7 @@ const handleLogout = (e) => {
                     className={
                       'fas fa-map-marked mr-2 text-sm ' +
                       (window.location.href.indexOf('/dashboardUser/Maps') !==
-                      -1
+                        -1
                         ? 'opacity-75'
                         : 'text-blueGray-300')
                     }
