@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import create from 'zustand';
+import { create } from 'zustand';
 import { ProductsProps } from '~/types/products';
 import { Body } from '~/types/products';
 
@@ -22,7 +22,7 @@ export const useProductStore = create<ProductStore>((set) => ({
     order: 'NOMBRE ASC',
     categoryId: '',
     brandId: '',
-    name: ''
+    name: '',
   },
   pages: 0,
   updateProducts: (data: ProductsProps[]) =>
@@ -50,7 +50,7 @@ export const useProductStore = create<ProductStore>((set) => ({
   },
   setPages: (value) => {
     set(() => ({
-      pages: value
+      pages: value,
     }));
   },
 }));

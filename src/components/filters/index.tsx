@@ -1,7 +1,7 @@
 'use client';
 import { useProductStore } from '~/store/productStore';
 import { useEffect, useState, useRef } from 'react';
-import { AiFillCaretUp, AiFillCaretDown } from 'react-icons/ai';
+import { AiFillCaretUp, AiFillCaretDown, AiOutlineCheckCircle } from 'react-icons/ai';
 import { Category } from '~/types/products';
 import { Brand } from '~/types/products';
 
@@ -9,6 +9,8 @@ const Filters = () => {
   const updateBody = useProductStore((state) => state.updateBody);
   const resetBody = useProductStore((state) => state.resetBody)
   const products = useProductStore((state) => state.products)
+  const categoryId = useProductStore((state) => state.body.categoryId)
+  const brandId = useProductStore((state) => state.body.brandId)
   const selectRef = useRef<HTMLSelectElement>(null);
 
   const [state, setState] = useState({
@@ -37,7 +39,7 @@ const Filters = () => {
       .then((data) => {
         setBrands(data);
       });
-  });
+  },[]);
 
   const toggleDisplay = (name: string) => {
     setState((prevState) => {
@@ -101,6 +103,7 @@ const Filters = () => {
                 }}
               >
                 <label>• {category.name}</label>
+                {categoryId === category.id && <AiOutlineCheckCircle size={20}/>}
               </div>
             ))}
           </div>
@@ -128,6 +131,7 @@ const Filters = () => {
                 }}
               >
                 <label>• {brand.name}</label>
+                {brandId === brand.id && <AiOutlineCheckCircle size={20}/>}
               </div>
             ))}
           </div>

@@ -14,6 +14,7 @@ export type ProductsProps = {
 export type ProductDetail = {
   id: string;
   title: string;
+  description: string;
   state: string;
   stock: number;
   price: number;
@@ -22,6 +23,7 @@ export type ProductDetail = {
   model: string;
   year: string;
   brandId: string;
+  categoryId: string;
 }
 export type Body = {
   page: number;
@@ -52,6 +54,7 @@ export interface ProductCardProps {
 }
 
 export type CategoryProps = {
+  id: string;
   image: string;
   name: string;
 };

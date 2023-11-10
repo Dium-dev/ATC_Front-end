@@ -12,7 +12,6 @@ interface BreadcrumbStore {
 
 export const useBreadcrumb = create<BreadcrumbStore>((set) => ({
   breadcrumb: [
-    { label: 'Categorias', path: '/category' },
     { label: 'Repuestos', path: '/repuestos' },
     { label: 'Exterior', path: '/exterior' },
     { label: 'Bombillos', path: '/bombillos' },
