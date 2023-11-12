@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 // components
@@ -47,6 +47,10 @@ export default function CardUsers({ color }: CardUsersProps) {
 
     // GLOBAL STORE:
     const { users, updateUsers }: any = useDashboardAdminStore();
+
+
+    // LOCAL STATES:
+    const [selection, setSelection] = useState<string>("name");
 
 
     // LIFE CYCLES:
@@ -101,6 +105,7 @@ export default function CardUsers({ color }: CardUsersProps) {
                                             ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
                                             : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
                                     }
+                                    onClick={() => setSelection("name")}
                                 >
                                     Nombre
                                 </th>
@@ -111,6 +116,7 @@ export default function CardUsers({ color }: CardUsersProps) {
                                             ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
                                             : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
                                     }
+                                    onClick={() => setSelection("email")}
                                 >
                                     Correo electrónico
                                 </th>

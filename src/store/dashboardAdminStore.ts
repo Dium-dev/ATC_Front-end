@@ -10,7 +10,7 @@ const useDashboardAdminStore = create((set) => ({
             users: data,
             originalUsers: data
         })),
-    filterUsers: (input: string) => {
+    filterUsersByName: (input: string) => {
         set((state: any) => {
             const filteredUsers = state.originalUsers.filter((object: any) =>
                 object.name.toLowerCase().includes(input.toLowerCase())

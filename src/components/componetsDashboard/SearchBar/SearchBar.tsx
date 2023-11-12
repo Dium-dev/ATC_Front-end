@@ -15,7 +15,7 @@ function SearchBar({ section }: SearchBarProps) {
 
     const [input, setInput] = useState<string>("");
 
-    const { filterUsers, filterProducts, filterCategories, filterBrands, filterOrders }: any = useDashboardAdminStore();
+    const { filterUsersByName, filterProducts, filterCategories, filterBrands, filterOrders }: any = useDashboardAdminStore();
 
     const handleChange = (event: any) => {
         setInput(event.target.value)
@@ -23,7 +23,7 @@ function SearchBar({ section }: SearchBarProps) {
 
     const filter = (input: string) => {
         switch (section) {
-            case "user": filterUsers(input); break;
+            case "user": filterUsersByName(input); break;
             case "product": filterProducts(input); break;
             case "category": filterCategories(input); break;
             case "brand": filterBrands(input); break;
