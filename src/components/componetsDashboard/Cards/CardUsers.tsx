@@ -18,6 +18,9 @@ export interface UsersInterface {
     registerDate: string,
 };
 
+
+// fetch(users/xxxxx) should return an array of objects.
+// fetch() should return all the possible status for the user. (blocked | activated | deleted | etc).
 const USERS: UsersInterface[] = [
     {
         id: 1,
@@ -37,6 +40,11 @@ const USERS: UsersInterface[] = [
     }
 ];
 
+const userStatus = [
+    "blocked",
+    "activated",
+    "deleted"
+];
 
 type CardUsersProps = {
     color: string
@@ -50,7 +58,8 @@ export default function CardUsers({ color }: CardUsersProps) {
 
 
     // LOCAL STATES:
-    const [selection, setSelection] = useState<"name" | "email">("email");
+    // const [selection, setSelection] = useState<"name" | "email">("email");
+    const [filterMenu, setFilterMenu] = useState<boolean>(false);
 
 
     // LIFE CYCLES:
@@ -79,10 +88,32 @@ export default function CardUsers({ color }: CardUsersProps) {
                             >
                                 Usuarios
                             </h3>
-                            <SearchBar section="user" />
+                            <SearchBar section="user" setFilterMenu={setFilterMenu} />
                         </div>
                     </div>
                 </div>
+                {
+                    filterMenu ? (
+                        <div className="w-full px-8 text-xs">
+                            <h3>Filtros:</h3>
+                            <div><span>Estado:</span>
+                                {
+                                    userStatus.map((status) => (
+                                        <div className="inline-flex items-center">
+                                            <input className="" type="checkbox" /><label>{status}</label>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                            <div><span>Fecha de registro:</span>
+                                <label>depués de:</label><input type="date" />
+                                <label>antes de:</label><input type="date" />
+                            </div>
+
+                            <button>Aplicar filtros</button>
+                        </div>
+                    ) : null
+                }
                 <div className="block w-full overflow-x-auto">
                     {/* Projects table */}
                     <table className="items-center w-full bg-transparent border-collapse">
@@ -105,7 +136,7 @@ export default function CardUsers({ color }: CardUsersProps) {
                                             ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
                                             : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
                                     }
-                                    onClick={() => setSelection("name")}
+                                // onClick={() => setSelection("name")}
                                 >
                                     Nombre
                                 </th>
@@ -116,7 +147,7 @@ export default function CardUsers({ color }: CardUsersProps) {
                                             ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
                                             : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
                                     }
-                                    onClick={() => setSelection("email")}
+                                // onClick={() => setSelection("email")}
                                 >
                                     Correo electrónico
                                 </th>

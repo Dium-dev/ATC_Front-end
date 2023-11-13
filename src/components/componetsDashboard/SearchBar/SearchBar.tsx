@@ -3,25 +3,37 @@ import { useState, useRef, useEffect } from "react";
 
 import { BiSearch } from "react-icons/bi";
 import { BsGear } from "react-icons/bs";
+import { BsSliders2 } from "react-icons/bs";
+
 
 import useDashboardAdminStore from "~/store/dashboardAdminStore";
 
 
 type SearchBarProps = {
     section: "user" | "product" | "brand" | "category" | "order";
+    setFilterMenu: Function;
 };
 
 
-function SearchBar({ section }: SearchBarProps) {
+function SearchBar({ section, setFilterMenu }: SearchBarProps) {
 
 
+    // GLOBAL STATE:
+    const { filterUsersByName, filterUsersByEmail, filterProducts, filterCategories, filterBrands, filterOrders }: any = useDashboardAdminStore();
+
+
+    // LOCAL STATES
     const [input, setInput] = useState<string>("");
 
     const [userProperty, setUserProperty] = useState<"name" | "email">("email");
     const [userPropertyMenu, setUserPropertyMenu] = useState<boolean>(false);
 
-    const { filterUsersByName, filterUsersByEmail, filterProducts, filterCategories, filterBrands, filterOrders }: any = useDashboardAdminStore();
 
+    // CONSTANTS:
+    const userPropertyMenuRef = useRef<HTMLDivElement | null>(null);
+
+
+    // FUNCTIONS:
     const handleChange = (event: any) => {
         setInput(event.target.value)
     };
@@ -37,13 +49,14 @@ function SearchBar({ section }: SearchBarProps) {
         };
     };
 
-    const userPropertyMenuRef = useRef<HTMLDivElement | null>(null);
     const handleOutsideClick = (event: any) => {
         if (userPropertyMenu && userPropertyMenuRef.current && !userPropertyMenuRef.current.contains(event.target)) {
             setUserPropertyMenu(false);
         };
     };
 
+
+    // LIFE CYCLES:
     useEffect(() => {
         document.addEventListener('click', handleOutsideClick)
         return () => {
@@ -52,18 +65,16 @@ function SearchBar({ section }: SearchBarProps) {
     }, [userPropertyMenu]);
 
 
+    // COMPONENT:
     return (
-        <div className="flex items-center gap-2 h-full w-full justify-end">
+        <div className="relative flex items-center justify-end gap-2 h-full w-full text-xs">
             {
                 section === "user" ? (
                     <div
-                        className="relative flex gap-2 p-2 rounded-sm hover:bg-background-lm hover:cursor-pointer"
+                        className="relative flex items-center gap-2 p-2 rounded-sm hover:bg-background-lm hover:cursor-pointer"
                         onClick={() => setUserPropertyMenu(true)}
                     >
-                        <BsGear
-                            size={22}
-                            className="hover:cursor-pointer"
-                        />
+                        <BsGear size={20} />
                         {userProperty === "name" ? "NOMBRE" : "EMAIL"}
                         {
                             userPropertyMenu ? (
@@ -87,7 +98,7 @@ function SearchBar({ section }: SearchBarProps) {
                 ) : null
             }
             <BiSearch
-                size={22}
+                size={20}
                 className="hover:cursor-pointer hover:fill-secondary-lm transition-all duration-300"
                 onClick={() => filter(input)}
             />
@@ -97,6 +108,12 @@ function SearchBar({ section }: SearchBarProps) {
                 placeholder={`Encontrar ${section === "user" && "usuario" || section === "product" && "producto" || section === "brand" && "marca" || section === "category" && "categoria" || section === "order" && "pedido"}`}
                 onChange={(e) => handleChange(e)}
             />
+            <div
+                className="p-2 rounded-sm hover:bg-background-lm hover:cursor-pointer"
+                onClick={() => setFilterMenu((prev: any) => !prev)}
+            >
+                <BsSliders2 size={20} />
+            </div>
         </div>
     )
 };
