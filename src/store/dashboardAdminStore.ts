@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { UsersInterface } from "~/components/componetsDashboard/Cards/CardUsers";
 
 
 const useDashboardAdminStore = create((set) => ({
@@ -12,13 +13,23 @@ const useDashboardAdminStore = create((set) => ({
         })),
     filterUsersByName: (input: string) => {
         set((state: any) => {
-            const filteredUsers = state.originalUsers.filter((object: any) =>
+            const filteredUsers = state.originalUsers.filter((object: UsersInterface) =>
                 object.name.toLowerCase().includes(input.toLowerCase())
             );
             return {
                 users: filteredUsers
             }
         })
+    },
+    filterUsersByEmail: (input: string) => {
+        set((state: any) => {
+            const filteredUsers = state.originalUsers.filter((object: UsersInterface) => 
+                object.emailAddress.toLowerCase().includes(input.toLowerCase())
+            )
+            return {
+                users: filteredUsers
+            }
+        });
     },
 
     // PRODUCTS:

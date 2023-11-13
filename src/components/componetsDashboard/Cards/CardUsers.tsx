@@ -9,7 +9,7 @@ import TableDropdown from '~/components/componetsDashboard/Dropdowns/TableDropdo
 import useDashboardAdminStore from '~/store/dashboardAdminStore';
 
 
-interface UsersInterface {
+export interface UsersInterface {
     id: number,
     name: string,
     picture: string,
@@ -50,7 +50,7 @@ export default function CardUsers({ color }: CardUsersProps) {
 
 
     // LOCAL STATES:
-    const [selection, setSelection] = useState<string>("name");
+    const [selection, setSelection] = useState<"name" | "email">("email");
 
 
     // LIFE CYCLES:
