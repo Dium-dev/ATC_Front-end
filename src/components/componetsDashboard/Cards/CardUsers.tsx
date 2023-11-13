@@ -40,7 +40,7 @@ const USERS: UsersInterface[] = [
     }
 ];
 
-const userStatus = [
+const USER_STATUS = [
     "blocked",
     "activated",
     "deleted"
@@ -58,7 +58,6 @@ export default function CardUsers({ color }: CardUsersProps) {
 
 
     // LOCAL STATES:
-    // const [selection, setSelection] = useState<"name" | "email">("email");
     const [filterMenu, setFilterMenu] = useState<boolean>(false);
 
 
@@ -98,7 +97,7 @@ export default function CardUsers({ color }: CardUsersProps) {
                             <h3>Filtros:</h3>
                             <div><span>Estado:</span>
                                 {
-                                    userStatus.map((status) => (
+                                    USER_STATUS.map((status) => (
                                         <div className="inline-flex items-center">
                                             <input className="" type="checkbox" /><label>{status}</label>
                                         </div>

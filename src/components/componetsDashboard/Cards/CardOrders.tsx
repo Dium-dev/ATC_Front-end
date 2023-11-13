@@ -117,6 +117,7 @@ export default function CardOrders({ color }: CardOrdersProps) {
 
 
     // LOCAL STATES:
+    const [filterMenu, setFilterMenu] = useState<boolean>(false);
     const [showDetails, setShowDetails] = useState<boolean>(false);
 
 
@@ -146,10 +147,71 @@ export default function CardOrders({ color }: CardOrdersProps) {
                             >
                                 Pedidos
                             </h3>
-                            <SearchBar section="order" />
+                            <SearchBar section="order" setFilterMenu={setFilterMenu} />
                         </div>
                     </div>
                 </div>
+                {
+                    filterMenu ? (
+                        <div className="w-full px-8 text-xs">
+                            <h3>Filtros:</h3>
+                            <div><span>Estado:</span>
+                            </div>
+                            <div>
+                                <span>Fecha de creación:</span>
+                                <label>depués de:</label><input type="date" />
+                                <label>antes de:</label><input type="date" />
+                            </div>
+                            <div><span>Total:</span>
+                            </div>
+                            <div>Productos</div>
+                            <div><span>Cantidad de objetos</span></div>
+
+                            <div>Pago:</div>
+                            <div><span>Medio</span></div>
+                            <div><span>Estado</span></div>
+                            <div>
+                                <span>Fecha de Pago:</span>
+                                <label>depués de:</label><input type="date" />
+                                <label>antes de:</label><input type="date" />
+                            </div>
+
+                            <div>Usuario</div>
+
+                            {/* interface OrdersInterface {
+                                id: number,
+                            orderNumber: number,
+                            creationDate: string,
+                            status: "cancelled" | "declined" | "approved" | "processing" | "inbound" | "delivered",
+                            total: number,
+                            list: {
+                                product: string,
+                            quantity: number,
+                            value: number
+    }[],
+                            payment: {
+                                date: string,
+                            method: "MercadoPago" | "cash",
+                            state: "approved" | "declined" | "pending",
+                            approvalNumber: number
+    },
+                            client: {
+                                name: string,
+                            emailAddress: string,
+                            phoneNumber: string,
+                            address: {
+                                department: string,
+                            locality: string,
+                            neighborhood: string,
+                            number: number,
+                            references: string
+        }
+    }
+}; */}
+                            <button>Aplicar filtros</button>
+                        </div>
+                    ) : null
+                }
                 <div className="block w-full overflow-x-auto">
                     <table className="items-center w-full bg-transparent border-collapse">
                         <thead>

@@ -11,7 +11,7 @@ import useDashboardAdminStore from "~/store/dashboardAdminStore";
 
 type SearchBarProps = {
     section: "user" | "product" | "brand" | "category" | "order";
-    setFilterMenu: Function;
+    setFilterMenu?: Function;
 };
 
 
@@ -108,14 +108,18 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
                 placeholder={`Encontrar ${section === "user" && "usuario" || section === "product" && "producto" || section === "brand" && "marca" || section === "category" && "categoria" || section === "order" && "pedido"}`}
                 onChange={(e) => handleChange(e)}
             />
-            <div
-                className="p-2 rounded-sm hover:bg-background-lm hover:cursor-pointer"
-                onClick={() => setFilterMenu((prev: any) => !prev)}
-            >
-                <BsSliders2 size={20} />
-            </div>
+            {
+                section !== "brand" && section !== "category" ? (
+                    <div
+                        className="p-2 rounded-sm hover:bg-background-lm hover:cursor-pointer"
+                        onClick={() => setFilterMenu && setFilterMenu((prev: any) => !prev)}
+                    >
+                        <BsSliders2 size={20} />
+                    </div>
+                ) : null
+            }
         </div>
-    )
+    );
 };
 
 

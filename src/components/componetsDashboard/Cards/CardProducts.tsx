@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 // components
@@ -20,6 +20,9 @@ interface ProductsInterface {
     salePrice: number
 };
 
+// fetch(/products/xxxxx) should return an array of objects.
+// fetch(/categories/xxxxx) should return an array of the categories stored in the DB.
+// fetch(/brands/xxxxx) should return an array of the brands stored in the DB.
 const PRODUCTS: ProductsInterface[] = [
     {
         id: 1,
@@ -51,6 +54,16 @@ const PRODUCTS: ProductsInterface[] = [
     }
 ];
 
+const CATEGORIES = [
+    "farolas",
+    "pisos",
+];
+
+const BRANDS = [
+    "audi",
+    "mitsubishi"
+];
+
 
 type CardProductsProps = {
     color: string
@@ -61,6 +74,10 @@ export default function CardProducts({ color }: CardProductsProps) {
 
     // GLOBAL STORE:
     const { products, updateProducts }: any = useDashboardAdminStore();
+
+
+    // LOCAL STATE:
+    const [filterMenu, setFilterMenu] = useState<boolean>(false);
 
 
     // LIFE CYCLES:
@@ -89,10 +106,41 @@ export default function CardProducts({ color }: CardProductsProps) {
                             >
                                 Productos
                             </h3>
-                            <SearchBar section="product" />
+                            <SearchBar section="product" setFilterMenu={setFilterMenu}/>
                         </div>
                     </div>
                 </div>
+                {
+                    filterMenu ? (
+                        <div className="w-full px-8 text-xs">
+                            <h3>Filtros:</h3>
+                            <div><span>Categoría:</span>
+                                {
+                                    CATEGORIES.map((category) => (
+                                        <div className="inline-flex items-center">
+                                            <input className="" type="checkbox" /><label>{category}</label>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                            <div><span>Marca:</span>
+                                {
+                                    BRANDS.map((brand) => (
+                                        <div className="inline-flex items-center">
+                                            <input className="" type="checkbox" /><label>{brand}</label>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                            <div><span>Stock:</span>
+                            </div>
+                            <div><span>Precio:</span>
+                            </div>
+
+                            <button>Aplicar filtros</button>
+                        </div>
+                    ) : null
+                }
                 <div className="block w-full overflow-x-auto">
                     <table className="items-center w-full bg-transparent border-collapse">
                         <thead>
