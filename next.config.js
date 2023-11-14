@@ -11,6 +11,9 @@ const nextConfig = {
       'cdn-icons-png.flaticon.com',
       'user-images.githubusercontent.com',
       'postlmg.cc/7GxXNxBz',
+      'www.puroverso.com.uy',
+      'm.media-amazon.com',
+      'furper.com'
     ], // Agrega aquí los dominios permitidos para las imágenes
   },
 };

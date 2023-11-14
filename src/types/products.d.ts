@@ -19,6 +19,7 @@ export type ProductDetail = {
   stock: number;
   price: number;
   availability: number;
+  condition: string;
   image: string[];
   model: string;
   year: string;

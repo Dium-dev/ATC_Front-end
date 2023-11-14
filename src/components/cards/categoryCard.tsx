@@ -12,7 +12,7 @@ const CardCategory: React.FC<CategoryProps> = ({ name, image, id }) => {
   }
 
   return (
-    <div className="flex w-[10rem] h-[200px] flex-col items-center overflow-hidden my-1" onClick={handleClick}>
+    <div className="flex w-[10rem] h-[200px] flex-col items-center overflow-hidden my-1 cursor-pointer" onClick={handleClick}>
       <div className="w-full h-[78%] relative">
         <Image src={image} alt="Imagen de Categoria" width={300} height={300}/>
       </div>

@@ -19,7 +19,6 @@ export const BuyDetail = ({product}: {product: ProductDetail}) => {
 
       setBrand(brandFiltered.name);
     };
-
     fetchBrand();
   }, [product.brandId]);
 
@@ -40,8 +39,8 @@ export const BuyDetail = ({product}: {product: ProductDetail}) => {
       </div>
       <p className="text-bold text-2xl font-black">{product.title}</p>
       <div className="w-full font-medium">
-        <p className="text-primary-lm">Estado:</p>
-        <p>Nuevo</p>
+        <p className="text-primary-lm">Condición:</p>
+        <p>{product.condition}</p>
       </div>
       <div className="w-full font-medium">
         <p className="text-primary-lm">Marca:</p>
@@ -53,10 +52,10 @@ export const BuyDetail = ({product}: {product: ProductDetail}) => {
       </div>
       <div className="w-full">
         <p className="line-through text-xl text-primary-dm font-extralight">
-          ${product.price - product.price * 0.1}
+          ${product.price}
         </p>
         <p className="text-2xl text-secondary-lm font-black">
-          ${product.price}
+          ${product.price - product.price * 0.1}
         </p>
       </div>
       <div className="w-full flex justify-between">
