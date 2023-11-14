@@ -40,6 +40,10 @@ export const BuyDetail = ({product}: {product: ProductDetail}) => {
       </div>
       <p className="text-bold text-2xl font-black">{product.title}</p>
       <div className="w-full font-medium">
+        <p className="text-primary-lm">Estado:</p>
+        <p>Nuevo</p>
+      </div>
+      <div className="w-full font-medium">
         <p className="text-primary-lm">Marca:</p>
         <p>{brand}</p>
       </div>
