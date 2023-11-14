@@ -13,12 +13,19 @@ import Form from '../form/Form';
 import { BiSearch } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useProductStore } from '~/store/productStore';
+import { useAuth } from '~/context/AuthContext';
+import FormSignUp from '../form/FormSignUp';
+import FormLogin from '../form/FormLogin';
 
 interface NavBarProps {}
 
 const NavBar: FC<NavBarProps> = ({}) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [flagState, updateState] = useFlagState(false);
+  const [flagStateRegister, updateStateRegister] = useFlagState(false);
+  const [flagStateLogin, updateStateLogin] = useFlagState(false);
+
+  const { user, logout } = useAuth();
 
   const toggleNavbar = () => {
     setIsOpenMenu(!isOpenMenu);
@@ -34,6 +41,9 @@ const NavBar: FC<NavBarProps> = ({}) => {
       searchBar.value = '';
     }
   };
+
+  user && console.log(user)
+
   const pathname = usePathname();
   return (
     <nav>
@@ -45,7 +55,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
         <div className="p-4 flex items-center h-[60px] xxxl:px-0 justify-between mx-auto max-w-[1920px] relative">
           {isOpenMenu && (
             <div
-              className="absolute top-[108px] md:top-[60px] left-0 w-screen xs:max-w-[303px] md:backdrop-blur-sm bg-white bg-opacity-95 md:bg-opacity-70 shadow-sm z-50 flex justify-center items-center rounded-b-md dark:bg-primary-dm mt-3 md:mt-0"
+              className="absolute top-[108px] md:top-[60px] left-0 w-screen xs:max-w-[303px] bg-white bg-opacity-95 shadow-sm z-50 flex justify-center items-center rounded-b-md dark:bg-primary-dm mt-3 md:mt-0"
               onMouseLeave={toggleNavbar}
             >
               <MenuMobile updateState={updateState} />
@@ -119,11 +129,26 @@ const NavBar: FC<NavBarProps> = ({}) => {
           </div>
           {/* Contenedor lado derecho iconos*/}
           <div className="flex items-center gap-6">
-            <div className="h-[35px] w-[35px]">
-              <Link href={'/login'}>
-                <Icon icon="Login" />
-              </Link>
-            </div>
+            {user ? (
+              <>
+                <Link href="/dashboardUser">
+                  <p className="hidden md:block">¡Bienvenido!</p>
+                </Link>
+                <div className="h-[35px] w-[35px]">
+                  <Icon icon="Login" />
+                </div>
+              </>
+            ) : (
+              <>
+                <button onClick={() => updateStateLogin(true)}>
+                  <p>Iniciar Sesión</p>
+                </button>
+                <div className="h-[35px] w-[35px]">
+                  <Icon icon="Login" />
+                </div>
+              </>
+            )}
+
             <div className="h-[35px] w-[35px]">
               <Link href={'#'}>
                 <Icon icon="CarShoping" />
@@ -161,6 +186,18 @@ const NavBar: FC<NavBarProps> = ({}) => {
       </div>
       <div>{/* Menu */}</div>
       {flagState && <Form updateState={updateState} />}
+      {flagStateRegister && (
+        <FormSignUp
+          updateStateRegister={updateStateRegister}
+          updateState={updateStateLogin}
+        />
+      )}
+      {flagStateLogin && (
+        <FormLogin
+          updateState={updateStateLogin}
+          updateStateRegister={updateStateRegister}
+        />
+      )}
     </nav>
   );
 };

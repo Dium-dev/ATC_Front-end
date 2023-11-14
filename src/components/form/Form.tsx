@@ -50,8 +50,8 @@ const Form: FC<FormProp> = ({ updateState }) => {
       onSubmit={handleSubmit(handleFormSubmit)}
       className="fixed inset-0 flex items-center justify-center z-50 bg-[rgba(0,0,0,.5)]"
     >
-      <div className="relative flex p-6 px-14 pt-10 flex-col bg-white xs:w-[440px] gap-4 rounded-xl shadow-xl w-full">
-        <h1 className="text-[40px] font-bold py-1 overflow-hidden text-ellipsis">
+      <div className="relative flex p-6 px-14 pt-10 flex-col bg-white xs:w-[440px] gap-4 rounded-xl shadow-xl w-full dark:bg-primary-dm dark:shadow dark:shadow-white">
+        <h1 className="text-[40px] font-bold py-1 overflow-hidden text-ellipsis dark:text-white">
           Contacto
         </h1>
         <p className="text-xs">
@@ -72,7 +72,7 @@ const Form: FC<FormProp> = ({ updateState }) => {
             },
           })}
           autoComplete="off"
-          className="bg-input-bg `w-full px-3 outline-none rounded-md text-secondary-dm text-xs py-3"
+          className="bg-input-bg `w-full px-3 outline-none rounded-md text-secondary-dm text-xs py-3 dark:bg-secondary-dm dark:shadow-sm dark:shadow-white"
         />
         {errors.name && (
           <p className="text-primary-lm">{errors.name.message}</p>
@@ -81,8 +81,8 @@ const Form: FC<FormProp> = ({ updateState }) => {
         <input
           placeholder={
             errors.phone
-              ? 'Mobil empieza por 3, longitud minima 10 caracteres'
-              : 'Mobil / Correo'
+              ? 'Móvil empieza por 3, longitud minima 10 caracteres'
+              : 'Móvil / Correo'
           }
           {...register('phone', {
             required: 'Telefono o Correo requerido',
@@ -91,10 +91,10 @@ const Form: FC<FormProp> = ({ updateState }) => {
               /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
                 value
               ) ||
-              'Mobil o Correo invalidos',
+              'Móvil o Correo invalidos',
           })}
           autoComplete="off"
-          className="bg-input-bg `w-full px-3 outline-none rounded-md text-secondary-dm text-xs py-3"
+          className="bg-input-bg `w-full px-3 outline-none rounded-md text-secondary-dm text-xs py-3 dark:bg-secondary-dm dark:shadow-sm dark:shadow-white"
         />
         {errors.phone && (
           <p className="text-primary-lm">{errors.phone.message}</p>
@@ -110,7 +110,7 @@ const Form: FC<FormProp> = ({ updateState }) => {
             },
           })}
           autoComplete="off"
-          className="bg-input-bg px-3 py-3 rounded-md autocomplete=off outline-none min-h-[100px] text-xs"
+          className="bg-input-bg px-3 py-3 rounded-md autocomplete=off outline-none min-h-[100px] text-xs max-h-[55vh] dark:bg-secondary-dm dark:shadow-sm dark:shadow-white"
         />
         {errors.message && (
           <p className="text-primary-lm">{errors.message.message}</p>

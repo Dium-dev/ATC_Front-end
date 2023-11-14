@@ -23,7 +23,7 @@ export default function CardTable({ color }) {
                   (color === 'light' ? 'text-blueGray-700' : 'text-white')
                 }
               >
-                Card Tables
+                Orders
               </h3>
             </div>
           </div>

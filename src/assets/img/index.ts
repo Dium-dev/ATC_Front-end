@@ -14,10 +14,6 @@ import CompraSegura from './iconsImg/IconCompraSegura.webp';
 import GarantiaServicioCliente from './iconsImg/IconGarantiaServicoAlCliente.webp';
 import SelloGarantia from './iconsImg/SelloGarantia.webp';
 
-// Importa las imágenes de la carpeta 'favicon'
-import FaviconRed from './favicon/FaviconRed.webp';
-import FaviconRedWhite from './favicon/FaviconRedWhite.webp';
-
 // Importa las imágenes de la carpeta 'banners'
 import BannerCarrucelFarolas from './banners/BannerCarucelFarolas.webp';
 import BannerCarrucelMainCategory from './banners/BannerCarucelMainCategory.webp';
@@ -30,7 +26,7 @@ import BannerWomenAndCar from './banners/BannerWomenAndCar.webp';
 import CategoryFarolas from './banners/CategoryFarolas.webp';
 import FlyerCategores from './banners/FlyerCategories.webp';
 import LogoCardBanner from './banners/LogoCardBanner.webp';
-import BannerTitle from './banners/BannerTitle.webp'
+import BannerTitle from './banners/BannerTitle.webp';
 
 // Importa las imágenes de la carpeta 'categories'
 import Cat01 from './categories/Cat01.png';
@@ -62,10 +58,6 @@ export const Images = {
     GarantiaServicioCliente,
     SelloGarantia,
   },
-  favicon: {
-    FaviconRed,
-    FaviconRedWhite,
-  },
   banners: {
     BannerCarrucelFarolas,
     BannerCarrucelMainCategory,
@@ -78,7 +70,7 @@ export const Images = {
     CategoryFarolas,
     FlyerCategores,
     LogoCardBanner,
-    BannerTitle
+    BannerTitle,
   },
   categories: {
     Cat01,
