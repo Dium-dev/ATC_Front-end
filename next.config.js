@@ -38,6 +38,18 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'postlmg.cc',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.puroverso.com.uy',
+      },
+      {
+        protocol: 'https',
+        hostname: 'm.media-amazon.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'furper.com',
+      }
       // Agrega otras configuraciones de dominio según sea necesario
     ],
   },
