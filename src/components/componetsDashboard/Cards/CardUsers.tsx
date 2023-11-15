@@ -70,13 +70,13 @@ export default function CardUsers({ color }: CardUsersProps) {
     });
 
     const handleCheckboxChange = (status: UserStatus) => {
-        setFilterOptions((prevOptions: any) => {
+        setFilterOptions((prevOptions: UserFilterOptions) => {
             // Si el "status" ya está incluido en "filterOptions.status", quitarlo de ese array (toggle checkbox).
             if (prevOptions.status.includes(status)) {
-                const filteredStatus = prevOptions.status.filter((statusItem: UserStatus) => statusItem !== status)
+                const filteredUsers = prevOptions.status.filter((statusItem) => statusItem !== status);
                 return {
                     ...prevOptions,
-                    status: filteredStatus
+                    status: filteredUsers
                 };
             } else {
                 // Si no está en el array "filterOptions.status", entonces agregarlo (toggle checkbox).
@@ -84,7 +84,7 @@ export default function CardUsers({ color }: CardUsersProps) {
                 return {
                     ...prevOptions,
                     status: prevOptions.status
-                }
+                };
             };
         });
     };

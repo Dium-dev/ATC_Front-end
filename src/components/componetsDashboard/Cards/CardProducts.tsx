@@ -10,27 +10,43 @@ import useDashboardAdminStore from '~/store/dashboardAdminStore';
 import { ProductFilterOptions } from '../SearchBar/SearchBar';
 
 
-interface ProductsInterface {
+export interface ProductsInterface {
     id: number;
     name: string;
     picture: string;
-    category: string;
-    brand: string;
+    category: ProductCategories;
+    brand: ProductBrands;
     stock: number;
     regularPrice: number;
     salePrice: number
 };
 
-// fetch(/products/xxxxx) should return an array of objects.
-// fetch(/categories/xxxxx) should return an array of the categories stored in the DB.
-// fetch(/brands/xxxxx) should return an array of the brands stored in the DB.
+// fetch(categories/xxxxx)  debería retornar todos las "categorías" posibles para el producto. (farolas | pisos | espejos | etc).
+// Estas opciones son renderizadas como etiquetas de los checkboxes que se usan para filtrar a los productos.
+const CATEGORIES = [
+    "farolas",
+    "pisos",
+] as const;
+type ProductCategories = typeof CATEGORIES[number];
+
+
+// // fetch(brands/xxxxx) debería retornar todos las "brands" posibles para el producto. (audi | mitsubishi | etc).
+// Estas opciones son renderizadas como etiquetas de los checkboxes que se usan para filtrar a los productos.
+const BRANDS = [
+    "audi",
+    "mitsubishi",
+    "hyundai"
+] as const;
+type ProductBrands = typeof BRANDS[number];
+
+// fetch(/products/xxxxx) debería retornar un array de objetos.
 const PRODUCTS: ProductsInterface[] = [
     {
         id: 1,
         name: "Farola Hyundai I35 Elantra 2012 2016 Drl Tubo Led Proyector",
         picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
-        category: "Farolas",
-        brand: "Hyundai",
+        category: "farolas",
+        brand: "hyundai",
         stock: 10,
         regularPrice: 2489900,
         salePrice: 2150910
@@ -38,8 +54,8 @@ const PRODUCTS: ProductsInterface[] = [
         id: 2,
         name: "Stop Hyundai i35 Elantra 2012-2016 Tubo Led+ Secuencial Giro",
         picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
-        category: "Farolas",
-        brand: "Audi",
+        category: "farolas",
+        brand: "audi",
         stock: 7,
         regularPrice: 2289900,
         salePrice: 2060910
@@ -47,22 +63,12 @@ const PRODUCTS: ProductsInterface[] = [
         id: 3,
         name: "Stop Hyundai i35 Elantra 2012-2016 Tubo Led Full Led Ahumado",
         picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
-        category: "Farolas",
-        brand: "Mitsubishi",
+        category: "farolas",
+        brand: "mitsubishi",
         stock: 3,
         regularPrice: 1929900,
         salePrice: 1736910
     }
-];
-
-const CATEGORIES = [
-    "farolas",
-    "pisos",
-];
-
-const BRANDS = [
-    "audi",
-    "mitsubishi"
 ];
 
 
@@ -74,22 +80,14 @@ export default function CardProducts({ color }: CardProductsProps) {
 
 
     // GLOBAL STORE:
-    const { products, updateProducts }: any = useDashboardAdminStore();
+    const { products, updateProducts, filterProducts }: any = useDashboardAdminStore();
 
 
     // LOCAL STATE:
     const [filterMenu, setFilterMenu] = useState<boolean>(false);
     const [filterOptions, setFilterOptions] = useState<ProductFilterOptions>({
-        category: {
-            "farolas": false,
-            "pisos": false,
-            "espejos": false
-        },
-        brand: {
-            "Audi": false,
-            "Mitsubishi": false,
-            "Hyundai": false
-        },
+        category: [],
+        brand: [],
         stock: {
             above: null,
             below: null
@@ -101,10 +99,71 @@ export default function CardProducts({ color }: CardProductsProps) {
     });
 
 
+    // FUNCTIONS:
+    const handleBrandChange = (brand: ProductBrands) => {
+        setFilterOptions((prevOptions: ProductFilterOptions) => {
+            if (prevOptions.brand.includes(brand)) {
+                const filteredProducts = prevOptions.brand.filter((brandsItem) => brandsItem !== brand)
+                return {
+                    ...prevOptions,
+                    brand: filteredProducts
+                };
+            } else {
+                prevOptions.brand.push(brand);
+                return {
+                    ...prevOptions,
+                    brand: prevOptions.brand
+                };
+            };
+        });
+    };
+
+    const handleCategoryChange = (category: ProductCategories) => {
+        setFilterOptions((prevOptions: ProductFilterOptions) => {
+            if (prevOptions.category.includes(category)) {
+                const filteredProducts = prevOptions.category.filter((categoryItem) => categoryItem !== category);
+                return {
+                    ...prevOptions,
+                    category: filteredProducts
+                }
+            } else {
+                prevOptions.category.push(category);
+                return {
+                    ...prevOptions,
+                    category: prevOptions.category
+                };
+            };
+        });
+    };
+
+    const handleFilter = () => {
+        filterProducts(filterOptions);
+    };
+
+    const handleClearFilters = () => {
+        setFilterOptions({
+            category: [],
+            brand: [],
+            stock: {
+                above: null,
+                below: null
+            },
+            price: {
+                above: null,
+                below: null
+            }
+        });
+        filterProducts(null);
+    };
+
     // LIFE CYCLES:
     useEffect(() => {
         updateProducts(PRODUCTS);
     }, []);
+
+    useEffect(() => {
+        console.log(filterOptions)
+    }, [filterOptions])
 
 
     // COMPONENT:
@@ -138,7 +197,12 @@ export default function CardProducts({ color }: CardProductsProps) {
                             {
                                 CATEGORIES.map((category, idx) => (
                                     <div key={category + idx} className="inline-flex items-center">
-                                        <input className="" type="checkbox" /><label>{category}</label>
+                                        <input
+                                            className=""
+                                            type="checkbox"
+                                            checked={filterOptions.category.includes(category)}
+                                            onChange={() => handleCategoryChange(category)}
+                                        /><label>{category}</label>
                                     </div>
                                 ))
                             }
@@ -147,7 +211,12 @@ export default function CardProducts({ color }: CardProductsProps) {
                             {
                                 BRANDS.map((brand, idx) => (
                                     <div key={brand + idx} className="inline-flex items-center">
-                                        <input className="" type="checkbox" /><label>{brand}</label>
+                                        <input
+                                            className=""
+                                            type="checkbox"
+                                            checked={filterOptions.brand.includes(brand)}
+                                            onChange={() => handleBrandChange(brand)}
+                                        /><label>{brand}</label>
                                     </div>
                                 ))
                             }
@@ -157,7 +226,8 @@ export default function CardProducts({ color }: CardProductsProps) {
                         <div><span>Precio:</span>
                         </div>
 
-                        <button>Aplicar filtros</button>
+                        <button onClick={handleFilter}>Aplicar filtros</button>
+                        <button onClick={handleClearFilters}>Limpiar filtros</button>
                     </div>
                 ) : null
             }

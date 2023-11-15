@@ -11,27 +11,14 @@ import useDashboardAdminStore from "~/store/dashboardAdminStore";
 
 
 export type UserFilterOptions = {
-    // status: {
-    //     "blocked": boolean,
-    //     "activated": boolean,
-    //     "deleted": boolean
-    // };
     status: string[];
     after: string;
     before: string;
 };
 
 export type ProductFilterOptions = {
-    category: {
-        "farolas": boolean,
-        "pisos": boolean,
-        "espejos": boolean
-    };
-    brand: {
-        "Audi": boolean,
-        "Mitsubishi": boolean,
-        "Hyundai": boolean
-    };
+    category: string[];
+    brand: string[];
     stock: {
         above: number | null,
         below: number | null
@@ -53,7 +40,7 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
 
 
     // GLOBAL STATE:
-    const { filterUsersByName, filterUsersByEmail, filterProducts, filterCategories, filterBrands, filterOrders }: any = useDashboardAdminStore();
+    const { filterUsersByName, filterUsersByEmail, filterProductsByName, filterCategoriesByName, filterBrandsByName, filterOrdersByName }: any = useDashboardAdminStore();
 
 
     // LOCAL STATES
@@ -75,10 +62,10 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
     const filter = (input: string) => {
         switch (section) {
             case "user": (userProperty === "email") ? filterUsersByEmail(input) : filterUsersByName(input); break;
-            case "product": filterProducts(input); break;
-            case "category": filterCategories(input); break;
-            case "brand": filterBrands(input); break;
-            case "order": filterOrders(input); break;
+            case "product": filterProductsByName(input); break;
+            case "category": filterCategoriesByName(input); break;
+            case "brand": filterBrandsByName(input); break;
+            case "order": filterOrdersByName(input); break;
             default: break;
         };
     };

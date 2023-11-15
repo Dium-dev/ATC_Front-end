@@ -1,10 +1,11 @@
 import { create } from "zustand";
 import { UsersInterface } from "~/components/componetsDashboard/Cards/CardUsers";
-import { UserFilterOptions } from "~/components/componetsDashboard/SearchBar/SearchBar";
+import { ProductsInterface } from "~/components/componetsDashboard/Cards/CardProducts";
+import { UserFilterOptions, ProductFilterOptions } from "~/components/componetsDashboard/SearchBar/SearchBar";
 
 
 const useDashboardAdminStore = create((set) => ({
-    // USERS:
+    // ---------- USERS ----------:
     originalUsers: [],
     users: [],
     updateUsers: (data: any) =>
@@ -45,7 +46,7 @@ const useDashboardAdminStore = create((set) => ({
         };
     },
 
-    // PRODUCTS:
+    // ---------- PRODUCTS ----------:
     originalProducts: [],
     products: [],
     updateProducts: (data: any) =>
@@ -53,18 +54,36 @@ const useDashboardAdminStore = create((set) => ({
             products: data,
             originalProducts: data
         })),
-    filterProducts: (input: string) => {
+    filterProductsByName: (input: string) => {
         set((state: any) => {
-            const filteredProducts = state.originalProducts.filter((object: any) =>
-                object.name.toLowerCase().includes(input.toLowerCase())
+            const filteredProducts = state.originalProducts.filter((product: ProductsInterface) =>
+                product.name.toLowerCase().includes(input.toLowerCase())
             );
-            return {
-                products: filteredProducts
-            };
+            return { products: filteredProducts };
         });
     },
+    filterProducts: (options: ProductFilterOptions | null) => {
+        if (options !== null) {
+            const { category, brand, stock, price } = options;
 
-    // CATEGORIES:
+            set((state: any) => {
+                // Filtra y retorna a los productos que tengan una o más opciones seleccionadas.
+                const filteredProducts = state.originalProducts.filter((product: ProductsInterface) => {
+                    const categoryFilter = category.length === 0 || category.includes(product.category);
+                    const brandFilter = brand.length === 0 || brand.includes(product.brand);
+
+                    // Puede ser cambiado a "&&" para efectuar un filtrado más específico.
+                    return categoryFilter || brandFilter;
+                });
+                return { products: filteredProducts };
+            });
+        } else {
+            // Limpia los filtros seteando el array original al estado "productos".
+            set((state: any) => ({ products: state.originalProducts }));
+        };
+    },
+
+    // ---------- CATEGORIES ----------:
     originalCategories: [],
     categories: [],
     updateCategories: (data: any) =>
@@ -72,10 +91,10 @@ const useDashboardAdminStore = create((set) => ({
             categories: data,
             originalCategories: data
         })),
-    filterCategories: (input: string) => {
+    filterCategoriesByName: (input: string) => {
         set((state: any) => {
-            const filteredCategories = state.originalCategories.filter((object: any) =>
-                object.name.toLowerCase().includes(input.toLowerCase())
+            const filteredCategories = state.originalCategories.filter((category: any) =>
+                category.name.toLowerCase().includes(input.toLowerCase())
             );
             return {
                 categories: filteredCategories
@@ -83,7 +102,7 @@ const useDashboardAdminStore = create((set) => ({
         });
     },
 
-    // BRANDS:
+    // ---------- BRANDS ----------:
     originalBrands: [],
     brands: [],
     updateBrands: (data: any) =>
@@ -91,10 +110,10 @@ const useDashboardAdminStore = create((set) => ({
             brands: data,
             originalBrands: data
         })),
-    filterBrands: (input: string) => {
+    filterBrandsByName: (input: string) => {
         set((state: any) => {
-            const filteredBrands = state.originalBrands.filter((object: any) =>
-                object.name.toLowerCase().includes(input.toLowerCase())
+            const filteredBrands = state.originalBrands.filter((brand: any) =>
+                brand.name.toLowerCase().includes(input.toLowerCase())
             );
             return {
                 brands: filteredBrands
@@ -102,7 +121,7 @@ const useDashboardAdminStore = create((set) => ({
         });
     },
 
-    // ORDERS:
+    // ---------- ORDERS ----------:
     originalOrders: [],
     orders: [],
     updateOrders: (data: any) =>
@@ -110,10 +129,10 @@ const useDashboardAdminStore = create((set) => ({
             orders: data,
             originalOrders: data
         })),
-    filterOrders: (input: string) => {
+    filterOrdersByName: (input: string) => {
         set((state: any) => {
-            const filteredOrders = state.originalOrders.filter((object: any) =>
-                object.orderNumber.toString().includes(input.toString())
+            const filteredOrders = state.originalOrders.filter((order: any) =>
+                order.orderNumber.toString().includes(input.toString())
             );
             return {
                 orders: filteredOrders
