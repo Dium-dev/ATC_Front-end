@@ -11,13 +11,35 @@ import useDashboardAdminStore from "~/store/dashboardAdminStore";
 
 
 export type UserFilterOptions = {
-    status: {
-        blocked: boolean,
-        activated: boolean,
-        deleted: boolean
-    };
+    // status: {
+    //     "blocked": boolean,
+    //     "activated": boolean,
+    //     "deleted": boolean
+    // };
+    status: string[];
     after: string;
     before: string;
+};
+
+export type ProductFilterOptions = {
+    category: {
+        "farolas": boolean,
+        "pisos": boolean,
+        "espejos": boolean
+    };
+    brand: {
+        "Audi": boolean,
+        "Mitsubishi": boolean,
+        "Hyundai": boolean
+    };
+    stock: {
+        above: number | null,
+        below: number | null
+    };
+    price: {
+        above: number | null,
+        below: number | null
+    };
 };
 
 interface SearchBarProps {

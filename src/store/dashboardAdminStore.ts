@@ -33,8 +33,11 @@ const useDashboardAdminStore = create((set) => ({
             const { status, after, before } = options;
 
             set((state: any) => {
-                const filteredUsers = state.originalUsers.filter((user: UsersInterface) => status[user.status]);
-                return { users: filteredUsers };
+                // Filtra a los usuarios que tengan una propiedad "status" que esté incluida en el array "options.status".
+                const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
+                    status.includes(user.status)
+                );
+                return { users: filteredUsers }
             });
         } else {
             // Limpia los filtros seteando el array original al estado "users".
