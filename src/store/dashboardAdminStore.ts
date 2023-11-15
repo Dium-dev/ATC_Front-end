@@ -29,6 +29,14 @@ const useDashboardAdminStore = create((set) => ({
             return { users: filteredUsers };
         });
     },
+    filterUsersByPhone: (input: string) => {
+        set((state: any) => {
+            const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
+                user.phone.toLowerCase().includes(input.toLowerCase())
+            );
+            return { users: filteredUsers };
+        });
+    },
     filterUsers: (options: UserFilterOptions | null) => {
         if (options !== null) {
             const { status, after, before } = options;

@@ -25,7 +25,8 @@ export interface UsersInterface {
     picture: string,
     emailAddress: string,
     status: UserStatus,
-    registerDate: string,
+    phone: string,
+    registerDate: string
 };
 
 
@@ -37,7 +38,8 @@ const USERS: UsersInterface[] = [
         picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
         status: "activated",
         emailAddress: "johndoe@gmail.com",
-        registerDate: "27/09/2023"
+        phone: "01 123456789",
+        registerDate: "27/09/2023",
     },
     {
         id: 2,
@@ -45,6 +47,7 @@ const USERS: UsersInterface[] = [
         picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
         status: "blocked",
         emailAddress: "doejohn@hotmail.com",
+        phone: "10 987654321",
         registerDate: "21/07/2023"
     }
 ];

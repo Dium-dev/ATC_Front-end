@@ -29,6 +29,42 @@ export type ProductFilterOptions = {
     };
 };
 
+export type OrderFilterOptions = {
+    // order:
+    order: {
+        status: string[],
+        creationDate: {
+            before: string,
+            after: string
+        },
+        total: {
+            below: number,
+            above: number
+        },
+
+    };
+    // list:
+    itemQuantity: {
+
+    };
+    // payment:
+    payment: {
+        method: string[],
+        status: string[],
+        efectiveDate: {
+            before: string,
+            after: string
+        },
+    };
+    user: {
+        name: string,
+        email: string,
+        phone: string,
+        address: {}
+    };
+};
+
+
 interface SearchBarProps {
     section: "user" | "product" | "brand" | "category" | "order";
     setFilterMenu?: Function;
@@ -40,13 +76,13 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
 
 
     // GLOBAL STATE:
-    const { filterUsersByName, filterUsersByEmail, filterProductsByName, filterCategoriesByName, filterBrandsByName, filterOrdersByName }: any = useDashboardAdminStore();
+    const { filterUsersByName, filterUsersByEmail, filterUsersByPhone, filterProductsByName, filterCategoriesByName, filterBrandsByName, filterOrdersByName }: any = useDashboardAdminStore();
 
 
     // LOCAL STATES
     const [input, setInput] = useState<string>("");
 
-    const [userProperty, setUserProperty] = useState<"name" | "email">("email");
+    const [userProperty, setUserProperty] = useState<"name" | "email" | "phone">("email");
     const [userPropertyMenu, setUserPropertyMenu] = useState<boolean>(false);
 
 
@@ -61,7 +97,7 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
 
     const filter = (input: string) => {
         switch (section) {
-            case "user": (userProperty === "email") ? filterUsersByEmail(input) : filterUsersByName(input); break;
+            case "user": (userProperty === "email") ? filterUsersByEmail(input) : ((userProperty === "name") ? filterUsersByName(input) : filterUsersByPhone(input)); break;
             case "product": filterProductsByName(input); break;
             case "category": filterCategoriesByName(input); break;
             case "brand": filterBrandsByName(input); break;
@@ -96,7 +132,7 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
                         onClick={() => setUserPropertyMenu(true)}
                     >
                         <BsGear size={20} />
-                        {userProperty === "name" ? "NOMBRE" : "EMAIL"}
+                        {userProperty === "name" ? "NOMBRE" : (userProperty === "email" ? "EMAIL" : "TELÉFONO")}
                         {
                             userPropertyMenu ? (
                                 <span
@@ -112,6 +148,10 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
                                         className="p-2 whitespace-nowrap hover:bg-background-lm hover:cursor-pointer"
                                         onClick={() => { setUserProperty("name"); setUserPropertyMenu(false) }}
                                     >Nombre</div>
+                                    <div
+                                        className="p-2 whitespace-nowrap hover:bg-background-lm hover:cursor-pointer"
+                                        onClick={() => { setUserProperty("phone"); setUserPropertyMenu(false) }}
+                                    >Teléfono</div>
                                 </span>
                             ) : null
                         }
