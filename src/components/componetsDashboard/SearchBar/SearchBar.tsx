@@ -1,4 +1,5 @@
 "use client";
+import { type } from "os";
 import { useState, useRef, useEffect } from "react";
 
 import { BiSearch } from "react-icons/bi";
@@ -9,9 +10,20 @@ import { BsSliders2 } from "react-icons/bs";
 import useDashboardAdminStore from "~/store/dashboardAdminStore";
 
 
-type SearchBarProps = {
+export type UserFilterOptions = {
+    status: {
+        blocked: boolean,
+        activated: boolean,
+        deleted: boolean
+    };
+    after: string;
+    before: string;
+};
+
+interface SearchBarProps {
     section: "user" | "product" | "brand" | "category" | "order";
     setFilterMenu?: Function;
+    userFilterOptions?: UserFilterOptions;
 };
 
 

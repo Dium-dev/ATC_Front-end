@@ -7,26 +7,34 @@ import SearchBar from '../SearchBar/SearchBar';
 import TableDropdown from '~/components/componetsDashboard/Dropdowns/TableDropdown';
 
 import useDashboardAdminStore from '~/store/dashboardAdminStore';
+import { UserFilterOptions } from '../SearchBar/SearchBar';
 
+
+const USER_STATUS = [
+    "blocked",
+    "activated",
+    "deleted"
+] as const;
+type UserStatus = typeof USER_STATUS[number];
 
 export interface UsersInterface {
     id: number,
     name: string,
     picture: string,
     emailAddress: string,
-    status: "active" | "blocked",
+    status: UserStatus,
     registerDate: string,
 };
 
 
-// fetch(users/xxxxx) should return an array of objects.
-// fetch() should return all the possible status for the user. (blocked | activated | deleted | etc).
+// fetch(users/xxxxx) rebería retornar un array de objetos.
+// fetch() debería retornar todos los "status" posibles para el usuario. (blocked | activated | deleted | etc).
 const USERS: UsersInterface[] = [
     {
         id: 1,
         name: "John",
         picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
-        status: "active",
+        status: "activated",
         emailAddress: "johndoe@gmail.com",
         registerDate: "27/09/2023"
     },
@@ -40,11 +48,6 @@ const USERS: UsersInterface[] = [
     }
 ];
 
-const USER_STATUS = [
-    "blocked",
-    "activated",
-    "deleted"
-];
 
 type CardUsersProps = {
     color: string
@@ -54,15 +57,52 @@ export default function CardUsers({ color }: CardUsersProps) {
 
 
     // GLOBAL STORE:
-    const { users, updateUsers }: any = useDashboardAdminStore();
+    const { users, updateUsers, filterUsers }: any = useDashboardAdminStore();
 
 
     // LOCAL STATES:
     const [filterMenu, setFilterMenu] = useState<boolean>(false);
+    const [filterOptions, setFilterOptions] = useState<UserFilterOptions>({
+        status: {
+            blocked: false,
+            activated: false,
+            deleted: false
+        },
+        after: "",
+        before: ""
+    });
+
+    const handleCheckboxChange = (status: UserStatus) => {
+        setFilterOptions((prevOptions: any) => ({
+            ...prevOptions,
+            status: {
+                ...prevOptions.status,
+                [status]: !prevOptions.status[status],
+            }
+        }));
+    };
+
+    const handleFilter = () => {
+        filterUsers(filterOptions);
+    };
+
+    const handleClearFilters = () => {
+        setFilterOptions({
+            status: {
+                blocked: false,
+                activated: false,
+                deleted: false
+            },
+            after: "",
+            before: ""
+        });
+        filterUsers(null);
+    };
 
 
     // LIFE CYCLES:
     useEffect(() => {
+        // simular petición al servidor.
         updateUsers(USERS);
     }, []);
 
@@ -95,21 +135,29 @@ export default function CardUsers({ color }: CardUsersProps) {
                     filterMenu ? (
                         <div className="w-full px-8 text-xs">
                             <h3>Filtros:</h3>
-                            <div><span>Estado:</span>
+                            <div className="flex items-center">
+                                <span>Estado:</span>
                                 {
-                                    USER_STATUS.map((status) => (
-                                        <div className="inline-flex items-center">
-                                            <input className="" type="checkbox" /><label>{status}</label>
+                                    USER_STATUS.map((status: UserStatus, idx) => (
+                                        <div key={status + idx} className="inline-flex items-center">
+                                            <input
+                                                className=""
+                                                type="checkbox"
+                                                checked={filterOptions.status[status]}
+                                                onChange={() => handleCheckboxChange(status)}
+                                            /><label>{status}</label>
                                         </div>
                                     ))
                                 }
                             </div>
-                            <div><span>Fecha de registro:</span>
+                            <div>
+                                <span>Fecha de registro:</span>
                                 <label>depués de:</label><input type="date" />
                                 <label>antes de:</label><input type="date" />
                             </div>
 
-                            <button>Aplicar filtros</button>
+                            <button onClick={handleFilter}>Aplicar filtros</button>
+                            <button onClick={handleClearFilters}>Limpira filtros</button>
                         </div>
                     ) : null
                 }
@@ -135,7 +183,6 @@ export default function CardUsers({ color }: CardUsersProps) {
                                             ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
                                             : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
                                     }
-                                // onClick={() => setSelection("name")}
                                 >
                                     Nombre
                                 </th>
@@ -146,7 +193,6 @@ export default function CardUsers({ color }: CardUsersProps) {
                                             ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
                                             : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
                                     }
-                                // onClick={() => setSelection("email")}
                                 >
                                     Correo electrónico
                                 </th>
@@ -184,7 +230,7 @@ export default function CardUsers({ color }: CardUsersProps) {
                         </thead>
                         <tbody>
                             {
-                                users.map((USER: any, idx: any) => (
+                                users.map((USER: UsersInterface, idx: any) => (
                                     <tr key={idx}>
                                         <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             {USER.id}
@@ -208,7 +254,7 @@ export default function CardUsers({ color }: CardUsersProps) {
                                             {USER.emailAddress}
                                         </td>
                                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                            <i className={`fas fa-circle text-orange-500 mr-2 ${USER.status === "active" ? "text-[#00FF00]" : "text-[#FF0000]"}`}></i> {USER.status === "active" ? "activado" : "bloqueado"}
+                                            <i className={`fas fa-circle text-orange-500 mr-2 ${USER.status === "activated" ? "text-[#00FF00]" : "text-[#FF0000]"}`}></i> {USER.status === "activated" ? "activado" : "bloqueado"}
                                         </td>
                                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             <div className="flex items-center">

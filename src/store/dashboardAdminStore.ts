@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { UsersInterface } from "~/components/componetsDashboard/Cards/CardUsers";
+import { UserFilterOptions } from "~/components/componetsDashboard/SearchBar/SearchBar";
 
 
 const useDashboardAdminStore = create((set) => ({
@@ -13,23 +14,32 @@ const useDashboardAdminStore = create((set) => ({
         })),
     filterUsersByName: (input: string) => {
         set((state: any) => {
-            const filteredUsers = state.originalUsers.filter((object: UsersInterface) =>
-                object.name.toLowerCase().includes(input.toLowerCase())
+            const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
+                user.name.toLowerCase().includes(input.toLowerCase())
             );
-            return {
-                users: filteredUsers
-            }
-        })
+            return { users: filteredUsers };
+        });
     },
     filterUsersByEmail: (input: string) => {
         set((state: any) => {
-            const filteredUsers = state.originalUsers.filter((object: UsersInterface) => 
-                object.emailAddress.toLowerCase().includes(input.toLowerCase())
-            )
-            return {
-                users: filteredUsers
-            }
+            const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
+                user.emailAddress.toLowerCase().includes(input.toLowerCase())
+            );
+            return { users: filteredUsers };
         });
+    },
+    filterUsers: (options: UserFilterOptions | null) => {
+        if (options !== null) {
+            const { status, after, before } = options;
+
+            set((state: any) => {
+                const filteredUsers = state.originalUsers.filter((user: UsersInterface) => status[user.status]);
+                return { users: filteredUsers };
+            });
+        } else {
+            // Limpia los filtros seteando el array original al estado "users".
+            set((state: any) => ({ users: state.originalUsers }));
+        };
     },
 
     // PRODUCTS:
@@ -47,8 +57,8 @@ const useDashboardAdminStore = create((set) => ({
             );
             return {
                 products: filteredProducts
-            }
-        })
+            };
+        });
     },
 
     // CATEGORIES:
@@ -66,8 +76,8 @@ const useDashboardAdminStore = create((set) => ({
             );
             return {
                 categories: filteredCategories
-            }
-        })
+            };
+        });
     },
 
     // BRANDS:
@@ -85,8 +95,8 @@ const useDashboardAdminStore = create((set) => ({
             );
             return {
                 brands: filteredBrands
-            }
-        })
+            };
+        });
     },
 
     // ORDERS:
@@ -104,8 +114,8 @@ const useDashboardAdminStore = create((set) => ({
             );
             return {
                 orders: filteredOrders
-            }
-        })
+            };
+        });
     },
 }));
 
