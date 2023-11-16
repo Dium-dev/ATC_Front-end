@@ -7,6 +7,7 @@ import PaginationProducts from '~/components/paginationProducts';
 import { TopSellers } from '~/components/containerCards/containerCards';
 import { usePathname } from 'next/navigation';
 import CookieConsent from '~/components/cookieConsent/CookieConsent';
+import { useProductStore } from '~/store/productStore';
 
 type ContainerPageProps = {
     children: React.ReactNode;
@@ -22,6 +23,7 @@ export function ContainerPage({
     children,
 }: ContainerPageProps) {
   const pathname = usePathname();
+  const pages = useProductStore(state => state.pages);
   return (
     <>
       {/* nav === true? */}
@@ -32,7 +34,7 @@ export function ContainerPage({
         {pathname === '/products' ? (
           <section className="w-full h-full flex flex-col items-start justify-between md:gap-x-5 gap-y-6 md:gap-y-0 mt-20 md:mt-0">
             <ContainerProducts />
-            <PaginationProducts />
+            {pages > 0 && <PaginationProducts />}
             <TopSellers />
           </section>
         ) : null}
