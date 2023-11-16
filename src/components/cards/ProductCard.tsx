@@ -25,14 +25,16 @@ export function ProductCard({
         height={500}
         className="w-full aspect-square"
       />
-      <div>
-        <h3 className="font-semibold mb-2 line-clamp-3 dark:text-white">{title}</h3>
-        <p className="line-through text-secondary-dm text-sm dark:text-black">{`${toCurrency(
-          price
-        )}`}</p>
-        <p className="font-semibold text-primary-lm text-lg">{`${toCurrency(
-          price - price * offer
-        )}`}</p>
+      <div className='h-28 flex flex-col justify-evenly'>
+        <h3 className="font-semibold mb-2 line-clamp-3 dark:text-white h-20">{title}</h3>
+        <div>
+          <p className="line-through text-secondary-dm text-sm dark:text-black">{`${toCurrency(
+            price
+          )}`}</p>
+          <p className="font-semibold text-primary-lm text-lg">{`${toCurrency(
+            price - price * offer
+          )}`}</p>
+        </div>
       </div>
       <div className="grid place-content-center">
         <MainButton color="red" className="flex gap-x-2 py-2 pl-5">
