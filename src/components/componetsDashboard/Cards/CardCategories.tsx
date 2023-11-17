@@ -14,18 +14,6 @@ interface CategoriesInterface {
     name: string,
 };
 
-const CATEGORIES: CategoriesInterface[] = [
-    {
-        id: 1,
-        name: "Escape"
-    },
-    {
-        id: 2,
-        name: "Pisos"
-    }
-];
-
-
 type CardCategoriesProps = {
     color: string
 };
@@ -34,17 +22,15 @@ export default function CardCategories({ color }: CardCategoriesProps) {
 
 
     // GLOBAL STORE:
-    const { categories, fetchCategories, isCategoriesFetching, updateCategories }: any = useDashboardAdminStore();
+    const { categories, fetchCategories, isCategoriesFetching }: any = useDashboardAdminStore();
 
 
     // LIFE CYCLES:
     useEffect(() => {
         if (categories.length === 0 && !isCategoriesFetching) {
             fetchCategories();
-        }
-        // updateCategories(CATEGORIES);
+        };
     }, [categories, fetchCategories, isCategoriesFetching]);
-
 
 
     // COMPONENT:
@@ -110,7 +96,7 @@ export default function CardCategories({ color }: CardCategoriesProps) {
                         </thead>
                         <tbody>
                             {
-                                Array.isArray(categories) && categories.map((CATEGORY: any, idx: any) => (
+                                Array.isArray(categories) && categories.map((CATEGORY: CategoriesInterface, idx: any) => (
                                     <tr key={idx}>
                                         <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             {CATEGORY.id}

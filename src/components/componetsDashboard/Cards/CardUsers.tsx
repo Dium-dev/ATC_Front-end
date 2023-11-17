@@ -12,8 +12,6 @@ import { UserFilterOptions } from '../SearchBar/SearchBar';
 
 // fetch(user/status/xxxxx) debería retornar todos los "status" posibles para el usuario. (blocked | activated | deleted | etc).
 // Estas opciones son renderizadas como etiquetas de los checkboxes que se usan para filtrar a los usuarios.
-
-
 const USER_STATUS = [
     "blocked",
     "activated",

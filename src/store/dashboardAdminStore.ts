@@ -66,8 +66,6 @@ const useDashboardAdminStore: any = create((set: any) => ({
                 set({ isProductsFetching: true });
                 const response = await fetch("http://localhost:3001/products?page=1&limit=385&order=NOMBRE%20ASC");
                 const data = await response.json();
-                console.log("or here")
-                console.log(data.items)
                 set({ products: data.items });
             };
         } catch (error) {
@@ -76,11 +74,6 @@ const useDashboardAdminStore: any = create((set: any) => ({
             set({ isProductsFetching: false });
         };
     },
-    updateProducts: (data: any) =>
-        set(() => ({
-            products: data,
-            originalProducts: data
-        })),
     filterProductsByName: (input: string) => {
         set((state: any) => {
             const filteredProducts = state.originalProducts.filter((product: ProductsInterface) =>
@@ -131,11 +124,6 @@ const useDashboardAdminStore: any = create((set: any) => ({
             set({ isCategoriesFetching: false });
         };
     },
-    updateCategories: (data: any) =>
-        set(() => ({
-            categories: data,
-            originalCategories: data
-        })),
     filterCategoriesByName: (input: string) => {
         set((state: any) => {
             const filteredCategories = state.originalCategories.filter((category: any) =>
@@ -159,8 +147,6 @@ const useDashboardAdminStore: any = create((set: any) => ({
                 set({ isBrandsFetching: true });
                 const response = await fetch("http://localhost:3001/brands");
                 const data = await response.json();
-                console.log("or here")
-                console.log(data)
                 set({ brands: data });
             };
 
@@ -170,11 +156,6 @@ const useDashboardAdminStore: any = create((set: any) => ({
             set({ isBrandsFetching: false });
         };
     },
-    updateBrands: (data: any) =>
-        set(() => ({
-            brands: data,
-            originalBrands: data
-        })),
     filterBrandsByName: (input: string) => {
         set((state: any) => {
             const filteredBrands = state.originalBrands.filter((brand: any) =>

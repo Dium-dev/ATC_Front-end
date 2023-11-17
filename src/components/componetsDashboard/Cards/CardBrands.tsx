@@ -14,18 +14,6 @@ interface BrandsInterface {
     name: string,
 };
 
-// const BRANDS: BrandsInterface[] = [
-//     {
-//         id: 1,
-//         name: "Audi"
-//     },
-//     {
-//         id: 2,
-//         name: "Mitsubishi"
-//     }
-// ];
-
-
 type CardBrandsProps = {
     color: string
 };
@@ -34,7 +22,7 @@ export default function CardBrands({ color }: CardBrandsProps) {
 
 
     // GLOBAL STORE:
-    const { brands, fetchBrands, isBrandsFetching, updateBrands }: any = useDashboardAdminStore();
+    const { brands, fetchBrands, isBrandsFetching }: any = useDashboardAdminStore();
 
 
     // LIFE CYCLES:
@@ -42,7 +30,6 @@ export default function CardBrands({ color }: CardBrandsProps) {
         if (brands.length === 0 && !isBrandsFetching) {
             fetchBrands();
         };
-        // updateBrands(BRANDS);
     }, [brands, fetchBrands, isBrandsFetching]);
 
 
@@ -109,7 +96,7 @@ export default function CardBrands({ color }: CardBrandsProps) {
                         </thead>
                         <tbody>
                             {
-                                brands.map((BRAND: any, idx: any) => (
+                                brands.map((BRAND: BrandsInterface, idx: any) => (
                                     <tr key={idx}>
                                         <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             {BRAND.id}
