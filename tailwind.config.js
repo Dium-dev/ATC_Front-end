@@ -41,7 +41,8 @@ module.exports = {
       'input-bg': '#FFF2F7',
       white: '#fff',
       black: '#000',
-      green: '#008000'
+      green: '#008000',
+      gray: '#DCDCDC'
     },
     screens: {
       xs: '480px',

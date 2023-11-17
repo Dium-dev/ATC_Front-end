@@ -7,7 +7,7 @@ const PaginationProducts = () => {
   const updateBody = useProductStore((state) => state.updateBody);
 
   return (
-    <div className="mx-auto flex gap-2 mb-7 items-center">
+    <div className="mx-auto flex gap-2 items-center">
       <button
         className="h-8 w-8 bg-background-dm rounded-md text-center p-1"
         onClick={() => {

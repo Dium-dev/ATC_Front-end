@@ -51,8 +51,8 @@ const Filters = () => {
     });
   };
   return (
-    <section className="w-full md:w-1/5 flex flex-col items-center justify-center h-full">
-      <article className="w-full h-auto border-t border-l border-r border-indigo-600 py-2 px-3">
+    <section className="w-full flex flex-col items-center justify-center">
+      <article className="w-full h-auto border-t border-l border-r border-indigo-600 py-2 px-3 bg-background-lm dark:bg-primary-dm">
         <div className="">
           <p
             className="text-primary-lm font-bold flex items-center justify-between text-sm dark:text-white"
@@ -77,7 +77,7 @@ const Filters = () => {
           </select>
         </div>
       </article>
-      <article className="w-full h-auto border-t border-l border-r border-indigo-600 py-2 px-3">
+      <article className="w-full h-auto border-t border-l border-r border-indigo-600 py-2 px-3 bg-background-lm dark:bg-primary-dm">
         <div className="group">
           <p
             className="text-primary-lm font-bold flex items-center justify-between text-sm dark:text-white"
@@ -109,7 +109,7 @@ const Filters = () => {
           </div>
         </div>
       </article>
-      <article className="w-full h-auto border-t border-b border-l border-r border-indigo-600 py-2 px-3">
+      <article className="w-full h-auto border-t border-b border-l border-r border-indigo-600 py-2 px-3 bg-background-lm dark:bg-primary-dm">
         <div>
           <p
             className="text-primary-lm font-bold flex items-center justify-between text-sm dark:text-white"
