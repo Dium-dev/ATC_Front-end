@@ -4,7 +4,7 @@ import { ProductsInterface } from "~/components/componetsDashboard/Cards/CardPro
 import { UserFilterOptions, ProductFilterOptions } from "~/components/componetsDashboard/SearchBar/SearchBar";
 
 
-const useDashboardAdminStore = create((set) => ({
+const useDashboardAdminStore: any = create((set: any) => ({
     // ---------- USERS ----------:
     originalUsers: [],
     users: [],
@@ -57,6 +57,25 @@ const useDashboardAdminStore = create((set) => ({
     // ---------- PRODUCTS ----------:
     originalProducts: [],
     products: [],
+    isProductsFetching: false,
+    fetchProducts: async () => {
+        try {
+            if (useDashboardAdminStore.getState().isProductsFetching) {
+                return;
+            } else {
+                set({ isProductsFetching: true });
+                const response = await fetch("http://localhost:3001/products?page=1&limit=385&order=NOMBRE%20ASC");
+                const data = await response.json();
+                console.log("or here")
+                console.log(data.items)
+                set({ products: data.items });
+            };
+        } catch (error) {
+            console.error("Error fetching products:", error);
+        } finally {
+            set({ isProductsFetching: false });
+        };
+    },
     updateProducts: (data: any) =>
         set(() => ({
             products: data,
@@ -81,7 +100,7 @@ const useDashboardAdminStore = create((set) => ({
                     const brandFilter = brand.length === 0 || brand.includes(product.brand);
 
                     // Puede ser cambiado a "&&" para efectuar un filtrado más específico.
-                    return categoryFilter || brandFilter;
+                    return categoryFilter && brandFilter;
                 });
                 return { products: filteredProducts };
             });
@@ -94,6 +113,24 @@ const useDashboardAdminStore = create((set) => ({
     // ---------- CATEGORIES ----------:
     originalCategories: [],
     categories: [],
+    isCategoriesFetching: false,
+    fetchCategories: async () => {
+        try {
+            if (useDashboardAdminStore.getState().isCategoriesFetching) {
+                return;
+            } else {
+                set({ isCategoriesFetching: true });
+                const response = await fetch("http://localhost:3001/categories");
+                const data = await response.json();
+                set({ categories: data });
+            };
+
+        } catch (error) {
+            console.error("Error fetching categories:", error);
+        } finally {
+            set({ isCategoriesFetching: false });
+        };
+    },
     updateCategories: (data: any) =>
         set(() => ({
             categories: data,
@@ -113,6 +150,26 @@ const useDashboardAdminStore = create((set) => ({
     // ---------- BRANDS ----------:
     originalBrands: [],
     brands: [],
+    isBrandsFetching: false,
+    fetchBrands: async () => {
+        try {
+            if (useDashboardAdminStore.getState().isBrandsFetching) {
+                return;
+            } else {
+                set({ isBrandsFetching: true });
+                const response = await fetch("http://localhost:3001/brands");
+                const data = await response.json();
+                console.log("or here")
+                console.log(data)
+                set({ brands: data });
+            };
+
+        } catch (error) {
+            console.error("Error fetching brands:", error);
+        } finally {
+            set({ isBrandsFetching: false });
+        };
+    },
     updateBrands: (data: any) =>
         set(() => ({
             brands: data,

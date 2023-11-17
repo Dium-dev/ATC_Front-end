@@ -14,16 +14,16 @@ interface BrandsInterface {
     name: string,
 };
 
-const BRANDS: BrandsInterface[] = [
-    {
-        id: 1,
-        name: "Audi"
-    },
-    {
-        id: 2,
-        name: "Mitsubishi"
-    }
-];
+// const BRANDS: BrandsInterface[] = [
+//     {
+//         id: 1,
+//         name: "Audi"
+//     },
+//     {
+//         id: 2,
+//         name: "Mitsubishi"
+//     }
+// ];
 
 
 type CardBrandsProps = {
@@ -34,13 +34,16 @@ export default function CardBrands({ color }: CardBrandsProps) {
 
 
     // GLOBAL STORE:
-    const { brands, updateBrands }: any = useDashboardAdminStore();
+    const { brands, fetchBrands, isBrandsFetching, updateBrands }: any = useDashboardAdminStore();
 
 
     // LIFE CYCLES:
     useEffect(() => {
-        updateBrands(BRANDS);
-    }, []);
+        if (brands.length === 0 && !isBrandsFetching) {
+            fetchBrands();
+        };
+        // updateBrands(BRANDS);
+    }, [brands, fetchBrands, isBrandsFetching]);
 
 
     // COMPONENT:

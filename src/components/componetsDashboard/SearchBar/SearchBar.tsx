@@ -45,7 +45,7 @@ export type OrderFilterOptions = {
     };
     // list:
     itemQuantity: {
-
+        number: number
     };
     // payment:
     payment: {

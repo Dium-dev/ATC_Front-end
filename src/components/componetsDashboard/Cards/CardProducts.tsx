@@ -40,36 +40,36 @@ const BRANDS = [
 type ProductBrands = typeof BRANDS[number];
 
 // fetch(/products/xxxxx) debería retornar un array de objetos.
-const PRODUCTS: ProductsInterface[] = [
-    {
-        id: 1,
-        name: "Farola Hyundai I35 Elantra 2012 2016 Drl Tubo Led Proyector",
-        picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
-        category: "farolas",
-        brand: "hyundai",
-        stock: 10,
-        regularPrice: 2489900,
-        salePrice: 2150910
-    }, {
-        id: 2,
-        name: "Stop Hyundai i35 Elantra 2012-2016 Tubo Led+ Secuencial Giro",
-        picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
-        category: "farolas",
-        brand: "audi",
-        stock: 7,
-        regularPrice: 2289900,
-        salePrice: 2060910
-    }, {
-        id: 3,
-        name: "Stop Hyundai i35 Elantra 2012-2016 Tubo Led Full Led Ahumado",
-        picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
-        category: "farolas",
-        brand: "mitsubishi",
-        stock: 3,
-        regularPrice: 1929900,
-        salePrice: 1736910
-    }
-];
+// const PRODUCTS: ProductsInterface[] = [
+//     {
+//         id: 1,
+//         name: "Farola Hyundai I35 Elantra 2012 2016 Drl Tubo Led Proyector",
+//         picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
+//         category: "farolas",
+//         brand: "hyundai",
+//         stock: 10,
+//         regularPrice: 2489900,
+//         salePrice: 2150910
+//     }, {
+//         id: 2,
+//         name: "Stop Hyundai i35 Elantra 2012-2016 Tubo Led+ Secuencial Giro",
+//         picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
+//         category: "farolas",
+//         brand: "audi",
+//         stock: 7,
+//         regularPrice: 2289900,
+//         salePrice: 2060910
+//     }, {
+//         id: 3,
+//         name: "Stop Hyundai i35 Elantra 2012-2016 Tubo Led Full Led Ahumado",
+//         picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
+//         category: "farolas",
+//         brand: "mitsubishi",
+//         stock: 3,
+//         regularPrice: 1929900,
+//         salePrice: 1736910
+//     }
+// ];
 
 
 type CardProductsProps = {
@@ -80,7 +80,7 @@ export default function CardProducts({ color }: CardProductsProps) {
 
 
     // GLOBAL STORE:
-    const { products, updateProducts, filterProducts }: any = useDashboardAdminStore();
+    const { products, updateProducts, fetchProducts, isProductsFetching, categories, fetchCategories, isCategoriesFetching, brands, fetchBrands, isBrandsFetching, filterProducts }: any = useDashboardAdminStore();
 
 
     // LOCAL STATE:
@@ -158,12 +158,24 @@ export default function CardProducts({ color }: CardProductsProps) {
 
     // LIFE CYCLES:
     useEffect(() => {
-        updateProducts(PRODUCTS);
-    }, []);
+        if (products.length === 0 && !isProductsFetching) {
+            fetchProducts();
+        };
+        // updateProducts(PRODUCTS);
+    }, [products, fetchProducts, isProductsFetching]);
 
     useEffect(() => {
-        console.log(filterOptions)
-    }, [filterOptions])
+        if (categories.length === 0 && !isCategoriesFetching) {
+            fetchCategories();
+        };
+        // updateCategories(CATEGORIES);
+    }, [categories, fetchCategories, isCategoriesFetching]);
+
+    useEffect(() => {
+        if (brands.length === 0 && !isBrandsFetching) {
+            fetchBrands();
+        };
+    }, [brands, fetchBrands, isBrandsFetching]);
 
 
     // COMPONENT:
@@ -195,28 +207,28 @@ export default function CardProducts({ color }: CardProductsProps) {
                         <h3>Filtros:</h3>
                         <div><span>Categoría:</span>
                             {
-                                CATEGORIES.map((category, idx) => (
+                                Array.isArray(categories) && categories.map((category: any, idx: any) => (
                                     <div key={category + idx} className="inline-flex items-center">
                                         <input
                                             className=""
                                             type="checkbox"
                                             checked={filterOptions.category.includes(category)}
                                             onChange={() => handleCategoryChange(category)}
-                                        /><label>{category}</label>
+                                        /><label>{category.name}</label>
                                     </div>
                                 ))
                             }
                         </div>
                         <div><span>Marca:</span>
                             {
-                                BRANDS.map((brand, idx) => (
+                                Array.isArray(brands) && brands.map((brand, idx) => (
                                     <div key={brand + idx} className="inline-flex items-center">
                                         <input
                                             className=""
                                             type="checkbox"
                                             checked={filterOptions.brand.includes(brand)}
                                             onChange={() => handleBrandChange(brand)}
-                                        /><label>{brand}</label>
+                                        /><label>{brand.name}</label>
                                     </div>
                                 ))
                             }
@@ -326,7 +338,7 @@ export default function CardProducts({ color }: CardProductsProps) {
                                     </th>
                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
                                         <img
-                                            src={PRODUCT.picture}
+                                            src={PRODUCT.image[0]}
                                             className="h-12 w-12 bg-white rounded-full border"
                                             alt="..."
                                         ></img>
@@ -336,26 +348,26 @@ export default function CardProducts({ color }: CardProductsProps) {
                                                 +(color === 'light' ? 'text-blueGray-600' : 'text-white')
                                             }
                                         >
-                                            {PRODUCT.name}
+                                            {PRODUCT.title}
                                         </span>
                                     </td>
                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        {PRODUCT.category}
+                                        {PRODUCT.category.name}
                                     </td>
                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        {PRODUCT.brand}
+                                        {PRODUCT.brand.name}
                                     </td>
                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                         <i className={`fas fa-circle mr-2 ${PRODUCT.stock >= 10 ? "text-[#00FF00]" : PRODUCT.stock >= 5 ? "text-[#FFC107]" : "text-[#FF0000]"}`}></i> {PRODUCT.stock}
                                     </td>
                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                         <div className="flex items-center">
-                                            <span className="mr-2">{PRODUCT.regularPrice}</span>
+                                            <span className="mr-2">{PRODUCT.price}</span>
                                         </div>
                                     </td>
                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                         <div className="flex items-center">
-                                            <span className="mr-2">{PRODUCT.salePrice}</span>
+                                            <span className="mr-2">{PRODUCT.price}</span>
                                         </div>
                                     </td>
                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
