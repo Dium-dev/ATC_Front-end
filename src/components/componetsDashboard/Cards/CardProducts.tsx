@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 // components
 import SearchBar from '../SearchBar/SearchBar';
 import TableDropdown from '~/components/componetsDashboard/Dropdowns/TableDropdown';
+import Pagination from '~/components/componetsDashboard/Pagination/Pagination';
 
 import useDashboardAdminStore from '~/store/dashboardAdminStore';
 import { ProductFilterOptions } from '../SearchBar/SearchBar';
@@ -57,10 +58,18 @@ export default function CardProducts({ color }: CardProductsProps) {
             below: null
         }
     });
+    const [currentPage, setCurrentPage] = useState<number>(1);
+
+
+    // CONST:
+    // Constantes para la paginación.
+    const elementsPerPage = 10;
+    const indexOfLastElement = currentPage * elementsPerPage;
+    const indexOfFirstElement = indexOfLastElement - elementsPerPage;
 
 
     // FUNCTIONS:
-    // Solo cambia el estado, no hace uso del estado global.
+    // Solo cambia el estado local, no afecta al estado global.
     const handleBrandChange = (event: ChangeEvent<HTMLSelectElement>) => {
         const brand = event.target.value;
 
@@ -70,7 +79,7 @@ export default function CardProducts({ color }: CardProductsProps) {
         }));
     };
 
-    // Solo cambia el estado, no hace uso del estado global.
+    // Solo cambia el estado local, no afecta al estado global.
     const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
         const selectedCategory = event.target.value;
 
@@ -80,7 +89,14 @@ export default function CardProducts({ color }: CardProductsProps) {
         }));
     };
 
-    // Cambia el estado y realiza peticiones a la API.
+    // Cambia el estado y actualiza el estado global.
+    // -----
+    // Se aprovecha que está modificando al estado global y se reusa para que se pueda eliminar un filtro del estado local e -->
+    // inmediatamente actualizar el estado global.
+    // -----
+    // Si el parámetro es "null", significa que simplemente se están aplicando los filtros. En cambio, si es "category" o "brand" -->
+    // significa que se está utilizando la función para eliminar la opción seleccionada ("category" | "brand") del estado local y -->
+    // actualizar al estado global con el nuevo estado local SIN el criterio, que ya se seteó a string.
     const handleFilter = (parameter: "category" | "brand" | null) => {
         setFilterOptions((prevOptions: ProductFilterOptions) => {
             // Primero se cambia la propiedad del estado anterior basado en el parámetro.
@@ -96,46 +112,64 @@ export default function CardProducts({ color }: CardProductsProps) {
         });
     };
 
-    const handleStockAndPriceChange = (event: ChangeEvent<HTMLInputElement>, clause: "stock" | "price",  property: "above" | "below") => {
+    // Se está reusando la función para manejar "stock" y "price".
+    // Ambos criterios tienen las mismas propiedades: "above" y "below" (dos "input" tag que contienen un número).
+    const handleStockAndPriceChange = (
+        event: ChangeEvent<HTMLInputElement>,
+        clause: "stock" | "price",
+        property: "above" | "below"
+    ) => {
         const inputValue = event.target.value;
 
-        if (clause === "stock") {
-            setFilterOptions((prevOptions: ProductFilterOptions) => {
-                const updatedOptions = property === "above" ? {
-                    ...prevOptions,
-                    stock: {
-                        ...prevOptions.stock,
-                        above: Number(inputValue)
-                    }
-                } : {
-                    ...prevOptions,
-                    stock: {
-                        ...prevOptions.stock,
-                        below: Number(inputValue)
-                    }
-                };
-    
-                return updatedOptions;
-            });
-        } else {
-            setFilterOptions((prevOptions: ProductFilterOptions) => {
-                const updatedOptions = property === "above" ? {
-                    ...prevOptions,
-                    price: {
-                        ...prevOptions.price,
-                        above: Number(inputValue)
-                    }
-                } : {
-                    ...prevOptions,
-                    price: {
-                        ...prevOptions.price,
-                        below: Number(inputValue)
-                    }
-                };
+        setFilterOptions((prevOptions: ProductFilterOptions) => {
+            const updatedOptions = {
+                ...prevOptions,
+                [clause]: {
+                    ...prevOptions[clause],
+                    [property]: Number(inputValue),
+                },
+            };
 
-                return updatedOptions;
-            });
-        }
+            return updatedOptions;
+        });
+
+        // if (clause === "stock") {
+        //     setFilterOptions((prevOptions: ProductFilterOptions) => {
+        //         const updatedOptions = property === "above" ? {
+        //             ...prevOptions,
+        //             stock: {
+        //                 ...prevOptions.stock,
+        //                 above: Number(inputValue)
+        //             }
+        //         } : {
+        //             ...prevOptions,
+        //             stock: {
+        //                 ...prevOptions.stock,
+        //                 below: Number(inputValue)
+        //             }
+        //         };
+
+        //         return updatedOptions;
+        //     });
+        // } else {
+        //     setFilterOptions((prevOptions: ProductFilterOptions) => {
+        //         const updatedOptions = property === "above" ? {
+        //             ...prevOptions,
+        //             price: {
+        //                 ...prevOptions.price,
+        //                 above: Number(inputValue)
+        //             }
+        //         } : {
+        //             ...prevOptions,
+        //             price: {
+        //                 ...prevOptions.price,
+        //                 below: Number(inputValue)
+        //             }
+        //         };
+
+        //         return updatedOptions;
+        //     });
+        // }
     };
 
 
@@ -178,10 +212,6 @@ export default function CardProducts({ color }: CardProductsProps) {
             fetchBrands();
         };
     }, [brands, fetchBrands, isBrandsFetching]);
-
-    useEffect(() => {
-        console.log(products)
-    }, [products])
 
 
     // COMPONENT:
@@ -345,17 +375,7 @@ export default function CardProducts({ color }: CardProductsProps) {
                                         : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
                                 }
                             >
-                                Precio regular
-                            </th>
-                            <th
-                                className={
-                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                    (color === 'light'
-                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                }
-                            >
-                                Precio de oferta
+                                Precio
                             </th>
                             <th
                                 className={
@@ -371,7 +391,7 @@ export default function CardProducts({ color }: CardProductsProps) {
                     </thead>
                     <tbody>
                         {
-                            products.map((PRODUCT: any, idx: any) => (
+                            Array.isArray(products) && products.slice(indexOfFirstElement, indexOfLastElement).map((PRODUCT: any, idx: any) => (
                                 <tr key={idx}>
                                     <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                         {PRODUCT.id}
@@ -405,11 +425,6 @@ export default function CardProducts({ color }: CardProductsProps) {
                                             <span className="mr-2">{PRODUCT.price}</span>
                                         </div>
                                     </td>
-                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        <div className="flex items-center">
-                                            <span className="mr-2">{PRODUCT.price}</span>
-                                        </div>
-                                    </td>
                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
                                         <TableDropdown />
                                     </td>
@@ -418,6 +433,12 @@ export default function CardProducts({ color }: CardProductsProps) {
                         }
                     </tbody>
                 </table>
+                <Pagination
+                    elementsPerPage={elementsPerPage}
+                    elementsNumber={products.length}
+                    setCurrentPage={setCurrentPage}
+                    currentPage={currentPage}
+                />
             </div>
         </div >
     );
