@@ -1,10 +1,11 @@
 "use client";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 // components
 import SearchBar from '../SearchBar/SearchBar';
 import TableDropdown from '~/components/componetsDashboard/Dropdowns/TableDropdown';
+import Pagination from '../Pagination/Pagination';
 
 import useDashboardAdminStore from '~/store/dashboardAdminStore';
 
@@ -23,6 +24,17 @@ export default function CardBrands({ color }: CardBrandsProps) {
 
     // GLOBAL STORE:
     const { brands, fetchBrands, isBrandsFetching }: any = useDashboardAdminStore();
+
+
+    // LOCAL STATES:
+    const [currentPage, setCurrentPage] = useState<number>(1);
+
+
+    // CONST:
+    // Constantes para la paginación.
+    const elementsPerPage = 10;
+    const indexOfLastElement = currentPage * elementsPerPage;
+    const indexOfFirstElement = indexOfLastElement - elementsPerPage;
 
 
     // LIFE CYCLES:
@@ -96,7 +108,7 @@ export default function CardBrands({ color }: CardBrandsProps) {
                         </thead>
                         <tbody>
                             {
-                                brands.map((BRAND: BrandsInterface, idx: any) => (
+                                Array.isArray(brands) && brands?.slice(indexOfFirstElement, indexOfLastElement).map((BRAND: BrandsInterface, idx: any) => (
                                     <tr key={idx}>
                                         <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             {BRAND.id}
@@ -112,6 +124,12 @@ export default function CardBrands({ color }: CardBrandsProps) {
                             }
                         </tbody>
                     </table>
+                    <Pagination
+                        elementsPerPage={elementsPerPage}
+                        elementsNumber={brands.length}
+                        setCurrentPage={setCurrentPage}
+                        currentPage={currentPage}
+                    />
                 </div>
             </div>
         </>

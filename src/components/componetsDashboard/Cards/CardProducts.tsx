@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 
 // components
 import SearchBar from '../SearchBar/SearchBar';
-import TableDropdown from '~/components/componetsDashboard/Dropdowns/TableDropdown';
-import Pagination from '~/components/componetsDashboard/Pagination/Pagination';
+import TableDropdown from '../Dropdowns/TableDropdown';
+import Pagination from '../Pagination/Pagination';
 
 import useDashboardAdminStore from '~/store/dashboardAdminStore';
 import { ProductFilterOptions } from '../SearchBar/SearchBar';
@@ -132,44 +132,6 @@ export default function CardProducts({ color }: CardProductsProps) {
 
             return updatedOptions;
         });
-
-        // if (clause === "stock") {
-        //     setFilterOptions((prevOptions: ProductFilterOptions) => {
-        //         const updatedOptions = property === "above" ? {
-        //             ...prevOptions,
-        //             stock: {
-        //                 ...prevOptions.stock,
-        //                 above: Number(inputValue)
-        //             }
-        //         } : {
-        //             ...prevOptions,
-        //             stock: {
-        //                 ...prevOptions.stock,
-        //                 below: Number(inputValue)
-        //             }
-        //         };
-
-        //         return updatedOptions;
-        //     });
-        // } else {
-        //     setFilterOptions((prevOptions: ProductFilterOptions) => {
-        //         const updatedOptions = property === "above" ? {
-        //             ...prevOptions,
-        //             price: {
-        //                 ...prevOptions.price,
-        //                 above: Number(inputValue)
-        //             }
-        //         } : {
-        //             ...prevOptions,
-        //             price: {
-        //                 ...prevOptions.price,
-        //                 below: Number(inputValue)
-        //             }
-        //         };
-
-        //         return updatedOptions;
-        //     });
-        // }
     };
 
 
