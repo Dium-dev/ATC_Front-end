@@ -14,7 +14,10 @@ export interface ProductsInterface {
     id: number;
     name: string;
     picture: string;
-    category: string;
+    category: {
+        id: number,
+        name: string
+    };
     brand: string;
     stock: number;
     regularPrice: number;
@@ -97,7 +100,8 @@ export default function CardProducts({ color }: CardProductsProps) {
     };
 
     const handleFilter = () => {
-        // filterProducts(filterOptions);
+        console.log("here")
+        filterProducts(filterOptions);
     };
 
     const handleClearFilters = () => {

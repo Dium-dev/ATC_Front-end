@@ -66,7 +66,10 @@ const useDashboardAdminStore: any = create((set: any) => ({
                 set({ isProductsFetching: true });
                 const response = await fetch("http://localhost:3001/products?page=1&limit=385&order=NOMBRE%20ASC");
                 const data = await response.json();
-                set({ products: data.items });
+                set({
+                    products: data.items,
+                    originalProducts: data.items
+                });
             };
         } catch (error) {
             console.error("Error fetching products:", error);
@@ -87,14 +90,16 @@ const useDashboardAdminStore: any = create((set: any) => ({
             const { category, brand, stock, price } = options;
 
             set((state: any) => {
+                console.log(state)
                 // Filtra y retorna a los productos que tengan una o más opciones seleccionadas.
                 const filteredProducts = state.originalProducts.filter((product: ProductsInterface) => {
-                    const categoryFilter = category.length === 0 || category === product.category;
+                    console.log({ category })
+                    const categoryFilter = category.length === 0 || category === product.category.name;
                     const brandFilter = brand.length === 0 || brand.includes(product.brand);
-
                     // Puede ser cambiado a "&&" para efectuar un filtrado más específico.
                     return categoryFilter && brandFilter;
                 });
+                console.log(filteredProducts);
                 return { products: filteredProducts };
             });
         } else {
@@ -115,7 +120,10 @@ const useDashboardAdminStore: any = create((set: any) => ({
                 set({ isCategoriesFetching: true });
                 const response = await fetch("http://localhost:3001/categories");
                 const data = await response.json();
-                set({ categories: data });
+                set({
+                    categories: data,
+                    originalCategories: data
+                });
             };
 
         } catch (error) {
@@ -147,7 +155,10 @@ const useDashboardAdminStore: any = create((set: any) => ({
                 set({ isBrandsFetching: true });
                 const response = await fetch("http://localhost:3001/brands");
                 const data = await response.json();
-                set({ brands: data });
+                set({
+                    brands: data,
+                    originalBrands: data
+                });
             };
 
         } catch (error) {
