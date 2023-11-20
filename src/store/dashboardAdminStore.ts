@@ -80,28 +80,35 @@ const useDashboardAdminStore: any = create((set: any) => ({
     filterProductsByName: (input: string) => {
         set((state: any) => {
             const filteredProducts = state.originalProducts.filter((product: ProductsInterface) =>
-                product.name.toLowerCase().includes(input.toLowerCase())
+                product.title.toLowerCase().includes(input.toLowerCase())
             );
             return { products: filteredProducts };
         });
     },
     filterProducts: (options: ProductFilterOptions | null) => {
+        const state = useDashboardAdminStore.getState();
+
         if (options !== null) {
             const { category, brand, stock, price } = options;
 
-            set((state: any) => {
-                // Filtra y retorna a los productos que tengan una o más opciones seleccionadas.
-                const filteredProducts = state.originalProducts.filter((product: ProductsInterface) => {
-                    const categoryFilter = category.length === 0 || category === product.category.name;
-                    const brandFilter = brand.length === 0 || brand === product.brand.name;
-                    // Se usa "&&" para efectuar un filtrado más específico.
-                    return categoryFilter && brandFilter;
-                });
-                return { products: filteredProducts };
+            const filteredProducts = state.originalProducts.filter((product: ProductsInterface) => {
+                const categoryFilter = category.length === 0 || category === product.category.name;
+                const brandFilter = brand.length === 0 || brand === product.brand.name;
+
+                const stockFilterBottom = stock.above === null || stock.above < product.stock;
+                const stockFilterTop = stock.below === null || stock.below > product.stock;
+
+                const priceFilterBottom = price.above === null || price.above < product.price;
+                const priceFilterTop = price.below === null || price.below > product.price;
+
+                // Se usa "&&" para efectuar un filtrado más específico.
+                return categoryFilter && brandFilter && stockFilterBottom && stockFilterTop && priceFilterBottom && priceFilterTop;
             });
+
+            set({ products: filteredProducts });
         } else {
             // Limpia los filtros seteando el array original al estado "productos".
-            set((state: any) => ({ products: state.originalProducts }));
+            set({ products: state.originalProducts });
         };
     },
 

@@ -12,8 +12,13 @@ import { ProductFilterOptions } from '../SearchBar/SearchBar';
 
 export interface ProductsInterface {
     id: number;
-    name: string;
+    title: string;
+    availability: number;
+    condition: string;
     picture: string;
+    image: string[];
+    model: null;
+    state: string;
     category: {
         id: number,
         name: string
@@ -23,8 +28,8 @@ export interface ProductsInterface {
         name: string
     };
     stock: number;
-    regularPrice: number;
-    salePrice: number
+    price: number;
+    year: string
 };
 
 type CardProductsProps = {
@@ -77,7 +82,7 @@ export default function CardProducts({ color }: CardProductsProps) {
 
     // Cambia el estado y realiza peticiones a la API.
     const handleFilter = (parameter: "category" | "brand" | null) => {
-        setFilterOptions((prevOptions) => {
+        setFilterOptions((prevOptions: ProductFilterOptions) => {
             // Primero se cambia la propiedad del estado anterior basado en el parámetro.
             let updatedOptions = { ...prevOptions };
 
@@ -90,6 +95,49 @@ export default function CardProducts({ color }: CardProductsProps) {
             return updatedOptions;
         });
     };
+
+    const handleStockAndPriceChange = (event: ChangeEvent<HTMLInputElement>, clause: "stock" | "price",  property: "above" | "below") => {
+        const inputValue = event.target.value;
+
+        if (clause === "stock") {
+            setFilterOptions((prevOptions: ProductFilterOptions) => {
+                const updatedOptions = property === "above" ? {
+                    ...prevOptions,
+                    stock: {
+                        ...prevOptions.stock,
+                        above: Number(inputValue)
+                    }
+                } : {
+                    ...prevOptions,
+                    stock: {
+                        ...prevOptions.stock,
+                        below: Number(inputValue)
+                    }
+                };
+    
+                return updatedOptions;
+            });
+        } else {
+            setFilterOptions((prevOptions: ProductFilterOptions) => {
+                const updatedOptions = property === "above" ? {
+                    ...prevOptions,
+                    price: {
+                        ...prevOptions.price,
+                        above: Number(inputValue)
+                    }
+                } : {
+                    ...prevOptions,
+                    price: {
+                        ...prevOptions.price,
+                        below: Number(inputValue)
+                    }
+                };
+
+                return updatedOptions;
+            });
+        }
+    };
+
 
     // Limpia el estado local y el estado global.
     const handleClearFilters = () => {
@@ -130,6 +178,10 @@ export default function CardProducts({ color }: CardProductsProps) {
             fetchBrands();
         };
     }, [brands, fetchBrands, isBrandsFetching]);
+
+    useEffect(() => {
+        console.log(products)
+    }, [products])
 
 
     // COMPONENT:
@@ -199,9 +251,31 @@ export default function CardProducts({ color }: CardProductsProps) {
                                 <button onClick={() => handleFilter("brand")}>Eliminar</button>
                             </div>
                         </div>
-                        <div><span>Stock:</span>
+                        <div>
+                            <span>Stock:</span>
+                            <label>Más de:</label>
+                            <input
+                                value={filterOptions.stock.above || 0}
+                                onChange={(e) => handleStockAndPriceChange(e, "stock", "above")}
+                            />
+                            <label>Menos de:</label>
+                            <input
+                                value={filterOptions.stock.below || 0}
+                                onChange={(e) => handleStockAndPriceChange(e, "stock", "below")}
+                            />
                         </div>
-                        <div><span>Precio:</span>
+                        <div>
+                            <span>Precio:</span>
+                            <label>Más de:</label>
+                            <input
+                                value={filterOptions.price.above || 0}
+                                onChange={(e) => handleStockAndPriceChange(e, "price", "above")}
+                            />
+                            <label>Menos de:</label>
+                            <input
+                                value={filterOptions.price.below || 0}
+                                onChange={(e) => handleStockAndPriceChange(e, "price", "below")}
+                            />
                         </div>
 
                         <button onClick={() => handleFilter(null)}>Aplicar filtros</button>
