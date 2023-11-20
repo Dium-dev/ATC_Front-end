@@ -25,9 +25,9 @@ export function ProductCard({
         height={500}
         className="w-full aspect-square"
       />
-      <div className='h-28 flex flex-col justify-evenly'>
-        <h3 className="font-semibold mb-2 line-clamp-3 dark:text-white h-20">{title}</h3>
-        <div>
+      <div className='h-28 flex flex-col justify-between'>
+        <h3 className="font-semibold line-clamp-3 dark:text-white text-sm">{title}</h3>
+        <div className='flex flex-col justify-between'>
           <p className="line-through text-secondary-dm text-sm dark:text-black">{`${toCurrency(
             price
           )}`}</p>
