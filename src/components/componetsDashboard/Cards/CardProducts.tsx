@@ -35,7 +35,7 @@ export default function CardProducts({ color }: CardProductsProps) {
     // LOCAL STATE:
     const [filterMenu, setFilterMenu] = useState<boolean>(false);
     const [filterOptions, setFilterOptions] = useState<ProductFilterOptions>({
-        category: [],
+        category: "",
         brand: [],
         stock: {
             above: null,
@@ -67,31 +67,42 @@ export default function CardProducts({ color }: CardProductsProps) {
         });
     };
 
-    const handleCategoryChange = (category: string) => {
-        setFilterOptions((prevOptions: ProductFilterOptions) => {
-            if (prevOptions.category.includes(category)) {
-                const filteredProducts = prevOptions.category.filter((categoryItem) => categoryItem !== category);
+    const handleCategoryChange = (event: any) => {
+        const category = event.target.value;
+
+        setFilterOptions((prevOptions: ProductFilterOptions): any => {
+            if (prevOptions.category === category) return;
+            else {
                 return {
                     ...prevOptions,
-                    category: filteredProducts
-                }
-            } else {
-                prevOptions.category.push(category);
-                return {
-                    ...prevOptions,
-                    category: prevOptions.category
+                    category: category
                 };
             };
         });
+        // setFilterOptions((prevOptions: ProductFilterOptions) => {
+        //     if (prevOptions.category.includes(category)) {
+        //         const filteredProducts = prevOptions.category.filter((categoryItem) => categoryItem !== category);
+        //         return {
+        //             ...prevOptions,
+        //             category: filteredProducts
+        //         }
+        //     } else {
+        //         prevOptions.category.push(category);
+        //         return {
+        //             ...prevOptions,
+        //             category: prevOptions.category
+        //         };
+        //     };
+        // });
     };
 
     const handleFilter = () => {
-        filterProducts(filterOptions);
+        // filterProducts(filterOptions);
     };
 
     const handleClearFilters = () => {
         setFilterOptions({
-            category: [],
+            category: "",
             brand: [],
             stock: {
                 above: null,
@@ -126,6 +137,10 @@ export default function CardProducts({ color }: CardProductsProps) {
         };
     }, [brands, fetchBrands, isBrandsFetching]);
 
+    useEffect(() => {
+        console.log(filterOptions)
+    }, [filterOptions])
+
 
     // COMPONENT:
     return (
@@ -155,18 +170,27 @@ export default function CardProducts({ color }: CardProductsProps) {
                     <div className="w-full px-8 text-xs">
                         <h3>Filtros:</h3>
                         <div><span>Categoría:</span>
-                            {
-                                Array.isArray(categories) && categories.map((category: any, idx: any) => (
-                                    <div key={category + idx} className="inline-flex items-center">
-                                        <input
-                                            className=""
-                                            type="checkbox"
-                                            checked={filterOptions.category.includes(category)}
-                                            onChange={() => handleCategoryChange(category)}
-                                        /><label>{category.name}</label>
-                                    </div>
-                                ))
-                            }
+                            <select onChange={(e) => handleCategoryChange(e)}>
+                                <option>Selecciona una opción</option>
+                                {
+                                    Array.isArray(categories) && categories.map((category: any, idx: any) => (
+                                        // <div key={category + idx} className="inline-flex items-center">
+                                        //     <input
+                                        //         className=""
+                                        //         type="checkbox"
+                                        //         checked={filterOptions.category.includes(category)}
+                                        //         onChange={() => handleCategoryChange(category)}
+                                        //     /><label>{category.name}</label>
+                                        // </div>
+                                        <option
+                                            key={category + idx} className=""
+                                            value={category.name}
+                                        >
+                                            {category.name}
+                                        </option>
+                                    ))
+                                }
+                            </select>
                         </div>
                         <div><span>Marca:</span>
                             {
@@ -328,7 +352,7 @@ export default function CardProducts({ color }: CardProductsProps) {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div >
     );
 };
 

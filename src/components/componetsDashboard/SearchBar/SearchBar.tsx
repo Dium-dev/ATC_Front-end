@@ -17,7 +17,7 @@ export type UserFilterOptions = {
 };
 
 export type ProductFilterOptions = {
-    category: string[];
+    category: string;
     brand: string[];
     stock: {
         above: number | null,

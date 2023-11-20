@@ -89,7 +89,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
             set((state: any) => {
                 // Filtra y retorna a los productos que tengan una o más opciones seleccionadas.
                 const filteredProducts = state.originalProducts.filter((product: ProductsInterface) => {
-                    const categoryFilter = category.length === 0 || category.includes(product.category);
+                    const categoryFilter = category.length === 0 || category === product.category;
                     const brandFilter = brand.length === 0 || brand.includes(product.brand);
 
                     // Puede ser cambiado a "&&" para efectuar un filtrado más específico.
