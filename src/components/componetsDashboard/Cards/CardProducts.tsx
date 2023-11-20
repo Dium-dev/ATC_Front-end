@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, ChangeEvent } from 'react';
 import PropTypes from 'prop-types';
 
 // components
@@ -18,7 +18,10 @@ export interface ProductsInterface {
         id: number,
         name: string
     };
-    brand: string;
+    brand: {
+        id: number,
+        name: string
+    };
     stock: number;
     regularPrice: number;
     salePrice: number
@@ -39,7 +42,7 @@ export default function CardProducts({ color }: CardProductsProps) {
     const [filterMenu, setFilterMenu] = useState<boolean>(false);
     const [filterOptions, setFilterOptions] = useState<ProductFilterOptions>({
         category: "",
-        brand: [],
+        brand: "",
         stock: {
             above: null,
             below: null
@@ -52,62 +55,47 @@ export default function CardProducts({ color }: CardProductsProps) {
 
 
     // FUNCTIONS:
-    const handleBrandChange = (brand: string) => {
-        setFilterOptions((prevOptions: ProductFilterOptions) => {
-            if (prevOptions.brand.includes(brand)) {
-                const filteredProducts = prevOptions.brand.filter((brandsItem) => brandsItem !== brand)
-                return {
-                    ...prevOptions,
-                    brand: filteredProducts
-                };
-            } else {
-                prevOptions.brand.push(brand);
-                return {
-                    ...prevOptions,
-                    brand: prevOptions.brand
-                };
-            };
+    // Solo cambia el estado, no hace uso del estado global.
+    const handleBrandChange = (event: ChangeEvent<HTMLSelectElement>) => {
+        const brand = event.target.value;
+
+        setFilterOptions((prevOptions: ProductFilterOptions) => ({
+            ...prevOptions,
+            brand: brand
+        }));
+    };
+
+    // Solo cambia el estado, no hace uso del estado global.
+    const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
+        const selectedCategory = event.target.value;
+
+        setFilterOptions((prevOptions: ProductFilterOptions) => ({
+            ...prevOptions,
+            category: selectedCategory
+        }));
+    };
+
+    // Cambia el estado y realiza peticiones a la API.
+    const handleFilter = (parameter: "category" | "brand" | null) => {
+        setFilterOptions((prevOptions) => {
+            // Primero se cambia la propiedad del estado anterior basado en el parámetro.
+            let updatedOptions = { ...prevOptions };
+
+            if (parameter === "category") updatedOptions.category = "";
+            else if (parameter === "brand") updatedOptions.brand = "";
+
+            // Filtra los productos con el estado que está actualizado.
+            filterProducts(updatedOptions);
+
+            return updatedOptions;
         });
     };
 
-    const handleCategoryChange = (event: any) => {
-        const category = event.target.value;
-
-        setFilterOptions((prevOptions: ProductFilterOptions): any => {
-            if (prevOptions.category === category) return;
-            else {
-                return {
-                    ...prevOptions,
-                    category: category
-                };
-            };
-        });
-        // setFilterOptions((prevOptions: ProductFilterOptions) => {
-        //     if (prevOptions.category.includes(category)) {
-        //         const filteredProducts = prevOptions.category.filter((categoryItem) => categoryItem !== category);
-        //         return {
-        //             ...prevOptions,
-        //             category: filteredProducts
-        //         }
-        //     } else {
-        //         prevOptions.category.push(category);
-        //         return {
-        //             ...prevOptions,
-        //             category: prevOptions.category
-        //         };
-        //     };
-        // });
-    };
-
-    const handleFilter = () => {
-        console.log("here")
-        filterProducts(filterOptions);
-    };
-
+    // Limpia el estado local y el estado global.
     const handleClearFilters = () => {
         setFilterOptions({
             category: "",
-            brand: [],
+            brand: "",
             stock: {
                 above: null,
                 below: null
@@ -122,17 +110,19 @@ export default function CardProducts({ color }: CardProductsProps) {
 
     // LIFE CYCLES:
     useEffect(() => {
+        // Se removió "products" del array de dependencias para evitar conflictos cuando se llama a "filterProducts()".
+        // El problema viene cuando se filtran los productos pero no se esncuentran resultados. 
+        // Con "products" dentro del array de dependencias, el componente haría la petición al servidor para llenar el array de productos nuevamente.
+        // Efecto :: Después de que el array de productos se limpia, este "useEffect" se encarga de que lo llene nuevamente.
         if (products.length === 0 && !isProductsFetching) {
             fetchProducts();
         };
-        // updateProducts(PRODUCTS);
-    }, [products, fetchProducts, isProductsFetching]);
+    }, [fetchProducts, isProductsFetching]);
 
     useEffect(() => {
         if (categories.length === 0 && !isCategoriesFetching) {
             fetchCategories();
         };
-        // updateCategories(CATEGORIES);
     }, [categories, fetchCategories, isCategoriesFetching]);
 
     useEffect(() => {
@@ -140,10 +130,6 @@ export default function CardProducts({ color }: CardProductsProps) {
             fetchBrands();
         };
     }, [brands, fetchBrands, isBrandsFetching]);
-
-    useEffect(() => {
-        console.log(filterOptions)
-    }, [filterOptions])
 
 
     // COMPONENT:
@@ -173,49 +159,52 @@ export default function CardProducts({ color }: CardProductsProps) {
                 filterMenu ? (
                     <div className="w-full px-8 text-xs">
                         <h3>Filtros:</h3>
-                        <div><span>Categoría:</span>
-                            <select onChange={(e) => handleCategoryChange(e)}>
-                                <option>Selecciona una opción</option>
-                                {
-                                    Array.isArray(categories) && categories.map((category: any, idx: any) => (
-                                        // <div key={category + idx} className="inline-flex items-center">
-                                        //     <input
-                                        //         className=""
-                                        //         type="checkbox"
-                                        //         checked={filterOptions.category.includes(category)}
-                                        //         onChange={() => handleCategoryChange(category)}
-                                        //     /><label>{category.name}</label>
-                                        // </div>
-                                        <option
-                                            key={category + idx} className=""
-                                            value={category.name}
-                                        >
-                                            {category.name}
-                                        </option>
-                                    ))
-                                }
-                            </select>
+                        <div>
+                            <span>Categoría:</span>
+                            <div className="inline-flex items-center">
+                                <select onChange={(e) => handleCategoryChange(e)} value={filterOptions.category}>
+                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    {
+                                        Array.isArray(categories) && categories.map((category: any, idx: any) => (
+                                            <option
+                                                key={category + idx}
+                                                className=""
+                                                value={category.name}
+                                            >
+                                                {category.name}
+                                            </option>
+                                        ))
+                                    }
+                                </select>
+                                <button onClick={() => handleFilter("category")} >Eliminar</button>
+                            </div>
                         </div>
-                        <div><span>Marca:</span>
-                            {
-                                Array.isArray(brands) && brands.map((brand, idx) => (
-                                    <div key={brand + idx} className="inline-flex items-center">
-                                        <input
-                                            className=""
-                                            type="checkbox"
-                                            checked={filterOptions.brand.includes(brand)}
-                                            onChange={() => handleBrandChange(brand)}
-                                        /><label>{brand.name}</label>
-                                    </div>
-                                ))
-                            }
+                        <div>
+                            <span>Marca:</span>
+                            <div className="inline-flex items-center">
+                                <select onChange={(e) => handleBrandChange(e)} value={filterOptions.brand}>
+                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    {
+                                        Array.isArray(brands) && brands.map((brand, idx) => (
+                                            <option
+                                                key={brand + idx}
+                                                className=""
+                                                value={brand.name}
+                                            >
+                                                {brand.name}
+                                            </option>
+                                        ))
+                                    }
+                                </select>
+                                <button onClick={() => handleFilter("brand")}>Eliminar</button>
+                            </div>
                         </div>
                         <div><span>Stock:</span>
                         </div>
                         <div><span>Precio:</span>
                         </div>
 
-                        <button onClick={handleFilter}>Aplicar filtros</button>
+                        <button onClick={() => handleFilter(null)}>Aplicar filtros</button>
                         <button onClick={handleClearFilters}>Limpiar filtros</button>
                     </div>
                 ) : null
