@@ -1,18 +1,29 @@
 /* eslint-disable no-unused-vars */
 import { create } from 'zustand';
-import { ProductsProps } from '~/types/products';
+import { Brand, ProductsProps } from '~/types/products';
 import { Body } from '~/types/products';
 
 interface ProductStore {
   products: ProductsProps[];
   body: Body;
   // eslint-disable-next-line no-unused-vars
+  brands: Brand[];
   pages: number;
   updateProducts: (data: ProductsProps[]) => void;
   updateBody: (option: string, value: string | number) => void;
   resetBody: () => void;
   setPages: (value: number) => void;
 }
+
+type BrandStore = {
+  selectedBrand: string;
+  setSelectedBrand: (brand: string) => void;
+};
+
+export const useBrandStore = create<BrandStore>((set) => ({
+  selectedBrand: '',
+  setSelectedBrand: (brand) => set(() => ({ selectedBrand: brand })),
+}));
 
 export const useProductStore = create<ProductStore>((set) => ({
   products: [],
@@ -25,6 +36,7 @@ export const useProductStore = create<ProductStore>((set) => ({
     name: '',
   },
   pages: 0,
+  brands: [],
   updateProducts: (data: ProductsProps[]) =>
     set(() => ({
       products: data,
@@ -51,6 +63,11 @@ export const useProductStore = create<ProductStore>((set) => ({
   setPages: (value) => {
     set(() => ({
       pages: value,
+    }));
+  },
+  setBrands: (value: Brand[]) => {
+    set(() => ({
+      brands: value,
     }));
   },
 }));
