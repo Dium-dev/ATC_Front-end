@@ -119,14 +119,14 @@ return (
           <div
             key={index}
             onClick={() => handleClick(brand.name)}
-            className="flex items-center justify-center md:justify-start brand-link relative block w-32 h-32 sm:w-40 sm:h-40 m-0 animate-infinite-scroll"
+            className="slider-infinite-scroll autoplay brand-link relative block w-32 h-32 sm:w-40 sm:h-40 m-1"
             aria-hidden="true"
           >
             <Link href={`/products?brand=${brand.name}`} key={index}>
               <Image
                 src={brand.image}
                 alt={brand.name}
-                className="brand-image object-contain w-full h-full m-0 hover:scale-110 hover:stop-autoplay"
+                className="brand-image items-center justify-between object-contain w-full h-full m-0 max-h-[100px] max-w-[100px] hover:scale-110 hover:stop-autoplay"
                 width={300}
                 height={300}
               />
