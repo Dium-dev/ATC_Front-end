@@ -68,7 +68,20 @@ module.exports = {
       gap: {
         50: '50px',
       },
+      animation: {
+        'slider-infinite-scroll': 'infinite-scroll 2s linear infinite',
+      },
+      keyframes: {
+        'slider-infinite-scroll': {
+          from: {
+            transform: 'translateX(0)',
+          },
+          to: {
+            transform: 'translateX(-100%)',
+          },
+        },
+      },
+      plugins: [],
     },
-    plugins: [],
   },
 };
