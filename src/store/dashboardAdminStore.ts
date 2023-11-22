@@ -9,48 +9,47 @@ const useDashboardAdminStore: any = create((set: any) => ({
     originalUsers: [],
     users: [],
     updateUsers: (data: any) =>
-        set(() => ({
+        set({
             users: data,
             originalUsers: data
-        })),
+        }),
     filterUsersByName: (input: string) => {
-        set((state: any) => {
-            const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
-                user.name.toLowerCase().includes(input.toLowerCase())
-            );
-            return { users: filteredUsers };
-        });
+        const state = useDashboardAdminStore.getState();
+        const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
+            user.name.toLowerCase().includes(input.toLowerCase())
+        );
+
+        set({ users: filteredUsers });
     },
     filterUsersByEmail: (input: string) => {
-        set((state: any) => {
-            const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
-                user.emailAddress.toLowerCase().includes(input.toLowerCase())
-            );
-            return { users: filteredUsers };
-        });
+        const state = useDashboardAdminStore.getState();
+        const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
+            user.emailAddress.toLowerCase().includes(input.toLowerCase())
+        );
+
+        set({ users: filteredUsers });
     },
     filterUsersByPhone: (input: string) => {
-        set((state: any) => {
-            const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
-                user.phone.toLowerCase().includes(input.toLowerCase())
-            );
-            return { users: filteredUsers };
-        });
+        const state = useDashboardAdminStore.getState();
+        const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
+            user.phone.toLowerCase().includes(input.toLowerCase())
+        );
+
+        set({ users: filteredUsers });
     },
     filterUsers: (options: UserFilterOptions | null) => {
+        const state = useDashboardAdminStore.getState();
         if (options !== null) {
             const { status, after, before } = options;
 
-            set((state: any) => {
-                // Filtra a los usuarios que tengan una propiedad "status" que esté incluida en el array "options.status".
-                const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
-                    status.includes(user.status)
-                );
-                return { users: filteredUsers }
-            });
+            const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
+                status.includes(user.status)
+            );
+
+            set({ users: filteredUsers });
         } else {
             // Limpia los filtros seteando el array original al estado "users".
-            set((state: any) => ({ users: state.originalUsers }));
+            set({ users: state.originalUsers });
         };
     },
 
@@ -78,12 +77,12 @@ const useDashboardAdminStore: any = create((set: any) => ({
         };
     },
     filterProductsByName: (input: string) => {
-        set((state: any) => {
-            const filteredProducts = state.originalProducts.filter((product: ProductsInterface) =>
-                product.title.toLowerCase().includes(input.toLowerCase())
-            );
-            return { products: filteredProducts };
-        });
+        const state = useDashboardAdminStore.getState();
+        const filteredProducts = state.originalProducts.filter((product: ProductsInterface) =>
+            product.title.toLowerCase().includes(input.toLowerCase())
+        );
+
+        set({ products: filteredProducts })
     },
     filterProducts: (options: ProductFilterOptions | null) => {
         const state = useDashboardAdminStore.getState();
@@ -137,14 +136,12 @@ const useDashboardAdminStore: any = create((set: any) => ({
         };
     },
     filterCategoriesByName: (input: string) => {
-        set((state: any) => {
-            const filteredCategories = state.originalCategories.filter((category: any) =>
-                category.name.toLowerCase().includes(input.toLowerCase())
-            );
-            return {
-                categories: filteredCategories
-            };
-        });
+        const state = useDashboardAdminStore.getState();
+        const filteredCategories = state.originalCategories.filter((category: any) =>
+            category.name.toLowerCase().includes(input.toLowerCase())
+        );
+
+        set({ categories: filteredCategories });
     },
 
     // ---------- BRANDS ----------:
@@ -172,33 +169,29 @@ const useDashboardAdminStore: any = create((set: any) => ({
         };
     },
     filterBrandsByName: (input: string) => {
-        set((state: any) => {
-            const filteredBrands = state.originalBrands.filter((brand: any) =>
-                brand.name.toLowerCase().includes(input.toLowerCase())
-            );
-            return {
-                brands: filteredBrands
-            };
-        });
+        const state = useDashboardAdminStore.getState();
+        const filteredBrands = state.originalBrands.filter((brand: any) =>
+            brand.name.toLowerCase().includes(input.toLowerCase())
+        );
+
+        set({ brands: filteredBrands });
     },
 
     // ---------- ORDERS ----------:
     originalOrders: [],
     orders: [],
     updateOrders: (data: any) =>
-        set(() => ({
+        set({
             orders: data,
             originalOrders: data
-        })),
+        }),
     filterOrdersByName: (input: string) => {
-        set((state: any) => {
-            const filteredOrders = state.originalOrders.filter((order: any) =>
-                order.orderNumber.toString().includes(input.toString())
-            );
-            return {
-                orders: filteredOrders
-            };
-        });
+        const state = useDashboardAdminStore.getState();
+        const filteredOrders = state.originalOrders.filter((order: any) =>
+            order.orderNumber.toString().includes(input.toString())
+        );
+
+        set({ orders: filteredOrders });
     },
 }));
 
