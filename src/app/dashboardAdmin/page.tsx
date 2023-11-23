@@ -1,11 +1,4 @@
-import CardBarChart from "~/components/componetsDashboard/Cards/CardBarChart";
-import CardLineChart from "~/components/componetsDashboard/Cards/CardLineChart";
-import CardPageVisits from "~/components/componetsDashboard/Cards/CardPageVisits";
-import CardProfile from "~/components/componetsDashboard/Cards/CardProfile";
 import CardSettings from "~/components/componetsDashboard/Cards/CardSettings";
-import CardSocialTraffic from "~/components/componetsDashboard/Cards/CardSocialTraffic";
-import CardStats from "~/components/componetsDashboard/Cards/CardStats";
-import CardTable from "~/components/componetsDashboard/Cards/CardTable";
 
 // import Navbar from "~/components/componetsDashboard/Navbars/IndexNavbar";
 import NavBar from "~/components/navBar/navBar";
@@ -13,7 +6,7 @@ import Navbar from "../../components/componetsDashboard/Navbars/AdminNavbar";
 import Sidebar from "~/components/componetsDashboard/Sidebar/Sidebar";
 import CardUsers from "~/components/componetsDashboard/Cards/CardUsers"
 import CardProducts from "~/components/componetsDashboard/Cards/CardProducts";
-import CardOrders from "~/components/componetsDashboard/Cards/CardOrders";
+import CardOrders from "~/components/componetsDashboard/Cards/Orders/CardOrders";
 import CardCategories from "~/components/componetsDashboard/Cards/CardCategories";
 import CardBrands from "~/components/componetsDashboard/Cards/CardBrands";
 
@@ -43,7 +36,7 @@ export default function landing() {
                 {/* <CardBarChart /> */}
                 SETTINGS:
                 {/* SETTINGS */}
-                <CardSettings />
+                {/* <CardSettings /> */}
                 {/* <CardProfile /> */}
 
                 {/* <CardLineChart /> */}
