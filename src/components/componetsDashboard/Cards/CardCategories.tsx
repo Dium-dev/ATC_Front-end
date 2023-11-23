@@ -1,10 +1,11 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 
 // components
 import SearchBar from '../SearchBar/SearchBar';
 import TableDropdown from '~/components/componetsDashboard/Dropdowns/TableDropdown';
+import Pagination from "../Pagination/Pagination";
 
 import useDashboardAdminStore from "~/store/dashboardAdminStore";
 
@@ -14,18 +15,6 @@ interface CategoriesInterface {
     name: string,
 };
 
-const CATEGORIES: CategoriesInterface[] = [
-    {
-        id: 1,
-        name: "Escape"
-    },
-    {
-        id: 2,
-        name: "Pisos"
-    }
-];
-
-
 type CardCategoriesProps = {
     color: string
 };
@@ -34,24 +23,32 @@ export default function CardCategories({ color }: CardCategoriesProps) {
 
 
     // GLOBAL STORE:
-    const { categories, updateCategories }: any = useDashboardAdminStore();
+    const { categories, fetchCategories, isCategoriesFetching }: any = useDashboardAdminStore();
+
+
+    // LOCAL STATES:
+    const [currentPage, setCurrentPage] = useState<number>(1);
+
+
+    // CONST:
+    // Constantes para la paginación.
+    const elementsPerPage = 10;
+    const indexOfLastElement = currentPage * elementsPerPage;
+    const indexOfFirstElement = indexOfLastElement - elementsPerPage;
 
 
     // LIFE CYCLES:
     useEffect(() => {
-        updateCategories(CATEGORIES);
-    }, []);
+        if (categories.length === 0 && !isCategoriesFetching) {
+            fetchCategories();
+        };
+    }, [categories, fetchCategories, isCategoriesFetching]);
 
 
     // COMPONENT:
     return (
         <>
-            <div
-                className={
-                    'relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded ' +
-                    (color === 'light' ? 'bg-white' : 'bg-lightBlue-900 text-white')
-                }
-            >
+            <div className='relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded dark:bg-primary-dm dark:text-white'>
                 <div className="rounded-t mb-0 px-4 py-3 border-0">
                     <div className="flex flex-wrap items-center">
                         <div className="relative flex items-center justify-between w-full px-4 max-w-full flex-grow flex-1">
@@ -106,7 +103,7 @@ export default function CardCategories({ color }: CardCategoriesProps) {
                         </thead>
                         <tbody>
                             {
-                                categories.map((CATEGORY: any, idx: any) => (
+                                Array.isArray(categories) && categories?.slice(indexOfFirstElement, indexOfLastElement).map((CATEGORY: CategoriesInterface, idx: any) => (
                                     <tr key={idx}>
                                         <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                             {CATEGORY.id}
@@ -122,6 +119,12 @@ export default function CardCategories({ color }: CardCategoriesProps) {
                             }
                         </tbody>
                     </table>
+                    <Pagination
+                        elementsPerPage={elementsPerPage}
+                        elementsNumber={categories.length}
+                        setCurrentPage={setCurrentPage}
+                        currentPage={currentPage}
+                    />
                 </div>
             </div>
         </>
