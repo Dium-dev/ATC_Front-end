@@ -178,12 +178,7 @@ export default function CardProducts({ color }: CardProductsProps) {
 
     // COMPONENT:
     return (
-        <div
-            className={
-                'relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded ' +
-                (color === 'light' ? 'bg-white' : 'bg-lightBlue-900 text-white')
-            }
-        >
+        <div className='relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded dark:bg-primary-dm dark:text-white' >
             <div className="rounded-t mb-0 px-4 py-3 border-0">
                 <div className="flex flex-wrap items-center">
                     <div className="relative flex items-center justify-between w-full px-4 max-w-full flex-grow flex-1">

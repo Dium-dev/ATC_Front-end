@@ -16,7 +16,7 @@ interface OrdersInterface {
     status: "cancelled" | "declined" | "approved" | "processing" | "inbound" | "delivered",
     total: number,
     list: {
-        product: string,
+        name: string,
         quantity: number,
         value: number
     }[],
@@ -49,10 +49,17 @@ const ORDERS: OrdersInterface[] = [
         status: "declined",
         total: 2489900,
         list: [{
-            product: "product A",
+            name: "product A",
             quantity: 1,
             value: 2489900
-        }],
+        },
+        {
+            name: "product B",
+            quantity: 2,
+            value: 3489900
+        },
+
+        ],
         payment: {
             date: "01 Novemeber 2023, 10:25 a.m. GMT-3",
             method: "MercadoPago",
@@ -79,7 +86,7 @@ const ORDERS: OrdersInterface[] = [
         status: "delivered",
         total: 1929900,
         list: [{
-            product: "product B",
+            name: "product B",
             quantity: 1,
             value: 1929900
         }],
@@ -129,201 +136,273 @@ export default function CardOrders({ color }: CardOrdersProps) {
 
     // COMPONENT:
     return (
-        <>
-            <div
-                className={
-                    'relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded ' +
-                    (color === 'light' ? 'bg-white' : 'bg-lightBlue-900 text-white')
-                }
-            >
-                <div className="rounded-t mb-0 px-4 py-3 border-0">
-                    <div className="flex flex-wrap items-center">
-                        <div className="relative flex items-center justify-between w-full px-4 max-w-full flex-grow flex-1">
-                            <h3
-                                className={
-                                    'font-semibold text-lg ' +
-                                    (color === 'light' ? 'text-blueGray-700' : 'text-white')
-                                }
-                            >
-                                Pedidos
-                            </h3>
-                            <SearchBar section="order" setFilterMenu={setFilterMenu} />
-                        </div>
+        <div className='relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded dark:bg-primary-dm dark:text-white'>
+            <div className="rounded-t mb-0 px-4 py-3 border-0">
+                <div className="flex flex-wrap items-center">
+                    <div className="relative flex items-center justify-between w-full px-4 max-w-full flex-grow flex-1">
+                        <h3
+                            className={
+                                'font-semibold text-lg ' +
+                                (color === 'light' ? 'text-blueGray-700' : 'text-white')
+                            }
+                        >
+                            Pedidos
+                        </h3>
+                        <SearchBar section="order" setFilterMenu={setFilterMenu} />
                     </div>
                 </div>
-                {
-                    filterMenu ? (
-                        <div className="w-full px-8 text-xs">
-                            <h3>Filtros:</h3>
-                            <div><span>Estado:</span>
-                            </div>
-                            <div>
-                                <span>Fecha de creación:</span>
-                                <label>depués de:</label><input type="date" />
-                                <label>antes de:</label><input type="date" />
-                            </div>
-                            <div><span>Total:</span>
-                            </div>
-                            <div>Productos</div>
-                            <div><span>Cantidad de objetos</span></div>
-
-                            <div>Pago:</div>
-                            <div><span>Medio</span></div>
-                            <div><span>Estado</span></div>
-                            <div>
-                                <span>Fecha de Pago:</span>
-                                <label>depués de:</label><input type="date" />
-                                <label>antes de:</label><input type="date" />
-                            </div>
-
-                            <div>Usuario</div>
-
-                            {/* interface OrdersInterface {
-                                id: number,
-                            orderNumber: number,
-                            creationDate: string,
-                            status: "cancelled" | "declined" | "approved" | "processing" | "inbound" | "delivered",
-                            total: number,
-                            list: {
-                                product: string,
-                            quantity: number,
-                            value: number
-    }[],
-                            payment: {
-                                date: string,
-                            method: "MercadoPago" | "cash",
-                            state: "approved" | "declined" | "pending",
-                            approvalNumber: number
-    },
-                            client: {
-                                name: string,
-                            emailAddress: string,
-                            phoneNumber: string,
-                            address: {
-                                department: string,
-                            locality: string,
-                            neighborhood: string,
-                            number: number,
-                            references: string
-        }
-    }
-}; */}
-                            <button>Aplicar filtros</button>
-                        </div>
-                    ) : null
-                }
-                <div className="block w-full overflow-x-auto">
-                    <table className="items-center w-full bg-transparent border-collapse">
-                        <thead>
-                            <tr>
-                                <th
-                                    className={
-                                        'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                        (color === 'light'
-                                            ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                            : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                    }
-                                >
-                                    Id
-                                </th>
-                                <th
-                                    className={
-                                        'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                        (color === 'light'
-                                            ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                            : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                    }
-                                >
-                                    Número de orden
-                                </th>
-                                <th
-                                    className={
-                                        'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                        (color === 'light'
-                                            ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                            : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                    }
-                                >
-                                    Fecha de creación
-                                </th>
-                                <th
-                                    className={
-                                        'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                        (color === 'light'
-                                            ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                            : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                    }
-                                >
-                                    Estado
-                                </th>
-                                <th
-                                    className={
-                                        'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                        (color === 'light'
-                                            ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                            : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                    }
-                                >
-                                    Total
-                                </th>
-                                <th
-                                    className={
-                                        'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                        (color === 'light'
-                                            ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                            : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                    }
-                                >
-                                    Acciones
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                orders.map((PRODUCT: any, idx: any) => (
-                                    <>
-                                        <tr key={idx}>
-                                            <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                {PRODUCT.id}
-                                            </th>
-                                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                {PRODUCT.orderNumber}
-                                            </td>
-                                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                {PRODUCT.creationDate}
-                                            </td>
-                                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                <i className="fas fa-circle text-orange-500 mr-2"></i> {PRODUCT.status}
-                                            </td>
-                                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                {PRODUCT.total}
-                                            </td>
-                                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                                {/* <TableDropdown /> */}
-                                                <button onClick={() => setShowDetails(true)}>mostrar detalles</button>
-                                            </td>
-                                        </tr>
-                                        {
-                                            showDetails ? (
-                                                <div className="w-full">
-                                                    <table>
-                                                        <thead>
-                                                            <tr>
-                                                                <th></th>
-                                                            </tr>
-                                                        </thead>
-                                                    </table>
-                                                </div>
-                                            ) : null
-                                        }
-                                    </>
-                                ))
-                            }
-                        </tbody>
-                    </table>
-                </div>
             </div>
-        </>
+            {
+                filterMenu ? (
+                    <div className="w-full px-8 text-xs">
+                        <h3>Filtros:</h3>
+                        <div><span>Estado:</span>
+                        </div>
+                        <div>
+                            <span>Fecha de creación:</span>
+                            <label>depués de:</label><input type="date" />
+                            <label>antes de:</label><input type="date" />
+                        </div>
+                        <div><span>Total:</span>
+                        </div>
+                        <div>Productos</div>
+                        <div><span>Cantidad de objetos</span></div>
+
+                        <div>Pago:</div>
+                        <div><span>Medio</span></div>
+                        <div><span>Estado</span></div>
+                        <div>
+                            <span>Fecha de Pago:</span>
+                            <label>depués de:</label><input type="date" />
+                            <label>antes de:</label><input type="date" />
+                        </div>
+
+                        <div>Usuario</div>
+
+                        <button>Aplicar filtros</button>
+                    </div>
+                ) : null
+            }
+            <div className="block w-full overflow-x-auto">
+                <table className="items-center w-full bg-transparent border-collapse">
+                    <thead>
+                        <tr>
+                            <th
+                                className={
+                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
+                                    (color === 'light'
+                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
+                                }
+                            >
+                                Id
+                            </th>
+                            <th
+                                className={
+                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
+                                    (color === 'light'
+                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
+                                }
+                            >
+                                Número de orden
+                            </th>
+                            <th
+                                className={
+                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
+                                    (color === 'light'
+                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
+                                }
+                            >
+                                Fecha de creación
+                            </th>
+                            <th
+                                className={
+                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
+                                    (color === 'light'
+                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
+                                }
+                            >
+                                Estado
+                            </th>
+                            <th
+                                className={
+                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
+                                    (color === 'light'
+                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
+                                }
+                            >
+                                Total
+                            </th>
+                            <th
+                                className={
+                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
+                                    (color === 'light'
+                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
+                                }
+                            >
+                                Acciones
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            ORDERS.map((PRODUCT, idx: any) => (
+                                <>
+                                    <tr key={idx}>
+                                        <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                            {PRODUCT.id}
+                                        </th>
+                                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                            {PRODUCT.orderNumber}
+                                        </td>
+                                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                            {PRODUCT.creationDate}
+                                        </td>
+                                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                            <i className="fas fa-circle text-orange-500 mr-2"></i> {PRODUCT.status}
+                                        </td>
+                                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                            {PRODUCT.total}
+                                        </td>
+                                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                                            {/* <TableDropdown /> */}
+                                            <button onClick={() => setShowDetails(true)}>mostrar detalles</button>
+                                        </td>
+                                    </tr>
+                                    {
+                                        true ? (
+                                            <div className="w-full">
+                                                <table>
+                                                    <tr>
+                                                        <th>Productos</th>
+                                                        <td>
+                                                            <table>
+                                                                <tr>
+                                                                    <th>ID</th>
+                                                                    <td>{PRODUCT.id}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Numero de orden</td>
+                                                                    <td>{PRODUCT.orderNumber}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Estado</td>
+                                                                    <td>{PRODUCT.status}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Lista de productos</td>
+                                                                    <td>
+                                                                        <ul>
+                                                                            {
+                                                                                PRODUCT.list.map((product, idx) => (
+                                                                                    <li key={product.name + idx}>
+                                                                                        <span>
+                                                                                            {product.name}
+                                                                                        </span>
+                                                                                        <span>
+                                                                                            x{product.quantity}
+                                                                                        </span>
+                                                                                        <span>
+                                                                                            {product.value}
+                                                                                        </span>
+                                                                                    </li>
+                                                                                ))
+                                                                            }
+                                                                        </ul>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Total</td>
+                                                                    <td>{PRODUCT.total}</td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Pago</th>
+                                                        <td>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>Fecha</td>
+                                                                    <td>{PRODUCT.payment.date}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Metodo</td>
+                                                                    <td>{PRODUCT.payment.method}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Estado</td>
+                                                                    <td>{PRODUCT.payment.state}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Numero de aprobacion</td>
+                                                                    <td>{PRODUCT.payment.approvalNumber}</td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Usuario</th>
+                                                        <td>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>Nombre</td>
+                                                                    <td>{PRODUCT.client.name}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Correo electronico</td>
+                                                                    <td>{PRODUCT.client.emailAddress}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Numero de telefono</td>
+                                                                    <td>{PRODUCT.client.phoneNumber}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Dirrecion registrada</td>
+                                                                    <td>
+                                                                        <table>
+                                                                            <tr>
+                                                                                <td>Departamento</td>
+                                                                                <td>{PRODUCT.client.address.department}</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Localidad</td>
+                                                                                <td>{PRODUCT.client.address.locality}</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Barrio</td>
+                                                                                <td>{PRODUCT.client.address.neighborhood}</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Numero</td>
+                                                                                <td>{PRODUCT.client.address.number}</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Referencias</td>
+                                                                                <td>{PRODUCT.client.address.references}</td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        ) : null
+                                    }
+                                </>
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     );
 };
 
