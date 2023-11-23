@@ -51,7 +51,7 @@ const Categories = () => {
 
     return(
         <div className="w-full h-[60px] hidden md:block mt-14 bg-opacity-70 bg-white shadow-md cursor-pointer dark:bg-primary-dm">
-            <ul className="flex xxxl:justify-between justify-evenly items-center w-full h-full font-medium max-w-[1920px] mx-auto">
+            <ul className="flex justify-around items-center w-full h-full font-medium max-w-[1920px] mx-auto">
             {CATEGORIES.map(({ name, id }) => (
             <li key={id} onClick={() => handleClick(id)}>{name}</li>
         ))}
