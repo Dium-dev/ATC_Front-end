@@ -1,17 +1,57 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      'i.ebayimg.com',
-      'i.postimg.cc',
-      '1000marcas.net',
-      'www.autopista.es',
-      'assets.stickpng.com',
-      'media.gm.com',
-      'cdn-icons-png.flaticon.com',
-      'user-images.githubusercontent.com',
-      'postlmg.cc/7GxXNxBz',
-    ], // Agrega aquí los dominios permitidos para las imágenes
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.ebayimg.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.postimg.cc',
+      },
+      {
+        protocol: 'https',
+        hostname: '1000marcas.net',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.autopista.es',
+      },
+      {
+        protocol: 'https',
+        hostname: 'assets.stickpng.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'media.gm.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn-icons-png.flaticon.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'user-images.githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'postlmg.cc',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.puroverso.com.uy',
+      },
+      {
+        protocol: 'https',
+        hostname: 'm.media-amazon.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'furper.com',
+      }
+      // Agrega otras configuraciones de dominio según sea necesario
+    ],
   },
 };
 

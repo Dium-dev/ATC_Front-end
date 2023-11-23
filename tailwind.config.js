@@ -6,6 +6,7 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/stories/**/*.{js,ts,jsx,tsx}',
+    './src/assets/**/*.{js,ts,jsx,tsx}'
   ],
     safelist: [
     // 'xs:min-w-[calc(100%/1)]',
@@ -41,7 +42,8 @@ module.exports = {
       'input-bg': '#FFF2F7',
       white: '#fff',
       black: '#000',
-      green: '#008000'
+      green: '#008000',
+      gray: '#DCDCDC'
     },
     screens: {
       xs: '480px',
@@ -67,7 +69,20 @@ module.exports = {
       gap: {
         50: '50px',
       },
+      animation: {
+        'slider-infinite-scroll': 'infinite-scroll 2s linear infinite',
+      },
+      keyframes: {
+        'slider-infinite-scroll': {
+          from: {
+            transform: 'translateX(0)',
+          },
+          to: {
+            transform: 'translateX(-100%)',
+          },
+        },
+      },
+      plugins: [],
     },
-    plugins: [],
   },
 };
