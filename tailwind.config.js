@@ -69,15 +69,15 @@ module.exports = {
         50: '50px',
       },
       animation: {
-        'slider-infinite-scroll': 'infinite-scroll 4s ease-in infinite',
+        'slider-infinite-scroll': 'infinite-scroll 2s ease-in infinite',
       },
       keyframes: {
         'infinite-scroll': {
-          from: {
+          '0%': {
             transform: 'translateX(0)',
           },
-          to: {
-            transform: 'translateX(-100%)',
+          '100%': {
+            transform: 'translateX(-50%)',
           },
         },
       },

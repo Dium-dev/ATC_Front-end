@@ -119,14 +119,14 @@ const ContainerCardsBrands: React.FC = () => {
             <div
               key={index}
               onClick={() => handleClick(brand.name)}
-              className="slider-infinite-scroll autoplay brand-link relative block w-32 h-32 sm:w-40 sm:h-40 m-0"
+              className="slider-infinite-scroll autoplay brand-link relative block w-32 h-32 sm:w-40 sm:h-40 m-0 flex items-center"
               aria-hidden="true"
             >
               <Link href={`/products?brand=${brand.name}`} key={index}>
                 <Image
                   src={brand.image}
                   alt={brand.name}
-                  className="brand-image items-center justify-between object-contain w-full h-full m-0 max-h-[100px] max-w-[100px] hover:scale-110 hover:stop-autoplay"
+                  className="brand-image object-contain w-full h-full m-0 max-h-[100px] max-w-[100px] hover:scale-110 hover:stop-autoplay"
                   width={300}
                   height={300}
                 />
