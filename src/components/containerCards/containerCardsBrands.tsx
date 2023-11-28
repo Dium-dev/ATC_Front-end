@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useBrandStore } from '../../store/productStore';
 import React, { useState, useRef } from 'react';
 import Image from 'next/image';
-import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import Ticker from 'framer-motion-ticker';
 
 interface TickerProps {
@@ -125,9 +124,6 @@ const ContainerCardsBrands: React.FC = () => {
     setSelectedBrand(brandName);
   };
 
-  const [activeIndex, setActiveIndex] = useState(0);
-  const tickerRef = useRef(null);
-
   const value: AnimatedValue = {
     animate() {
       // Implement the animate method
@@ -135,41 +131,16 @@ const ContainerCardsBrands: React.FC = () => {
   };
   value.animate(); // This will work because value is an AnimatedValue
 
-  const handlePrevClick = () => {
-    if (activeIndex > 0) {
-      setActiveIndex(activeIndex - 1);
-      tickerRef.current?.animate({ transform: 'translateX(100%)' });
-    } else {
-      setActiveIndex(imagesBrands.length - 1);
-      tickerRef.current?.animate({ transform: 'translateX(-100%)' });
-    }
-  };
-
-  const handleNextClick = () => {
-    if (activeIndex < imagesBrands.length - 1) {
-      setActiveIndex(activeIndex + 1);
-      tickerRef.current?.animate({ transform: 'translateX(-100%)' });
-    } else {
-      setActiveIndex(0);
-      tickerRef.current?.animate({ transform: 'translateX(0)' });
-    }
-  };
-
   return (
-    <div className="flex flex-col items-center justify-between mb-24 w-full flex-nowrap overflow-hidden">
-      <div className="flex items-center justify-center w-full max-w-f-hd py-2 flex gap-1 relative">
-        <button
-          onClick={handlePrevClick}
-          className="w-10 h-10 apect-square rounded-full flex items-center justify-center p-2 bg-white text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all"
-        >
-          <BsChevronCompactLeft size="100%" />
-        </button>
+    <div className="flex flex-col items-center justify-between mb-24 w-full flex-nowrap overflow-hidden max-w-[1920px] mx-auto">
+      <div className="flex items-center justify-center w-full max-w-f-hd py-2 gap-1 relative">
+  
         <Ticker duration={70}>
           {imagesBrands.map((brand, index) => (
             <div
               key={index}
               onClick={() => handleClick(brand.name)}
-              className="brand-link relative block w-32 h-32 sm:w-40 sm:h-40 m-2 flex items-center"
+              className="brand-link relative w-32 h-32 sm:w-40 sm:h-40 m-2 flex items-center"
               aria-hidden="true"
             >
               <Link href={`/products?brand=${brand.name}`} key={index}>
@@ -184,12 +155,7 @@ const ContainerCardsBrands: React.FC = () => {
             </div>
           ))}
           </Ticker>
-          <button
-          onClick={handleNextClick}
-          className="w-10 h-10 apect-square rounded-full flex items-center justify-center p-2 bg-white text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all"
-        >
-          <BsChevronCompactRight size="100%" />
-          </button>
+  
       </div>
     </div>
   );
