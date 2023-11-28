@@ -50,7 +50,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
       <div
         className={`z-50 fixed top-0 bg-opacity-70 bg-white w-full backdrop-blur-sm flex-col ${
           pathname !== '/' ? 'shadow-none' : 'shadow-md'
-        } dark:bg-primary-dm`}
+        } dark:bg-primary-dm py-0.5`}
       >
         <div className="p-4 flex items-center h-[60px] xxxl:px-0 justify-between mx-auto max-w-[1920px] relative">
           {isOpenMenu && (

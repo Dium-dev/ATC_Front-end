@@ -12,6 +12,7 @@ export default function HamburguerClose() {
       <g id="SVGRepo_iconCarrier">
         {' '}
         <path
+        className='dark:stroke-white'
           d="M4 6H20M4 12H14M4 18H9"
           stroke="#000000"
           strokeWidth="2"
