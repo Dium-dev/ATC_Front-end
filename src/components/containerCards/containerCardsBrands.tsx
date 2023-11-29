@@ -1,26 +1,11 @@
 'use client';
-import { Carousel } from '../carousels/carousel';
-import BrandCard from '../cards/brandCard';
-import Link from 'next/link';
-import { useBrandStore } from '../../store/productStore';
-import React, { useState, useRef } from 'react';
+import { useBrandStore, useProductStore } from '../../store/productStore';
+import React from 'react';
 import Image from 'next/image';
 import Ticker from 'framer-motion-ticker';
 
-interface TickerProps {
-  ref?: React.MutableRefObject<null>;
-  children: Element[];
-  duration: number;
-  items: { name: string; image: string; }[];
-  auto: boolean;
-}
-
-type AnimatedValue = {
-  animate(): void;
-};
-
 const ContainerCardsBrands: React.FC = () => {
-  const setSelectedBrand = useBrandStore((state) => state.setSelectedBrand);
+  const setBrand = useBrandStore((state) => state.setBrand);
   const imagesBrands = [
     {
       name: 'Ford',
@@ -120,42 +105,32 @@ const ContainerCardsBrands: React.FC = () => {
     },
   ];
 
-  const handleClick = (brandName: string) => {
-    setSelectedBrand(brandName);
+  const updateBody = useProductStore((state) => state.updateBody);
+  const handleClick = (id: string): void => {
+    updateBody('brandId', id);
   };
-
-  const value: AnimatedValue = {
-    animate() {
-      // Implement the animate method
-    },
-  };
-  value.animate(); // This will work because value is an AnimatedValue
 
   return (
     <div className="flex flex-col items-center justify-between mb-24 w-full flex-nowrap overflow-hidden max-w-[1920px] mx-auto">
       <div className="flex items-center justify-center w-full max-w-f-hd py-2 gap-1 relative">
-  
         <Ticker duration={70}>
-          {imagesBrands.map((brand, index) => (
+          {imagesBrands.map((brand, id) => (
             <div
-              key={index}
+              key={id}
               onClick={() => handleClick(brand.name)}
               className="brand-link relative w-32 h-32 sm:w-40 sm:h-40 m-2 flex items-center"
               aria-hidden="true"
             >
-              <Link href={`/products?brand=${brand.name}`} key={index}>
-                <Image
-                  src={brand.image}
-                  alt={brand.name}
-                  className="brand-image object-contain w-full h-full m-2 max-h-[100px] max-w-[100px] hover:scale-110 ${!isHovering && 'hover:stop-autoplay'}`;"
-                  width={300}
-                  height={300}
-                />
-              </Link>
+              <Image
+                src={brand.image}
+                alt={brand.name}
+                className="brand-image object-contain w-full h-full m-2 max-h-[100px] max-w-[100px] hover:scale-110"
+                width={300}
+                height={300}
+              />
             </div>
           ))}
-          </Ticker>
-  
+        </Ticker>
       </div>
     </div>
   );
