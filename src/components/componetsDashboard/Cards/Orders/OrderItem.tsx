@@ -19,7 +19,7 @@ function OrderItem({ ORDER }: OrderItemInterface) {
     return (
         <>
 
-            <tr className={`${showDetails ? "hidden" : "block"}`}>
+            <tr className={`${showDetails ? "hidden" : "table-row"}`}>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     {ORDER.id}
                 </th>
@@ -40,7 +40,7 @@ function OrderItem({ ORDER }: OrderItemInterface) {
                     <button onClick={() => setShowDetails((prev) => !prev)}>mostrar detalles</button>
                 </td>
             </tr>
-            <div className={`w-full ${showDetails ? "block" : "hidden"}`}>
+            <div className={`w-full ${showDetails ? "block visible" : "hidden invisible"}`}>
                 <table>
                     <tr>
                         <th>ORDEN</th>
