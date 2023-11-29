@@ -32,36 +32,36 @@ export type ProductFilterOptions = {
 export type OrderFilterOptions = {
     // order:
     order: {
-        status: string[],
+        status: string,
         creationDate: {
             before: string,
             after: string
         },
-        total: {
-            below: number,
-            above: number
-        },
-
     };
+    totalPrice: {
+        below: number | null,
+        above: number | null
+    },
     // list:
     itemQuantity: {
-        number: number
+        below: number | null,
+        above: number | null
     };
     // payment:
     payment: {
-        method: string[],
-        status: string[],
+        method: string,
+        status: string,
         efectiveDate: {
             before: string,
             after: string
         },
     };
-    user: {
-        name: string,
-        email: string,
-        phone: string,
-        address: {}
-    };
+    // user: {
+    //     name: string,
+    //     email: string,
+    //     phone: string,
+    //     address: {}
+    // };
 };
 
 

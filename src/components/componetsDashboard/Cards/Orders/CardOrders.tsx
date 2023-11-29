@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 // components
@@ -7,7 +7,39 @@ import SearchBar from '../../SearchBar/SearchBar';
 import TableDropdown from '~/components/componetsDashboard/Dropdowns/TableDropdown';
 
 import useDashboardAdminStore from '~/store/dashboardAdminStore';
+import { OrderFilterOptions } from '../../SearchBar/SearchBar';
 import OrderItem from './OrderItem';
+
+
+// Agregar un endpoint con:
+// - todos los posibles estados de la orden: Aprobado | En proceso | En despacho | Entregado
+// - todos los medios de pago existentes: Mercado Pago | Pago Directo
+// - todos los posibles estados del pago (transacción): Aprovado | Declinado | Pendiente
+
+
+// simular fetch a todos los posible estados de la orden:
+const STATUS = [
+    "cancelled",
+    "declined",
+    "approved",
+    "processing",
+    "inbound",
+    "delivered"
+] as const;
+type OrderStatus = typeof STATUS[number];
+
+const PAYMENT_METHOD = [
+    "MercadoPago",
+    "cash"
+] as const;
+type PaymentMethod = typeof PAYMENT_METHOD[number];
+
+const PAYMENT_STATUS = [
+    "approved",
+    "declined",
+    "pending"
+] as const;
+type PaymentStatus = typeof PAYMENT_STATUS[number];
 
 
 export interface OrdersInterface {
@@ -24,7 +56,7 @@ export interface OrdersInterface {
     payment: {
         date: string,
         method: "MercadoPago" | "cash",
-        state: "approved" | "declined" | "pending",
+        status: "approved" | "declined" | "pending",
         approvalNumber: number
     },
     costumer: {
@@ -64,7 +96,7 @@ const ORDERS: OrdersInterface[] = [
         payment: {
             date: "01 Novemeber 2023, 10:25 a.m. GMT-3",
             method: "MercadoPago",
-            state: "approved",
+            status: "approved",
             approvalNumber: 123456789
         },
         costumer: {
@@ -95,7 +127,7 @@ const ORDERS: OrdersInterface[] = [
         payment: {
             date: "27 October 2023, 10:25 a.m. GMT-3",
             method: "MercadoPago",
-            state: "approved",
+            status: "approved",
             approvalNumber: 987654321
         },
         costumer: {
@@ -124,12 +156,131 @@ export default function CardOrders({ color }: CardOrdersProps) {
 
 
     // GLOBAL STORE:
-    const { orders, updateOrders }: any = useDashboardAdminStore();
+    const { orders, updateOrders, filterOrders }: any = useDashboardAdminStore();
 
 
     // LOCAL STATES:
     const [filterMenu, setFilterMenu] = useState<boolean>(false);
+    const [filterOptions, setFilterOptions] = useState<OrderFilterOptions>({
+        order: {
+            status: "",
+            creationDate: {
+                before: "",
+                after: ""
+            },
+        },
+        totalPrice: {
+            below: null,
+            above: null
+        },
+        // list:
+        itemQuantity: {
+            below: null,
+            above: null
+        },
+        // payment:
+        payment: {
+            method: "",
+            status: "",
+            efectiveDate: {
+                before: "",
+                after: ""
+            },
+        }
+    });
 
+
+    // FUNCTIONS:
+    const handleStatusChange = (event: ChangeEvent<HTMLSelectElement>) => {
+        const selectedStatus = event.target.value;
+
+        setFilterOptions((prevOptions: OrderFilterOptions) => ({
+            ...prevOptions,
+            order: {
+                ...prevOptions.order,
+                status: selectedStatus
+            }
+        }));
+    };
+
+    const handlePaymentMethodChange = (event: ChangeEvent<HTMLSelectElement>) => {
+        const selectedPaymentMethod = event.target.value;
+
+        setFilterOptions((prevOptions: OrderFilterOptions) => ({
+            ...prevOptions,
+            payment: {
+                ...prevOptions.payment,
+                method: selectedPaymentMethod
+            }
+        }));
+    };
+
+    const handlePaymentStatusChange = (event: ChangeEvent<HTMLSelectElement>) => {
+        const selectedPaymentStatus = event.target.value;
+
+        setFilterOptions((prevOptions: OrderFilterOptions) => ({
+            ...prevOptions,
+            payment: {
+                ...prevOptions.payment,
+                status: selectedPaymentStatus
+            }
+        }));
+    };
+
+    const handleTotalAndProductsChange = (
+        event: ChangeEvent<HTMLInputElement>,
+        clause: "totalPrice" | "itemQuantity",
+        property: "above" | "below"
+    ) => {
+        const inputValue = event.target.value;
+
+        setFilterOptions((prevOptions: OrderFilterOptions) => {
+            const updatedOptions = {
+                ...prevOptions,
+                [clause]: {
+                    ...prevOptions[clause],
+                    [property]: Number(inputValue),
+                },
+            };
+
+            return updatedOptions;
+        });
+    };
+
+    const handleFilter = () => {
+        filterOrders(filterOptions);
+    };
+
+    const handleClearFilters = () => {
+        setFilterOptions({
+            order: {
+                status: "",
+                creationDate: {
+                    before: "",
+                    after: ""
+                },
+            },
+            totalPrice: {
+                below: null,
+                above: null
+            },
+            // list:
+            itemQuantity: {
+                below: null,
+                above: null
+            },
+            // payment:
+            payment: {
+                method: "",
+                status: "",
+                efectiveDate: {
+                    before: "",
+                    after: ""
+                },
+            }
+        });
+        filterOrders(null);
+    };
 
     // LIFECYCLES:
     useEffect(() => {
@@ -159,21 +310,100 @@ export default function CardOrders({ color }: CardOrdersProps) {
                 filterMenu ? (
                     <div className="w-full px-8 text-xs">
                         <h3>Filtros:</h3>
-                        <div><span>Estado:</span>
+                        <div>
+                            <span>Estado:</span>
+                            <div className="inline-flex items-center">
+                                <select onChange={(e) => handleStatusChange(e)} value={filterOptions.order.status}>
+                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    {
+                                        Array.isArray(STATUS) && STATUS.map((status: OrderStatus, idx: number) => (
+                                            <option
+                                                key={status + idx}
+                                                className=""
+                                                value={status}
+                                            >
+                                                {status}
+                                            </option>
+                                        ))
+                                    }
+                                </select>
+                                {/* <button onClick={() => handleFilter("status")} >Eliminar</button> */}
+                            </div>
                         </div>
                         <div>
                             <span>Fecha de creación:</span>
                             <label>depués de:</label><input type="date" />
                             <label>antes de:</label><input type="date" />
                         </div>
-                        <div><span>Total:</span>
+                        <div>
+                            <span>Total:</span>
+                            <label>Más de:</label>
+                            <input
+                                value={filterOptions.totalPrice.above || 0}
+                                onChange={(e) => handleTotalAndProductsChange(e, "totalPrice", "above")}
+                            />
+                            <label>Menos de:</label>
+                            <input
+                                value={filterOptions.totalPrice.below || 0}
+                                onChange={(e) => handleTotalAndProductsChange(e, "totalPrice", "below")}
+                            />
                         </div>
-                        <div>Productos</div>
-                        <div><span>Cantidad de objetos</span></div>
+                        <strong>Productos:</strong>
+                        <div>
+                            <span>Cantidad de objetos</span>
+                            <label>Más de:</label>
+                            <input
+                                value={filterOptions.itemQuantity.above || 0}
+                                onChange={(e) => handleTotalAndProductsChange(e, "itemQuantity", "above")}
+                            />
+                            <label>Menos de:</label>
+                            <input
+                                value={filterOptions.itemQuantity.below || 0}
+                                onChange={(e) => handleTotalAndProductsChange(e, "itemQuantity", "below")}
+                            />
+                        </div>
 
-                        <div>Pago:</div>
-                        <div><span>Medio</span></div>
-                        <div><span>Estado</span></div>
+                        <strong>Pago:</strong>
+                        <div>
+                            <span>Medio</span>
+                            <div className="inline-flex items-center">
+                                <select onChange={(e) => handlePaymentMethodChange(e)} value={filterOptions.payment.method}>
+                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    {
+                                        Array.isArray(PAYMENT_METHOD) && PAYMENT_METHOD.map((paymentMethod: PaymentMethod, idx: number) => (
+                                            <option
+                                                key={paymentMethod + idx}
+                                                className=""
+                                                value={paymentMethod}
+                                            >
+                                                {paymentMethod}
+                                            </option>
+                                        ))
+                                    }
+                                </select>
+                                {/* <button onClick={() => handleFilter("status")} >Eliminar</button> */}
+                            </div>
+                        </div>
+                        <div>
+                            <span>Estado</span>
+                            <div className="inline-flex items-center">
+                                <select onChange={(e) => handlePaymentStatusChange(e)} value={filterOptions.payment.status}>
+                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    {
+                                        Array.isArray(PAYMENT_STATUS) && PAYMENT_STATUS.map((paymentStatus: PaymentStatus, idx: number) => (
+                                            <option
+                                                key={paymentStatus + idx}
+                                                className=""
+                                                value={paymentStatus}
+                                            >
+                                                {paymentStatus}
+                                            </option>
+                                        ))
+                                    }
+                                </select>
+                                {/* <button onClick={() => handleFilter("status")} >Eliminar</button> */}
+                            </div>
+                            </div>
                         <div>
                             <span>Fecha de Pago:</span>
                             <label>depués de:</label><input type="date" />
@@ -182,7 +412,8 @@ export default function CardOrders({ color }: CardOrdersProps) {
 
                         <div>Usuario</div>
 
-                        <button>Aplicar filtros</button>
+                        <button onClick={handleFilter}>Aplicar filtros</button>
+                        <button onClick={handleClearFilters}>Limpiar filtros</button>
                     </div>
                 ) : null
             }
@@ -254,8 +485,8 @@ export default function CardOrders({ color }: CardOrdersProps) {
                     </thead>
                     <tbody>
                         {
-                            ORDERS.map((ORDER, idx: any) => (
-                                <OrderItem key={idx} ORDER={ORDER}/>
+                            orders.map((ORDER: any, idx: any) => (
+                                <OrderItem key={idx} ORDER={ORDER} />
                             ))
                         }
                     </tbody>

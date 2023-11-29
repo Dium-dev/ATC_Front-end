@@ -1,7 +1,8 @@
 import { create } from "zustand";
 import { UsersInterface } from "~/components/componetsDashboard/Cards/CardUsers";
 import { ProductsInterface } from "~/components/componetsDashboard/Cards/CardProducts";
-import { UserFilterOptions, ProductFilterOptions } from "~/components/componetsDashboard/SearchBar/SearchBar";
+import { OrdersInterface } from "~/components/componetsDashboard/Cards/Orders/CardOrders";
+import { UserFilterOptions, ProductFilterOptions, OrderFilterOptions } from "~/components/componetsDashboard/SearchBar/SearchBar";
 
 
 const useDashboardAdminStore: any = create((set: any) => ({
@@ -193,6 +194,35 @@ const useDashboardAdminStore: any = create((set: any) => ({
 
         set({ orders: filteredOrders });
     },
+    filterOrders: (options: OrderFilterOptions | null) => {
+        const state = useDashboardAdminStore.getState();
+
+        if (options !== null) {
+            const { order, totalPrice, itemQuantity, payment } = options;
+
+            const filteredOrders = state.originalOrders.filter((orderItem: OrdersInterface) => {
+                const statusFilter = order.status.length === 0 || order.status === orderItem.status;
+
+                const priceFilterBottom = totalPrice.above === null || totalPrice.above < orderItem.total;
+                const priceFilterTop = totalPrice.below === null || totalPrice.below > orderItem.total;
+
+                const itemQuantityBottom = itemQuantity.above === null || itemQuantity.above < orderItem.list.length;
+                const itemQuantityTop = itemQuantity.below === null || itemQuantity.below > orderItem.list.length;
+
+                // payment:
+                const paymentMethod = payment.method.length === 0 || payment.method === orderItem.payment.method;
+                const paymentStatus = payment.status.length === 0 || payment.status === orderItem.payment.status;
+
+
+                return statusFilter && priceFilterBottom && priceFilterTop && itemQuantityBottom && itemQuantityTop && paymentMethod && paymentStatus;
+            });
+
+            set({ orders: filteredOrders });
+        } else {
+            // Limpia los filtros seteando el array original al estado "orders".
+            set({ orders: state.originalOrders });
+        }
+    }
 }));
 
 
