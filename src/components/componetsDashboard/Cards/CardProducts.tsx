@@ -89,23 +89,16 @@ export default function CardProducts({ color }: CardProductsProps) {
         }));
     };
 
-    // Cambia el estado y actualiza el estado global.
-    // -----
-    // Se aprovecha que está modificando al estado global y se reusa para que se pueda eliminar un filtro del estado local e -->
-    // inmediatamente actualizar el estado global.
-    // -----
-    // Si el parámetro es "null", significa que simplemente se están aplicando los filtros. En cambio, si es "category" o "brand" -->
-    // significa que se está utilizando la función para eliminar la opción seleccionada ("category" | "brand") del estado local y -->
-    // actualizar al estado global con el nuevo estado local SIN el criterio, que ya se seteó a string.
-    const handleFilter = (parameter: "category" | "brand" | null) => {
+    // Se separó la lógica de la función handleFilter(parameter: "category" | "brand" | null) en dos funciones (handleRemoveSelectOption() & handleFilter()) para mayor claridad.
+
+    // Cambia el estado local y actualiza el estado global basado en el actualizado "filterOptions".
+    const handleRemoveSelectOption = (clause: "category" | "brand") => {
         setFilterOptions((prevOptions: ProductFilterOptions) => {
-            // Primero se cambia la propiedad del estado anterior basado en el parámetro.
             let updatedOptions = { ...prevOptions };
 
-            if (parameter === "category") updatedOptions.category = "";
-            else if (parameter === "brand") updatedOptions.brand = "";
+            if (clause === "category") updatedOptions.category = "";
+            else if (clause === "brand") updatedOptions.brand = "";
 
-            // Filtra los productos con el estado que está actualizado.
             filterProducts(updatedOptions);
 
             return updatedOptions;
@@ -121,19 +114,18 @@ export default function CardProducts({ color }: CardProductsProps) {
     ) => {
         const inputValue = event.target.value;
 
-        setFilterOptions((prevOptions: ProductFilterOptions) => {
-            const updatedOptions = {
-                ...prevOptions,
-                [clause]: {
-                    ...prevOptions[clause],
-                    [property]: Number(inputValue),
-                },
-            };
-
-            return updatedOptions;
-        });
+        setFilterOptions((prevOptions: ProductFilterOptions) => ({
+            ...prevOptions,
+            [clause]: {
+                ...prevOptions[clause],
+                [property]: Number(inputValue),
+            },
+        }));
     };
 
+    const handleFilter = () => {
+        filterProducts(filterOptions);
+    };
 
     // Limpia el estado local y el estado global.
     const handleClearFilters = () => {
@@ -215,7 +207,7 @@ export default function CardProducts({ color }: CardProductsProps) {
                                         ))
                                     }
                                 </select>
-                                <button onClick={() => handleFilter("category")} >Eliminar</button>
+                                <button onClick={() => handleRemoveSelectOption("category")} >Eliminar</button>
                             </div>
                         </div>
                         <div>
@@ -235,7 +227,7 @@ export default function CardProducts({ color }: CardProductsProps) {
                                         ))
                                     }
                                 </select>
-                                <button onClick={() => handleFilter("brand")}>Eliminar</button>
+                                <button onClick={() => handleRemoveSelectOption("brand")}>Eliminar</button>
                             </div>
                         </div>
                         <div>
@@ -265,7 +257,7 @@ export default function CardProducts({ color }: CardProductsProps) {
                             />
                         </div>
 
-                        <button onClick={() => handleFilter(null)}>Aplicar filtros</button>
+                        <button onClick={handleFilter}>Aplicar filtros</button>
                         <button onClick={handleClearFilters}>Limpiar filtros</button>
                     </div>
                 ) : null

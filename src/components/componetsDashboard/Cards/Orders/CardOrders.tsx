@@ -227,6 +227,8 @@ export default function CardOrders({ color }: CardOrdersProps) {
         }));
     };
 
+    // Se está reusando la función para manejar "totalPrice" y "itemQuantity".
+    // Ambos criterios tienen las mismas propiedades: "above" y "below" (dos "input" tag que contienen un número).
     const handleTotalAndProductsChange = (
         event: ChangeEvent<HTMLInputElement>,
         clause: "totalPrice" | "itemQuantity",
@@ -234,14 +236,25 @@ export default function CardOrders({ color }: CardOrdersProps) {
     ) => {
         const inputValue = event.target.value;
 
+        setFilterOptions((prevOptions: OrderFilterOptions) => ({
+            ...prevOptions,
+            [clause]: {
+                ...prevOptions[clause],
+                [property]: Number(inputValue),
+            },
+        }));
+    };
+
+    // Elimina la opción seleccionada del estado local.
+    const handleRemoveSelectOption = (clause: "status" | "paymentMethod" | "paymentStatus") => {
         setFilterOptions((prevOptions: OrderFilterOptions) => {
-            const updatedOptions = {
-                ...prevOptions,
-                [clause]: {
-                    ...prevOptions[clause],
-                    [property]: Number(inputValue),
-                },
-            };
+            let updatedOptions = { ...prevOptions };
+
+            if (clause === "status") updatedOptions.order.status = "";
+            else if (clause === "paymentMethod") updatedOptions.payment.method = "";
+            else if (clause === "paymentStatus") updatedOptions.payment.status = ""
+
+            filterOrders(updatedOptions);
 
             return updatedOptions;
         });
@@ -327,7 +340,7 @@ export default function CardOrders({ color }: CardOrdersProps) {
                                         ))
                                     }
                                 </select>
-                                {/* <button onClick={() => handleFilter("status")} >Eliminar</button> */}
+                                <button onClick={() => handleRemoveSelectOption("status")} >Eliminar</button>
                             </div>
                         </div>
                         <div>
@@ -381,7 +394,7 @@ export default function CardOrders({ color }: CardOrdersProps) {
                                         ))
                                     }
                                 </select>
-                                {/* <button onClick={() => handleFilter("status")} >Eliminar</button> */}
+                                <button onClick={() => handleRemoveSelectOption("paymentMethod")} >Eliminar</button>
                             </div>
                         </div>
                         <div>
@@ -401,9 +414,9 @@ export default function CardOrders({ color }: CardOrdersProps) {
                                         ))
                                     }
                                 </select>
-                                {/* <button onClick={() => handleFilter("status")} >Eliminar</button> */}
+                                <button onClick={() => handleRemoveSelectOption("paymentStatus")} >Eliminar</button>
                             </div>
-                            </div>
+                        </div>
                         <div>
                             <span>Fecha de Pago:</span>
                             <label>depués de:</label><input type="date" />
