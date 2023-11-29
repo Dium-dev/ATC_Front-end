@@ -27,7 +27,7 @@ export interface OrdersInterface {
         state: "approved" | "declined" | "pending",
         approvalNumber: number
     },
-    client: {
+    costumer: {
         name: string,
         emailAddress: string,
         phoneNumber: string,
@@ -67,7 +67,7 @@ const ORDERS: OrdersInterface[] = [
             state: "approved",
             approvalNumber: 123456789
         },
-        client: {
+        costumer: {
             name: "John",
             emailAddress: "johndoe@gmail.com",
             phoneNumber: "+54 123456789",
@@ -87,6 +87,7 @@ const ORDERS: OrdersInterface[] = [
         status: "delivered",
         total: 1929900,
         list: [{
+            // considerar agregar el ID del producto.
             name: "product B",
             quantity: 1,
             value: 1929900
@@ -97,7 +98,8 @@ const ORDERS: OrdersInterface[] = [
             state: "approved",
             approvalNumber: 987654321
         },
-        client: {
+        costumer: {
+            // considerar agregar el ID del usuario.
             name: "Doe",
             emailAddress: "doejohn@gmail.com",
             phoneNumber: "+57 123456789",
@@ -109,6 +111,7 @@ const ORDERS: OrdersInterface[] = [
                 references: "Cerca al mall"
             }
         }
+        // agregar "notas" al back.
     }
 ];
 
