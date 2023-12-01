@@ -106,7 +106,7 @@ function OrderItem({ ORDER }: OrderItemInterface) {
                                         </tr>
                                         <tr>
                                             <th>ESTADO:</th>
-                                            <td>{ORDER.payment.state}</td>
+                                            <td>{ORDER.payment.status}</td>
                                         </tr>
                                         <tr>
                                             <th>NÚMERO DE APROBACIÓN:</th>

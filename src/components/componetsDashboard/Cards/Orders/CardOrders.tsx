@@ -327,7 +327,11 @@ export default function CardOrders({ color }: CardOrdersProps) {
                             <span>Estado:</span>
                             <div className="inline-flex items-center">
                                 <select onChange={(e) => handleStatusChange(e)} value={filterOptions.order.status}>
-                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    {
+                                        !filterOptions.order.status && (
+                                            <option value="" disabled>Selecciona una opción</option>
+                                        )
+                                    }
                                     {
                                         Array.isArray(STATUS) && STATUS.map((status: OrderStatus, idx: number) => (
                                             <option
@@ -381,7 +385,11 @@ export default function CardOrders({ color }: CardOrdersProps) {
                             <span>Medio</span>
                             <div className="inline-flex items-center">
                                 <select onChange={(e) => handlePaymentMethodChange(e)} value={filterOptions.payment.method}>
-                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    {
+                                        !filterOptions.payment.method && (
+                                            <option value="" disabled>Selecciona una opción</option>
+                                        )
+                                    }
                                     {
                                         Array.isArray(PAYMENT_METHOD) && PAYMENT_METHOD.map((paymentMethod: PaymentMethod, idx: number) => (
                                             <option
@@ -401,7 +409,11 @@ export default function CardOrders({ color }: CardOrdersProps) {
                             <span>Estado</span>
                             <div className="inline-flex items-center">
                                 <select onChange={(e) => handlePaymentStatusChange(e)} value={filterOptions.payment.status}>
-                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    {
+                                        !filterOptions.payment.status && (
+                                            <option value="" disabled>Selecciona una opción</option>
+                                        )
+                                    }
                                     {
                                         Array.isArray(PAYMENT_STATUS) && PAYMENT_STATUS.map((paymentStatus: PaymentStatus, idx: number) => (
                                             <option
