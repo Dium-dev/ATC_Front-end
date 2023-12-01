@@ -111,7 +111,7 @@ const ContainerCardsBrands: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-between mb-24 w-full flex-nowrap overflow-hidden max-w-[1920px] mx-auto">
+    <div className="flex flex-col items-center justify-between mb-3 mt-1 w-full flex-nowrap overflow-hidden max-w-[1920px] mx-auto">
       <div className="flex items-center justify-center w-full max-w-f-hd py-2 gap-1 relative">
         <Ticker duration={70}>
           {imagesBrands.map((brand, id) => (
