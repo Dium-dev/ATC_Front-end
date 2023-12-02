@@ -50,8 +50,8 @@ export default function CardProducts({ color }: CardProductsProps) {
         category: "",
         brand: "",
         stock: {
-            above: undefined,
-            below: undefined
+            above: null,
+            below: null
         },
         price: {
             above: null,
@@ -110,15 +110,16 @@ export default function CardProducts({ color }: CardProductsProps) {
     const handleStockAndPriceChange = (
         event: ChangeEvent<HTMLInputElement>,
         clause: "stock" | "price",
-        property: "above" | "below"
+        property: "above" | "below",
     ) => {
+        // inputValue debería ser O BIEN <number> O "" (string vacía).
         const inputValue = event.target.value;
 
         setFilterOptions((prevOptions: ProductFilterOptions) => ({
             ...prevOptions,
             [clause]: {
                 ...prevOptions[clause],
-                [property]: Number(inputValue),
+                [property]: inputValue === "" ? null : Number(inputValue)
             },
         }));
     };
@@ -133,8 +134,8 @@ export default function CardProducts({ color }: CardProductsProps) {
             category: "",
             brand: "",
             stock: {
-                above: undefined,
-                below: undefined
+                above: null,
+                below: null
             },
             price: {
                 above: null,
@@ -246,14 +247,15 @@ export default function CardProducts({ color }: CardProductsProps) {
                             <label>Más de:</label>
                             <input
                                 type="number"
-                                value={filterOptions.stock.above}
-                                placeholder='-'
+                                placeholder="-"
+                                value={filterOptions.stock.above !== null ? filterOptions.stock.above : ""}
                                 onChange={(e) => handleStockAndPriceChange(e, "stock", "above")}
                             />
                             <label>Menos de:</label>
                             <input
                                 type="number"
-                                value={filterOptions.stock.below}
+                                placeholder="-"
+                                value={filterOptions.stock.below !== null ? filterOptions.stock.below : ""}
                                 onChange={(e) => handleStockAndPriceChange(e, "stock", "below")}
                             />
                         </div>
@@ -261,12 +263,16 @@ export default function CardProducts({ color }: CardProductsProps) {
                             <span>Precio:</span>
                             <label>Más de:</label>
                             <input
-                                value={filterOptions.price.above || 0}
+                                type="number"
+                                placeholder="-"
+                                value={filterOptions.price.above !== null ? filterOptions.price.above : ""}
                                 onChange={(e) => handleStockAndPriceChange(e, "price", "above")}
                             />
                             <label>Menos de:</label>
                             <input
-                                value={filterOptions.price.below || 0}
+                                type="number"
+                                placeholder="-"
+                                value={filterOptions.price.below !== null ? filterOptions.price.below : ""}
                                 onChange={(e) => handleStockAndPriceChange(e, "price", "below")}
                             />
                         </div>

@@ -234,13 +234,14 @@ export default function CardOrders({ color }: CardOrdersProps) {
         clause: "totalPrice" | "itemQuantity",
         property: "above" | "below"
     ) => {
+        // inputValue debería ser O BIEN <number> O "" (string vacía).
         const inputValue = event.target.value;
 
         setFilterOptions((prevOptions: OrderFilterOptions) => ({
             ...prevOptions,
             [clause]: {
                 ...prevOptions[clause],
-                [property]: Number(inputValue),
+                [property]: inputValue === "" ? null : Number(inputValue)
             },
         }));
     };
@@ -356,12 +357,16 @@ export default function CardOrders({ color }: CardOrdersProps) {
                             <span>Total:</span>
                             <label>Más de:</label>
                             <input
-                                value={filterOptions.totalPrice.above || 0}
+                                type="number"
+                                placeholder="-"
+                                value={filterOptions.totalPrice.above !== null ? filterOptions.totalPrice.above : ""}
                                 onChange={(e) => handleTotalAndProductsChange(e, "totalPrice", "above")}
                             />
                             <label>Menos de:</label>
                             <input
-                                value={filterOptions.totalPrice.below || 0}
+                                type="number"
+                                placeholder="-"
+                                value={filterOptions.totalPrice.below !== null ? filterOptions.totalPrice.below : ""}
                                 onChange={(e) => handleTotalAndProductsChange(e, "totalPrice", "below")}
                             />
                         </div>
@@ -370,12 +375,16 @@ export default function CardOrders({ color }: CardOrdersProps) {
                             <span>Cantidad de objetos</span>
                             <label>Más de:</label>
                             <input
-                                value={filterOptions.itemQuantity.above || 0}
+                                type="number"
+                                placeholder="-"
+                                value={filterOptions.itemQuantity.above !== null ? filterOptions.itemQuantity.above : ""}
                                 onChange={(e) => handleTotalAndProductsChange(e, "itemQuantity", "above")}
                             />
                             <label>Menos de:</label>
                             <input
-                                value={filterOptions.itemQuantity.below || 0}
+                                type="number"
+                                placeholder="-"
+                                value={filterOptions.itemQuantity.below !== null ? filterOptions.itemQuantity.below : ""}
                                 onChange={(e) => handleTotalAndProductsChange(e, "itemQuantity", "below")}
                             />
                         </div>
