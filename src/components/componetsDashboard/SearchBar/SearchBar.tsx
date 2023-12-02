@@ -20,8 +20,8 @@ export type ProductFilterOptions = {
     category: string;
     brand: string;
     stock: {
-        above: number | null,
-        below: number | null
+        above: number | undefined,
+        below: number | undefined
     };
     price: {
         above: number | null,

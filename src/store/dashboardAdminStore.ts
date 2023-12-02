@@ -95,8 +95,8 @@ const useDashboardAdminStore: any = create((set: any) => ({
                 const categoryFilter = category.length === 0 || category === product.category.name;
                 const brandFilter = brand.length === 0 || brand === product.brand.name;
 
-                const stockFilterBottom = stock.above === null || stock.above < product.stock;
-                const stockFilterTop = stock.below === null || stock.below > product.stock;
+                const stockFilterBottom = stock.above === undefined || stock.above < product.stock;
+                const stockFilterTop = stock.below === undefined || stock.below > product.stock;
 
                 const priceFilterBottom = price.above === null || price.above < product.price;
                 const priceFilterTop = price.below === null || price.below > product.price;

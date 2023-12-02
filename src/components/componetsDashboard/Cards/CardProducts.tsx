@@ -50,8 +50,8 @@ export default function CardProducts({ color }: CardProductsProps) {
         category: "",
         brand: "",
         stock: {
-            above: null,
-            below: null
+            above: undefined,
+            below: undefined
         },
         price: {
             above: null,
@@ -133,8 +133,8 @@ export default function CardProducts({ color }: CardProductsProps) {
             category: "",
             brand: "",
             stock: {
-                above: null,
-                below: null
+                above: undefined,
+                below: undefined
             },
             price: {
                 above: null,
@@ -167,6 +167,9 @@ export default function CardProducts({ color }: CardProductsProps) {
         };
     }, [brands, fetchBrands, isBrandsFetching]);
 
+    useEffect(() => {
+        console.log(filterOptions);
+    }, [filterOptions])
 
     // COMPONENT:
     return (
@@ -194,7 +197,11 @@ export default function CardProducts({ color }: CardProductsProps) {
                             <span>Categoría:</span>
                             <div className="inline-flex items-center">
                                 <select onChange={(e) => handleCategoryChange(e)} value={filterOptions.category}>
-                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    {
+                                        !filterOptions.category && (
+                                            <option value="" disabled>Selecciona una opción</option>
+                                        )
+                                    }
                                     {
                                         Array.isArray(categories) && categories.map((category: any, idx: any) => (
                                             <option
@@ -214,7 +221,11 @@ export default function CardProducts({ color }: CardProductsProps) {
                             <span>Marca:</span>
                             <div className="inline-flex items-center">
                                 <select onChange={(e) => handleBrandChange(e)} value={filterOptions.brand}>
-                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    {
+                                        !filterOptions.brand && (
+                                            <option value="" disabled>Selecciona una opción</option>
+                                        )
+                                    }
                                     {
                                         Array.isArray(brands) && brands.map((brand, idx) => (
                                             <option
@@ -234,12 +245,15 @@ export default function CardProducts({ color }: CardProductsProps) {
                             <span>Stock:</span>
                             <label>Más de:</label>
                             <input
-                                value={filterOptions.stock.above || 0}
+                                type="number"
+                                value={filterOptions.stock.above}
+                                placeholder='-'
                                 onChange={(e) => handleStockAndPriceChange(e, "stock", "above")}
                             />
                             <label>Menos de:</label>
                             <input
-                                value={filterOptions.stock.below || 0}
+                                type="number"
+                                value={filterOptions.stock.below}
                                 onChange={(e) => handleStockAndPriceChange(e, "stock", "below")}
                             />
                         </div>
