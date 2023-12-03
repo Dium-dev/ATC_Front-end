@@ -1,11 +1,9 @@
 "use client";
-import { type } from "os";
 import { useState, useRef, useEffect } from "react";
 
 import { BiSearch } from "react-icons/bi";
 import { BsGear } from "react-icons/bs";
 import { BsSliders2 } from "react-icons/bs";
-
 
 import useDashboardAdminStore from "~/store/dashboardAdminStore";
 
@@ -88,6 +86,11 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
 
     // CONSTANTS:
     const userPropertyMenuRef = useRef<HTMLDivElement | null>(null);
+    const displayedProperty = {
+        name: "NOMBRE",
+        email: "CORREO",
+        phone: "TELÉFONO"
+    };
 
 
     // FUNCTIONS:
@@ -132,7 +135,7 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
                         onClick={() => setUserPropertyMenu(true)}
                     >
                         <BsGear size={20} />
-                        {userProperty === "name" ? "NOMBRE" : (userProperty === "email" ? "EMAIL" : "TELÉFONO")}
+                        {displayedProperty[userProperty]}
                         {
                             userPropertyMenu ? (
                                 <span
@@ -169,6 +172,7 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
                 placeholder={`Encontrar ${section === "user" && "usuario" || section === "product" && "producto" || section === "brand" && "marca" || section === "category" && "categoria" || section === "order" && "pedido"}`}
                 onChange={(e) => handleChange(e)}
             />
+            {/* Renderizar el botón de filtrado en todas las secciones menos "brand" y "category" */}
             {
                 section !== "brand" && section !== "category" ? (
                     <div

@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 
 // components
 import SearchBar from '../SearchBar/SearchBar';
@@ -15,11 +14,8 @@ interface BrandsInterface {
     name: string,
 };
 
-type CardBrandsProps = {
-    color: string
-};
 
-export default function CardBrands({ color }: CardBrandsProps) {
+export default function CardBrands() {
 
 
     // GLOBAL STORE:
@@ -51,12 +47,7 @@ export default function CardBrands({ color }: CardBrandsProps) {
             <div className="rounded-t mb-0 px-4 py-3 border-0">
                 <div className="flex flex-wrap items-center">
                     <div className="relative flex items-center justify-between w-full px-4 max-w-full flex-grow flex-1">
-                        <h3
-                            className={
-                                'font-semibold text-lg ' +
-                                (color === 'light' ? 'text-blueGray-700' : 'text-white')
-                            }
-                        >
+                        <h3 className="font-semibold text-lg text-blueGray-700 dm:text-white">
                             Marcas
                         </h3>
                         <SearchBar section="brand" />
@@ -68,34 +59,13 @@ export default function CardBrands({ color }: CardBrandsProps) {
                 <table className="items-center w-full bg-transparent border-collapse">
                     <thead>
                         <tr>
-                            <th
-                                className={
-                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                    (color === 'light'
-                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                }
-                            >
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Id
                             </th>
-                            <th
-                                className={
-                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                    (color === 'light'
-                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                }
-                            >
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Nombre
                             </th>
-                            <th
-                                className={
-                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                    (color === 'light'
-                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                }
-                            >
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Acciones
                             </th>
                         </tr>
@@ -127,12 +97,4 @@ export default function CardBrands({ color }: CardBrandsProps) {
             </div>
         </div>
     );
-};
-
-CardBrands.defaultProps = {
-    color: 'light',
-};
-
-CardBrands.propTypes = {
-    color: PropTypes.oneOf(['light', 'dark']),
 };

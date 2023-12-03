@@ -1,10 +1,8 @@
 "use client";
 import { ChangeEvent, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 
 // components
 import SearchBar from '../../SearchBar/SearchBar';
-import TableDropdown from '~/components/componetsDashboard/Dropdowns/TableDropdown';
 
 import useDashboardAdminStore from '~/store/dashboardAdminStore';
 import { OrderFilterOptions } from '../../SearchBar/SearchBar';
@@ -148,11 +146,7 @@ const ORDERS: OrdersInterface[] = [
 ];
 
 
-type CardOrdersProps = {
-    color: string
-};
-
-export default function CardOrders({ color }: CardOrdersProps) {
+export default function CardOrders() {
 
 
     // GLOBAL STORE:
@@ -298,6 +292,7 @@ export default function CardOrders({ color }: CardOrdersProps) {
 
     // LIFECYCLES:
     useEffect(() => {
+        // Simular petición al servidor.
         updateOrders(ORDERS);
     }, [])
 
@@ -308,12 +303,7 @@ export default function CardOrders({ color }: CardOrdersProps) {
             <div className="rounded-t mb-0 px-4 py-3 border-0">
                 <div className="flex flex-wrap items-center">
                     <div className="relative flex items-center justify-between w-full px-4 max-w-full flex-grow flex-1">
-                        <h3
-                            className={
-                                'font-semibold text-lg ' +
-                                (color === 'light' ? 'text-blueGray-700' : 'text-white')
-                            }
-                        >
+                        <h3 className="font-semibold text-lg text-blueGray-700 dm:text-white">
                             Pedidos
                         </h3>
                         <SearchBar section="order" setFilterMenu={setFilterMenu} />
@@ -337,7 +327,6 @@ export default function CardOrders({ color }: CardOrdersProps) {
                                         Array.isArray(STATUS) && STATUS.map((status: OrderStatus, idx: number) => (
                                             <option
                                                 key={status + idx}
-                                                className=""
                                                 value={status}
                                             >
                                                 {status}
@@ -357,15 +346,13 @@ export default function CardOrders({ color }: CardOrdersProps) {
                             <span>Total:</span>
                             <label>Más de:</label>
                             <input
-                                type="number"
-                                placeholder="-"
+                                type="number" placeholder="-"
                                 value={filterOptions.totalPrice.above !== null ? filterOptions.totalPrice.above : ""}
                                 onChange={(e) => handleTotalAndProductsChange(e, "totalPrice", "above")}
                             />
                             <label>Menos de:</label>
                             <input
-                                type="number"
-                                placeholder="-"
+                                type="number" placeholder="-"
                                 value={filterOptions.totalPrice.below !== null ? filterOptions.totalPrice.below : ""}
                                 onChange={(e) => handleTotalAndProductsChange(e, "totalPrice", "below")}
                             />
@@ -375,15 +362,13 @@ export default function CardOrders({ color }: CardOrdersProps) {
                             <span>Cantidad de objetos</span>
                             <label>Más de:</label>
                             <input
-                                type="number"
-                                placeholder="-"
+                                type="number" placeholder="-"
                                 value={filterOptions.itemQuantity.above !== null ? filterOptions.itemQuantity.above : ""}
                                 onChange={(e) => handleTotalAndProductsChange(e, "itemQuantity", "above")}
                             />
                             <label>Menos de:</label>
                             <input
-                                type="number"
-                                placeholder="-"
+                                type="number" placeholder="-"
                                 value={filterOptions.itemQuantity.below !== null ? filterOptions.itemQuantity.below : ""}
                                 onChange={(e) => handleTotalAndProductsChange(e, "itemQuantity", "below")}
                             />
@@ -427,7 +412,6 @@ export default function CardOrders({ color }: CardOrdersProps) {
                                         Array.isArray(PAYMENT_STATUS) && PAYMENT_STATUS.map((paymentStatus: PaymentStatus, idx: number) => (
                                             <option
                                                 key={paymentStatus + idx}
-                                                className=""
                                                 value={paymentStatus}
                                             >
                                                 {paymentStatus}
@@ -435,7 +419,7 @@ export default function CardOrders({ color }: CardOrdersProps) {
                                         ))
                                     }
                                 </select>
-                                <button onClick={() => handleRemoveSelectOption("paymentStatus")} >Eliminar</button>
+                                <button onClick={() => handleRemoveSelectOption("paymentStatus")}>Eliminar</button>
                             </div>
                         </div>
                         <div>
@@ -455,64 +439,22 @@ export default function CardOrders({ color }: CardOrdersProps) {
                 <table className="items-center w-full bg-transparent border-collapse">
                     <thead>
                         <tr>
-                            <th
-                                className={
-                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                    (color === 'light'
-                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                }
-                            >
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Id
                             </th>
-                            <th
-                                className={
-                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                    (color === 'light'
-                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                }
-                            >
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Número de orden
                             </th>
-                            <th
-                                className={
-                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                    (color === 'light'
-                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                }
-                            >
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Fecha de creación
                             </th>
-                            <th
-                                className={
-                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                    (color === 'light'
-                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                }
-                            >
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Estado
                             </th>
-                            <th
-                                className={
-                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                    (color === 'light'
-                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                }
-                            >
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Total
                             </th>
-                            <th
-                                className={
-                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                    (color === 'light'
-                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                }
-                            >
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Acciones
                             </th>
                         </tr>
@@ -528,12 +470,4 @@ export default function CardOrders({ color }: CardOrdersProps) {
             </div>
         </div>
     );
-};
-
-CardOrders.defaultProps = {
-    color: 'light',
-};
-
-CardOrders.propTypes = {
-    color: PropTypes.oneOf(['light', 'dark']),
 };

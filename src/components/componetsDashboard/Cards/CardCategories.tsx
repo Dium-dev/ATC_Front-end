@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import PropTypes from 'prop-types';
 
 // components
 import SearchBar from '../SearchBar/SearchBar';
@@ -15,11 +14,8 @@ interface CategoriesInterface {
     name: string,
 };
 
-type CardCategoriesProps = {
-    color: string
-};
 
-export default function CardCategories({ color }: CardCategoriesProps) {
+export default function CardCategories() {
 
 
     // GLOBAL STORE:
@@ -47,94 +43,58 @@ export default function CardCategories({ color }: CardCategoriesProps) {
 
     // COMPONENT:
     return (
-        <>
-            <div className='relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded dark:bg-primary-dm dark:text-white'>
-                <div className="rounded-t mb-0 px-4 py-3 border-0">
-                    <div className="flex flex-wrap items-center">
-                        <div className="relative flex items-center justify-between w-full px-4 max-w-full flex-grow flex-1">
-                            <h3
-                                className={
-                                    'font-semibold text-lg ' +
-                                    (color === 'light' ? 'text-blueGray-700' : 'text-white')
-                                }
-                            >
-                                Categorías
-                            </h3>
-                            <SearchBar section="category" />
-                        </div>
+        <div className='relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded dark:bg-primary-dm dark:text-white'>
+            <div className="rounded-t mb-0 px-4 py-3 border-0">
+                <div className="flex flex-wrap items-center">
+                    <div className="relative flex items-center justify-between w-full px-4 max-w-full flex-grow flex-1">
+                        <h3 className="font-semibold text-lg text-blueGray-700 dm:text-white">
+                            Categorías
+                        </h3>
+                        <SearchBar section="category" />
                     </div>
                 </div>
-                <div className="block w-full overflow-x-auto">
-                    {/* Projects table */}
-                    <table className="items-center w-full bg-transparent border-collapse">
-                        <thead>
-                            <tr>
-                                <th
-                                    className={
-                                        'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                        (color === 'light'
-                                            ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                            : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                    }
-                                >
-                                    Id
-                                </th>
-                                <th
-                                    className={
-                                        'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                        (color === 'light'
-                                            ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                            : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                    }
-                                >
-                                    Nombre
-                                </th>
-                                <th
-                                    className={
-                                        'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                        (color === 'light'
-                                            ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                            : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                    }
-                                >
-                                    Acciones
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                Array.isArray(categories) && categories?.slice(indexOfFirstElement, indexOfLastElement).map((CATEGORY: CategoriesInterface, idx: any) => (
-                                    <tr key={idx}>
-                                        <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                            {CATEGORY.id}
-                                        </th>
-                                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                                            {CATEGORY.name}
-                                        </td>
-                                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                            <TableDropdown />
-                                        </td>
-                                    </tr>
-                                ))
-                            }
-                        </tbody>
-                    </table>
-                    <Pagination
-                        elementsPerPage={elementsPerPage}
-                        elementsNumber={categories.length}
-                        setCurrentPage={setCurrentPage}
-                        currentPage={currentPage}
-                    />
-                </div>
             </div>
-        </>
+            <div className="block w-full overflow-x-auto">
+                {/* Projects table */}
+                <table className="items-center w-full bg-transparent border-collapse">
+                    <thead>
+                        <tr>
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
+                                Id
+                            </th>
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
+                                Nombre
+                            </th>
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
+                                Acciones
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            Array.isArray(categories) && categories?.slice(indexOfFirstElement, indexOfLastElement).map((CATEGORY: CategoriesInterface, idx: any) => (
+                                <tr key={idx}>
+                                    <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                        {CATEGORY.id}
+                                    </th>
+                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                                        {CATEGORY.name}
+                                    </td>
+                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                                        <TableDropdown />
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
+                <Pagination
+                    elementsPerPage={elementsPerPage}
+                    elementsNumber={categories.length}
+                    setCurrentPage={setCurrentPage}
+                    currentPage={currentPage}
+                />
+            </div>
+        </div>
     );
-};
-
-CardCategories.defaultProps = {
-    color: 'light',
-};
-
-CardCategories.propTypes = {
-    color: PropTypes.oneOf(['light', 'dark']),
 };

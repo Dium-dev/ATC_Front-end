@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState, ChangeEvent } from 'react';
-import PropTypes from 'prop-types';
 
 // components
 import SearchBar from '../SearchBar/SearchBar';
@@ -33,11 +32,8 @@ export interface ProductsInterface {
     year: string
 };
 
-type CardProductsProps = {
-    color: string
-};
 
-export default function CardProducts({ color }: CardProductsProps) {
+export default function CardProducts() {
 
 
     // GLOBAL STORE:
@@ -168,22 +164,14 @@ export default function CardProducts({ color }: CardProductsProps) {
         };
     }, [brands, fetchBrands, isBrandsFetching]);
 
-    useEffect(() => {
-        console.log(filterOptions);
-    }, [filterOptions])
 
     // COMPONENT:
     return (
-        <div className='relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded dark:bg-primary-dm dark:text-white' >
+        <div className='relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded dark:bg-primary-dm dark:text-white'>
             <div className="rounded-t mb-0 px-4 py-3 border-0">
                 <div className="flex flex-wrap items-center">
                     <div className="relative flex items-center justify-between w-full px-4 max-w-full flex-grow flex-1">
-                        <h3
-                            className={
-                                'font-semibold text-lg ' +
-                                (color === 'light' ? 'text-blueGray-700' : 'text-white')
-                            }
-                        >
+                        <h3 className="font-semibold text-lg text-blueGray-700 dm:text-white">
                             Productos
                         </h3>
                         <SearchBar section="product" setFilterMenu={setFilterMenu} />
@@ -207,7 +195,6 @@ export default function CardProducts({ color }: CardProductsProps) {
                                         Array.isArray(categories) && categories.map((category: any, idx: any) => (
                                             <option
                                                 key={category + idx}
-                                                className=""
                                                 value={category.name}
                                             >
                                                 {category.name}
@@ -231,7 +218,6 @@ export default function CardProducts({ color }: CardProductsProps) {
                                         Array.isArray(brands) && brands.map((brand, idx) => (
                                             <option
                                                 key={brand + idx}
-                                                className=""
                                                 value={brand.name}
                                             >
                                                 {brand.name}
@@ -246,15 +232,13 @@ export default function CardProducts({ color }: CardProductsProps) {
                             <span>Stock:</span>
                             <label>Más de:</label>
                             <input
-                                type="number"
-                                placeholder="-"
+                                type="number" placeholder="-"
                                 value={filterOptions.stock.above !== null ? filterOptions.stock.above : ""}
                                 onChange={(e) => handleStockAndPriceChange(e, "stock", "above")}
                             />
                             <label>Menos de:</label>
                             <input
-                                type="number"
-                                placeholder="-"
+                                type="number" placeholder="-"
                                 value={filterOptions.stock.below !== null ? filterOptions.stock.below : ""}
                                 onChange={(e) => handleStockAndPriceChange(e, "stock", "below")}
                             />
@@ -263,15 +247,13 @@ export default function CardProducts({ color }: CardProductsProps) {
                             <span>Precio:</span>
                             <label>Más de:</label>
                             <input
-                                type="number"
-                                placeholder="-"
+                                type="number" placeholder="-"
                                 value={filterOptions.price.above !== null ? filterOptions.price.above : ""}
                                 onChange={(e) => handleStockAndPriceChange(e, "price", "above")}
                             />
                             <label>Menos de:</label>
                             <input
-                                type="number"
-                                placeholder="-"
+                                type="number" placeholder="-"
                                 value={filterOptions.price.below !== null ? filterOptions.price.below : ""}
                                 onChange={(e) => handleStockAndPriceChange(e, "price", "below")}
                             />
@@ -286,74 +268,25 @@ export default function CardProducts({ color }: CardProductsProps) {
                 <table className="items-center w-full bg-transparent border-collapse">
                     <thead>
                         <tr>
-                            <th
-                                className={
-                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                    (color === 'light'
-                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                }
-                            >
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Id
                             </th>
-                            <th
-                                className={
-                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                    (color === 'light'
-                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                }
-                            >
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Nombre
                             </th>
-                            <th
-                                className={
-                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                    (color === 'light'
-                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                }
-                            >
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Categoría
                             </th>
-                            <th
-                                className={
-                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                    (color === 'light'
-                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                }
-                            >
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Marca
                             </th>
-                            <th
-                                className={
-                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                    (color === 'light'
-                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                }
-                            >
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Stock
                             </th>
-                            <th
-                                className={
-                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                    (color === 'light'
-                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                }
-                            >
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Precio
                             </th>
-                            <th
-                                className={
-                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                    (color === 'light'
-                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                }
-                            >
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Acciones
                             </th>
                         </tr>
@@ -371,12 +304,7 @@ export default function CardProducts({ color }: CardProductsProps) {
                                             className="h-12 w-12 bg-white rounded-full border"
                                             alt="..."
                                         ></img>
-                                        <span
-                                            className={
-                                                'ml-3 font-bold ' +
-                                                +(color === 'light' ? 'text-blueGray-600' : 'text-white')
-                                            }
-                                        >
+                                        <span className="ml-3 font-bold text-blueGray-600 dm:text-white">
                                             {PRODUCT.title}
                                         </span>
                                     </td>
@@ -411,13 +339,4 @@ export default function CardProducts({ color }: CardProductsProps) {
             </div>
         </div >
     );
-};
-
-
-CardProducts.defaultProps = {
-    color: 'light',
-};
-
-CardProducts.propTypes = {
-    color: PropTypes.oneOf(['light', 'dark']),
 };
