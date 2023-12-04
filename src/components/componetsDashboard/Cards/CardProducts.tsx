@@ -95,7 +95,9 @@ export default function CardProducts() {
             if (clause === "category") updatedOptions.category = "";
             else if (clause === "brand") updatedOptions.brand = "";
 
-            filterProducts(updatedOptions);
+            // Commented to solve the next warning:
+            // Warning: Cannot update a component(SearchBar) while rendering a different component(CardOrders).To locate the bad setState() call inside CardOrders, follow the stack trace as described in https://reactjs.org/link/setstate-in-render at CardOrders (webpack-internal:///(app-pages-browser)/./src/components/componetsDashboard/Cards/Orders/CardOrders.tsx:117:11)
+            // filterProducts(updatedOptions);
 
             return updatedOptions;
         });
@@ -144,7 +146,7 @@ export default function CardProducts() {
     // LIFE CYCLES:
     useEffect(() => {
         // Se removió "products" del array de dependencias para evitar conflictos cuando se llama a "filterProducts()".
-        // El problema viene cuando se filtran los productos pero no se esncuentran resultados. 
+        // El problema viene cuando se filtran los productos pero no se encuentran resultados y deja al array de products con un length de 0.
         // Con "products" dentro del array de dependencias, el componente haría la petición al servidor para llenar el array de productos nuevamente.
         // Efecto :: Después de que el array de productos se limpia, este "useEffect" se encarga de que lo llene nuevamente.
         if (products.length === 0 && !isProductsFetching) {

@@ -249,7 +249,9 @@ export default function CardOrders() {
             else if (clause === "paymentMethod") updatedOptions.payment.method = "";
             else if (clause === "paymentStatus") updatedOptions.payment.status = ""
 
-            filterOrders(updatedOptions);
+            // Commented to solve the next warning:
+            // Warning: Cannot update a component(SearchBar) while rendering a different component(CardOrders).To locate the bad setState() call inside CardOrders, follow the stack trace as described in https://reactjs.org/link/setstate-in-render at CardOrders (webpack-internal:///(app-pages-browser)/./src/components/componetsDashboard/Cards/Orders/CardOrders.tsx:117:11)
+            // filterOrders(updatedOptions);
 
             return updatedOptions;
         });
