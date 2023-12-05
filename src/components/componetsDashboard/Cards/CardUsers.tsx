@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from 'react';
-// import PropTypes from 'prop-types';
 
 // components
 import SearchBar from '../SearchBar/SearchBar';
@@ -53,11 +52,15 @@ const USERS: UsersInterface[] = [
 ];
 
 
-// type CardUsersProps = {
-//     color: string
-// };
-
 export default function CardUsers() {
+
+
+    // CONSTANTS:
+    const FILTER_OPTIONS_EMPTY = {
+        status: [],
+        after: "",
+        before: ""
+    };
 
 
     // GLOBAL STORE:
@@ -66,11 +69,7 @@ export default function CardUsers() {
 
     // LOCAL STATES:
     const [filterMenu, setFilterMenu] = useState<boolean>(false);
-    const [filterOptions, setFilterOptions] = useState<UserFilterOptions>({
-        status: [],
-        after: "",
-        before: ""
-    });
+    const [filterOptions, setFilterOptions] = useState<UserFilterOptions>(FILTER_OPTIONS_EMPTY);
 
     const handleCheckboxChange = (status: UserStatus) => {
         setFilterOptions((prevOptions: UserFilterOptions) => {
@@ -92,23 +91,21 @@ export default function CardUsers() {
         });
     };
 
+    // Ejecuta el filtrado con la función de zustand.
     const handleFilter = () => {
         filterUsers(filterOptions);
     };
 
+    // Limpia el estado local y el estado global, al mismo tiempo ejecuta el filtrado por lo que no es necesario llamar la función de filtrado <filterUsers()> en otro lado.
     const handleClearFilters = () => {
-        setFilterOptions({
-            status: [],
-            after: "",
-            before: ""
-        });
+        setFilterOptions(FILTER_OPTIONS_EMPTY);
         filterUsers(null);
     };
 
 
     // LIFE CYCLES:
+    // Simular petición al servidor para obtener datos y llenar el array de usuarios (users).
     useEffect(() => {
-        // Simular petición al servidor.
         updateUsers(USERS);
     }, []);
 
@@ -229,11 +226,3 @@ export default function CardUsers() {
         </div>
     );
 };
-
-// CardUsers.defaultProps = {
-//     color: 'light',
-// };
-
-// CardUsers.propTypes = {
-//     color: PropTypes.oneOf(['light', 'dark']),
-// };

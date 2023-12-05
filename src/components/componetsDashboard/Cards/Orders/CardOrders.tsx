@@ -149,13 +149,8 @@ const ORDERS: OrdersInterface[] = [
 export default function CardOrders() {
 
 
-    // GLOBAL STORE:
-    const { orders, updateOrders, filterOrders }: any = useDashboardAdminStore();
-
-
-    // LOCAL STATES:
-    const [filterMenu, setFilterMenu] = useState<boolean>(false);
-    const [filterOptions, setFilterOptions] = useState<OrderFilterOptions>({
+    // CONSTANTS:
+    const FILTER_OPTIONS_EMPTY = {
         order: {
             status: "",
             creationDate: {
@@ -181,7 +176,16 @@ export default function CardOrders() {
                 after: ""
             },
         }
-    });
+    };
+
+
+    // GLOBAL STORE:
+    const { orders, updateOrders, filterOrders }: any = useDashboardAdminStore();
+
+
+    // LOCAL STATES:
+    const [filterMenu, setFilterMenu] = useState<boolean>(false);
+    const [filterOptions, setFilterOptions] = useState<OrderFilterOptions>(FILTER_OPTIONS_EMPTY);
 
 
     // FUNCTIONS:
@@ -249,52 +253,24 @@ export default function CardOrders() {
             else if (clause === "paymentMethod") updatedOptions.payment.method = "";
             else if (clause === "paymentStatus") updatedOptions.payment.status = ""
 
-            // Commented to solve the next warning:
-            // Warning: Cannot update a component(SearchBar) while rendering a different component(CardOrders).To locate the bad setState() call inside CardOrders, follow the stack trace as described in https://reactjs.org/link/setstate-in-render at CardOrders (webpack-internal:///(app-pages-browser)/./src/components/componetsDashboard/Cards/Orders/CardOrders.tsx:117:11)
-            // filterOrders(updatedOptions);
-
             return updatedOptions;
         });
     };
 
+    // Ejecuta el filtrado con la función de zustand.
     const handleFilter = () => {
         filterOrders(filterOptions);
     };
 
+    // Limpia el estado local y el estado global, al mismo tiempo ejecuta el filtrado por lo que no es necesario llamar la función de filtrado <filterUsers()> en otro lado.
     const handleClearFilters = () => {
-        setFilterOptions({
-            order: {
-                status: "",
-                creationDate: {
-                    before: "",
-                    after: ""
-                },
-            },
-            totalPrice: {
-                below: null,
-                above: null
-            },
-            // list:
-            itemQuantity: {
-                below: null,
-                above: null
-            },
-            // payment:
-            payment: {
-                method: "",
-                status: "",
-                efectiveDate: {
-                    before: "",
-                    after: ""
-                },
-            }
-        });
+        setFilterOptions(FILTER_OPTIONS_EMPTY);
         filterOrders(null);
     };
 
+    // Simular petición al servidor para obtener datos y llenar el array de pedidos (orders).
     // LIFECYCLES:
     useEffect(() => {
-        // Simular petición al servidor.
         updateOrders(ORDERS);
     }, [])
 
@@ -320,11 +296,7 @@ export default function CardOrders() {
                             <span>Estado:</span>
                             <div className="inline-flex items-center">
                                 <select onChange={(e) => handleStatusChange(e)} value={filterOptions.order.status}>
-                                    {
-                                        !filterOptions.order.status && (
-                                            <option value="" disabled>Selecciona una opción</option>
-                                        )
-                                    }
+                                    <option value="" disabled>Selecciona el estado del pedido</option>
                                     {
                                         Array.isArray(STATUS) && STATUS.map((status: OrderStatus, idx: number) => (
                                             <option
@@ -381,11 +353,7 @@ export default function CardOrders() {
                             <span>Medio</span>
                             <div className="inline-flex items-center">
                                 <select onChange={(e) => handlePaymentMethodChange(e)} value={filterOptions.payment.method}>
-                                    {
-                                        !filterOptions.payment.method && (
-                                            <option value="" disabled>Selecciona una opción</option>
-                                        )
-                                    }
+                                    <option value="" disabled>Selecciona un método de pago</option>
                                     {
                                         Array.isArray(PAYMENT_METHOD) && PAYMENT_METHOD.map((paymentMethod: PaymentMethod, idx: number) => (
                                             <option
@@ -405,11 +373,7 @@ export default function CardOrders() {
                             <span>Estado</span>
                             <div className="inline-flex items-center">
                                 <select onChange={(e) => handlePaymentStatusChange(e)} value={filterOptions.payment.status}>
-                                    {
-                                        !filterOptions.payment.status && (
-                                            <option value="" disabled>Selecciona una opción</option>
-                                        )
-                                    }
+                                    <option value="" disabled>Selecciona el estado del pago</option>
                                     {
                                         Array.isArray(PAYMENT_STATUS) && PAYMENT_STATUS.map((paymentStatus: PaymentStatus, idx: number) => (
                                             <option

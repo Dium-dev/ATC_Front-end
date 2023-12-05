@@ -36,13 +36,8 @@ export interface ProductsInterface {
 export default function CardProducts() {
 
 
-    // GLOBAL STORE:
-    const { products, fetchProducts, isProductsFetching, categories, fetchCategories, isCategoriesFetching, brands, fetchBrands, isBrandsFetching, filterProducts }: any = useDashboardAdminStore();
-
-
-    // LOCAL STATE:
-    const [filterMenu, setFilterMenu] = useState<boolean>(false);
-    const [filterOptions, setFilterOptions] = useState<ProductFilterOptions>({
+    // CONSTANTS:
+    const FILTER_OPTIONS_EMPTY = {
         category: "",
         brand: "",
         stock: {
@@ -53,7 +48,17 @@ export default function CardProducts() {
             above: null,
             below: null
         }
-    });
+    };
+
+
+    // GLOBAL STORE:
+    const { products, fetchProducts, isProductsFetching, categories, fetchCategories, isCategoriesFetching, brands, fetchBrands, isBrandsFetching, filterProducts }: any = useDashboardAdminStore();
+
+
+    // LOCAL STATE:
+    const [filterMenu, setFilterMenu] = useState<boolean>(false);
+    const [filterOptions, setFilterOptions] = useState<ProductFilterOptions>(FILTER_OPTIONS_EMPTY);
+    // Estado para la paginación:
     const [currentPage, setCurrentPage] = useState<number>(1);
 
 
@@ -86,7 +91,6 @@ export default function CardProducts() {
     };
 
     // Se separó la lógica de la función handleFilter(parameter: "category" | "brand" | null) en dos funciones (handleRemoveSelectOption() & handleFilter()) para mayor claridad.
-
     // Cambia el estado local y actualiza el estado global basado en el actualizado "filterOptions".
     const handleRemoveSelectOption = (clause: "category" | "brand") => {
         setFilterOptions((prevOptions: ProductFilterOptions) => {
@@ -94,10 +98,6 @@ export default function CardProducts() {
 
             if (clause === "category") updatedOptions.category = "";
             else if (clause === "brand") updatedOptions.brand = "";
-
-            // Commented to solve the next warning:
-            // Warning: Cannot update a component(SearchBar) while rendering a different component(CardOrders).To locate the bad setState() call inside CardOrders, follow the stack trace as described in https://reactjs.org/link/setstate-in-render at CardOrders (webpack-internal:///(app-pages-browser)/./src/components/componetsDashboard/Cards/Orders/CardOrders.tsx:117:11)
-            // filterProducts(updatedOptions);
 
             return updatedOptions;
         });
@@ -122,28 +122,20 @@ export default function CardProducts() {
         }));
     };
 
+    // Ejecuta el filtrado con la función de zustand.
     const handleFilter = () => {
         filterProducts(filterOptions);
     };
 
-    // Limpia el estado local y el estado global.
+    // Limpia el estado local y el estado global, al mismo tiempo ejecuta el filtrado por lo que no es necesario llamar la función de filtrado <filterUsers()> en otro lado.
     const handleClearFilters = () => {
-        setFilterOptions({
-            category: "",
-            brand: "",
-            stock: {
-                above: null,
-                below: null
-            },
-            price: {
-                above: null,
-                below: null
-            }
-        });
+        setFilterOptions(FILTER_OPTIONS_EMPTY);
         filterProducts(null);
     };
 
+
     // LIFE CYCLES:
+    // Obtiene y llena los productos.
     useEffect(() => {
         // Se removió "products" del array de dependencias para evitar conflictos cuando se llama a "filterProducts()".
         // El problema viene cuando se filtran los productos pero no se encuentran resultados y deja al array de products con un length de 0.
@@ -154,12 +146,14 @@ export default function CardProducts() {
         };
     }, [fetchProducts, isProductsFetching]);
 
+    // Obtiene y llena las categorías.
     useEffect(() => {
         if (categories.length === 0 && !isCategoriesFetching) {
             fetchCategories();
         };
     }, [categories, fetchCategories, isCategoriesFetching]);
 
+    // Obtiene y llena las marcas.
     useEffect(() => {
         if (brands.length === 0 && !isBrandsFetching) {
             fetchBrands();
@@ -188,40 +182,26 @@ export default function CardProducts() {
                             <span>Categoría:</span>
                             <div className="inline-flex items-center">
                                 <select onChange={(e) => handleCategoryChange(e)} value={filterOptions.category}>
-                                    {
-                                        !filterOptions.category && (
-                                            <option value="" disabled>Selecciona una opción</option>
-                                        )
-                                    }
+                                    <option value="" disabled>Selecciona una categoría</option>
                                     {
                                         Array.isArray(categories) && categories.map((category: any, idx: any) => (
-                                            <option
-                                                key={category + idx}
-                                                value={category.name}
-                                            >
+                                            <option key={category + idx} value={category.name}>
                                                 {category.name}
                                             </option>
                                         ))
                                     }
                                 </select>
-                                <button onClick={() => handleRemoveSelectOption("category")} >Eliminar</button>
+                                <button onClick={() => handleRemoveSelectOption("category")}>Eliminar</button>
                             </div>
                         </div>
                         <div>
                             <span>Marca:</span>
                             <div className="inline-flex items-center">
                                 <select onChange={(e) => handleBrandChange(e)} value={filterOptions.brand}>
-                                    {
-                                        !filterOptions.brand && (
-                                            <option value="" disabled>Selecciona una opción</option>
-                                        )
-                                    }
+                                    <option value="" disabled>Selecciona una marca</option>
                                     {
                                         Array.isArray(brands) && brands.map((brand, idx) => (
-                                            <option
-                                                key={brand + idx}
-                                                value={brand.name}
-                                            >
+                                            <option key={brand + idx} value={brand.name}>
                                                 {brand.name}
                                             </option>
                                         ))
