@@ -1,77 +1,55 @@
 "use client";
 import { ChangeEvent, useEffect, useState } from 'react';
 
-// components
-import SearchBar from '../../SearchBar/SearchBar';
-
+// Zustand store:
 import useDashboardAdminStore from '~/store/dashboardAdminStore';
-import { OrderFilterOptions } from '../../SearchBar/SearchBar';
+
+// Type definitions:
+import { OrderFilterOptions } from '../../dashboardAdmin';
+// Las siguientes definiciones de tipado, excepto por "OrdersInterface", no se requerirán en ESTE archivo luego de que se use la ruta real para el fetch, en lugar de simular un fetch.
+import { OrderStatus, PaymentStatus, PaymentMethod, OrdersInterface } from '~/types/dashboardAdminStore';
+
+// Components:
+import SearchBar from '../../SearchBar/SearchBar';
 import OrderItem from './OrderItem';
 
 
 // Agregar un endpoint con:
-// - todos los posibles estados de la orden: Aprobado | En proceso | En despacho | Entregado
-// - todos los medios de pago existentes: Mercado Pago | Pago Directo
-// - todos los posibles estados del pago (transacción): Aprovado | Declinado | Pendiente
+// - todos los posibles estados de la orden: Aprobado | En proceso | En despacho | Entregado.
+// - todos los medios de pago existentes: Mercado Pago | Pago Directo.
+// - todos los posibles estados del pago (transacción): Aprobado | Declinado | Pendiente.
 
 
-// simular fetch a todos los posible estados de la orden:
-const STATUS = [
+// Las siguientes líneas hasta "MODULE" no será necesarias luego de que se use la ruta real para el fetch, en lugar de simular un fetch.
+
+// fetch(order/status/xxxxx) debería retornar un array de objetos.
+// Simula el array de los posibles estados de la orden después del fetch.
+const STATUS: OrderStatus[] = [
     "cancelled",
     "declined",
     "approved",
     "processing",
     "inbound",
     "delivered"
-] as const;
-type OrderStatus = typeof STATUS[number];
+];
 
-const PAYMENT_METHOD = [
+// fetch(payment/method/xxxxx) debería retornar un array de objetos.
+// Simula el array de todos los posibles métodos de pago:
+const PAYMENT_METHOD: PaymentMethod[] = [
     "MercadoPago",
     "cash"
-] as const;
-type PaymentMethod = typeof PAYMENT_METHOD[number];
+];
 
-const PAYMENT_STATUS = [
+// fetch(payment/status/xxxxx) debería retornar un array de objetos.
+// Simula el array de todos los posibles estados del pago:
+const PAYMENT_STATUS: PaymentStatus[] = [
     "approved",
     "declined",
     "pending"
-] as const;
-type PaymentStatus = typeof PAYMENT_STATUS[number];
+];
 
-
-export interface OrdersInterface {
-    id: number,
-    orderNumber: number,
-    creationDate: string,
-    status: "cancelled" | "declined" | "approved" | "processing" | "inbound" | "delivered",
-    total: number,
-    list: {
-        name: string,
-        quantity: number,
-        value: number
-    }[],
-    payment: {
-        date: string,
-        method: "MercadoPago" | "cash",
-        status: "approved" | "declined" | "pending",
-        approvalNumber: number
-    },
-    costumer: {
-        name: string,
-        emailAddress: string,
-        phoneNumber: string,
-        address: {
-            department: string,
-            locality: string,
-            neighborhood: string,
-            number: number,
-            references: string
-        }
-    }
-};
-
-
+// fetch(orders/xxxxx) debería retornar un array de objetos.
+// Simula el array de pedidos obtenido después del fetch.
 const ORDERS: OrdersInterface[] = [
     {
         id: 1,
@@ -146,6 +124,7 @@ const ORDERS: OrdersInterface[] = [
 ];
 
 
+// --------------- MODULE ---------------
 export default function CardOrders() {
 
 
@@ -427,8 +406,8 @@ export default function CardOrders() {
                     </thead>
                     <tbody>
                         {
-                            orders.map((ORDER: any, idx: any) => (
-                                <OrderItem key={idx} ORDER={ORDER} />
+                            Array.isArray(orders) && orders.map((ORDER: OrdersInterface) => (
+                                <OrderItem key={ORDER.id} ORDER={ORDER} />
                             ))
                         }
                     </tbody>

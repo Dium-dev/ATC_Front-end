@@ -1,20 +1,19 @@
 "use client";
 import { useEffect, useState } from 'react';
 
-// components
+// Zustand store:
+import useDashboardAdminStore from '~/store/dashboardAdminStore';
+
+// Type definitions:
+import { BrandsInterface } from '~/types/dashboardAdminStore';
+
+// Components:
 import SearchBar from '../SearchBar/SearchBar';
 import TableDropdown from '~/components/componetsDashboard/Dropdowns/TableDropdown';
 import Pagination from '../Pagination/Pagination';
 
-import useDashboardAdminStore from '~/store/dashboardAdminStore';
 
-
-interface BrandsInterface {
-    id: number,
-    name: string,
-};
-
-
+// --------------- MODULE ---------------
 export default function CardBrands() {
 
 
@@ -23,6 +22,7 @@ export default function CardBrands() {
 
 
     // LOCAL STATES:
+    // Estado para la paginación.
     const [currentPage, setCurrentPage] = useState<number>(1);
 
 
@@ -72,8 +72,8 @@ export default function CardBrands() {
                     </thead>
                     <tbody>
                         {
-                            Array.isArray(brands) && brands?.slice(indexOfFirstElement, indexOfLastElement).map((BRAND: BrandsInterface, idx: any) => (
-                                <tr key={idx}>
+                            Array.isArray(brands) && brands?.slice(indexOfFirstElement, indexOfLastElement).map((BRAND: BrandsInterface) => (
+                                <tr key={BRAND.id}>
                                     <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                         {BRAND.id}
                                     </th>

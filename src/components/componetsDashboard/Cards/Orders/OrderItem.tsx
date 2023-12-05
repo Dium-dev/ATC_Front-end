@@ -1,22 +1,26 @@
 "use client";
 import { useState } from "react";
 
-import { OrdersInterface } from "./CardOrders";
+// Type definitions:
+import { OrdersInterface } from "~/types/dashboardAdminStore";
 
 
-interface OrderItemInterface {
+// --------------- MODULE ---------------
+interface OrderItemProps {
     ORDER: OrdersInterface
 }
 
-function OrderItem({ ORDER }: OrderItemInterface) {
+function OrderItem({ ORDER }: OrderItemProps) {
 
 
     // LOCAL STATES:
     const [showDetails, setShowDetails] = useState<boolean>(false);
 
-    // CONST:
+
+    // CONSTANTS:
     // El "total" alamacena el precio total de la orden. El resultado se obtiene de la suma del precio de todos los items comprados.
     let total = 0;
+
 
     // COMPONENT:
     return (

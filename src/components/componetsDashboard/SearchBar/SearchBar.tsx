@@ -1,68 +1,19 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 
+// Zustand store:
+import useDashboardAdminStore from "~/store/dashboardAdminStore";
+
+// Type definitions:
+import { UserFilterOptions } from "../dashboardAdmin";
+
+// Components:
 import { BiSearch } from "react-icons/bi";
 import { BsGear } from "react-icons/bs";
 import { BsSliders2 } from "react-icons/bs";
 
-import useDashboardAdminStore from "~/store/dashboardAdminStore";
 
-
-export type UserFilterOptions = {
-    status: string[];
-    after: string;
-    before: string;
-};
-
-export type ProductFilterOptions = {
-    category: string;
-    brand: string;
-    stock: {
-        above: number | null,
-        below: number | null
-    };
-    price: {
-        above: number | null,
-        below: number | null
-    };
-};
-
-export type OrderFilterOptions = {
-    // order:
-    order: {
-        status: string,
-        creationDate: {
-            before: string,
-            after: string
-        },
-    };
-    totalPrice: {
-        below: number | null,
-        above: number | null
-    },
-    // list:
-    itemQuantity: {
-        below: number | null,
-        above: number | null
-    };
-    // payment:
-    payment: {
-        method: string,
-        status: string,
-        efectiveDate: {
-            before: string,
-            after: string
-        },
-    };
-    // user: {
-    //     name: string,
-    //     email: string,
-    //     phone: string,
-    //     address: {}
-    // };
-};
-
-
+// --------------- MODULE ---------------
 interface SearchBarProps {
     section: "user" | "product" | "brand" | "category" | "order";
     setFilterMenu?: Function;

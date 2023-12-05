@@ -1,10 +1,11 @@
 import { create } from "zustand";
-import { UsersInterface } from "~/components/componetsDashboard/Cards/CardUsers";
-import { ProductsInterface } from "~/components/componetsDashboard/Cards/CardProducts";
-import { OrdersInterface } from "~/components/componetsDashboard/Cards/Orders/CardOrders";
-import { UserFilterOptions, ProductFilterOptions, OrderFilterOptions } from "~/components/componetsDashboard/SearchBar/SearchBar";
+
+// Type definitions:
+import { UserFilterOptions, ProductFilterOptions, OrderFilterOptions } from "~/components/componetsDashboard/dashboardAdmin";
+import { UsersInterface, ProductsInterface, OrdersInterface } from "../types/dashboardAdminStore";
 
 
+// Zustand slice:
 const useDashboardAdminStore: any = create((set: any) => ({
     // ---------- USERS ----------:
     originalUsers: [],

@@ -1,35 +1,34 @@
 "use client";
 import { useEffect, useState } from 'react';
 
-// components
+// Zustand store:
+import useDashboardAdminStore from '~/store/dashboardAdminStore';
+
+// Type definitions:
+import { UserFilterOptions } from '../dashboardAdmin';
+import { UserStatus, UsersInterface } from '~/types/dashboardAdminStore';
+
+// Components:
 import SearchBar from '../SearchBar/SearchBar';
 import TableDropdown from '~/components/componetsDashboard/Dropdowns/TableDropdown';
 
-import useDashboardAdminStore from '~/store/dashboardAdminStore';
-import { UserFilterOptions } from '../SearchBar/SearchBar';
+
+// Agregar un endpoint con:
+// - todos los "status" posibles para el usuario. (blocked | activated | deleted | etc). Estas opciones son renderizadas como etiquetas de los checkboxes que se usan para filtrar a los usuarios.
 
 
-// fetch(user/status/xxxxx) debería retornar todos los "status" posibles para el usuario. (blocked | activated | deleted | etc).
-// Estas opciones son renderizadas como etiquetas de los checkboxes que se usan para filtrar a los usuarios.
-const USER_STATUS = [
+// Las siguientes líneas hasta "MODULE" no será necesarias luego de que se use la ruta real para el fetch, en lugar de simular un fetch.
+
+// fetch(user/status/xxxxx) debería retornar un array de objetos.
+// Simula el array de los estados de usuarios obtenido después del fetch.
+const USER_STATUS: UserStatus[] = [
     "blocked",
     "activated",
     "deleted"
-] as const;
-type UserStatus = typeof USER_STATUS[number];
+];
 
-export interface UsersInterface {
-    id: number,
-    name: string,
-    picture: string,
-    emailAddress: string,
-    status: UserStatus,
-    phone: string,
-    registerDate: string
-};
-
-
-// fetch(users/xxxxx) rebería retornar un array de objetos.
+// fetch(users/xxxxx) debería retornar un array de objetos.
+// Simula el array de usuarios obtenido después del fetch.
 const USERS: UsersInterface[] = [
     {
         id: 1,
@@ -52,6 +51,7 @@ const USERS: UsersInterface[] = [
 ];
 
 
+// --------------- MODULE ---------------
 export default function CardUsers() {
 
 
@@ -180,8 +180,8 @@ export default function CardUsers() {
                     </thead>
                     <tbody>
                         {
-                            users.map((USER: UsersInterface, idx: any) => (
-                                <tr key={idx}>
+                            Array.isArray(users) && users.map((USER: UsersInterface) => (
+                                <tr key={USER.id}>
                                     <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                         {USER.id}
                                     </th>

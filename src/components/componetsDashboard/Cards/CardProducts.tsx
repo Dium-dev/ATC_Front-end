@@ -1,38 +1,20 @@
 "use client";
 import { useEffect, useState, ChangeEvent } from 'react';
 
-// components
+// Zustand store:
+import useDashboardAdminStore from '~/store/dashboardAdminStore';
+
+// Type definitions:
+import { ProductFilterOptions } from '../dashboardAdmin';
+import { ProductsInterface } from '~/types/dashboardAdminStore';
+
+// Components:
 import SearchBar from '../SearchBar/SearchBar';
 import TableDropdown from '../Dropdowns/TableDropdown';
 import Pagination from '../Pagination/Pagination';
 
-import useDashboardAdminStore from '~/store/dashboardAdminStore';
-import { ProductFilterOptions } from '../SearchBar/SearchBar';
 
-
-export interface ProductsInterface {
-    id: number;
-    title: string;
-    availability: number;
-    condition: string;
-    picture: string;
-    image: string[];
-    model: null;
-    state: string;
-    category: {
-        id: number,
-        name: string
-    };
-    brand: {
-        id: number,
-        name: string
-    };
-    stock: number;
-    price: number;
-    year: string
-};
-
-
+// --------------- MODULE ---------------
 export default function CardProducts() {
 
 
@@ -275,8 +257,8 @@ export default function CardProducts() {
                     </thead>
                     <tbody>
                         {
-                            Array.isArray(products) && products.slice(indexOfFirstElement, indexOfLastElement).map((PRODUCT: any, idx: any) => (
-                                <tr key={idx}>
+                            Array.isArray(products) && products.slice(indexOfFirstElement, indexOfLastElement).map((PRODUCT: ProductsInterface) => (
+                                <tr key={PRODUCT.id}>
                                     <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                         {PRODUCT.id}
                                     </th>

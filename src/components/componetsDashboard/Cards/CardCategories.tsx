@@ -1,20 +1,19 @@
 "use client";
 import { useEffect, useState } from "react";
 
-// components
+// Zustand store:
+import useDashboardAdminStore from "~/store/dashboardAdminStore";
+
+// Type definitions:
+import { CategoriesInterface } from "~/types/dashboardAdminStore";
+
+// Components:
 import SearchBar from '../SearchBar/SearchBar';
 import TableDropdown from '~/components/componetsDashboard/Dropdowns/TableDropdown';
 import Pagination from "../Pagination/Pagination";
 
-import useDashboardAdminStore from "~/store/dashboardAdminStore";
 
-
-interface CategoriesInterface {
-    id: number,
-    name: string,
-};
-
-
+// --------------- MODULE ---------------
 export default function CardCategories() {
 
 
@@ -23,6 +22,7 @@ export default function CardCategories() {
 
 
     // LOCAL STATES:
+    // Estado para la paginación.
     const [currentPage, setCurrentPage] = useState<number>(1);
 
 
@@ -72,8 +72,8 @@ export default function CardCategories() {
                     </thead>
                     <tbody>
                         {
-                            Array.isArray(categories) && categories?.slice(indexOfFirstElement, indexOfLastElement).map((CATEGORY: CategoriesInterface, idx: any) => (
-                                <tr key={idx}>
+                            Array.isArray(categories) && categories?.slice(indexOfFirstElement, indexOfLastElement).map((CATEGORY: CategoriesInterface) => (
+                                <tr key={CATEGORY.id}>
                                     <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                         {CATEGORY.id}
                                     </th>
