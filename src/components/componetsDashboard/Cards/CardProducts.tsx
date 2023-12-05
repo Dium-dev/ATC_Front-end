@@ -284,7 +284,7 @@ export default function CardProducts() {
                                         <img
                                             src={PRODUCT.image[0]}
                                             className="h-12 w-12 bg-white rounded-full border"
-                                            alt="..."
+                                            alt=""
                                         ></img>
                                         <span className="ml-3 font-bold text-blueGray-600 dm:text-white">
                                             {PRODUCT.title}

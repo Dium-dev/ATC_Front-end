@@ -50,68 +50,74 @@ function OrderItem({ ORDER }: OrderItemInterface) {
                                 <div className="w-[30%] p-4 bg-white rounded-xl text-black">
                                     <h3>CLIENTE</h3>
                                     <table className="w-full">
-                                        <tr>
-                                            <th>USER ID:</th>
-                                            <td>{ORDER.costumer.name}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>NOMBRE:</th>
-                                            <td>{ORDER.costumer.name}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>CORREO:</th>
-                                            <td>{ORDER.costumer.emailAddress}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>TELÉFONO:</th>
-                                            <td>{ORDER.costumer.phoneNumber}</td>
-                                        </tr>
+                                        <tbody>
+                                            <tr>
+                                                <th>USER ID:</th>
+                                                <td>{ORDER.costumer.name}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>NOMBRE:</th>
+                                                <td>{ORDER.costumer.name}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>CORREO:</th>
+                                                <td>{ORDER.costumer.emailAddress}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>TELÉFONO:</th>
+                                                <td>{ORDER.costumer.phoneNumber}</td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                                 <div className="w-[30%] p-4 bg-white rounded-2xl text-black">
                                     <h3>ENVIAR A:</h3>
                                     <table className="w-full">
-                                        <tr>
-                                            <th>DEPARTAMENTO:</th>
-                                            <td>{ORDER.costumer.address.department}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>LOCALIDAD:</th>
-                                            <td>{ORDER.costumer.address.locality}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>BARRIO:</th>
-                                            <td>{ORDER.costumer.address.neighborhood}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>NÚMERO:</th>
-                                            <td>{ORDER.costumer.address.number}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>REFERENCIAS:</th>
-                                            <td>{ORDER.costumer.address.references}</td>
-                                        </tr>
+                                        <tbody>
+                                            <tr>
+                                                <th>DEPARTAMENTO:</th>
+                                                <td>{ORDER.costumer.address.department}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>LOCALIDAD:</th>
+                                                <td>{ORDER.costumer.address.locality}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>BARRIO:</th>
+                                                <td>{ORDER.costumer.address.neighborhood}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>NÚMERO:</th>
+                                                <td>{ORDER.costumer.address.number}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>REFERENCIAS:</th>
+                                                <td>{ORDER.costumer.address.references}</td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                                 <div className="w-[30%] p-4 bg-white rounded-2xl text-black">
                                     <h3>PAGO:</h3>
                                     <table className="w-full">
-                                        <tr>
-                                            <th>FECHA DE OP.:</th>
-                                            <td>{ORDER.payment.date}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>MÉTODO:</th>
-                                            <td>{ORDER.payment.method}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>ESTADO:</th>
-                                            <td>{ORDER.payment.status}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>NÚMERO DE APROBACIÓN:</th>
-                                            <td>{ORDER.payment.approvalNumber}</td>
-                                        </tr>
+                                        <tbody>
+                                            <tr>
+                                                <th>FECHA DE OP.:</th>
+                                                <td>{ORDER.payment.date}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>MÉTODO:</th>
+                                                <td>{ORDER.payment.method}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>ESTADO:</th>
+                                                <td>{ORDER.payment.status}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>NÚMERO DE APROBACIÓN:</th>
+                                                <td>{ORDER.payment.approvalNumber}</td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
