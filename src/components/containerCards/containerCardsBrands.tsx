@@ -138,6 +138,18 @@ const ContainerCardsBrands: React.FC = () => {
   };
   value.animate(); // This will work because value is an AnimatedValue
 
+  const prevSlide = () => {
+    const isFirstSlide = activeIndex === 0;
+    const newIndex = isFirstSlide ? imagesBrands.length - 1 : activeIndex - 1;
+    setActiveIndex(newIndex);
+  };
+
+  const nextSlide = () => {
+    const isLastSlide = activeIndex === imagesBrands.length - 1;
+    const newIndex = isLastSlide ? 0 : activeIndex + 1;
+    setActiveIndex(newIndex);
+  };
+
   const handlePrevClick = () => {
     if (activeIndex > 0) {
       setActiveIndex(activeIndex - 1);
@@ -163,9 +175,9 @@ const ContainerCardsBrands: React.FC = () => {
       <div className="flex items-center justify-center w-full max-w-f-hd py-2 gap-1 relative">
         <button
           onClick={handlePrevClick}
-          className="w-10 h-10 apect-square rounded-full flex items-center justify-center p-2 bg-white text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all"
+          className="w-10 h-10 apect-square rounded-full flex items-center justify-center p-2 bg-white text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all cursor-pointer"
         >
-          <BsChevronCompactLeft size="100%" />
+          <BsChevronCompactLeft onClick={prevSlide} size="100%" />
         </button>
         <Ticker duration={70}>
           {imagesBrands.map((brand, index) => (
@@ -189,9 +201,9 @@ const ContainerCardsBrands: React.FC = () => {
           </Ticker>
           <button
           onClick={handleNextClick}
-          className="w-10 h-10 apect-square rounded-full flex items-center justify-center p-2 bg-white text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all"
+          className="w-10 h-10 apect-square rounded-full flex items-center justify-center p-2 bg-white text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all cursor-pointer"
         >
-          <BsChevronCompactRight size="100%" />
+          <BsChevronCompactRight onClick={nextSlide} size="100%" />
           </button>
       </div>
     </div>
