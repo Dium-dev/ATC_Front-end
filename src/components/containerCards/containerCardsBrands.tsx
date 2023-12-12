@@ -129,14 +129,15 @@ const ContainerCardsBrands: React.FC = () => {
   };
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const tickerRef = useRef(null);
-
+  const tickerRef = useRef<HTMLDivElement>(null);
+  
   const value: AnimatedValue = {
     animate() {
-      // Implement the animate method
+      // Implement the actual animation logic here
+      // You can use `tickerRef.current` to access the ticker element
+      // and animate its properties
     },
   };
-  value.animate(); // This will work because value is an AnimatedValue
 
   const prevSlide = () => {
     const isFirstSlide = activeIndex === 0;
