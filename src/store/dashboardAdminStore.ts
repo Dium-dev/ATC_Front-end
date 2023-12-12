@@ -44,7 +44,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
         if (options !== null) {
             const { status, after, before } = options;
 
-            // Usado para convertir el formato de la propiedad "user.registerDate" de "DD/MM/YYYY" a "YYYY/MM/DD" (formato por defecto de <input> tipo "date").
+            // Usado para convertir el formato de las subpropiedades ("after", "before") de la propiedad "user.registerDate" de "DD/MM/YYYY" a "YYYY/MM/DD" (formato por defecto de <input> tipo "date").
             const convertDateFormat = (date: string) => {
                 const [day, month, year] = date.split('-');
                 return `${year}-${month}-${day}`;
@@ -215,8 +215,19 @@ const useDashboardAdminStore: any = create((set: any) => ({
         if (options !== null) {
             const { order, totalPrice, itemQuantity, payment } = options;
 
+            // Usado para convertir el formato de las subpropiedades ("after", "before") de la propiedad "orderItem.order.effectiveDate" de "DD/MM/YYYY" a "YYYY/MM/DD" (formato por defecto de <input> tipo "date").
+            const convertDateFormat = (date: string) => {
+                const [day, month, year] = date.split('-');
+                return `${year}-${month}-${day}`;
+            };
+
             const filteredOrders = state.originalOrders.filter((orderItem: OrdersInterface) => {
+                const orderDateFormatted = convertDateFormat(orderItem.creationDate);
+                const paymentDateFormatted = convertDateFormat(orderItem.payment.date);
+
                 const statusFilter = order.status.length === 0 || order.status === orderItem.status;
+                const orderDateAfter = order.effectiveDate.after.length === 0 || order.effectiveDate.after < orderDateFormatted;
+                const orderDateBefore = order.effectiveDate.before.length === 0 || order.effectiveDate.before > orderDateFormatted;
 
                 const priceFilterBottom = totalPrice.above === null || totalPrice.above < orderItem.total;
                 const priceFilterTop = totalPrice.below === null || totalPrice.below > orderItem.total;
@@ -228,8 +239,11 @@ const useDashboardAdminStore: any = create((set: any) => ({
                 const paymentMethod = payment.method.length === 0 || payment.method === orderItem.payment.method;
                 const paymentStatus = payment.status.length === 0 || payment.status === orderItem.payment.status;
 
+                const paymentDateAfter = payment.effectiveDate.after.length === 0 || payment.effectiveDate.after < paymentDateFormatted;
+                const paymentDateBefore = payment.effectiveDate.before.length === 0 || payment.effectiveDate.before > paymentDateFormatted;
+
                 // Se usa "&&" para efectuar un filtrado más específico.
-                return statusFilter && priceFilterBottom && priceFilterTop && itemQuantityBottom && itemQuantityTop && paymentMethod && paymentStatus;
+                return statusFilter && orderDateAfter && orderDateBefore && priceFilterBottom && priceFilterTop && itemQuantityBottom && itemQuantityTop && paymentMethod && paymentStatus && paymentDateAfter && paymentDateBefore;
             });
 
             set({ orders: filteredOrders });

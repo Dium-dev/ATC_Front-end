@@ -56,7 +56,7 @@ export default function CardUsers() {
 
 
     // CONSTANTS:
-    const FILTER_OPTIONS_EMPTY = {
+    const FILTER_OPTIONS_EMPTY: UserFilterOptions = {
         status: [],
         after: "",
         before: ""

@@ -54,7 +54,7 @@ const ORDERS: OrdersInterface[] = [
     {
         id: 1,
         orderNumber: 123456789098,
-        creationDate: "01 November 2023",
+        creationDate: "01-11-2023",
         status: "declined",
         total: 2489900,
         list: [{
@@ -70,7 +70,7 @@ const ORDERS: OrdersInterface[] = [
 
         ],
         payment: {
-            date: "01 Novemeber 2023, 10:25 a.m. GMT-3",
+            date: "01-11-2023",
             method: "MercadoPago",
             status: "approved",
             approvalNumber: 123456789
@@ -91,7 +91,7 @@ const ORDERS: OrdersInterface[] = [
     {
         id: 2,
         orderNumber: 324567876543,
-        creationDate: "27 October 2023",
+        creationDate: "27-10-2023",
         status: "delivered",
         total: 1929900,
         list: [{
@@ -101,7 +101,7 @@ const ORDERS: OrdersInterface[] = [
             value: 1929900
         }],
         payment: {
-            date: "27 October 2023, 10:25 a.m. GMT-3",
+            date: "27-10-2023",
             method: "MercadoPago",
             status: "approved",
             approvalNumber: 987654321
@@ -129,10 +129,10 @@ export default function CardOrders() {
 
 
     // CONSTANTS:
-    const FILTER_OPTIONS_EMPTY = {
+    const FILTER_OPTIONS_EMPTY: OrderFilterOptions = {
         order: {
             status: "",
-            creationDate: {
+            effectiveDate: {
                 before: "",
                 after: ""
             },
@@ -150,7 +150,7 @@ export default function CardOrders() {
         payment: {
             method: "",
             status: "",
-            efectiveDate: {
+            effectiveDate: {
                 before: "",
                 after: ""
             },
@@ -223,6 +223,25 @@ export default function CardOrders() {
         }));
     };
 
+    const handleInputDate = (
+        event: ChangeEvent<HTMLInputElement>,
+        clause: "order" | "payment",
+        property: "before" | "after"
+    ) => {
+        const inputValue = event.target.value;
+
+        setFilterOptions((prevOptions: OrderFilterOptions) => ({
+            ...prevOptions,
+            [clause]: {
+                ...prevOptions[clause],
+                ["effectiveDate"]: {
+                    ...prevOptions[clause]["effectiveDate"],
+                    [property]: inputValue === "" ? null : inputValue
+                }
+            }
+        }));
+    };
+
     // Elimina la opción seleccionada del estado local.
     const handleRemoveSelectOption = (clause: "status" | "paymentMethod" | "paymentStatus") => {
         setFilterOptions((prevOptions: OrderFilterOptions) => {
@@ -252,6 +271,10 @@ export default function CardOrders() {
     useEffect(() => {
         updateOrders(ORDERS);
     }, [])
+
+    useEffect(() => {
+        console.log(filterOptions)
+    }, [filterOptions   ])
 
 
     // COMPONENT:
@@ -292,8 +315,8 @@ export default function CardOrders() {
                         </div>
                         <div>
                             <span>Fecha de creación:</span>
-                            <label>depués de:</label><input type="date" />
-                            <label>antes de:</label><input type="date" />
+                            <label>depués de:</label><input type="date" value={filterOptions.order.effectiveDate.after} onChange={(e) => handleInputDate(e, "order", "after")} />
+                            <label>antes de:</label><input type="date" value={filterOptions.order.effectiveDate.before} onChange={(e) => handleInputDate(e, "order", "before")} />
                         </div>
                         <div>
                             <span>Total:</span>
@@ -369,8 +392,8 @@ export default function CardOrders() {
                         </div>
                         <div>
                             <span>Fecha de Pago:</span>
-                            <label>depués de:</label><input type="date" />
-                            <label>antes de:</label><input type="date" />
+                            <label>depués de:</label><input type="date" value={filterOptions.payment.effectiveDate.after} onChange={(e) => handleInputDate(e, "payment", "after")} />
+                            <label>antes de:</label><input type="date" value={filterOptions.payment.effectiveDate.before} onChange={(e) => handleInputDate(e, "payment", "before")} />
                         </div>
 
                         <div>Usuario</div>

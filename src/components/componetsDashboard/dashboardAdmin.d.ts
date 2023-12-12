@@ -27,7 +27,7 @@ export type OrderFilterOptions = {
     // order:
     order: {
         status: string,
-        creationDate: {
+        effectiveDate: {
             before: string,
             after: string
         },
@@ -45,7 +45,7 @@ export type OrderFilterOptions = {
     payment: {
         method: string,
         status: string,
-        efectiveDate: {
+        effectiveDate: {
             before: string,
             after: string
         },
