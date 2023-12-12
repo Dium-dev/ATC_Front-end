@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 // Zustand store:
 import useDashboardAdminStore from '~/store/dashboardAdminStore';
@@ -37,7 +37,7 @@ const USERS: UsersInterface[] = [
         status: "activated",
         emailAddress: "johndoe@gmail.com",
         phone: "01 123456789",
-        registerDate: "27/09/2023",
+        registerDate: "27-09-2023",
     },
     {
         id: 2,
@@ -46,7 +46,7 @@ const USERS: UsersInterface[] = [
         status: "blocked",
         emailAddress: "doejohn@hotmail.com",
         phone: "10 987654321",
-        registerDate: "21/07/2023"
+        registerDate: "21-07-2023"
     }
 ];
 
@@ -91,6 +91,15 @@ export default function CardUsers() {
         });
     };
 
+    const handleInputDate = (event: ChangeEvent<HTMLInputElement>, property: "before" | "after") => {
+        const inputValue = event.target.value;
+
+        setFilterOptions((prevOptions: UserFilterOptions) => ({
+            ...prevOptions,
+            [property]: inputValue === "" ? null : inputValue
+        }));
+    };
+
     // Ejecuta el filtrado con la función de zustand.
     const handleFilter = () => {
         filterUsers(filterOptions);
@@ -108,6 +117,10 @@ export default function CardUsers() {
     useEffect(() => {
         updateUsers(USERS);
     }, []);
+
+    useEffect(() => {
+        console.log (filterOptions)
+    }, [filterOptions])
 
 
     // COMPONENT:
@@ -144,9 +157,10 @@ export default function CardUsers() {
                         </div>
                         <div>
                             <span>Fecha de registro:</span>
-                            <label>depués de:</label><input type="date" />
-                            <label>antes de:</label><input type="date" />
+                            <label>depués de:</label><input type="date" value={filterOptions.after} onChange={(e) => handleInputDate(e, "after")} />
+                            <label>antes de:</label><input type="date" value={filterOptions.before} onChange={(e) => handleInputDate(e, "before")} />
                         </div>
+
 
                         <button onClick={handleFilter}>Aplicar filtros</button>
                         <button onClick={handleClearFilters}>Limpira filtros</button>

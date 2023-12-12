@@ -44,9 +44,23 @@ const useDashboardAdminStore: any = create((set: any) => ({
         if (options !== null) {
             const { status, after, before } = options;
 
-            const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
-                status.includes(user.status)
-            );
+            // Usado para convertir el formato de la propiedad "user.registerDate" de "DD/MM/YYYY" a "YYYY/MM/DD" (formato por defecto de <input> tipo "date").
+            const convertDateFormat = (date: string) => {
+                const [day, month, year] = date.split('-');
+                return `${year}-${month}-${day}`;
+            };
+
+            const filteredUsers = state.originalUsers.filter((user: UsersInterface) => {
+                const userDateFormatted = convertDateFormat(user.registerDate);
+
+                const statusFilter = status.length === 0 || status.includes(user.status);
+
+                const afterFilter = after.length === 0 || after < userDateFormatted;
+                const beforeFilter = before.length === 0 || before > userDateFormatted;
+
+                // Se usa "&&" para efectuar un filtrado más específico.
+                return statusFilter && afterFilter && beforeFilter;
+            });
 
             set({ users: filteredUsers });
         } else {
@@ -214,7 +228,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
                 const paymentMethod = payment.method.length === 0 || payment.method === orderItem.payment.method;
                 const paymentStatus = payment.status.length === 0 || payment.status === orderItem.payment.status;
 
-
+                // Se usa "&&" para efectuar un filtrado más específico.
                 return statusFilter && priceFilterBottom && priceFilterTop && itemQuantityBottom && itemQuantityTop && paymentMethod && paymentStatus;
             });
 
