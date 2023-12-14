@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 // Type definitions:
 import { UserFilterOptions, ProductFilterOptions, OrderFilterOptions } from "~/components/componetsDashboard/dashboardAdmin";
-import { UsersInterface, ProductsInterface, OrdersInterface } from "../types/dashboardAdminStore";
+import { UsersInterface, ProductsInterface, OrdersInterface, CategoriesInterface } from "../types/dashboardAdminStore";
 
 
 // Zustand slice:
@@ -163,7 +163,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
         let sortedProducts;
 
         if (type === "ascendant") {
-            sortedProducts = products.sort((a, b) => {
+            sortedProducts = products.sort((a: ProductsInterface, b: ProductsInterface) => {
                 if (clause === "title") {
                     // caso: "title". (string).
                     return a[clause].localeCompare(b[clause]);
@@ -178,7 +178,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
                 else return 0;
             })
         } else if (type === "descendant") {
-            sortedProducts = products.sort((a, b) => {
+            sortedProducts = products.sort((a: ProductsInterface, b: ProductsInterface) => {
                 if (clause === "title") {
                     // caso: "title". (string.)
                     return b[clause].localeCompare(a[clause]);
@@ -227,6 +227,31 @@ const useDashboardAdminStore: any = create((set: any) => ({
         );
 
         set({ categories: filteredCategories });
+    },
+    sortCategories: (clause: "id" | "name", type: "ascendant" | "descendant") => {
+        const categories = [...useDashboardAdminStore.getState().originalCategories];
+        let sortedCategories;
+
+        if (type === "ascendant") {
+            sortedCategories = categories.sort((a: CategoriesInterface, b: CategoriesInterface) => {
+                if (clause === "id" || clause === "name") {
+                    // caso: "id", "name".
+                    return a.name.localeCompare(b.name);
+                }
+                // caso por defecto, sin cambios en el orden.
+                else return 0;
+            })
+        } else if (type === "descendant") {
+            sortedCategories = categories.sort((a: CategoriesInterface, b: CategoriesInterface) => {
+                if (clause === "id" || clause === "name") {
+                    // caso: "id", "name"
+                    return b.name.localeCompare(a.name);
+                }
+                // caso por defecto, sin cambios en el orden.
+                else return 0;
+            })
+        };
+        set({ categories: sortedCategories });
     },
 
     // ---------- BRANDS ----------:
