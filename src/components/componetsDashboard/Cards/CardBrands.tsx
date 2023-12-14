@@ -18,7 +18,7 @@ export default function CardBrands() {
 
 
     // GLOBAL STORE:
-    const { brands, fetchBrands, isBrandsFetching }: any = useDashboardAdminStore();
+    const { brands, fetchBrands, isBrandsFetching, sortBrands }: any = useDashboardAdminStore();
 
 
     // LOCAL STATES:
@@ -31,6 +31,12 @@ export default function CardBrands() {
     const elementsPerPage = 10;
     const indexOfLastElement = currentPage * elementsPerPage;
     const indexOfFirstElement = indexOfLastElement - elementsPerPage;
+
+
+    // FUNCTIONS:
+    const handleSort = (clause: string, type: string) => {
+        sortBrands(clause, type);
+    };
 
 
     // LIFE CYCLES:
@@ -61,9 +67,17 @@ export default function CardBrands() {
                         <tr>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Id
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("id", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("id", "descendant")}>desc</button>
+                                </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Nombre
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("name", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("name", "descendant")}>desc</button>
+                                </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Acciones

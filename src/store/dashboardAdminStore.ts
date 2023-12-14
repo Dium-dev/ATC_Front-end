@@ -286,6 +286,27 @@ const useDashboardAdminStore: any = create((set: any) => ({
 
         set({ brands: filteredBrands });
     },
+    sortBrands: (clause: "id" | "name", type: "ascendant" | "descendant") => {
+        const brands = [...useDashboardAdminStore.getState().originalBrands];
+        let sortedBrands;
+
+        if (type === "ascendant") {
+            sortedBrands = brands.sort((a: BrandsInterface, b: BrandsInterface) => {
+                if (clause === "id" || clause === "name") {
+                    return a[clause].localeCompare(b[clause]);
+                }
+                else return 0;
+            })
+        } else if (type === "descendant") {
+            sortedBrands = brands.sort((a: BrandsInterface, b: BrandsInterface) => {
+                if (clause === "id" || clause === "name") {
+                    return b[clause].localeCompare(a[clause]);
+                }
+                else return 0;
+            });
+        };
+        set({ brands: sortedBrands });
+    },
 
     // ---------- ORDERS ----------:
     originalOrders: [],
