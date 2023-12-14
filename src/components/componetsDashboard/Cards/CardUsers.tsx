@@ -64,7 +64,7 @@ export default function CardUsers() {
 
 
     // GLOBAL STORE:
-    const { users, updateUsers, filterUsers }: any = useDashboardAdminStore();
+    const { users, updateUsers, filterUsers, sortUsers }: any = useDashboardAdminStore();
 
 
     // LOCAL STATES:
@@ -111,16 +111,19 @@ export default function CardUsers() {
         filterUsers(null);
     };
 
+    // Llama a la función de zustand "sortUsers" para manejar el orden el array. Espera 2 parámetros:
+    // "clause" => "id" | "name" | "emailAddress" | "status" | "phone" | "registerDate".
+    // "type" => "ascendant" | "descendant".
+    const handleSort = (clause: string, type: string) => {
+        sortUsers(clause, type);
+    };
+
 
     // LIFE CYCLES:
     // Simular petición al servidor para obtener datos y llenar el array de usuarios (users).
     useEffect(() => {
         updateUsers(USERS);
     }, []);
-
-    useEffect(() => {
-        console.log (filterOptions)
-    }, [filterOptions])
 
 
     // COMPONENT:
@@ -174,18 +177,38 @@ export default function CardUsers() {
                         <tr>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Id
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("id", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("id", "descendant")}>desc</button>
+                                </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Nombre
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("name", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("name", "descendant")}>desc</button>
+                                </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700" >
                                 Correo electrónico
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("emailAddress", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("emailAddress", "descendant")}>desc</button>
+                                </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700" >
                                 Estado
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("status", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("status", "descendant")}>desc</button>
+                                </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700" >
                                 Fecha de registro
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("registerDate", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("registerDate", "descendant")}>desc</button>
+                                </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700" >
                                 Acciones

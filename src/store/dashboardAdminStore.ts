@@ -68,6 +68,38 @@ const useDashboardAdminStore: any = create((set: any) => ({
             set({ users: state.originalUsers });
         };
     },
+    sortUsers: (clause: "id" | "name" | "emailAddress" | "status" | "phone" | "registerDate", type: "ascendant" | "descendant") => {
+        const state = useDashboardAdminStore.getState();
+        const users = [...state.originalUsers];
+        let sortedUsers;
+
+        if (type === "ascendant") {
+            sortedUsers = users.sort((a: UsersInterface, b: UsersInterface) => {
+                if (clause === "name" || clause === "emailAddress" || clause === "status" || clause === "phone" || clause === "registerDate") {
+                    // caso de: NOMBRE, EMAILADDRESS, STATUS, PHONENUMBER, REGISTERDATE
+                    return (a[clause]).localeCompare((b[clause]));
+                } else if (clause === "id") {
+                    // caso de: ID
+                    return a[clause] - b[clause];
+                }
+                // caso por defecto, sin cambios en el orden.
+                else return 0;
+            });
+        } else if (type === "descendant") {
+            sortedUsers = users.sort((a: UsersInterface, b: UsersInterface) => {
+                if (clause === "name" || clause === "emailAddress" || clause === "status" || clause === "phone" || clause === "registerDate") {
+                    // caso de: NOMBRE, EMAILADDRESS, STATUS, PHONENUMBER, REGISTERDATE
+                    return (b[clause]).localeCompare((a[clause]));
+                } else if (clause === "id") {
+                    // caso de: ID
+                    return b[clause] - a[clause];
+                }
+                // caso por defecto, sin cambios en el orden.
+                else return 0;
+            });
+        };
+        set({ users: sortedUsers });
+    },
 
     // ---------- PRODUCTS ----------:
     originalProducts: [],
