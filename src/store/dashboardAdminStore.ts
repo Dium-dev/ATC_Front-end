@@ -293,15 +293,19 @@ const useDashboardAdminStore: any = create((set: any) => ({
         if (type === "ascendant") {
             sortedBrands = brands.sort((a: BrandsInterface, b: BrandsInterface) => {
                 if (clause === "id" || clause === "name") {
+                    // caso: "id", "name".
                     return a[clause].localeCompare(b[clause]);
                 }
+                // caso por defecto, sin cambios en el orden.
                 else return 0;
             })
         } else if (type === "descendant") {
             sortedBrands = brands.sort((a: BrandsInterface, b: BrandsInterface) => {
                 if (clause === "id" || clause === "name") {
+                    // caso: "id", "name".
                     return b[clause].localeCompare(a[clause]);
                 }
+                // caso por defecto, sin cambios en el orden.
                 else return 0;
             });
         };
@@ -366,6 +370,37 @@ const useDashboardAdminStore: any = create((set: any) => ({
             // Limpia los filtros seteando el array original al estado "orders".
             set({ orders: state.originalOrders });
         }
+    },
+    sortOrders: (clause: "id" | "orderNumber" | "creationDate" | "status" | "total", type: "ascendant" | "descendant") => {
+        const orders = [...useDashboardAdminStore.getState().originalOrders];
+        let sortedOrders;
+
+        if (type === "ascendant") {
+            sortedOrders = orders.sort((a: OrdersInterface, b: OrdersInterface) => {
+                if (clause === "status" || clause === "creationDate") {
+                    // caso: "status", "creationDate".
+                    return a[clause].localeCompare(b[clause]);
+                } else if (clause === "id" || clause === "orderNumber" || clause === "total") {
+                    // caso: "id", "orderNumber", "total".
+                    return a[clause] - b[clause];
+                }
+                // caso por defecto, sin cambios en el orden.
+                return 0;
+            })
+        } else if (type === "descendant") {
+            sortedOrders = orders.sort((a: OrdersInterface, b: OrdersInterface) => {
+                if (clause === "status" || clause === "creationDate") {
+                    // caso: "status", "creationDate".
+                    return b[clause].localeCompare(a[clause]);
+                } else if (clause === "id" || clause === "orderNumber" || clause === "total") {
+                    // caso: "id", "orderNumber", "total".
+                    return b[clause] - a[clause];
+                }
+                // caso por defecto, sin cambios en el orden.
+                return 0;
+            })
+        };
+        set({orders: sortedOrders});
     }
 }));
 

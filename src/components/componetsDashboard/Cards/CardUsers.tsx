@@ -47,7 +47,25 @@ const USERS: UsersInterface[] = [
         emailAddress: "doejohn@hotmail.com",
         phone: "10 987654321",
         registerDate: "21-07-2023"
-    }
+    },
+    {
+        id: 3,
+        name: "Asd",
+        picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
+        status: "deleted",
+        emailAddress: "asdfgh@hotmail.com",
+        phone: "11 987654321",
+        registerDate: "21-12-2023"
+    },
+    {
+        id: 4,
+        name: "Qwe",
+        picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
+        status: "blocked",
+        emailAddress: "qwerty@hotmail.com",
+        phone: "10 987654321",
+        registerDate: "21-10-2023"
+    },
 ];
 
 

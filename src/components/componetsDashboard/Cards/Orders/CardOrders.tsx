@@ -159,7 +159,7 @@ export default function CardOrders() {
 
 
     // GLOBAL STORE:
-    const { orders, updateOrders, filterOrders }: any = useDashboardAdminStore();
+    const { orders, updateOrders, filterOrders, sortOrders }: any = useDashboardAdminStore();
 
 
     // LOCAL STATES:
@@ -266,15 +266,16 @@ export default function CardOrders() {
         filterOrders(null);
     };
 
+    const handleSort = (clause: string, type: string) => {
+        sortOrders(clause, type);
+    };
+
+
     // Simular petición al servidor para obtener datos y llenar el array de pedidos (orders).
     // LIFECYCLES:
     useEffect(() => {
         updateOrders(ORDERS);
     }, [])
-
-    useEffect(() => {
-        console.log(filterOptions)
-    }, [filterOptions   ])
 
 
     // COMPONENT:
@@ -409,18 +410,38 @@ export default function CardOrders() {
                         <tr>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Id
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("id", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("id", "descendant")}>desc</button>
+                                </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Número de orden
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("orderNumber", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("orderNumber", "descendant")}>desc</button>
+                                </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Fecha de creación
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("creationDate", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("creationDate", "descendant")}>desc</button>
+                                </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Estado
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("status", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("status", "descendant")}>desc</button>
+                                </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Total
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("total", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("total", "descendant")}>desc</button>
+                                </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Acciones
