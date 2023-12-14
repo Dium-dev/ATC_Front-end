@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 // Type definitions:
 import { UserFilterOptions, ProductFilterOptions, OrderFilterOptions } from "~/components/componetsDashboard/dashboardAdmin";
-import { UsersInterface, ProductsInterface, OrdersInterface, CategoriesInterface } from "../types/dashboardAdminStore";
+import { UsersInterface, ProductsInterface, OrdersInterface, CategoriesInterface, BrandsInterface } from "../types/dashboardAdminStore";
 
 
 // Zustand slice:
@@ -236,7 +236,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
             sortedCategories = categories.sort((a: CategoriesInterface, b: CategoriesInterface) => {
                 if (clause === "id" || clause === "name") {
                     // caso: "id", "name".
-                    return a.name.localeCompare(b.name);
+                    return a[clause].localeCompare(b[clause]);
                 }
                 // caso por defecto, sin cambios en el orden.
                 else return 0;
@@ -245,7 +245,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
             sortedCategories = categories.sort((a: CategoriesInterface, b: CategoriesInterface) => {
                 if (clause === "id" || clause === "name") {
                     // caso: "id", "name"
-                    return b.name.localeCompare(a.name);
+                    return b[clause].localeCompare(a[clause]);
                 }
                 // caso por defecto, sin cambios en el orden.
                 else return 0;

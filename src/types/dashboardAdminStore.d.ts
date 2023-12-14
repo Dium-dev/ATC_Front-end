@@ -45,13 +45,13 @@ export interface ProductsInterface {
 
 // ----- CATEGORIES: -----
 export interface CategoriesInterface {
-    id: number,
+    id: string,
     name: string,
 };
 
 // ----- BRANDS: -----
 export interface BrandsInterface {
-    id: number,
+    id: string,
     name: string,
 };
 
