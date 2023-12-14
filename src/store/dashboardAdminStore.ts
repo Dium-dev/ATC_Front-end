@@ -69,17 +69,16 @@ const useDashboardAdminStore: any = create((set: any) => ({
         };
     },
     sortUsers: (clause: "id" | "name" | "emailAddress" | "status" | "phone" | "registerDate", type: "ascendant" | "descendant") => {
-        const state = useDashboardAdminStore.getState();
-        const users = [...state.originalUsers];
+        const users = [...useDashboardAdminStore.getState().originalUsers];
         let sortedUsers;
 
         if (type === "ascendant") {
             sortedUsers = users.sort((a: UsersInterface, b: UsersInterface) => {
                 if (clause === "name" || clause === "emailAddress" || clause === "status" || clause === "phone" || clause === "registerDate") {
-                    // caso de: NOMBRE, EMAILADDRESS, STATUS, PHONENUMBER, REGISTERDATE
+                    // caso: "name", "emailAddress", "status", "phone", "registerDate". (string).
                     return (a[clause]).localeCompare((b[clause]));
                 } else if (clause === "id") {
-                    // caso de: ID
+                    // caso: "id". (number).
                     return a[clause] - b[clause];
                 }
                 // caso por defecto, sin cambios en el orden.
@@ -88,10 +87,10 @@ const useDashboardAdminStore: any = create((set: any) => ({
         } else if (type === "descendant") {
             sortedUsers = users.sort((a: UsersInterface, b: UsersInterface) => {
                 if (clause === "name" || clause === "emailAddress" || clause === "status" || clause === "phone" || clause === "registerDate") {
-                    // caso de: NOMBRE, EMAILADDRESS, STATUS, PHONENUMBER, REGISTERDATE
+                    // caso: "name", "emailAddress", "status", "phone", "registerDate". (string).
                     return (b[clause]).localeCompare((a[clause]));
                 } else if (clause === "id") {
-                    // caso de: ID
+                    // caso: "id". (number).
                     return b[clause] - a[clause];
                 }
                 // caso por defecto, sin cambios en el orden.
@@ -157,6 +156,44 @@ const useDashboardAdminStore: any = create((set: any) => ({
             // Limpia los filtros seteando el array original al estado "productos".
             set({ products: state.originalProducts });
         };
+    },
+    // Ordena a los producto según los parámetros especificados.
+    sortProducts: (clause: "id" | "title" | "category" | "brand" | "stock" | "price", type: "ascendant" | "descendant") => {
+        const products = [...useDashboardAdminStore.getState().originalProducts];
+        let sortedProducts;
+
+        if (type === "ascendant") {
+            sortedProducts = products.sort((a, b) => {
+                if (clause === "title") {
+                    // caso: "title". (string).
+                    return a[clause].localeCompare(b[clause]);
+                } else if (clause === "category" || clause === "brand") {
+                    // caso: "category", "brand". (porque son objectos con una propiedad "name").
+                    return (a[clause].name.localeCompare(b[clause].name))
+                } else if (clause === "id" || clause === "stock" || clause === "price") {
+                    // caso: "id", "stock", "price" ("number")
+                    return a[clause] - b[clause];
+                }
+                // caso por defecto, sin cambios en el orden.
+                else return 0;
+            })
+        } else if (type === "descendant") {
+            sortedProducts = products.sort((a, b) => {
+                if (clause === "title") {
+                    // caso: "title". (string.)
+                    return b[clause].localeCompare(a[clause]);
+                } else if (clause === "category" || clause === "brand") {
+                    // caso: "category", "brand". (porque son objectos con una propiedad "name").
+                    return (b[clause].name.localeCompare(a[clause].name))
+                } else if (clause === "id" || clause === "stock" || clause === "price") {
+                    // caso: "id", "stock", "price" ("number")
+                    return b[clause] - a[clause];
+                }
+                // caso por defecto, sin cambios en el orden.
+                else return 0;
+            });
+        };
+        set({ products: sortedProducts });
     },
 
     // ---------- CATEGORIES ----------:

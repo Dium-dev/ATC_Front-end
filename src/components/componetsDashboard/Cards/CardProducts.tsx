@@ -34,7 +34,7 @@ export default function CardProducts() {
 
 
     // GLOBAL STORE:
-    const { products, fetchProducts, isProductsFetching, categories, fetchCategories, isCategoriesFetching, brands, fetchBrands, isBrandsFetching, filterProducts }: any = useDashboardAdminStore();
+    const { products, fetchProducts, isProductsFetching, categories, fetchCategories, isCategoriesFetching, brands, fetchBrands, isBrandsFetching, filterProducts, sortProducts }: any = useDashboardAdminStore();
 
 
     // LOCAL STATE:
@@ -113,6 +113,10 @@ export default function CardProducts() {
     const handleClearFilters = () => {
         setFilterOptions(FILTER_OPTIONS_EMPTY);
         filterProducts(null);
+    };
+
+    const handleSort = (clause: string, type: string) => {
+        sortProducts(clause, type);
     };
 
 
@@ -234,21 +238,45 @@ export default function CardProducts() {
                         <tr>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Id
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("id", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("id", "descendant")}>desc</button>
+                                </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Nombre
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("title", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("title", "descendant")}>desc</button>
+                                </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Categoría
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("category", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("category", "descendant")}>desc</button>
+                                </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Marca
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("brand", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("brand", "descendant")}>desc</button>
+                                </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Stock
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("stock", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("stock", "descendant")}>desc</button>
+                                </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Precio
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("price", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("price", "descendant")}>desc</button>
+                                </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Acciones
