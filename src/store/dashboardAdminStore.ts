@@ -4,6 +4,12 @@ import { create } from "zustand";
 import { UserFilterOptions, ProductFilterOptions, OrderFilterOptions } from "~/components/componetsDashboard/dashboardAdmin";
 import { UsersInterface, ProductsInterface, OrdersInterface, CategoriesInterface, BrandsInterface } from "../types/dashboardAdminStore";
 
+// Usado para convertir el formato de las subpropiedades ("after", "before") de la propiedad "user.registerDate" de "DD/MM/YYYY" a "YYYY/MM/DD" (formato por defecto de <input> tipo "date").
+// Conveniente para el filtro y orden de los objetos con una propiedad que represente una fecha => "DD-MM-YYYY".
+const convertDateFormat = (date: string) => {
+    const [day, month, year] = date.split('-');
+    return `${year}-${month}-${day}`;
+};
 
 // Zustand slice:
 const useDashboardAdminStore: any = create((set: any) => ({
@@ -44,12 +50,6 @@ const useDashboardAdminStore: any = create((set: any) => ({
         if (options !== null) {
             const { status, after, before } = options;
 
-            // Usado para convertir el formato de las subpropiedades ("after", "before") de la propiedad "user.registerDate" de "DD/MM/YYYY" a "YYYY/MM/DD" (formato por defecto de <input> tipo "date").
-            const convertDateFormat = (date: string) => {
-                const [day, month, year] = date.split('-');
-                return `${year}-${month}-${day}`;
-            };
-
             const filteredUsers = state.originalUsers.filter((user: UsersInterface) => {
                 const userDateFormatted = convertDateFormat(user.registerDate);
 
@@ -74,9 +74,11 @@ const useDashboardAdminStore: any = create((set: any) => ({
 
         if (type === "ascendant") {
             sortedUsers = users.sort((a: UsersInterface, b: UsersInterface) => {
-                if (clause === "name" || clause === "emailAddress" || clause === "status" || clause === "phone" || clause === "registerDate") {
+                if (clause === "name" || clause === "emailAddress" || clause === "status" || clause === "phone") {
                     // caso: "name", "emailAddress", "status", "phone", "registerDate". (string).
                     return (a[clause]).localeCompare((b[clause]));
+                } else if (clause === "registerDate") {
+                    return convertDateFormat(a[clause]).localeCompare(convertDateFormat(b[clause]));
                 } else if (clause === "id") {
                     // caso: "id". (number).
                     return a[clause] - b[clause];
@@ -86,9 +88,11 @@ const useDashboardAdminStore: any = create((set: any) => ({
             });
         } else if (type === "descendant") {
             sortedUsers = users.sort((a: UsersInterface, b: UsersInterface) => {
-                if (clause === "name" || clause === "emailAddress" || clause === "status" || clause === "phone" || clause === "registerDate") {
+                if (clause === "name" || clause === "emailAddress" || clause === "status" || clause === "phone") {
                     // caso: "name", "emailAddress", "status", "phone", "registerDate". (string).
                     return (b[clause]).localeCompare((a[clause]));
+                } else if (clause === "registerDate") {
+                    return convertDateFormat(b[clause]).localeCompare(convertDateFormat(a[clause]));
                 } else if (clause === "id") {
                     // caso: "id". (number).
                     return b[clause] - a[clause];
@@ -334,12 +338,6 @@ const useDashboardAdminStore: any = create((set: any) => ({
         if (options !== null) {
             const { order, totalPrice, itemQuantity, payment } = options;
 
-            // Usado para convertir el formato de las subpropiedades ("after", "before") de la propiedad "orderItem.order.effectiveDate" de "DD/MM/YYYY" a "YYYY/MM/DD" (formato por defecto de <input> tipo "date").
-            const convertDateFormat = (date: string) => {
-                const [day, month, year] = date.split('-');
-                return `${year}-${month}-${day}`;
-            };
-
             const filteredOrders = state.originalOrders.filter((orderItem: OrdersInterface) => {
                 const orderDateFormatted = convertDateFormat(orderItem.creationDate);
                 const paymentDateFormatted = convertDateFormat(orderItem.payment.date);
@@ -377,9 +375,11 @@ const useDashboardAdminStore: any = create((set: any) => ({
 
         if (type === "ascendant") {
             sortedOrders = orders.sort((a: OrdersInterface, b: OrdersInterface) => {
-                if (clause === "status" || clause === "creationDate") {
+                if (clause === "status") {
                     // caso: "status", "creationDate".
                     return a[clause].localeCompare(b[clause]);
+                } else if (clause === "creationDate") {
+                    return convertDateFormat(a[clause]).localeCompare(convertDateFormat(b[clause]));
                 } else if (clause === "id" || clause === "orderNumber" || clause === "total") {
                     // caso: "id", "orderNumber", "total".
                     return a[clause] - b[clause];
@@ -389,9 +389,11 @@ const useDashboardAdminStore: any = create((set: any) => ({
             })
         } else if (type === "descendant") {
             sortedOrders = orders.sort((a: OrdersInterface, b: OrdersInterface) => {
-                if (clause === "status" || clause === "creationDate") {
+                if (clause === "status") {
                     // caso: "status", "creationDate".
                     return b[clause].localeCompare(a[clause]);
+                } else if (clause === "creationDate") {
+                    return convertDateFormat(b[clause]).localeCompare(convertDateFormat(a[clause]));
                 } else if (clause === "id" || clause === "orderNumber" || clause === "total") {
                     // caso: "id", "orderNumber", "total".
                     return b[clause] - a[clause];
@@ -400,7 +402,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
                 return 0;
             })
         };
-        set({orders: sortedOrders});
+        set({ orders: sortedOrders });
     }
 }));
 
