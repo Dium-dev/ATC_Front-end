@@ -69,7 +69,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
         };
     },
     sortUsers: (clause: "id" | "name" | "emailAddress" | "status" | "phone" | "registerDate", type: "ascendant" | "descendant") => {
-        const users = [...useDashboardAdminStore.getState().originalUsers];
+        const users = [...useDashboardAdminStore.getState().users];
         let sortedUsers;
 
         if (type === "ascendant") {
@@ -163,7 +163,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
     },
     // Ordena a los producto según los parámetros especificados.
     sortProducts: (clause: "id" | "title" | "category" | "brand" | "stock" | "price", type: "ascendant" | "descendant") => {
-        const products = [...useDashboardAdminStore.getState().originalProducts];
+        const products = [...useDashboardAdminStore.getState().products];
         let sortedProducts;
 
         if (type === "ascendant") {
@@ -233,7 +233,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
         set({ categories: filteredCategories });
     },
     sortCategories: (clause: "id" | "name", type: "ascendant" | "descendant") => {
-        const categories = [...useDashboardAdminStore.getState().originalCategories];
+        const categories = [...useDashboardAdminStore.getState().categories];
         let sortedCategories;
 
         if (type === "ascendant") {
@@ -291,7 +291,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
         set({ brands: filteredBrands });
     },
     sortBrands: (clause: "id" | "name", type: "ascendant" | "descendant") => {
-        const brands = [...useDashboardAdminStore.getState().originalBrands];
+        const brands = [...useDashboardAdminStore.getState().brands];
         let sortedBrands;
 
         if (type === "ascendant") {
@@ -370,7 +370,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
         }
     },
     sortOrders: (clause: "id" | "orderNumber" | "creationDate" | "status" | "total", type: "ascendant" | "descendant") => {
-        const orders = [...useDashboardAdminStore.getState().originalOrders];
+        const orders = [...useDashboardAdminStore.getState().orders];
         let sortedOrders;
 
         if (type === "ascendant") {
