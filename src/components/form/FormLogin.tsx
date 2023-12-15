@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 'use client';
 import React, { FC } from 'react';
 import { InputField } from '../inputs/InputField';
@@ -8,6 +9,9 @@ import Swal from 'sweetalert2';
 import { useAuth } from '~/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+import usePasswordVisibilityStore from '~/store/PasswordVisibilityStore';
+import Eye from '~/assets/icons/Eye';
+import EyeBlocked from '~/assets/icons/EyeBlocked';
 
 interface FormProp {
   updateState: (flagState: boolean) => void; // formulario login
@@ -30,6 +34,9 @@ const Form: FC<FormProp> = ({ updateState, updateStateRegister }) => {
     formState: { errors },
   } = useForm<FormProps>();
 
+  // Get password visibility state
+  const { isPasswordVisible, updateStateHide } = usePasswordVisibilityStore();
+  
   const alertSuccess = () => {
     Swal.fire({
       toast: true,
@@ -57,6 +64,11 @@ const Form: FC<FormProp> = ({ updateState, updateStateRegister }) => {
     }
   };
 
+   // Define a function to toggle password visibility
+   const handlePasswordVisibility = () => {
+    updateStateHide({ isPasswordVisible: !isPasswordVisible });
+  };
+
   return (
     <form
       onSubmit={handleSubmit(handleLogin)}
@@ -81,7 +93,7 @@ const Form: FC<FormProp> = ({ updateState, updateStateRegister }) => {
               'Mobil o Correo invalidos',
           })}
           autoComplete="off"
-          className="bg-input-bg `w-full px-3 outline-none rounded-md text-secondary-dm text-xs py-3"
+          className="bg-input-bg w-full px-3 outline-none rounded-md text-secondary-dm text-xs py-3"
         />
         {errors.email && (
           <p className="text-primary-lm">{errors.email.message}</p>
@@ -89,6 +101,7 @@ const Form: FC<FormProp> = ({ updateState, updateStateRegister }) => {
 
         <input
           placeholder="Contraseña"
+          type={isPasswordVisible ? 'text' : 'password'}
           {...register('password', {
             required: 'Nombre requerido',
             minLength: {
@@ -103,6 +116,11 @@ const Form: FC<FormProp> = ({ updateState, updateStateRegister }) => {
           autoComplete="off"
           className="bg-input-bg w-full px-3 outline-none rounded-md text-secondary-dm text-xs py-3"
         />
+
+        <button className="absolute text-secondary-dm text-xs inset-y-0 right-0 flex items-center px-4 cursor-pointer pt-5 mr-14 py-3" onClick={handlePasswordVisibility}>
+          {isPasswordVisible ? <Eye /> : <EyeBlocked />}
+        </button>
+
         {errors.password && (
           <p className="text-primary-lm">{errors.password.message}</p>
         )}
