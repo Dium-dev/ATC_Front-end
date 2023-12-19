@@ -25,7 +25,7 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
 
 
     // GLOBAL STATE:
-    const { filterUsersByName, filterUsersByEmail, filterUsersByPhone, filterProductsByName, filterCategoriesByName, filterBrandsByName, filterOrdersByOrderNumber, filterOrdersByUserName, filterOrdersByUserEmail, filterOrdersByUserPhone, filterOrdersByUserAddress }: any = useDashboardAdminStore();
+    const { filterUsersByName, filterUsersByEmail, filterUsersByPhone, filterProductsByName, filterCategoriesByName, filterBrandsByName, filterOrdersByOrderNumber, filterOrdersByUserName, filterOrdersByUserEmail, filterOrdersByUserPhone, filterOrdersByUserAddress, filterOrdersByPaymentNumber }: any = useDashboardAdminStore();
 
 
     // LOCAL STATES
@@ -77,6 +77,7 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
                 else if (orderProperty === "userName") filterOrdersByUserName(input);
                 else if (orderProperty === "userAddress") filterOrdersByUserAddress(input);
                 else if (orderProperty === "userPhone") filterOrdersByUserPhone(input);
+                else if (orderProperty === "paymentNumber") filterOrdersByPaymentNumber(input);
                 else break;
             default: break;
         };

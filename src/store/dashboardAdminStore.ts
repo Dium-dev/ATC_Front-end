@@ -326,7 +326,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
         }),
     filterOrdersByOrderNumber: (input: string) => {
         const state = useDashboardAdminStore.getState();
-        const filteredOrders = state.originalOrders.filter((order: OrdersInterface) =>
+        const filteredOrders = state.originalOrders.filter((order: any) =>
             order.orderNumber.toString().includes(input.toLowerCase())
         );
 
@@ -379,13 +379,21 @@ const useDashboardAdminStore: any = create((set: any) => ({
 
         set({ orders: filteredOrders });
     },
+    filterOrdersByPaymentNumber: (input: string) => {
+        const state = useDashboardAdminStore.getState();
+        const filteredOrders = state.originalOrders.filter((order: any) =>
+            order.payment.approvalNumber.toString().includes(input.toLowerCase())
+        );
+
+        set({ orders: filteredOrders });
+    },
     filterOrders: (options: OrderFilterOptions | null) => {
         const state = useDashboardAdminStore.getState();
 
         if (options !== null) {
             const { order, totalPrice, itemQuantity, payment } = options;
 
-            const filteredOrders = state.originalOrders.filter((orderItem: OrdersInterface) => {
+            const filteredOrders = state.originalOrders.filter((orderItem: any) => {
                 const orderDateFormatted = convertDateFormat(orderItem.creationDate);
                 const paymentDateFormatted = convertDateFormat(orderItem.payment.date);
 
