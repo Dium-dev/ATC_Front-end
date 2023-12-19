@@ -25,7 +25,7 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
 
 
     // GLOBAL STATE:
-    const { filterUsersByName, filterUsersByEmail, filterUsersByPhone, filterProductsByName, filterCategoriesByName, filterBrandsByName, filterOrdersByName }: any = useDashboardAdminStore();
+    const { filterUsersByName, filterUsersByEmail, filterUsersByPhone, filterProductsByName, filterCategoriesByName, filterBrandsByName, filterOrdersByOrderNumber, filterOrdersByUserName, filterOrdersByUserEmail, filterOrdersByUserPhone, filterOrdersByUserAddress }: any = useDashboardAdminStore();
 
 
     // LOCAL STATES
@@ -33,14 +33,26 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
 
     const [userProperty, setUserProperty] = useState<"name" | "email" | "phone">("email");
     const [userPropertyMenu, setUserPropertyMenu] = useState<boolean>(false);
+    const [orderProperty, setOrderProperty] = useState<"orderNumber" | "userName" | "userEmail" | "userPhone" | "userAddress" | "paymentNumber">("orderNumber");
+    const [orderPropertyMenu, setOrderPropertyMenu] = useState<boolean>(false);
 
 
     // CONSTANTS:
     const userPropertyMenuRef = useRef<HTMLDivElement | null>(null);
-    const displayedProperty = {
-        name: "NOMBRE",
-        email: "CORREO",
-        phone: "TELÉFONO"
+    enum displayedPropertyUser {
+        name = "NOMBRE",
+        email = "CORREO",
+        phone = "TELÉFONO"
+    };
+
+    const orderPropertyMenuRef = useRef<HTMLDivElement | null>(null);
+    enum displayedPropertyOrder {
+        orderNumber = "NÚMERO DE ORDEN",
+        userName = "NOMBRE",
+        userEmail = "CORREO ELECTRÓNICO",
+        userPhone = "TELÉFONO",
+        paymentNumber = "NÚMERO DE APROBACIÓN",
+        userAddress = "DIRECCIÓN"
     };
 
 
@@ -51,19 +63,35 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
 
     const filter = (input: string) => {
         switch (section) {
-            case "user": (userProperty === "email") ? filterUsersByEmail(input) : ((userProperty === "name") ? filterUsersByName(input) : filterUsersByPhone(input)); break;
+            case "user":
+                if (userProperty === "email") filterUsersByEmail(input);
+                else if (userProperty === "name") filterUsersByName(input);
+                else if (userProperty === "phone") filterUsersByPhone(input);
+                else break;
             case "product": filterProductsByName(input); break;
             case "category": filterCategoriesByName(input); break;
             case "brand": filterBrandsByName(input); break;
-            case "order": filterOrdersByName(input); break;
+            case "order":
+                if (orderProperty === "orderNumber") filterOrdersByOrderNumber(input);
+                else if (orderProperty === "userEmail") filterOrdersByUserEmail(input);
+                else if (orderProperty === "userName") filterOrdersByUserName(input);
+                else if (orderProperty === "userAddress") filterOrdersByUserAddress(input);
+                else if (orderProperty === "userPhone") filterOrdersByUserPhone(input);
+                else break;
             default: break;
         };
     };
 
     const handleOutsideClick = (event: any) => {
-        if (userPropertyMenu && userPropertyMenuRef.current && !userPropertyMenuRef.current.contains(event.target)) {
-            setUserPropertyMenu(false);
-        };
+        if (section === "user") {
+            if (userPropertyMenu && userPropertyMenuRef.current && !userPropertyMenuRef.current.contains(event.target)) {
+                setUserPropertyMenu(false);
+            };
+        } else if (section === "order") {
+            if (orderPropertyMenu && orderPropertyMenuRef.current && !orderPropertyMenuRef.current.contains(event.target)) {
+                setOrderPropertyMenu(false);
+            };
+        } else return;
     };
 
 
@@ -73,7 +101,7 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
         return () => {
             document.removeEventListener('click', handleOutsideClick)
         }
-    }, [userPropertyMenu]);
+    }, [userPropertyMenu, orderPropertyMenu]);
 
 
     // COMPONENT:
@@ -86,31 +114,95 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
                         onClick={() => setUserPropertyMenu(true)}
                     >
                         <BsGear size={20} />
-                        {displayedProperty[userProperty]}
+                        {displayedPropertyUser[userProperty]}
                         {
                             userPropertyMenu ? (
-                                <span
+                                <div
                                     ref={userPropertyMenuRef}
                                     className="absolute z-50 top-full left-0 p-4 rounded-sm bg-secondary-background shadow-lg"
                                 >
-                                    <p className="mb-2 whitespace-nowrap">Buscar por:</p>
-                                    <div
-                                        className="p-2 whitespace-nowrap hover:bg-background-lm hover:cursor-pointer"
-                                        onClick={() => { setUserProperty("email"); setUserPropertyMenu(false) }}
-                                    >Email</div>
-                                    <div
-                                        className="p-2 whitespace-nowrap hover:bg-background-lm hover:cursor-pointer"
-                                        onClick={() => { setUserProperty("name"); setUserPropertyMenu(false) }}
-                                    >Nombre</div>
-                                    <div
-                                        className="p-2 whitespace-nowrap hover:bg-background-lm hover:cursor-pointer"
-                                        onClick={() => { setUserProperty("phone"); setUserPropertyMenu(false) }}
-                                    >Teléfono</div>
-                                </span>
+                                    <span className="mb-2 whitespace-nowrap">Buscar por:</span>
+                                    <ul>
+                                        <li
+                                            className="p-2 whitespace-nowrap hover:bg-background-lm hover:cursor-pointer"
+                                            onClick={() => { setUserProperty("email"); setUserPropertyMenu(false) }}
+                                        >Correo</li>
+                                        <li
+                                            className="p-2 whitespace-nowrap hover:bg-background-lm hover:cursor-pointer"
+                                            onClick={() => { setUserProperty("name"); setUserPropertyMenu(false) }}
+                                        >Nombre</li>
+                                        <li
+                                            className="p-2 whitespace-nowrap hover:bg-background-lm hover:cursor-pointer"
+                                            onClick={() => { setUserProperty("phone"); setUserPropertyMenu(false) }}
+                                        >Teléfono</li>
+                                    </ul>
+                                </div>
                             ) : null
                         }
                     </div>
-                ) : null
+                ) : (section === "order" ? (
+                    <div
+                        className="relative flex items-center gap-2 p-2 rounded-sm hover:bg-background-lm hover:cursor-pointer"
+                        onClick={() => setOrderPropertyMenu(true)}
+                    >
+                        <BsGear size={20} />
+                        {displayedPropertyOrder[orderProperty]}
+                        {
+                            orderPropertyMenu ? (
+                                <div
+                                    ref={orderPropertyMenuRef}
+                                    className="absolute z-50 top-full left-0 p-4 rounded-sm bg-secondary-background shadow-lg"
+                                >
+                                    <span className="mb-2 whitespace-nowrap">Buscar por:</span>
+                                    <div className="my-2">
+                                        <span className="font-bold">Orden</span>
+                                        <ul>
+                                            <li
+                                                className="p-2 whitespace-nowrap hover:bg-background-lm hover:cursor-pointer"
+                                                onClick={() => { setOrderProperty("orderNumber"); setOrderPropertyMenu(false) }}
+                                            >Número de orden</li>
+                                        </ul>
+                                    </div>
+                                    <div className="my-2">
+                                        <span className="font-bold">Usuario</span>
+                                        <ul>
+                                            <li
+                                                className="p-2 whitespace-nowrap hover:bg-background-lm hover:cursor-pointer"
+                                                onClick={() => { setOrderProperty("userEmail"); setOrderPropertyMenu(false) }}
+                                            >
+                                                Correo
+                                            </li>
+                                            <li
+                                                className="p-2 whitespace-nowrap hover:bg-background-lm hover:cursor-pointer"
+                                                onClick={() => { setOrderProperty("userName"); setOrderPropertyMenu(false) }}
+                                            >Nombre</li>
+                                            <li
+                                                className="p-2 whitespace-nowrap hover:bg-background-lm hover:cursor-pointer"
+                                                onClick={() => { setOrderProperty("userPhone"); setOrderPropertyMenu(false) }}
+                                            >Teléfono
+                                            </li>
+                                            <li
+                                                className="p-2 whitespace-nowrap hover:bg-background-lm hover:cursor-pointer"
+                                                onClick={() => { setOrderProperty("userAddress"); setOrderPropertyMenu(false) }}
+                                            >
+                                                Dirección
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="mt-2">
+                                        <span className="font-bold">Pago</span>
+                                        <ul>
+                                            <li
+                                                className="p-2 whitespace-nowrap hover:bg-background-lm hover:cursor-pointer"
+                                                onClick={() => { setOrderProperty("paymentNumber"); setOrderPropertyMenu(false) }}
+                                            >Número de aprobación</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            ) : null
+                        }
+                    </div>
+                ) : null)
             }
             <BiSearch
                 size={20}
@@ -134,7 +226,7 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
                     </div>
                 ) : null
             }
-        </div>
+        </div >
     );
 };
 

@@ -76,7 +76,7 @@ export interface OrdersInterface {
         status: "approved" | "declined" | "pending",
         approvalNumber: number
     },
-    costumer: {
+    customer: {
         name: string,
         emailAddress: string,
         phoneNumber: string,

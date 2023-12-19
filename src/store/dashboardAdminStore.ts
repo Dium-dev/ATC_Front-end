@@ -324,11 +324,58 @@ const useDashboardAdminStore: any = create((set: any) => ({
             orders: data,
             originalOrders: data
         }),
-    filterOrdersByName: (input: string) => {
+    filterOrdersByOrderNumber: (input: string) => {
+        const state = useDashboardAdminStore.getState();
+        const filteredOrders = state.originalOrders.filter((order: OrdersInterface) =>
+            order.orderNumber.toString().includes(input.toLowerCase())
+        );
+
+        set({ orders: filteredOrders });
+    },
+    filterOrdersByUserName: (input: string) => {
         const state = useDashboardAdminStore.getState();
         const filteredOrders = state.originalOrders.filter((order: any) =>
-            order.orderNumber.toString().includes(input.toString())
+            order.customer.name.toLowerCase().includes(input.toLowerCase())
         );
+
+        set({ orders: filteredOrders });
+    },
+    filterOrdersByUserEmail: (input: string) => {
+        const state = useDashboardAdminStore.getState();
+        const filteredOrders = state.originalOrders.filter((order: any) =>
+            order.customer.emailAddress.toLowerCase().includes(input.toLowerCase())
+        );
+
+        set({ orders: filteredOrders });
+    },
+    filterOrdersByUserPhone: (input: string) => {
+        const state = useDashboardAdminStore.getState();
+        const filteredOrders = state.originalOrders.filter((order: any) =>
+            order.customer.phoneNumber.toLowerCase().includes(input.toLowerCase())
+        );
+
+        set({ orders: filteredOrders });
+    },
+    filterOrdersByUserAddress: (input: string) => {
+        // En el caso de llenar los 4 campos de la string separando por comas: _, _, _, _
+        const state = useDashboardAdminStore.getState();
+        const [departmentPlaceholder, localityPlaceholder, neighborhoodPlaceholder, number] = input.split(',').map((item) => item.trim());
+        const addressProperties: Record<string, any> = {
+            department: departmentPlaceholder === "_" ? undefined : departmentPlaceholder,
+            locality: localityPlaceholder === "_" ? undefined : localityPlaceholder,
+            neighborhood: neighborhoodPlaceholder === "_" ? undefined : neighborhoodPlaceholder,
+            number: isNaN(Number(number)) ? undefined : Number(number),
+        };
+        const filteredOrders = state.originalOrders.filter((order: any) => {
+            const customerAddress = order.customer.address;
+
+            const departmentMatch = !addressProperties.department || customerAddress.department.localeCompare(addressProperties.department);
+            const localityMatch = !addressProperties.locality || customerAddress.locality.localeCompare(addressProperties.locality);
+            const neighborhoodMatch = !addressProperties.neighborhood || customerAddress.neighborhood.localeCompare(addressProperties.neighborhood);
+            const numberMatch = !addressProperties.number || customerAddress.number === addressProperties.number;
+
+            return departmentMatch && localityMatch && neighborhoodMatch && numberMatch;
+        });
 
         set({ orders: filteredOrders });
     },

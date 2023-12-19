@@ -57,19 +57,19 @@ function OrderItem({ ORDER }: OrderItemProps) {
                                         <tbody>
                                             <tr>
                                                 <th>USER ID:</th>
-                                                <td>{ORDER.costumer.name}</td>
+                                                <td>{ORDER.customer.name}</td>
                                             </tr>
                                             <tr>
                                                 <th>NOMBRE:</th>
-                                                <td>{ORDER.costumer.name}</td>
+                                                <td>{ORDER.customer.name}</td>
                                             </tr>
                                             <tr>
                                                 <th>CORREO:</th>
-                                                <td>{ORDER.costumer.emailAddress}</td>
+                                                <td>{ORDER.customer.emailAddress}</td>
                                             </tr>
                                             <tr>
                                                 <th>TELÉFONO:</th>
-                                                <td>{ORDER.costumer.phoneNumber}</td>
+                                                <td>{ORDER.customer.phoneNumber}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -80,23 +80,23 @@ function OrderItem({ ORDER }: OrderItemProps) {
                                         <tbody>
                                             <tr>
                                                 <th>DEPARTAMENTO:</th>
-                                                <td>{ORDER.costumer.address.department}</td>
+                                                <td>{ORDER.customer.address.department}</td>
                                             </tr>
                                             <tr>
                                                 <th>LOCALIDAD:</th>
-                                                <td>{ORDER.costumer.address.locality}</td>
+                                                <td>{ORDER.customer.address.locality}</td>
                                             </tr>
                                             <tr>
                                                 <th>BARRIO:</th>
-                                                <td>{ORDER.costumer.address.neighborhood}</td>
+                                                <td>{ORDER.customer.address.neighborhood}</td>
                                             </tr>
                                             <tr>
                                                 <th>NÚMERO:</th>
-                                                <td>{ORDER.costumer.address.number}</td>
+                                                <td>{ORDER.customer.address.number}</td>
                                             </tr>
                                             <tr>
                                                 <th>REFERENCIAS:</th>
-                                                <td>{ORDER.costumer.address.references}</td>
+                                                <td>{ORDER.customer.address.references}</td>
                                             </tr>
                                         </tbody>
                                     </table>

@@ -75,7 +75,7 @@ const ORDERS: OrdersInterface[] = [
             status: "approved",
             approvalNumber: 123456789
         },
-        costumer: {
+        customer: {
             name: "John",
             emailAddress: "johndoe@gmail.com",
             phoneNumber: "+54 123456789",
@@ -106,7 +106,7 @@ const ORDERS: OrdersInterface[] = [
             status: "approved",
             approvalNumber: 987654321
         },
-        costumer: {
+        customer: {
             // considerar agregar el ID del usuario.
             name: "Doe",
             emailAddress: "doejohn@gmail.com",
