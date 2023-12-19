@@ -23,7 +23,7 @@ const Icon = ({ icon }: DynamicIconProps): JSX.Element => {
   }, [icon]);
 
   if (!LoadedComponent) {
-    return <div>Cargando...</div>;
+    return <div></div>; // borré el Cargando... que molestaba en el login por ahora
   }
 
   return LoadedComponent;
