@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 // Type definitions:
 import { UserFilterOptions, ProductFilterOptions, OrderFilterOptions } from "~/components/componetsDashboard/dashboardAdmin";
-import { UsersInterface, ProductsInterface, OrdersInterface, CategoriesInterface, BrandsInterface } from "../types/dashboardAdminStore";
+import { SetFunction, DashboardAdminStore, UsersInterface, ProductsInterface, OrdersInterface, CategoriesInterface, BrandsInterface } from "../types/dashboardAdminStore";
 
 // Usado para convertir el formato de las subpropiedades ("after", "before") de la propiedad "user.registerDate" de "DD/MM/YYYY" a "YYYY/MM/DD" (formato por defecto de <input> tipo "date").
 // Conveniente para el filtro y orden de los objetos con una propiedad que represente una fecha => "DD-MM-YYYY".
@@ -12,7 +12,7 @@ const convertDateFormat = (date: string) => {
 };
 
 // Zustand slice:
-const useDashboardAdminStore: any = create((set: any) => ({
+const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<DashboardAdminStore>) => ({
     // ---------- USERS ----------:
     originalUsers: [],
     users: [],
@@ -226,7 +226,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
     },
     filterCategoriesByName: (input: string) => {
         const state = useDashboardAdminStore.getState();
-        const filteredCategories = state.originalCategories.filter((category: any) =>
+        const filteredCategories = state.originalCategories.filter((category: CategoriesInterface) =>
             category.name.toLowerCase().includes(input.toLowerCase())
         );
 
@@ -284,7 +284,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
     },
     filterBrandsByName: (input: string) => {
         const state = useDashboardAdminStore.getState();
-        const filteredBrands = state.originalBrands.filter((brand: any) =>
+        const filteredBrands = state.originalBrands.filter((brand: BrandsInterface) =>
             brand.name.toLowerCase().includes(input.toLowerCase())
         );
 
@@ -326,7 +326,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
         }),
     filterOrdersByOrderNumber: (input: string) => {
         const state = useDashboardAdminStore.getState();
-        const filteredOrders = state.originalOrders.filter((order: any) =>
+        const filteredOrders = state.originalOrders.filter((order: OrdersInterface) =>
             order.orderNumber.toString().includes(input.toLowerCase())
         );
 
@@ -334,7 +334,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
     },
     filterOrdersByUserName: (input: string) => {
         const state = useDashboardAdminStore.getState();
-        const filteredOrders = state.originalOrders.filter((order: any) =>
+        const filteredOrders = state.originalOrders.filter((order: OrdersInterface) =>
             order.customer.name.toLowerCase().includes(input.toLowerCase())
         );
 
@@ -342,7 +342,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
     },
     filterOrdersByUserEmail: (input: string) => {
         const state = useDashboardAdminStore.getState();
-        const filteredOrders = state.originalOrders.filter((order: any) =>
+        const filteredOrders = state.originalOrders.filter((order: OrdersInterface) =>
             order.customer.emailAddress.toLowerCase().includes(input.toLowerCase())
         );
 
@@ -350,15 +350,15 @@ const useDashboardAdminStore: any = create((set: any) => ({
     },
     filterOrdersByUserPhone: (input: string) => {
         const state = useDashboardAdminStore.getState();
-        const filteredOrders = state.originalOrders.filter((order: any) =>
+        const filteredOrders = state.originalOrders.filter((order: OrdersInterface) =>
             order.customer.phoneNumber.toLowerCase().includes(input.toLowerCase())
         );
 
         set({ orders: filteredOrders });
     },
     filterOrdersByUserAddress: (input: string) => {
-        // En el caso de llenar los 4 campos de la string separando por comas: _, _, _, _
         const state = useDashboardAdminStore.getState();
+        // La string debe tener 4 comas. Las comas separan un espacio que representa a: departamento, localidad, barrio y número.
         const [departmentPlaceholder, localityPlaceholder, neighborhoodPlaceholder, number] = input.split(',').map((item) => item.trim());
         const addressProperties: Record<string, any> = {
             department: departmentPlaceholder === "_" ? undefined : departmentPlaceholder,
@@ -366,7 +366,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
             neighborhood: neighborhoodPlaceholder === "_" ? undefined : neighborhoodPlaceholder,
             number: isNaN(Number(number)) ? undefined : Number(number),
         };
-        const filteredOrders = state.originalOrders.filter((order: any) => {
+        const filteredOrders = state.originalOrders.filter((order: OrdersInterface) => {
             const customerAddress = order.customer.address;
 
             const departmentMatch = !addressProperties.department || customerAddress.department.localeCompare(addressProperties.department);
@@ -381,7 +381,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
     },
     filterOrdersByPaymentNumber: (input: string) => {
         const state = useDashboardAdminStore.getState();
-        const filteredOrders = state.originalOrders.filter((order: any) =>
+        const filteredOrders = state.originalOrders.filter((order: OrdersInterface) =>
             order.payment.approvalNumber.toString().includes(input.toLowerCase())
         );
 
@@ -393,7 +393,7 @@ const useDashboardAdminStore: any = create((set: any) => ({
         if (options !== null) {
             const { order, totalPrice, itemQuantity, payment } = options;
 
-            const filteredOrders = state.originalOrders.filter((orderItem: any) => {
+            const filteredOrders = state.originalOrders.filter((orderItem: OrdersInterface) => {
                 const orderDateFormatted = convertDateFormat(orderItem.creationDate);
                 const paymentDateFormatted = convertDateFormat(orderItem.payment.date);
 

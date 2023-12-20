@@ -67,7 +67,7 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
                 if (userProperty === "email") filterUsersByEmail(input);
                 else if (userProperty === "name") filterUsersByName(input);
                 else if (userProperty === "phone") filterUsersByPhone(input);
-                else break;
+                break;
             case "product": filterProductsByName(input); break;
             case "category": filterCategoriesByName(input); break;
             case "brand": filterBrandsByName(input); break;
@@ -78,7 +78,7 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
                 else if (orderProperty === "userAddress") filterOrdersByUserAddress(input);
                 else if (orderProperty === "userPhone") filterOrdersByUserPhone(input);
                 else if (orderProperty === "paymentNumber") filterOrdersByPaymentNumber(input);
-                else break;
+                break;
             default: break;
         };
     };

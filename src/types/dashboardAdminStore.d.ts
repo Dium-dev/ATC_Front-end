@@ -7,6 +7,55 @@
 // 6. src/components/componentsDashboard/Cards/Orders/CardOrders.tsx
 // 7. src/components/componentsDashboard/Cards/Orders/OrderItem.tsx
 
+import { ProductFilterOptions, UserFilterOptions } from "~/components/componetsDashboard/dashboardAdmin";
+
+
+export type SetFunction<T> = (partial: Partial<T>) => void;
+
+export interface DashboardAdminStore {
+    originalUsers: UsersInterface[];
+    users: UsersInterface[];
+    updateUsers: (data: any) => void;
+    filterUsersByName: (data: any) => void;
+    filterUsersByEmail: (data: any) => void;
+    filterUsersByPhone: (data: any) => void;
+    filterUsers: (options: UserFilterOptions | null) => void;
+    sortUsers: (clause: "id" | "name" | "emailAddress" | "status" | "phone" | "registerDate", type: "ascendant" | "descendant") => void;
+
+    originalProducts: ProductsInterface[];
+    products: ProductsInterface[];
+    isProductsFetching: boolean;
+    fetchProducts: () => Promise<void>;
+    filterProductsByName: (input: string) => void;
+    filterProducts: (options: ProductFilterOptions | null) => void;
+    sortProducts: (clause: "id" | "title" | "category" | "brand" | "stock" | "price", type: "ascendant" | "descendant") => void;
+
+    originalCategories: CategoriesInterface[];
+    categories: CategoriesInterface[];
+    isCategoriesFetching: boolean;
+    fetchCategories: () => Promise<void>;
+    filterCategoriesByName: (input: string) => void;
+    sortCategories: (clause: "id" | "name", type: "ascendant" | "descendant") => void;
+
+    originalBrands: BrandsInterface[];
+    brands: BrandsInterface[];
+    isBrandsFetching: boolean;
+    fetchBrands: () => Promise<void>;
+    filterBrandsByName: (input: string) => void;
+    sortBrands: (clause: "id" | "name", type: "ascendant" | "descendant") => void;
+
+    originalOrders: OrdersInterface[],
+    orders: OrdersInterface[],
+    updateOrders: (data: any) => void;
+    filterOrdersByOrderNumber: (input: string) => void;
+    filterOrdersByUserName: (input: string) => void;
+    filterOrdersByUserEmail: (input: string) => void;
+    filterOrdersByUserPhone: (input: string) => void;
+    filterOrdersByUserAddress: (input: string) => void;
+    filterOrdersByPaymentNumber: (input: string) => void;
+    filterOrders: (options: OrderFilterOptions | null) => void;
+    sortOrders: (clause: "id" | "orderNumber" | "creationDate" | "status" | "total", type: "ascendant" | "descendant") => void;
+}
 
 // ----- USERS: -----
 export type UserStatus = "blocked" | "activated" | "deleted";
