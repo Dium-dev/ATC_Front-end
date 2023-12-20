@@ -364,15 +364,15 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
             department: departmentPlaceholder === "_" ? undefined : departmentPlaceholder,
             locality: localityPlaceholder === "_" ? undefined : localityPlaceholder,
             neighborhood: neighborhoodPlaceholder === "_" ? undefined : neighborhoodPlaceholder,
-            number: isNaN(Number(number)) ? undefined : Number(number),
+            number: isNaN(Number(number)) ? undefined : number,
         };
         const filteredOrders = state.originalOrders.filter((order: OrdersInterface) => {
             const customerAddress = order.customer.address;
 
-            const departmentMatch = !addressProperties.department || customerAddress.department.localeCompare(addressProperties.department);
-            const localityMatch = !addressProperties.locality || customerAddress.locality.localeCompare(addressProperties.locality);
-            const neighborhoodMatch = !addressProperties.neighborhood || customerAddress.neighborhood.localeCompare(addressProperties.neighborhood);
-            const numberMatch = !addressProperties.number || customerAddress.number === addressProperties.number;
+            const departmentMatch = !addressProperties.department || customerAddress.department.toLocaleLowerCase().includes(addressProperties.department.toLocaleLowerCase());
+            const localityMatch = !addressProperties.locality || customerAddress.locality.toLocaleLowerCase().includes(addressProperties.locality.toLocaleLowerCase());
+            const neighborhoodMatch = !addressProperties.neighborhood || customerAddress.neighborhood.toLocaleLowerCase().includes(addressProperties.neighborhood.toLocaleLowerCase());
+            const numberMatch = !addressProperties.number || customerAddress.number.toString().includes(addressProperties.number.toString());
 
             return departmentMatch && localityMatch && neighborhoodMatch && numberMatch;
         });
