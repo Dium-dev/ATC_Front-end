@@ -361,18 +361,19 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
         // La string debe tener 4 comas. Las comas separan un espacio que representa a: departamento, localidad, barrio y número.
         const [departmentPlaceholder, localityPlaceholder, neighborhoodPlaceholder, number] = input.split(',').map((item) => item.trim());
         const addressProperties: Record<string, any> = {
-            department: departmentPlaceholder === "_" ? undefined : departmentPlaceholder,
-            locality: localityPlaceholder === "_" ? undefined : localityPlaceholder,
-            neighborhood: neighborhoodPlaceholder === "_" ? undefined : neighborhoodPlaceholder,
-            number: isNaN(Number(number)) ? undefined : number,
+            inputDepartment: departmentPlaceholder === "_" ? undefined : departmentPlaceholder,
+            inputLocality: localityPlaceholder === "_" ? undefined : localityPlaceholder,
+            inputNeighborhood: neighborhoodPlaceholder === "_" ? undefined : neighborhoodPlaceholder,
+            inputNumber: isNaN(Number(number)) ? undefined : number,
         };
         const filteredOrders = state.originalOrders.filter((order: OrdersInterface) => {
-            const customerAddress = order.customer.address;
+            const { inputDepartment, inputLocality, inputNeighborhood, inputNumber } = addressProperties;
+            const { department, locality, neighborhood, number } = order.customer.address;
 
-            const departmentMatch = !addressProperties.department || customerAddress.department.toLocaleLowerCase().includes(addressProperties.department.toLocaleLowerCase());
-            const localityMatch = !addressProperties.locality || customerAddress.locality.toLocaleLowerCase().includes(addressProperties.locality.toLocaleLowerCase());
-            const neighborhoodMatch = !addressProperties.neighborhood || customerAddress.neighborhood.toLocaleLowerCase().includes(addressProperties.neighborhood.toLocaleLowerCase());
-            const numberMatch = !addressProperties.number || customerAddress.number.toString().includes(addressProperties.number.toString());
+            const departmentMatch = !inputDepartment || department.toLocaleLowerCase().includes(inputDepartment.toLocaleLowerCase());
+            const localityMatch = !inputLocality || locality.toLocaleLowerCase().includes(inputLocality.toLocaleLowerCase());
+            const neighborhoodMatch = !inputNeighborhood || neighborhood.toLocaleLowerCase().includes(inputNeighborhood.toLocaleLowerCase());
+            const numberMatch = !inputNumber || number.toString().includes(inputNumber.toString());
 
             return departmentMatch && localityMatch && neighborhoodMatch && numberMatch;
         });
