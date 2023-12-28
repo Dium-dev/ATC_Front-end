@@ -4,9 +4,7 @@ import '~/assets/styles/tailwind.css';
 
 // components
 
-import AdminNavbar from '~/components/componetsDashboard/Navbars/AdminNavbar.js';
 import Sidebar from '~/components/componetsDashboard//Sidebar/Sidebar.js';
-import HeaderStats from '~/components/componetsDashboard//Headers/HeaderStats.js';
 import FooterAdmin from '~/components/componetsDashboard//Footers/FooterAdmin.js';
 
 // views
@@ -24,12 +22,9 @@ export default function Admin({ children }: AdminProps) {
   return (
     <>
       <Sidebar />
-      <div className="relative md:ml-64 bg-blueGray-100">
-        <AdminNavbar />
-        {/* Header */}
-        <HeaderStats />
-              <div className="px-4 md:px-10 mx-auto w-full -m-24">
-           {children}
+      <div className="md:ml-64 bg-blueGray-100 min-h-screen">
+        <div className="min-h-screen p-4 md:p-10 mx-auto w-full flex flex-col justify-around">
+          {children}
           {/* <Switch>
             <Route path="/admin/dashboard" exact component={Dashboard} />
             <Route path="/admin/maps" exact component={Maps} />

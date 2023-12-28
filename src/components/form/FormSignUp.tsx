@@ -8,6 +8,9 @@ import Swal from 'sweetalert2';
 
 import { useAuth } from '~/context/AuthContext';
 import { useRouter } from 'next/navigation';
+import usePasswordVisibilityStore from '~/store/PasswordVisibilityStore';
+import Eye from '~/assets/icons/Eye';
+import EyeBlocked from '~/assets/icons/EyeBlocked';
 
 interface FormProp {
   updateStateRegister: (flagState: boolean) => void; // formulario registro
@@ -29,6 +32,9 @@ const Form: FC<FormProp> = ({ updateStateRegister, updateState }) => {
     reset,
     formState: { errors },
   } = useForm<FormProps>();
+
+  // Get password visibility state
+  const { isPasswordVisible, updateStateHide } = usePasswordVisibilityStore();
 
   const alertSuccess = () => {
     Swal.fire({
@@ -56,6 +62,11 @@ const Form: FC<FormProp> = ({ updateStateRegister, updateState }) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+   // Define a function to toggle password visibility
+   const handlePasswordVisibility = () => {
+    updateStateHide({ isPasswordVisible: !isPasswordVisible });
   };
 
   return (
@@ -92,6 +103,7 @@ const Form: FC<FormProp> = ({ updateStateRegister, updateState }) => {
 
         <input
           placeholder="Contraseña"
+          type={isPasswordVisible ? 'text' : 'password'}
           {...register('password', {
             required: 'Contraseña requerida',
             minLength: {
@@ -106,6 +118,11 @@ const Form: FC<FormProp> = ({ updateStateRegister, updateState }) => {
           autoComplete="off"
           className="bg-input-bg `w-full px-3 outline-none rounded-md text-secondary-dm text-xs py-3"
         />
+
+        <button className="absolute text-secondary-dm text-xs inset-y-0 right-0 flex px-3 items-center gap-4 cursor-pointer pt-20 mr-16 py-3" onClick={handlePasswordVisibility}>
+          {isPasswordVisible ? <Eye /> : <EyeBlocked />}
+        </button>
+
         {errors.password && (
           <p className="text-primary-lm">{errors.password.message}</p>
         )}
