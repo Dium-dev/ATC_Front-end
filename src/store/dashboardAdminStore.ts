@@ -24,7 +24,7 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
     filterUsersByName: (input: string) => {
         const state = useDashboardAdminStore.getState();
         const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
-            user.name.toLowerCase().includes(input.toLowerCase())
+            user.name.toLowerCase().includes(input.toLowerCase().trim())
         );
 
         set({ users: filteredUsers });
@@ -32,7 +32,7 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
     filterUsersByEmail: (input: string) => {
         const state = useDashboardAdminStore.getState();
         const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
-            user.emailAddress.toLowerCase().includes(input.toLowerCase())
+            user.emailAddress.toLowerCase().includes(input.toLowerCase().trim())
         );
 
         set({ users: filteredUsers });
@@ -40,7 +40,7 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
     filterUsersByPhone: (input: string) => {
         const state = useDashboardAdminStore.getState();
         const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
-            user.phone.toLowerCase().includes(input.toLowerCase())
+            user.phone.toLowerCase().includes(input.toLowerCase().trim())
         );
 
         set({ users: filteredUsers });
@@ -130,7 +130,7 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
     filterProductsByName: (input: string) => {
         const state = useDashboardAdminStore.getState();
         const filteredProducts = state.originalProducts.filter((product: ProductsInterface) =>
-            product.title.toLowerCase().includes(input.toLowerCase())
+            product.title.toLowerCase().includes(input.toLowerCase().trim())
         );
 
         set({ products: filteredProducts })
@@ -227,7 +227,7 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
     filterCategoriesByName: (input: string) => {
         const state = useDashboardAdminStore.getState();
         const filteredCategories = state.originalCategories.filter((category: CategoriesInterface) =>
-            category.name.toLowerCase().includes(input.toLowerCase())
+            category.name.toLowerCase().includes(input.toLowerCase().trim())
         );
 
         set({ categories: filteredCategories });
@@ -285,7 +285,7 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
     filterBrandsByName: (input: string) => {
         const state = useDashboardAdminStore.getState();
         const filteredBrands = state.originalBrands.filter((brand: BrandsInterface) =>
-            brand.name.toLowerCase().includes(input.toLowerCase())
+            brand.name.toLowerCase().includes(input.toLowerCase().trim())
         );
 
         set({ brands: filteredBrands });
@@ -327,7 +327,7 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
     filterOrdersByOrderNumber: (input: string) => {
         const state = useDashboardAdminStore.getState();
         const filteredOrders = state.originalOrders.filter((order: OrdersInterface) =>
-            order.orderNumber.toString().includes(input.toLowerCase())
+            order.orderNumber.toString().includes(input.toLowerCase().trim())
         );
 
         set({ orders: filteredOrders });
@@ -335,7 +335,7 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
     filterOrdersByUserName: (input: string) => {
         const state = useDashboardAdminStore.getState();
         const filteredOrders = state.originalOrders.filter((order: OrdersInterface) =>
-            order.customer.name.toLowerCase().includes(input.toLowerCase())
+            order.customer.name.toLowerCase().includes(input.toLowerCase().trim())
         );
 
         set({ orders: filteredOrders });
@@ -343,7 +343,7 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
     filterOrdersByUserEmail: (input: string) => {
         const state = useDashboardAdminStore.getState();
         const filteredOrders = state.originalOrders.filter((order: OrdersInterface) =>
-            order.customer.emailAddress.toLowerCase().includes(input.toLowerCase())
+            order.customer.emailAddress.toLowerCase().includes(input.toLowerCase().trim())
         );
 
         set({ orders: filteredOrders });
@@ -351,7 +351,7 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
     filterOrdersByUserPhone: (input: string) => {
         const state = useDashboardAdminStore.getState();
         const filteredOrders = state.originalOrders.filter((order: OrdersInterface) =>
-            order.customer.phoneNumber.toLowerCase().includes(input.toLowerCase())
+            order.customer.phoneNumber.toLowerCase().includes(input.toLowerCase().trim())
         );
 
         set({ orders: filteredOrders });
@@ -383,7 +383,7 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
     filterOrdersByPaymentNumber: (input: string) => {
         const state = useDashboardAdminStore.getState();
         const filteredOrders = state.originalOrders.filter((order: OrdersInterface) =>
-            order.payment.approvalNumber.toString().includes(input.toLowerCase())
+            order.payment.approvalNumber.toString().includes(input.toLowerCase().trim())
         );
 
         set({ orders: filteredOrders });
