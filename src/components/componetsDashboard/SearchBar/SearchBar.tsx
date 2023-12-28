@@ -95,6 +95,21 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
         } else return;
     };
 
+    const INPUT_PLACEHOLDER =
+        (section === "user" && "usuario" && userProperty === "email") && "correo" ||
+        (section === "user" && "usuario" && userProperty === "name") && "nombre" ||
+        (section === "user" && "usuario" && userProperty === "phone") && "número telefónico" ||
+        section === "product" && "producto" ||
+        section === "brand" && "marca" ||
+        section === "category" && "categoria" ||
+        (section === "order" && orderProperty === "orderNumber") && "número de orden" ||
+        (section === "order" && orderProperty === "paymentNumber") && "número de aprobación" ||
+        (section === "order" && orderProperty === "userAddress") && "departamento, localidad, barrio, número" ||
+        (section === "order" && orderProperty === "userEmail") && "correo del usuario" ||
+        (section === "order" && orderProperty === "userName") && "nombre del usuario" ||
+        (section === "order" && orderProperty === "userPhone") && "número telefónico del usuario" ||
+        section === "order" && "pedido"
+
 
     // LIFE CYCLES:
     useEffect(() => {
@@ -213,7 +228,7 @@ function SearchBar({ section, setFilterMenu }: SearchBarProps) {
             <input
                 type="text"
                 className="w-[40%] py-1.5 px-3 rounded-md text-secondary-dm bg-white border border-[#000]"
-                placeholder={`Encontrar ${section === "user" && "usuario" || section === "product" && "producto" || section === "brand" && "marca" || section === "category" && "categoria" || section === "order" && "pedido"}`}
+                placeholder={`Ingresar: ${INPUT_PLACEHOLDER}`}
                 onChange={(e) => handleChange(e)}
             />
             {/* Renderizar el botón de filtrado en todas las secciones menos "brand" y "category" */}
