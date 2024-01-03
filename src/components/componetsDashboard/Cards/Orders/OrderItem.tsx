@@ -1,25 +1,31 @@
 "use client";
 import { useState } from "react";
 
-import { OrdersInterface } from "./CardOrders";
+// Type definitions:
+import { OrdersInterface } from "~/types/dashboardAdminStore";
 
 
-interface OrderItemInterface {
+// --------------- MODULE ---------------
+interface OrderItemProps {
     ORDER: OrdersInterface
 }
 
-function OrderItem({ ORDER }: OrderItemInterface) {
+function OrderItem({ ORDER }: OrderItemProps) {
 
 
     // LOCAL STATES:
     const [showDetails, setShowDetails] = useState<boolean>(false);
 
 
+    // CONSTANTS:
+    // El "total" alamacena el precio total de la orden. El resultado se obtiene de la suma del precio de todos los items comprados.
+    let total = 0;
+
+
     // COMPONENT:
     return (
         <>
-
-            <tr className={`${showDetails ? "hidden" : "block"}`}>
+            <tr>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     {ORDER.id}
                 </th>
@@ -40,126 +46,134 @@ function OrderItem({ ORDER }: OrderItemInterface) {
                     <button onClick={() => setShowDetails((prev) => !prev)}>mostrar detalles</button>
                 </td>
             </tr>
-            <div className={`w-full ${showDetails ? "block" : "hidden"}`}>
-                <table>
+            {
+                showDetails && (
                     <tr>
-                        <th>ORDEN</th>
-                        <td>
-                            <table>
-                                <tr>
-                                    <th>ID</th>
-                                    <td>{ORDER.id}</td>
-                                </tr>
-                                <tr>
-                                    <td>Numero de orden</td>
-                                    <td>{ORDER.orderNumber}</td>
-                                </tr>
-                                <tr>
-                                    <td>Estado</td>
-                                    <td>{ORDER.status}</td>
-                                </tr>
-                                <tr>
-                                    <td>Lista de productos</td>
-                                    <td>
-                                        <ul>
+                        <td colSpan={6}>
+                            <div className="flex justify-between w-full">
+                                <div className="w-[30%] p-4 bg-white rounded-xl text-black">
+                                    <h3>CLIENTE</h3>
+                                    <table className="w-full">
+                                        <tbody>
+                                            <tr>
+                                                <th>USER ID:</th>
+                                                <td>{ORDER.customer.name}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>NOMBRE:</th>
+                                                <td>{ORDER.customer.name}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>CORREO:</th>
+                                                <td>{ORDER.customer.emailAddress}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>TELÉFONO:</th>
+                                                <td>{ORDER.customer.phoneNumber}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div className="w-[30%] p-4 bg-white rounded-2xl text-black">
+                                    <h3>ENVIAR A:</h3>
+                                    <table className="w-full">
+                                        <tbody>
+                                            <tr>
+                                                <th>DEPARTAMENTO:</th>
+                                                <td>{ORDER.customer.address.department}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>LOCALIDAD:</th>
+                                                <td>{ORDER.customer.address.locality}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>BARRIO:</th>
+                                                <td>{ORDER.customer.address.neighborhood}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>NÚMERO:</th>
+                                                <td>{ORDER.customer.address.number}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>REFERENCIAS:</th>
+                                                <td>{ORDER.customer.address.references}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div className="w-[30%] p-4 bg-white rounded-2xl text-black">
+                                    <h3>PAGO:</h3>
+                                    <table className="w-full">
+                                        <tbody>
+                                            <tr>
+                                                <th>FECHA DE OP.:</th>
+                                                <td>{ORDER.payment.date}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>MÉTODO:</th>
+                                                <td>{ORDER.payment.method}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>ESTADO:</th>
+                                                <td>{ORDER.payment.status}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>NÚMERO DE APROBACIÓN:</th>
+                                                <td>{ORDER.payment.approvalNumber}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div className="flex justify-between w-full mt-8">
+                                <div className="w-[65%] p-4 bg-white rounded-2xl text-black">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>PRODUCTO</th>
+                                                <th>CANTIDAD</th>
+                                                <th>PRECIO UNITARIO</th>
+                                                <th>SUBTOTAL</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                             {
-                                                ORDER.list.map((ORDER, idx) => (
-                                                    <li key={ORDER.name + idx}>
-                                                        <span>
-                                                            {ORDER.name}
-                                                        </span>
-                                                        <span>
-                                                            x{ORDER.quantity}
-                                                        </span>
-                                                        <span>
-                                                            {ORDER.value}
-                                                        </span>
-                                                    </li>
-                                                ))
+                                                ORDER.list.map((ORDER_ITEM, idx) => {
+                                                    // Aprovechando el map a la lista de items, sumar el subtotal de cada item.
+                                                    const subtotal = ORDER_ITEM.quantity * ORDER_ITEM.value;
+                                                    total += subtotal;
+
+                                                    return (
+                                                        <tr key={ORDER_ITEM.name + idx}>
+                                                            {/* simular el ID. */}
+                                                            <th>{idx}</th>
+                                                            <td>{ORDER_ITEM.name}</td>
+                                                            <td>{ORDER_ITEM.quantity}</td>
+                                                            <td>{ORDER_ITEM.value}</td>
+                                                            <td>{subtotal}</td>
+                                                        </tr>
+                                                    )
+                                                })
                                             }
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Total</td>
-                                    <td>{ORDER.total}</td>
-                                </tr>
-                            </table>
+                                            <tr>
+                                                <th colSpan={4}>TOTAL</th>
+                                                <td>{total}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div className="w-[30%] p-4 bg-white rounded-2xl text-black">
+                                    <h3>NOTAS</h3>
+                                    <textarea className="w-full bg-white" />
+                                </div>
+                            </div>
                         </td>
-                    </tr>
-                    <tr>
-                        <th>Pago</th>
-                        <td>
-                            <table>
-                                <tr>
-                                    <td>Fecha</td>
-                                    <td>{ORDER.payment.date}</td>
-                                </tr>
-                                <tr>
-                                    <td>Metodo</td>
-                                    <td>{ORDER.payment.method}</td>
-                                </tr>
-                                <tr>
-                                    <td>Estado</td>
-                                    <td>{ORDER.payment.state}</td>
-                                </tr>
-                                <tr>
-                                    <td>Numero de aprobacion</td>
-                                    <td>{ORDER.payment.approvalNumber}</td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Usuario</th>
-                        <td>
-                            <table>
-                                <tr>
-                                    <td>Nombre</td>
-                                    <td>{ORDER.client.name}</td>
-                                </tr>
-                                <tr>
-                                    <td>Correo electronico</td>
-                                    <td>{ORDER.client.emailAddress}</td>
-                                </tr>
-                                <tr>
-                                    <td>Numero de telefono</td>
-                                    <td>{ORDER.client.phoneNumber}</td>
-                                </tr>
-                                <tr>
-                                    <td>Dirrecion registrada</td>
-                                    <td>
-                                        <table>
-                                            <tr>
-                                                <td>Departamento</td>
-                                                <td>{ORDER.client.address.department}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Localidad</td>
-                                                <td>{ORDER.client.address.locality}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Barrio</td>
-                                                <td>{ORDER.client.address.neighborhood}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Numero</td>
-                                                <td>{ORDER.client.address.number}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Referencias</td>
-                                                <td>{ORDER.client.address.references}</td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+                    </tr >
+                )
+            }
         </>
-    )
+    );
 };
 
 

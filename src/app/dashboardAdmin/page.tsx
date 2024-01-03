@@ -11,7 +11,7 @@ import CardCategories from "~/components/componetsDashboard/Cards/CardCategories
 import CardBrands from "~/components/componetsDashboard/Cards/CardBrands";
 
 
-export default function landing() {
+export default function Landing() {
     return (
         <>
             <NavBar />
@@ -46,4 +46,4 @@ export default function landing() {
             </main>
         </>
     );
-}
+};
