@@ -358,27 +358,35 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
     },
     filterOrdersByUserAddress: (input: string) => {
         const state = useDashboardAdminStore.getState();
-        // La string debe tener 4 comas. Las comas separan un espacio que representa a: departamento, localidad, barrio y número.
-        const [departmentPlaceholder, localityPlaceholder, neighborhoodPlaceholder, number] = input.split(',').map((item) => item.trim());
-        const addressProperties: Record<string, any> = {
-            inputDepartment: departmentPlaceholder === "_" ? undefined : departmentPlaceholder,
-            inputLocality: localityPlaceholder === "_" ? undefined : localityPlaceholder,
-            inputNeighborhood: neighborhoodPlaceholder === "_" ? undefined : neighborhoodPlaceholder,
-            inputNumber: isNaN(Number(number)) ? undefined : number,
-        };
-        // const filteredOrders = state.originalOrders.filter((order: OrdersInterface) => {
-        //     const { inputDepartment, inputLocality, inputNeighborhood, inputNumber } = addressProperties;
-        //     const { department, locality, neighborhood, number } = order.customer.address;
+        const filteredOrders = state.originalOrders.filter((order: OrdersInterface) => {
+            // Remueve los espacios en blanco dejando solo las palabras.
+            // Ex: "  calle       el    bosque    " => ["calle", "el", "bosque"]
+            const regex = /\s+/;
+            const arr = input.split(regex);
+            const { phone, department, city, streetAddress, neighborhood, references } = order.customer.address;
 
-        //     const departmentMatch = !inputDepartment || department.toLocaleLowerCase().includes(inputDepartment.toLocaleLowerCase());
-        //     const localityMatch = !inputLocality || locality.toLocaleLowerCase().includes(inputLocality.toLocaleLowerCase());
-        //     const neighborhoodMatch = !inputNeighborhood || neighborhood.toLocaleLowerCase().includes(inputNeighborhood.toLocaleLowerCase());
-        //     const numberMatch = !inputNumber || number.toString().includes(inputNumber.toString());
+            // Objetivo: filtrar todos los productos según el input. TODAS las palabras del input deben coincidir
+            // con cualquiera de las propiedades de un MISMO predido. Si no se encuentra alguna palabra del input
+            // en ninguna propiedad del pedido, este se descartará.
 
-        //     return departmentMatch && localityMatch && neighborhoodMatch && numberMatch;
-        // });
+            for (const prop of arr) {
+                const match = (
+                    phone.toLocaleLowerCase().includes(prop.toLocaleLowerCase()) ||
+                    department.toLocaleLowerCase().includes(prop.toLocaleLowerCase()) ||
+                    city.toLocaleLowerCase().includes(prop.toLocaleLowerCase()) ||
+                    streetAddress.toLocaleLowerCase().includes(prop.toLocaleLowerCase()) ||
+                    neighborhood.toLocaleLowerCase().includes(prop.toLocaleLowerCase()) ||
+                    references.toLocaleLowerCase().includes(prop.toLocaleLowerCase())
+                )
+                // Si alguna palabra no matchea con ninguna propiedad del pedido, se descarta.
+                if (!match) return false;
+            };
 
-        // set({ orders: filteredOrders });
+            // Si todas las palabras coinciden, se incluye.
+            return true;
+        });
+
+        set({ orders: filteredOrders });
     },
     filterOrdersByPaymentNumber: (input: string) => {
         const state = useDashboardAdminStore.getState();
