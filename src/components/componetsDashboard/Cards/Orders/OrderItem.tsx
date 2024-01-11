@@ -79,20 +79,24 @@ function OrderItem({ ORDER }: OrderItemProps) {
                                     <table className="w-full">
                                         <tbody>
                                             <tr>
+                                                <th>NÚMERO</th>
+                                                <td>{ORDER.customer.address.phone}</td>
+                                            </tr>
+                                            <tr>
                                                 <th>DEPARTAMENTO:</th>
                                                 <td>{ORDER.customer.address.department}</td>
                                             </tr>
                                             <tr>
-                                                <th>LOCALIDAD:</th>
-                                                <td>{ORDER.customer.address.locality}</td>
+                                                <th>CIUDAD:</th>
+                                                <td>{ORDER.customer.address.city}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>DIRECCIÓN DE LA CALLE:</th>
+                                                <td>{ORDER.customer.address.streetAddress}</td>
                                             </tr>
                                             <tr>
                                                 <th>BARRIO:</th>
                                                 <td>{ORDER.customer.address.neighborhood}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>NÚMERO:</th>
-                                                <td>{ORDER.customer.address.number}</td>
                                             </tr>
                                             <tr>
                                                 <th>REFERENCIAS:</th>

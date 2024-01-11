@@ -366,19 +366,19 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
             inputNeighborhood: neighborhoodPlaceholder === "_" ? undefined : neighborhoodPlaceholder,
             inputNumber: isNaN(Number(number)) ? undefined : number,
         };
-        const filteredOrders = state.originalOrders.filter((order: OrdersInterface) => {
-            const { inputDepartment, inputLocality, inputNeighborhood, inputNumber } = addressProperties;
-            const { department, locality, neighborhood, number } = order.customer.address;
+        // const filteredOrders = state.originalOrders.filter((order: OrdersInterface) => {
+        //     const { inputDepartment, inputLocality, inputNeighborhood, inputNumber } = addressProperties;
+        //     const { department, locality, neighborhood, number } = order.customer.address;
 
-            const departmentMatch = !inputDepartment || department.toLocaleLowerCase().includes(inputDepartment.toLocaleLowerCase());
-            const localityMatch = !inputLocality || locality.toLocaleLowerCase().includes(inputLocality.toLocaleLowerCase());
-            const neighborhoodMatch = !inputNeighborhood || neighborhood.toLocaleLowerCase().includes(inputNeighborhood.toLocaleLowerCase());
-            const numberMatch = !inputNumber || number.toString().includes(inputNumber.toString());
+        //     const departmentMatch = !inputDepartment || department.toLocaleLowerCase().includes(inputDepartment.toLocaleLowerCase());
+        //     const localityMatch = !inputLocality || locality.toLocaleLowerCase().includes(inputLocality.toLocaleLowerCase());
+        //     const neighborhoodMatch = !inputNeighborhood || neighborhood.toLocaleLowerCase().includes(inputNeighborhood.toLocaleLowerCase());
+        //     const numberMatch = !inputNumber || number.toString().includes(inputNumber.toString());
 
-            return departmentMatch && localityMatch && neighborhoodMatch && numberMatch;
-        });
+        //     return departmentMatch && localityMatch && neighborhoodMatch && numberMatch;
+        // });
 
-        set({ orders: filteredOrders });
+        // set({ orders: filteredOrders });
     },
     filterOrdersByPaymentNumber: (input: string) => {
         const state = useDashboardAdminStore.getState();

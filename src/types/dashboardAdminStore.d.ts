@@ -130,11 +130,12 @@ export interface OrdersInterface {
         emailAddress: string,
         phoneNumber: string,
         address: {
-            department: string,
-            locality: string,
-            neighborhood: string,
-            number: number,
-            references: string
+            phone: string;
+            department: string;
+            city: string;
+            streetAddress: string;
+            neighborhood: string;
+            references: string; 
         }
     }
 };

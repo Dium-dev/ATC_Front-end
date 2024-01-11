@@ -80,11 +80,12 @@ const ORDERS: OrdersInterface[] = [
             emailAddress: "johndoe@gmail.com",
             phoneNumber: "+54 123456789",
             address: {
-                department: "Departamento",
-                locality: "Localidad",
-                neighborhood: "Barrio",
-                number: 123,
-                references: "Cerca al mall"
+                phone: "6345678234",
+                department: "Caqueta",
+                city: "La Doncella",
+                streetAddress: "Carrera 2 #15-40",
+                neighborhood: "04 de mayo",
+                references: "A 1 cuadra de la tienda La Enemistad",
             }
         }
     },
@@ -112,11 +113,12 @@ const ORDERS: OrdersInterface[] = [
             emailAddress: "doejohn@gmail.com",
             phoneNumber: "+57 123456789",
             address: {
-                department: "Departamento",
-                locality: "Localidad",
-                neighborhood: "Vecindario",
-                number: 321,
-                references: "Cerca al mall"
+                phone: "3345678234",
+                department: "Caqueta",
+                city: "El Doncello",
+                streetAddress: "Carrera 1 #11-30",
+                neighborhood: "20 de abril",
+                references: "A 1 cuadra de la tienda La Amistad",
             }
         }
         // agregar "notas" al back.
