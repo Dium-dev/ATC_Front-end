@@ -7,26 +7,27 @@ import { useAuth } from '~/context/AuthContext';
 
 import NotificationDropdown from '~/components/componetsDashboard/Dropdowns/NotificationDropdown.js';
 import UserDropdown from '~/components/componetsDashboard/Dropdowns/UserDropdown.js';
-import { Images } from '~/assets/img';
-import Image from 'next/image';
 
 import { Images } from '~/assets/img';
 import { redirect } from 'next/navigation';
+import { useDashboardUserStore } from '~/store/dashboardUserStore';
 
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState('hidden');
   const { user, logout } = useAuth();
-  
-const handleLogout = (e) => {
-  // e.preventDefault();
-  try {
-    logout();
-  } catch (error) {
-    console.log(error);
-  }
+
+  const setContactForm = useDashboardUserStore((state) => state.setContactForm)
+
+  const handleLogout = (e) => {
+    // e.preventDefault();
+    try {
+      logout();
+    } catch (error) {
+      console.log(error);
+    }
   };
-  
- !user? redirect('/') : null;
+
+  !user ? redirect('/') : null;
 
   return (
     <>
@@ -117,7 +118,7 @@ const handleLogout = (e) => {
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
             <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Paginas
+              Dashboard
             </h6>
             {/* Navigation */}
 
@@ -140,7 +141,7 @@ const handleLogout = (e) => {
                         : 'text-blueGray-300')
                     }
                   ></i>{' '}
-                  Dashboard
+                  Pedidos
                 </Link>
               </li>
 
@@ -149,7 +150,7 @@ const handleLogout = (e) => {
                   className={
                     'text-xs uppercase py-3 font-bold block ' +
                     (window.location.href.indexOf('/dashboardUser/settings') !==
-                      -1
+                    -1
                       ? 'text-lightBlue-500 hover:text-lightBlue-600'
                       : 'text-blueGray-700 hover:text-blueGray-500')
                   }
@@ -165,7 +166,7 @@ const handleLogout = (e) => {
                         : 'text-blueGray-300')
                     }
                   ></i>{' '}
-                  Settings
+                  Datos personales
                 </Link>
               </li>
 
@@ -173,22 +174,23 @@ const handleLogout = (e) => {
                 <Link
                   className={
                     'text-xs uppercase py-3 font-bold block ' +
-                    (window.location.href.indexOf('/admin/tables') !== -1
+                    (window.location.href.indexOf('/admin/direcciones') !== -1
                       ? 'text-lightBlue-500 hover:text-lightBlue-600'
                       : 'text-blueGray-700 hover:text-blueGray-500')
                   }
-                  href="/dashboardUser/Tables"
+                  href="/dashboardUser/Direcciones"
                 >
                   <i
                     className={
                       'fas fa-table mr-2 text-sm ' +
-                      (window.location.href.indexOf('/dashboardUser/Tables') !==
-                        -1
+                      (window.location.href.indexOf(
+                        '/dashboardUser/Direcciones'
+                      ) !== -1
                         ? 'opacity-75'
                         : 'text-blueGray-300')
                     }
                   ></i>{' '}
-                  Tables
+                  Direcciones
                 </Link>
               </li>
 
@@ -196,26 +198,44 @@ const handleLogout = (e) => {
                 <Link
                   className={
                     'text-xs uppercase py-3 font-bold block ' +
-                    (window.location.href.indexOf('/admin/maps') !== -1
+                    (window.location.href.indexOf('/admin/favoritos') !== -1
                       ? 'text-lightBlue-500 hover:text-lightBlue-600'
                       : 'text-blueGray-700 hover:text-blueGray-500')
                   }
-                  href="/dashboardUser/Maps"
+                  href="/dashboardUser/Favoritos"
                 >
                   <i
                     className={
-                      'fas fa-map-marked mr-2 text-sm ' +
-                      (window.location.href.indexOf('/dashboardUser/Maps') !==
-                        -1
+                      'fa-solid fa-heart mr-2 text-sm ' +
+                      (window.location.href.indexOf('/dashboardUser/Favoritos') !==
+                      -1
                         ? 'opacity-75'
                         : 'text-blueGray-300')
                     }
                   ></i>{' '}
-                  Maps
+                  Favoritos
+                </Link>
+              </li>
+              <li className="items-center" onClick={() => setContactForm(true)}>
+                <Link
+                  className={
+                    'text-xs uppercase py-3 font-bold block'
+                  }
+                  href="/dashboardUser/Favoritos"
+                >
+                  <i
+                    className={
+                      'fa-solid fa-question mr-2 text-sm ' +
+                      (window.location.href.indexOf('/dashboardUser/Favoritos') !==
+                      -1
+                        ? 'opacity-75'
+                        : 'text-blueGray-300')
+                    }
+                  ></i>{' '}
+                  Ayuda
                 </Link>
               </li>
             </ul>
-
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}

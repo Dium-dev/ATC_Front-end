@@ -16,14 +16,15 @@ import { useProductStore } from '~/store/productStore';
 import { useAuth } from '~/context/AuthContext';
 import FormSignUp from '../form/FormSignUp';
 import FormLogin from '../form/FormLogin';
+import { useDashboardUserStore } from '~/store/dashboardUserStore';
 
 interface NavBarProps {}
 
 const NavBar: FC<NavBarProps> = ({}) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [flagState, updateState] = useFlagState(false);
-  const [flagStateRegister, updateStateRegister] = useFlagState(false);
-  const [flagStateLogin, updateStateLogin] = useFlagState(false);
+  const {registerForm, setRegisterForm} = useDashboardUserStore((state) => state);
+  const {loginForm, setLoginForm} = useDashboardUserStore((state) => state);
 
   const { user, logout } = useAuth();
 
@@ -140,7 +141,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
               </>
             ) : (
               <>
-                <button onClick={() => updateStateLogin(true)}>
+                <button onClick={() => setLoginForm(true)}>
                   <p>Iniciar Sesión</p>
                 </button>
                 <div className="h-[35px] w-[35px]">
@@ -186,16 +187,16 @@ const NavBar: FC<NavBarProps> = ({}) => {
       </div>
       <div>{/* Menu */}</div>
       {flagState && <Form updateState={updateState} />}
-      {flagStateRegister && (
+      {registerForm && (
         <FormSignUp
-          updateStateRegister={updateStateRegister}
-          updateState={updateStateLogin}
+          updateStateRegister={setRegisterForm}
+          updateState={setLoginForm}
         />
       )}
-      {flagStateLogin && (
+      {loginForm && (
         <FormLogin
-          updateState={updateStateLogin}
-          updateStateRegister={updateStateRegister}
+          updateState={setLoginForm}
+          updateStateRegister={setRegisterForm}
         />
       )}
     </nav>

@@ -11,7 +11,7 @@ export function TopSellers() {
     <div className="mb-14 w-full mt-12">
       <div className="grid place-content-center bg-[#13131D] text-white border-b-4 border-b-[#ff0000] py-5 mb-8 dark:border-t-4 dark:border-t-[#ff0000]">
         <h2 className="text-2xl mt-1 ">Los más vendidos</h2> 
-      </div>
+     </div>
       <Carousel>
         {products.map((producto: ProductsProps) => {
           const { title, id, price, image } = producto;

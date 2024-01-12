@@ -1,6 +1,7 @@
 'use client';
 import React, { FC } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useAuth } from '~/context/AuthContext';
 import { InputField } from '../inputs/InputField';
 import { MainButton } from '../button/button';
 import Icon from '~/assets/icons/icon';
@@ -17,6 +18,7 @@ interface FormProps {
 }
 
 const Form: FC<FormProp> = ({ updateState }) => {
+  const {user} = useAuth()
   const {
     register,
     handleSubmit,
@@ -79,6 +81,7 @@ const Form: FC<FormProp> = ({ updateState }) => {
         )}
 
         <input
+          defaultValue={user && user.email}
           placeholder={
             errors.phone
               ? 'Móvil empieza por 3, longitud minima 10 caracteres'
