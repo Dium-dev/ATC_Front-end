@@ -30,7 +30,7 @@ export default function FormSupport({ setForm, id }: FormProp) {
     onSubmit={handleSubmit(handleForm)}
     >
       <div className="bg-white py-12 max-h-screen relative rounded-xl flex flex-col gap-y-7 px-14">
-        <h1 className="text-left font-bold text-[40px]">Contacto</h1>
+        <h1 className="text-left font-bold text-[40px]">Ayuda</h1>
         <div className="flex flex-col justify-center">
           <p>¿Necesitas ayuda con tu pedido?</p>
           <p>¡Contáctanos! Nuestro equipo está aquí para asistirte.</p>

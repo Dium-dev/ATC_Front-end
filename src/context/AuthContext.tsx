@@ -41,16 +41,35 @@ export const AuthContextProvider = ({
     return () => unsusbscribe();
   }, []);
 
-  const signup = (email: string, password: string) => {
+  const signup = (email: string, password: string, firstName: string, lastName: string, phone: string) => {
+    fetch('http://localhost:3001/users/register', {
+      method: 'POST',
+      body: JSON.stringify({email, password, firstName, lastName, phone}),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(res => res.json())
+    .then(data => localStorage.setItem('token', data.token))
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   const login = (email: string, password: string) => {
+    fetch('http://localhost:3001/users/login', {
+      method: 'POST',
+      body: JSON.stringify({email, password}),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(res => res.json())
+    .then(data => data.token && localStorage.setItem('token', data.token))
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   const logout = async () => {
     setUser(null);
+    localStorage.removeItem('token');
     await signOut(auth);
   };
   return (

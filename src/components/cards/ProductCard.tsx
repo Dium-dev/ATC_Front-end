@@ -5,6 +5,8 @@ import { ProductCardProps } from '~/types/products';
 import { useState } from 'react';
 import Heart from '~/assets/icons/Heart';
 import Link from 'next/link';
+import { useAuth } from '~/context/AuthContext';
+import { useDashboardUserStore } from '~/store/dashboardUserStore';
 
 export function ProductCard({
   title,
@@ -13,8 +15,28 @@ export function ProductCard({
   imageSrc,
   id
 }: ProductCardProps) {
+  const { user } = useAuth()
+  const setLoginForm = useDashboardUserStore((state) => state.setLoginForm);
+  const favorites = useDashboardUserStore((state) => state.favorites);
+  const addFavorite = useDashboardUserStore((state) => state.addFavorite);
+  const deleteFavorite = useDashboardUserStore((state) => state.deleteFavorite)
   const [favorite, setFavorite] = useState(false);
-  const handleFavorite = () => setFavorite((cur) => !cur);
+  const handleFavorite = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    if (user) {
+      if(favorites.includes(id)){
+        console.log(user);
+        
+        deleteFavorite(id)
+      } else{
+        addFavorite(id)
+      }
+      setFavorite((cur) => !cur);
+    } else{
+      setLoginForm(true)
+    }
+  }
+
   return (
     <Link className="px-10 py-6 shadow-md hover:shadow-xl rounded-md overflow-hidden bg-white w-[270px] min-h-[415px] relative space-y-3 dark:text-text-lm dark:bg-secondary-dm"
     href={`/products/${id}`}>
@@ -45,8 +67,10 @@ export function ProductCard({
         </MainButton>
       </div>
       <button
-        onClick={handleFavorite}
-        className="group absolute right-1 top-1 w-8 aspect-square rounded-full p-0.5 grid place-content-center"
+        onClick={(event) => {
+          handleFavorite(event)
+        }}
+        className="group absolute right-1 top-1 w-8 aspect-square rounded-full p-0.5 grid place-content-center cursor-pointer"
       >
         <Heart
           className={

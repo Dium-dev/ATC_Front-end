@@ -63,7 +63,7 @@ export default function Dashboard() {
 
   return (
     <div className="flex flex-wrap flex-col gap-y-12">
-      <h1 className='font-bold text-4xl text-center mx-auto'>Pedidos y ayuda</h1>
+      <h1 className='font-bold text-4xl text-center mx-auto'>Pedidos</h1>
       <table className="w-full">
         <thead>
           <tr className="flex px-4 items-center justify-between text-sm p-4 bg-primary-lm text-gray">

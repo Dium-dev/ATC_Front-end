@@ -10,10 +10,13 @@ import UserDropdown from '~/components/componetsDashboard/Dropdowns/UserDropdown
 
 import { Images } from '~/assets/img';
 import { redirect } from 'next/navigation';
+import { useDashboardUserStore } from '~/store/dashboardUserStore';
 
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState('hidden');
   const { user, logout } = useAuth();
+
+  const setContactForm = useDashboardUserStore((state) => state.setContactForm)
 
   const handleLogout = (e) => {
     // e.preventDefault();
@@ -138,7 +141,7 @@ export default function Sidebar() {
                         : 'text-blueGray-300')
                     }
                   ></i>{' '}
-                  Pedidos y ayuda
+                  Pedidos
                 </Link>
               </li>
 
@@ -203,7 +206,7 @@ export default function Sidebar() {
                 >
                   <i
                     className={
-                      'fas fa-map-marked mr-2 text-sm ' +
+                      'fa-solid fa-heart mr-2 text-sm ' +
                       (window.location.href.indexOf('/dashboardUser/Favoritos') !==
                       -1
                         ? 'opacity-75'
@@ -213,8 +216,26 @@ export default function Sidebar() {
                   Favoritos
                 </Link>
               </li>
+              <li className="items-center" onClick={() => setContactForm(true)}>
+                <Link
+                  className={
+                    'text-xs uppercase py-3 font-bold block'
+                  }
+                  href="/dashboardUser/Favoritos"
+                >
+                  <i
+                    className={
+                      'fa-solid fa-question mr-2 text-sm ' +
+                      (window.location.href.indexOf('/dashboardUser/Favoritos') !==
+                      -1
+                        ? 'opacity-75'
+                        : 'text-blueGray-300')
+                    }
+                  ></i>{' '}
+                  Ayuda
+                </Link>
+              </li>
             </ul>
-
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
