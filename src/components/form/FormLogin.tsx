@@ -49,17 +49,33 @@ const Form: FC<FormProp> = ({ updateState, updateStateRegister }) => {
     });
   };
 
+  const alertError = () => {
+    Swal.fire(
+      {
+        toast: true,
+        position: 'top-end',
+        title: 'Error',
+        text: '¡Acceso inválido!',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 2000,
+      }
+    )
+  }
+
   const handleLogin = async (data: FormProps, event: any) => {
     try {
       const { email, password } = data;
       if (!errors.email || !errors.password) {
         await login(email, password);
         alertSuccess();
+        updateState(false);
         console.log('Login successful' + user);
         router.push('/dashboardUser');
       }
     } catch (error) {
       console.log(error);
+      alertError()
       // Handle login error here if needed.
     }
   };
