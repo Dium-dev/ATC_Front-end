@@ -171,44 +171,45 @@ const ContainerCardsBrands: React.FC = () => {
     }
   };
 
+
   return (
-    <div className="flex flex-col items-center justify-between mb-3 mt-1 w-full flex-nowrap overflow-hidden max-w-[1920px] mx-auto">
-      <div className="flex items-center justify-center w-full max-w-f-hd py-2 gap-1 relative">
+    <div className="flex flex-col items-center justify-between mb-7 w-full flex-nowrap overflow-hidden max-w-[1920px] mx-auto">
+    <div className="flex items-center justify-center w-full max-w-f-hd py-1 gap-1 relative">
+      <button
+        onClick={handlePrevClick}
+        className="w-10 h-10 apect-square rounded-full flex items-center justify-center p-1 bg-white text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all cursor-pointer"
+      >
+        <BsChevronCompactLeft onClick={prevSlide} size="100%" />
+      </button>
+      <Ticker duration={70}>
+        {imagesBrands.map((brand, index) => (
+          <div
+            key={index}
+            onClick={() => handleClick(brand.name)}
+            className="brand-link relative w-32 h-32 sm:w-40 sm:h-40 m-2 flex items-center"
+            aria-hidden="true"
+          >
+            <Link href={`/products?brand=${brand.name}`} key={index}>
+              <Image
+                src={brand.image}
+                alt={brand.name}
+                className="brand-image object-contain w-full h-full m-2 max-h-[100px] max-w-[100px] hover:scale-110 ${!isHovering && 'hover:stop-autoplay'}`;"
+                width={300}
+                height={300}
+              />
+            </Link>
+          </div>
+        ))}
+        </Ticker>
         <button
-          onClick={handlePrevClick}
-          className="w-10 h-10 apect-square rounded-full flex items-center justify-center p-2 bg-white text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all cursor-pointer"
-        >
-          <BsChevronCompactLeft onClick={prevSlide} size="100%" />
+        onClick={handleNextClick}
+        className="w-10 h-10 apect-square rounded-full flex items-center justify-center p-2 bg-white text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all cursor-pointer"
+      >
+        <BsChevronCompactRight onClick={nextSlide} size="100%" />
         </button>
-        <Ticker duration={70}>
-          {imagesBrands.map((brand, index) => (
-            <div
-              key={index}
-              onClick={() => handleClick(brand.name)}
-              className="brand-link relative w-32 h-32 sm:w-40 sm:h-40 m-2 flex items-center"
-              aria-hidden="true"
-            >
-              <Link href={`/products?brand=${brand.name}`} key={index}>
-                <Image
-                  src={brand.image}
-                  alt={brand.name}
-                  className="brand-image object-contain w-full h-full m-2 max-h-[100px] max-w-[100px] hover:scale-110 ${!isHovering && 'hover:stop-autoplay'}`;"
-                  width={300}
-                  height={300}
-                />
-              </Link>
-            </div>
-          ))}
-          </Ticker>
-          <button
-          onClick={handleNextClick}
-          className="w-10 h-10 apect-square rounded-full flex items-center justify-center p-2 bg-white text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all cursor-pointer"
-        >
-          <BsChevronCompactRight onClick={nextSlide} size="100%" />
-          </button>
-      </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default ContainerCardsBrands;
