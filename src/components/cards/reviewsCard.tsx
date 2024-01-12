@@ -35,7 +35,7 @@ const Reviews: React.FC<ReviewsProps> = ({
   };
 
   return (  // cambio de 320 a 1920 max
-    <div className="flex flex-col max-w-[1920px] bg-white m-5 p-4 lg:shadow-md rounded-lg h-72 justify-around dark:bg-primary-dm"> 
+    <div className="flex flex-col max-w-[1920px] bg-white m-5 p-4 lg:shadow-md rounded-lg h-72 justify-around dark:bg-primary-dm mt-12"> 
       <div>
         <Icon icon="quotationMarks" />
       </div>

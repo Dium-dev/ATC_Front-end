@@ -4,7 +4,7 @@ import PaymentMethod from './payMethod';
 const PaymentMethodsComponent: React.FC = () => {
   return (
     <>
-          <div className="py-4 flex flex-wrap justify-evenly items-center max-w-[1920px] mx-auto">
+          <div className="py-4 flex flex-wrap justify-evenly items-center max-w-[1920px] mx-auto mt-4 mb-12">
             <PaymentMethod
               imageSrc='CardCredit'
               title="Todos los medios de pago"

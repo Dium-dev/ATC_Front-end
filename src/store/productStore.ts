@@ -16,6 +16,7 @@ interface ProductStore {
 }
 
 type BrandStore = {
+  setBrand: any;
   selectedBrand: string;
   setSelectedBrand: (brand: string) => void;
 };
