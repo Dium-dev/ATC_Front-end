@@ -1,32 +1,28 @@
 "use client";
 import { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 
-// components
+// Zustand store:
+import useDashboardAdminStore from '~/store/dashboardAdminStore';
+
+// Type definitions:
+import { BrandsInterface } from '~/types/dashboardAdminStore';
+
+// Components:
 import SearchBar from '../SearchBar/SearchBar';
 import TableDropdown from '~/components/componetsDashboard/Dropdowns/TableDropdown';
 import Pagination from '../Pagination/Pagination';
 
-import useDashboardAdminStore from '~/store/dashboardAdminStore';
 
-
-interface BrandsInterface {
-    id: number,
-    name: string,
-};
-
-type CardBrandsProps = {
-    color: string
-};
-
-export default function CardBrands({ color }: CardBrandsProps) {
+// --------------- MODULE ---------------
+export default function CardBrands() {
 
 
     // GLOBAL STORE:
-    const { brands, fetchBrands, isBrandsFetching }: any = useDashboardAdminStore();
+    const { brands, fetchBrands, isBrandsFetching, sortBrands }: any = useDashboardAdminStore();
 
 
     // LOCAL STATES:
+    // Estado para la paginación.
     const [currentPage, setCurrentPage] = useState<number>(1);
 
 
@@ -35,6 +31,12 @@ export default function CardBrands({ color }: CardBrandsProps) {
     const elementsPerPage = 10;
     const indexOfLastElement = currentPage * elementsPerPage;
     const indexOfFirstElement = indexOfLastElement - elementsPerPage;
+
+
+    // FUNCTIONS:
+    const handleSort = (clause: string, type: string) => {
+        sortBrands(clause, type);
+    };
 
 
     // LIFE CYCLES:
@@ -51,12 +53,7 @@ export default function CardBrands({ color }: CardBrandsProps) {
             <div className="rounded-t mb-0 px-4 py-3 border-0">
                 <div className="flex flex-wrap items-center">
                     <div className="relative flex items-center justify-between w-full px-4 max-w-full flex-grow flex-1">
-                        <h3
-                            className={
-                                'font-semibold text-lg ' +
-                                (color === 'light' ? 'text-blueGray-700' : 'text-white')
-                            }
-                        >
+                        <h3 className="font-semibold text-lg text-blueGray-700 dm:text-white">
                             Marcas
                         </h3>
                         <SearchBar section="brand" />
@@ -68,42 +65,29 @@ export default function CardBrands({ color }: CardBrandsProps) {
                 <table className="items-center w-full bg-transparent border-collapse">
                     <thead>
                         <tr>
-                            <th
-                                className={
-                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                    (color === 'light'
-                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                }
-                            >
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Id
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("id", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("id", "descendant")}>desc</button>
+                                </div>
                             </th>
-                            <th
-                                className={
-                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                    (color === 'light'
-                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                }
-                            >
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Nombre
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("name", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("name", "descendant")}>desc</button>
+                                </div>
                             </th>
-                            <th
-                                className={
-                                    'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                    (color === 'light'
-                                        ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                        : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                }
-                            >
+                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Acciones
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            Array.isArray(brands) && brands?.slice(indexOfFirstElement, indexOfLastElement).map((BRAND: BrandsInterface, idx: any) => (
-                                <tr key={idx}>
+                            Array.isArray(brands) && brands?.slice(indexOfFirstElement, indexOfLastElement).map((BRAND: BrandsInterface) => (
+                                <tr key={BRAND.id}>
                                     <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                         {BRAND.id}
                                     </th>
@@ -127,12 +111,4 @@ export default function CardBrands({ color }: CardBrandsProps) {
             </div>
         </div>
     );
-};
-
-CardBrands.defaultProps = {
-    color: 'light',
-};
-
-CardBrands.propTypes = {
-    color: PropTypes.oneOf(['light', 'dark']),
 };
