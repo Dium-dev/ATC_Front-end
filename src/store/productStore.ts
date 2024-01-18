@@ -19,18 +19,25 @@ type Brand = {
   id: string;
   name: string;
   image: string;
-};
+ };
 
-type BrandStore = {
+ type BrandStore = {
+  brandId: any;
   setBrand: any;
   selectedBrand: string;
   setSelectedBrand: (brand: string) => void;
-};
+  Brand: Brand; // Include Brand in the type definition
+ };
+ 
 
-export const useBrandStore = create<BrandStore>((set) => ({
+ export const useBrandStore = create<BrandStore>((set) => ({
   Brand: { id: '', name: '', image: '' },
+  brandId: '',
+  selectedBrand: '',
+  setSelectedBrand: (brand: string) => {},
   setBrand: (brand: Brand) => set({ Brand: brand }),
-}));
+ }));
+ 
 
 export const useProductStore = create<ProductStore>((set) => ({
   products: [],

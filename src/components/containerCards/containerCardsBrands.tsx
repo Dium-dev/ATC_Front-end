@@ -121,12 +121,14 @@ const ContainerCardsBrands: React.FC = () => {
   ];
 
   // Functions from product store
-  const updateBody = useProductStore((state) => state.updateBody);
-
-  // Function to handle brand click
+  const { updateBody } = useProductStore();
+  const brandId = useBrandStore().brandId;
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
   const handleClick = (id: string): void => {
-    updateBody('brandId', id);
-  };
+    updateBody('brandId', brandId);
+    setBrand(id); // If you want to update the brand in your brand store
+};
 
   const [activeIndex, setActiveIndex] = useState(0);
   const tickerRef = useRef<HTMLDivElement>(null);
@@ -140,73 +142,78 @@ const ContainerCardsBrands: React.FC = () => {
   };
 
   const prevSlide = () => {
-    const isFirstSlide = activeIndex === 0;
-    const newIndex = isFirstSlide ? imagesBrands.length - 1 : activeIndex - 1;
-    setActiveIndex(newIndex);
+    const isFirstSlide = currentIndex === 0;
+    const newIndex = isFirstSlide ? imagesBrands.length - 1 : currentIndex - 1;
+    setCurrentIndex(newIndex);
   };
 
   const nextSlide = () => {
-    const isLastSlide = activeIndex === imagesBrands.length - 1;
-    const newIndex = isLastSlide ? 0 : activeIndex + 1;
-    setActiveIndex(newIndex);
+    const isLastSlide = currentIndex === imagesBrands.length - 1;
+    const newIndex = isLastSlide ? 0 : currentIndex + 1;
+    setCurrentIndex(newIndex);
   };
 
   const handlePrevClick = () => {
-    if (activeIndex > 0) {
-      setActiveIndex(activeIndex - 1);
-      tickerRef.current?.animate({ transform: 'translateX(100%)' });
-    } else {
-      setActiveIndex(imagesBrands.length - 1);
-      tickerRef.current?.animate({ transform: 'translateX(-100%)' });
-    }
+    setActiveIndex((prevActiveIndex) => {
+      if (prevActiveIndex === 0) {
+        return imagesBrands.length - 1; // Go to the last slide if we're at the first
+      } else {
+        return prevActiveIndex - 1; // Otherwise, just decrement the index
+      }
+    });
   };
-
+  
   const handleNextClick = () => {
-    if (activeIndex < imagesBrands.length - 1) {
-      setActiveIndex(activeIndex + 1);
-      tickerRef.current?.animate({ transform: 'translateX(-100%)' });
-    } else {
-      setActiveIndex(0);
-      tickerRef.current?.animate({ transform: 'translateX(0)' });
-    }
+    setActiveIndex((prevActiveIndex) => {
+      if (prevActiveIndex === imagesBrands.length - 1) {
+        return 0; // Go to the first slide if we're at the last
+      } else {
+        return prevActiveIndex + 1; // Otherwise, just increment the index
+      }
+    });
   };
-
 
   return (
     <div className="flex flex-col items-center justify-between mb-7 w-full flex-nowrap overflow-hidden max-w-[1920px] mx-auto">
     <div className="flex items-center justify-center w-full max-w-f-hd py-1 gap-1 relative">
-      <button
-        onClick={handlePrevClick}
-        className="w-10 h-10 apect-square rounded-full flex items-center justify-center p-1 bg-white text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all cursor-pointer"
+    <button
+      onClick={(event) => {
+      event.stopPropagation();
+      handlePrevClick();
+    }}
+      className="w-10 h-10 apect-square rounded-full flex items-center justify-center p-1 bg-white text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all cursor-pointer"
+    >
+      <BsChevronCompactLeft onClick={prevSlide} size="100%" />
+    </button>
+    <Ticker duration={70}>
+      {imagesBrands.map((brand, index) => (
+      <div
+        key={brandId}
+        onClick={() => brandId && handleClick(brandId)}
+        className="brand-link relative w-32 h-32 sm:w-40 sm:h-40 m-2 flex items-center"
+        aria-hidden="true"
       >
-        <BsChevronCompactLeft onClick={prevSlide} size="100%" />
-      </button>
-      <Ticker duration={70}>
-        {imagesBrands.map((brand, index) => (
-          <div
-            key={index}
-            onClick={() => handleClick(brand.name)}
-            className="brand-link relative w-32 h-32 sm:w-40 sm:h-40 m-2 flex items-center"
-            aria-hidden="true"
-          >
-            <Link href={`/products?brand=${brand.name}`} key={index}>
-              <Image
-                src={brand.image}
-                alt={brand.name}
-                className="brand-image object-contain w-full h-full m-2 max-h-[100px] max-w-[100px] hover:scale-110 ${!isHovering && 'hover:stop-autoplay'}`;"
-                width={300}
-                height={300}
-              />
-            </Link>
-          </div>
-        ))}
-        </Ticker>
-        <button
-        onClick={handleNextClick}
-        className="w-10 h-10 apect-square rounded-full flex items-center justify-center p-2 bg-white text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all cursor-pointer"
-      >
-        <BsChevronCompactRight onClick={nextSlide} size="100%" />
-        </button>
+      <Link href={`/products?brandId=${brandId || ''}`}>
+       <Image
+         src={brand.image}
+         alt={brand.name}
+         className="brand-image object-contain w-full h-full m-2 max-h-[100px] max-w-[100px] hover:scale-110"
+         width={300}
+         height={300}
+       />
+      </Link>
+    </div>
+    ))}
+    </Ticker>
+    <button
+      onClick={(event) => {
+      event.stopPropagation();
+      handleNextClick();
+    }}
+      className="w-10 h-10 apect-square rounded-full flex items-center justify-center p-2 bg-white text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all cursor-pointer"
+    >
+      <BsChevronCompactRight onClick={nextSlide} size="100%" />
+    </button>
     </div>
   </div>
 );
