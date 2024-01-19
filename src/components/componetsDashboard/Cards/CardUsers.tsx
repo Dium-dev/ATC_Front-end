@@ -6,12 +6,11 @@ import useDashboardAdminStore from '~/store/dashboardAdminStore';
 
 // Type definitions:
 import { UserFilterOptions } from '../dashboardAdmin';
-import { UserStatus, UsersInterface } from '~/types/dashboardAdminStore';
+import { UserStatus, UsersInterface, DashboardAdminStore } from '~/types/dashboardAdminStore';
 
 // Components:
 import SearchBar from '../SearchBar/SearchBar';
 import TableDropdown from '~/components/componetsDashboard/Dropdowns/TableDropdown';
-
 
 // Agregar un endpoint con:
 // - todos los "status" posibles para el usuario. (blocked | activated | deleted | etc). Estas opciones son renderizadas como etiquetas de los checkboxes que se usan para filtrar a los usuarios.
@@ -29,44 +28,44 @@ const USER_STATUS: UserStatus[] = [
 
 // fetch(users/xxxxx) debería retornar un array de objetos.
 // Simula el array de usuarios obtenido después del fetch.
-const USERS: UsersInterface[] = [
-    {
-        id: 1,
-        name: "John",
-        picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
-        status: "activated",
-        emailAddress: "johndoe@gmail.com",
-        phone: "01 123456789",
-        registerDate: "27-09-2023",
-    },
-    {
-        id: 2,
-        name: "Doe",
-        picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
-        status: "blocked",
-        emailAddress: "doejohn@hotmail.com",
-        phone: "10 987654321",
-        registerDate: "21-07-2023"
-    },
-    {
-        id: 3,
-        name: "Asd",
-        picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
-        status: "deleted",
-        emailAddress: "asdfgh@hotmail.com",
-        phone: "11 987654321",
-        registerDate: "21-12-2023"
-    },
-    {
-        id: 4,
-        name: "Qwe",
-        picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
-        status: "blocked",
-        emailAddress: "qwerty@hotmail.com",
-        phone: "10 987654321",
-        registerDate: "21-10-2023"
-    },
-];
+// const USERS: UsersInterface[] = [
+//     {
+//         id: 1,
+//         name: "John",
+//         picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
+//         status: "activated",
+//         emailAddress: "johndoe@gmail.com",
+//         phone: "01 123456789",
+//         registerDate: "27-09-2023",
+//     },
+//     {
+//         id: 2,
+//         name: "Doe",
+//         picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
+//         status: "blocked",
+//         emailAddress: "doejohn@hotmail.com",
+//         phone: "10 987654321",
+//         registerDate: "21-07-2023"
+//     },
+//     {
+//         id: 3,
+//         name: "Asd",
+//         picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
+//         status: "deleted",
+//         emailAddress: "asdfgh@hotmail.com",
+//         phone: "11 987654321",
+//         registerDate: "21-12-2023"
+//     },
+//     {
+//         id: 4,
+//         name: "Qwe",
+//         picture: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
+//         status: "blocked",
+//         emailAddress: "qwerty@hotmail.com",
+//         phone: "10 987654321",
+//         registerDate: "21-10-2023"
+//     },
+// ];
 
 
 // --------------- MODULE ---------------
@@ -82,7 +81,7 @@ export default function CardUsers() {
 
 
     // GLOBAL STORE:
-    const { users, updateUsers, filterUsers, sortUsers }: any = useDashboardAdminStore();
+    const { users, fetchUsers, isUsersFetching, filterUsers, sortUsers }: DashboardAdminStore = useDashboardAdminStore();
 
 
     // LOCAL STATES:
@@ -132,16 +131,18 @@ export default function CardUsers() {
     // Llama a la función de zustand "sortUsers" para manejar el orden el array. Espera 2 parámetros:
     // "clause" => "id" | "name" | "emailAddress" | "status" | "phone" | "registerDate".
     // "type" => "ascendant" | "descendant".
-    const handleSort = (clause: string, type: string) => {
+    const handleSort = (clause: "id" | "name" | "emailAddress" | "status" | "phone" | "registerDate", type: "ascendant" | "descendant") => {
         sortUsers(clause, type);
     };
 
 
     // LIFE CYCLES:
-    // Simular petición al servidor para obtener datos y llenar el array de usuarios (users).
+    // Obtiene y llena el array de usuarios.
     useEffect(() => {
-        updateUsers(USERS);
-    }, []);
+        if (users.length === 0 && !isUsersFetching) {
+            fetchUsers();
+        };
+    }, [fetchUsers, isUsersFetching]);
 
 
     // COMPONENT:
@@ -235,45 +236,45 @@ export default function CardUsers() {
                     </thead>
                     <tbody>
                         {
-                            Array.isArray(users) && users.map((USER: UsersInterface) => (
-                                <tr key={USER.id}>
-                                    <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        {USER.id}
-                                    </th>
-                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                                        <img
-                                            src={USER.picture}
-                                            className="h-12 w-12 bg-white rounded-full border"
-                                            alt=""
-                                        ></img>
-                                        <span className="ml-3 font-bold text-blueGray-600 dm:text-white" >
-                                            {USER.name}
-                                        </span>
-                                    </td>
-                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        {USER.emailAddress}
-                                    </td>
-                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        <i className={`fas fa-circle text-orange-500 mr-2 ${USER.status === "activated" ? "text-[#00FF00]" : "text-[#FF0000]"}`}></i> {USER.status === "activated" ? "activado" : "bloqueado"}
-                                    </td>
-                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        <div className="flex items-center">
-                                            <span className="mr-2">{USER.registerDate}</span>
-                                            <div className="relative w-full">
-                                                <div className="overflow-hidden h-2 text-xs flex rounded bg-red-200">
-                                                    <div
-                                                        style={{ width: '60%' }}
-                                                        className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
-                                                    ></div>
+                            Array.isArray(users) && users.map((USER: UsersInterface) => {
+                                const { id, firstName, lastName, email, phone, rol, isActive, createdAt } = USER;
+                                const startDate = createdAt.substring(0, 10);
+
+                                return (
+                                    <tr key={id}>
+                                        <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                            {id}
+                                        </th>
+                                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                                            <span className="ml-3 font-bold text-blueGray-600 dm:text-white" >
+                                                {firstName} {lastName}
+                                            </span>
+                                        </td>
+                                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                            {email}
+                                        </td>
+                                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                            <i className={`fas fa-circle text-orange-500 mr-2 ${isActive ? "text-[#00FF00]" : "text-[#FF0000]"}`}></i> {isActive ? "activado" : "bloqueado"}
+                                        </td>
+                                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                            <div className="flex items-center">
+                                                <span className="mr-2">{startDate}</span>
+                                                <div className="relative w-full">
+                                                    <div className="overflow-hidden h-2 text-xs flex rounded bg-red-200">
+                                                        <div
+                                                            style={{ width: '60%' }}
+                                                            className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
+                                                        ></div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                        <TableDropdown />
-                                    </td>
-                                </tr>
-                            ))
+                                        </td>
+                                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                                            <TableDropdown />
+                                        </td>
+                                    </tr>
+                                )
+                            })
                         }
                     </tbody>
                 </table>

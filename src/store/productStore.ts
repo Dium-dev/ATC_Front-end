@@ -22,8 +22,9 @@ type Brand = {
 };
 
 type BrandStore = {
-  Brand: Brand;
-  setBrand: (brand: Brand) => void;
+  setBrand: any;
+  selectedBrand: string;
+  setSelectedBrand: (brand: string) => void;
 };
 
 export const useBrandStore = create<BrandStore>((set) => ({
