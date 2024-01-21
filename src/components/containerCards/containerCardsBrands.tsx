@@ -128,9 +128,10 @@ const ContainerCardsBrands: React.FC = () => {
     updateBody('brandId', id);
   };
 
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const tickerRef = useRef<HTMLDivElement>(null);
-  
+  const [isPlaying, setIsPlaying] = React.useState(true);
+
   const value: AnimatedValue = {
     animate() {
       // Implement the actual animation logic here
@@ -140,48 +141,40 @@ const ContainerCardsBrands: React.FC = () => {
   };
 
   const prevSlide = () => {
-    const isFirstSlide = activeIndex === 0;
-    const newIndex = isFirstSlide ? imagesBrands.length - 1 : activeIndex - 1;
-    setActiveIndex(newIndex);
+    const isFirstSlide = currentIndex === 0;
+    const newIndex = isFirstSlide ? imagesBrands.length - 1 : currentIndex - 1;
+    setCurrentIndex(newIndex);
   };
 
-  const nextSlide = () => {
-    const isLastSlide = activeIndex === imagesBrands.length - 1;
-    const newIndex = isLastSlide ? 0 : activeIndex + 1;
-    setActiveIndex(newIndex);
-  };
+  const nextSlide = (() => {
+    const isLastSlide = currentIndex === imagesBrands.length - 1;
+    const newIndex = isLastSlide ? 0 : currentIndex + 1;
+    setCurrentIndex(newIndex);
+  });
 
-  const handlePrevClick = () => {
-    if (activeIndex > 0) {
-      setActiveIndex(activeIndex - 1);
-      tickerRef.current?.animate({ transform: 'translateX(100%)' });
+  const navigateSlide = (direction: string) => {
+    let newIndex;
+    if (direction === 'next') {
+       const isLastSlide = currentIndex === imagesBrands.length - 1;
+       newIndex = isLastSlide ? 0 : currentIndex + 1;
     } else {
-      setActiveIndex(imagesBrands.length - 1);
-      tickerRef.current?.animate({ transform: 'translateX(-100%)' });
+       const isFirstSlide = currentIndex === 0;
+       newIndex = isFirstSlide ? imagesBrands.length - 1 : currentIndex - 1;
     }
-  };
-
-  const handleNextClick = () => {
-    if (activeIndex < imagesBrands.length - 1) {
-      setActiveIndex(activeIndex + 1);
-      tickerRef.current?.animate({ transform: 'translateX(-100%)' });
-    } else {
-      setActiveIndex(0);
-      tickerRef.current?.animate({ transform: 'translateX(0)' });
-    }
-  };
+    setCurrentIndex(newIndex);
+   };
 
 
   return (
     <div className="flex flex-col items-center justify-between mb-7 w-full flex-nowrap overflow-hidden max-w-[1920px] mx-auto">
     <div className="flex items-center justify-center w-full max-w-f-hd py-1 gap-1 relative">
       <button
-        onClick={handlePrevClick}
-        className="w-10 h-10 apect-square rounded-full flex items-center justify-center p-1 bg-white text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all cursor-pointer"
+        onClick={() => navigateSlide('prev')}
+        className="hidden group-hover:block w-10 h-10 aspect-square rounded-full items-center left-5 justify-center p-1 bg-white/50 text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all cursor-pointer"
       >
         <BsChevronCompactLeft onClick={prevSlide} size="100%" />
       </button>
-      <Ticker duration={70}>
+      <Ticker duration={70} onMouseEnter={() => setIsPlaying(false)} onMouseLeave={() => setIsPlaying(true)} isPlaying={isPlaying}>
         {imagesBrands.map((brand, index) => (
           <div
             key={index}
@@ -202,14 +195,14 @@ const ContainerCardsBrands: React.FC = () => {
         ))}
         </Ticker>
         <button
-        onClick={handleNextClick}
-        className="w-10 h-10 apect-square rounded-full flex items-center justify-center p-2 bg-white text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all cursor-pointer"
+        onClick={() => navigateSlide('next')}
+        className="hidden group-hover:block w-10 h-10 aspect-square rounded-full items-center right-5 justify-center p-2 bg-white/50 text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all cursor-pointer"
       >
         <BsChevronCompactRight onClick={nextSlide} size="100%" />
         </button>
+      </div>
     </div>
-  </div>
-);
+  );
 };
 
 export default ContainerCardsBrands;
