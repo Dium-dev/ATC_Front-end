@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { anchorArray } from '../components/dropdownMenu/anchorArray';
-import { NavBar } from '../components/navBar/navBar';
+import NavBar from '../components/navBar/navBar';
 
 const meta = {
   title: 'NavBar',
