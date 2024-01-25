@@ -141,18 +141,21 @@ const ContainerCardsBrands: React.FC = () => {
   };
 
   const prevSlide = () => {
+    setIsPlaying(false);
     const isFirstSlide = currentIndex === 0;
     const newIndex = isFirstSlide ? imagesBrands.length - 1 : currentIndex - 1;
     setCurrentIndex(newIndex);
   };
 
-  const nextSlide = (() => {
+  const nextSlide = () => {
+    setIsPlaying(false);
     const isLastSlide = currentIndex === imagesBrands.length - 1;
     const newIndex = isLastSlide ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
-  });
+  };
 
   const navigateSlide = (direction: string) => {
+    setIsPlaying(false);
     let newIndex;
     if (direction === 'next') {
        const isLastSlide = currentIndex === imagesBrands.length - 1;
@@ -164,42 +167,42 @@ const ContainerCardsBrands: React.FC = () => {
     setCurrentIndex(newIndex);
    };
 
-
   return (
     <div className="flex flex-col items-center justify-between mb-7 w-full flex-nowrap overflow-hidden max-w-[1920px] mx-auto">
-    <div className="flex items-center justify-center w-full max-w-f-hd py-1 gap-1 relative">
-      <button
-        onClick={() => navigateSlide('prev')}
-        className="hidden group-hover:block w-10 h-10 aspect-square rounded-full items-center left-5 justify-center p-1 bg-white/50 text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all cursor-pointer"
-      >
-        <BsChevronCompactLeft onClick={prevSlide} size="100%" />
-      </button>
+    <div className="group flex items-center justify-center w-full max-w-f-hd py-1 gap-1 relative">
+  <button
+    onClick={prevSlide}
+    className="invisible group-hover:visible w-10 h-10 aspect-square rounded-full items-center left-5 justify-center p-1 bg-white/50 text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all cursor-pointer"
+  >
+    <BsChevronCompactLeft size="100%" />
+  </button>
       <Ticker duration={70} onMouseEnter={() => setIsPlaying(false)} onMouseLeave={() => setIsPlaying(true)} isPlaying={isPlaying}>
         {imagesBrands.map((brand, index) => (
-          <div
-            key={index}
-            onClick={() => handleClick(brand.name)}
-            className="brand-link relative w-32 h-32 sm:w-40 sm:h-40 m-2 flex items-center"
-            aria-hidden="true"
-          >
-            <Link href={`/products?brand=${brand.name}`} key={index}>
-              <Image
-                src={brand.image}
-                alt={brand.name}
-                className="brand-image object-contain w-full h-full m-2 max-h-[100px] max-w-[100px] hover:scale-110 ${!isHovering && 'hover:stop-autoplay'}`;"
-                width={300}
-                height={300}
-              />
-            </Link>
-          </div>
-        ))}
-        </Ticker>
-        <button
-        onClick={() => navigateSlide('next')}
-        className="hidden group-hover:block w-10 h-10 aspect-square rounded-full items-center right-5 justify-center p-2 bg-white/50 text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all cursor-pointer"
-      >
-        <BsChevronCompactRight onClick={nextSlide} size="100%" />
-        </button>
+       <div
+        key={index}
+        onClick={() => handleClick(brand.name)}
+        className="brand-link relative w-32 h-32 sm:w-40 sm:h-40 m-2 flex items-center"
+        aria-hidden="true"
+       >
+      {/* Update this part: Remove the <a> tag */}
+      <Link href={`/products?brand=${brand.name}`}>
+        <Image
+          src={brand.image}
+          alt={brand.name}
+          className="brand-image object-contain w-full h-full m-2 max-h-[100px] max-w-[100px] hover:scale-110"
+          width={300}
+          height={300}
+        />
+      </Link>
+    </div>
+    ))}
+  </Ticker>
+  <button
+    onClick={nextSlide}
+    className="invisible group-hover:visible w-10 h-10 aspect-square rounded-full items-center right-5 justify-center p-2 bg-white/50 text-[#000] shadow hover:scale-105 hover:text-primary-lm hover:shadow-lg transition-all cursor-pointer"
+  >
+    <BsChevronCompactRight size="100%" />
+  </button>
       </div>
     </div>
   );
