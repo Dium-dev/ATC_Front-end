@@ -77,7 +77,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
             <div>
               {/* imagenes tablet y desktop */}
               <div className="hidden md:flex justify-center items-center">
-                <Link href="/">
+                <Link href="/products">
                   <Image
                     src={Images.logos.LogoRedColor}
                     width={200}
@@ -89,7 +89,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
               </div>
               {/* imagen mobile */}
               <div className="md:hidden flex justify-center items-center">
-                <Link href="/">
+                <Link href="/products">
                   <Image
                     src={Images.logos.ActLogo}
                     width={55}
@@ -109,7 +109,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
                 id="searchBar"
                 type="text"
                 placeholder="Buscar productos"
-                className="w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm bg-white dark:bg-primary-dm"
+                className="w-full md:w-[400px] py-1.5 px-3 outline-none ml-5 mr-5 md:ml-10 md:mr-10 rounded-md text-secondary-dm bg-white dark:bg-primary-dm"
                 onChange={(event) => {
                   updateBody('name', event.target.value);
                   products.length && updateBody('page', 1);
@@ -141,9 +141,9 @@ const NavBar: FC<NavBarProps> = ({}) => {
               </>
             ) : (
               <>
-                <button onClick={() => setLoginForm(true)}>
+                {/* <button onClick={() => setLoginForm(true)}>
                   <p>Iniciar Sesión</p>
-                </button>
+                </button> */}
                 <div className="h-[35px] w-[35px]">
                   <Icon icon="Login" />
                 </div>
@@ -151,7 +151,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
             )}
 
             <div className="h-[35px] w-[35px]">
-              <Link href={'#'}>
+              <Link href={'/carShoping'}>
                 <Icon icon="CarShoping" />
               </Link>
             </div>
@@ -166,7 +166,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
             id="searchBar"
             type="text"
             placeholder="Buscar productos"
-            className="w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm dark:bg-primary-dm"
+            className="w-full md:w-[400px] py-1.5 px-3 outline-none ml-5 mr-5 md:ml-10 md:mr-10 rounded-md text-secondary-dm bg-white dark:bg-primary-dm"
             onChange={(event) => {
               updateBody('name', event.target.value);
               products.length && updateBody('page', 1);
