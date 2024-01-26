@@ -59,26 +59,26 @@ const SecondCarousel: FC<SecondCarouselProps> = ({}) => {
       };
 
   return (
-    <section className='w-full bg-black mt-[7.5rem] md:mt-0'>
-    <div className="mt-[109px] md:mt-[60px] relative group max-w-[1920px] max-h-[600px] m-auto">
-      <Image
-        className="w-full "
-        src={
-          isMobile
-            ? mobileSlidesList[currentIndex].url
-            : slidesList[currentIndex].url
-        }
-        alt='Banner'
-        width={1920}
-        height={500}
-      />
-      <div className="hidden group-hover:block absolute top-[50%]  -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-white/50 text-background-dm cursor-pointer">
-        <BsChevronCompactLeft onClick={prevSlide} size={30} />
+    <section className="">
+      <div className="relative group max-w-[1920px] max-h-[600px] m-auto">
+        <Image
+          className="w-full "
+          src={
+            isMobile
+              ? mobileSlidesList[currentIndex].url
+              : slidesList[currentIndex].url
+          }
+          alt="Banner"
+          width={1920}
+          height={500}
+        />
+        <div className="hidden group-hover:block absolute top-[50%]  -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-white/50 text-background-dm cursor-pointer">
+          <BsChevronCompactLeft onClick={prevSlide} size={30} />
+        </div>
+        <div className="hidden group-hover:block absolute top-[50%]  -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-white/50 text-background-dm cursor-pointer">
+          <BsChevronCompactRight onClick={nextSlide} size={30} />
+        </div>
       </div>
-      <div className="hidden group-hover:block absolute top-[50%]  -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-white/50 text-background-dm cursor-pointer">
-        <BsChevronCompactRight onClick={nextSlide} size={30} />
-      </div>
-    </div>
     </section>
   );
 };
