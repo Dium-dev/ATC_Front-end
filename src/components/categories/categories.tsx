@@ -44,19 +44,21 @@ const CATEGORIES: CategoryProps[] = [
   },
 ];
 const Categories = () => {
-    const updateBody = useProductStore(state =>  state.updateBody);
-    const handleClick = (id: string): void => {
-        updateBody('categoryId', id)
-    }
+  const updateBody = useProductStore((state) => state.updateBody);
+  const handleClick = (id: string): void => {
+    updateBody('categoryId', id);
+  };
 
-    return(
-        <div className="w-full h-[60px] hidden md:block mt-14 bg-opacity-70 bg-white shadow-md cursor-pointer dark:bg-primary-dm">
-            <ul className="flex justify-around items-center w-full h-full font-medium max-w-[1920px] mx-auto">
-            {CATEGORIES.map(({ name, id }) => (
-            <li key={id} onClick={() => handleClick(id)}>{name}</li>
+  return (
+    <div className="w-full h-[60px] hidden md:block bg-opacity-70 bg-white shadow-md cursor-pointer dark:bg-primary-dm">
+      <ul className="flex justify-around items-center w-full h-full font-medium max-w-[1920px] mx-auto">
+        {CATEGORIES.map(({ name, id }) => (
+          <li key={id} onClick={() => handleClick(id)}>
+            {name}
+          </li>
         ))}
-            </ul>
-        </div>
-    )
-}
+      </ul>
+    </div>
+  );
+};
 export default Categories;
