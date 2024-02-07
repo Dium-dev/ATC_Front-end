@@ -36,7 +36,7 @@ export function ProductCard({
   }
 
   return (
-    <Link className="px-10 py-6 shadow-md hover:shadow-xl rounded-md overflow-hidden bg-white w-[270px] min-h-[415px] relative space-y-3 dark:text-text-lm dark:bg-secondary-dm"
+    <Link className="px-10 py-6 shadow-md hover:shadow-xl rounded-md overflow-hidden bg-white w-[270px] min-h-[415px] relative space-y-3 dark:text-text-lm dark:bg-secondary-dm mt-2"
     href={`/products/${id}`}>
       <Image
         src={imageSrc}

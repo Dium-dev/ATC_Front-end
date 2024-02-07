@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { create } from 'zustand';
-import { Brand, ProductsProps } from '~/types/products';
+import { BrandProps, ProductsProps } from '~/types/products';
 import { Body } from '~/types/products';
 
 interface ProductStore {
@@ -15,14 +15,20 @@ interface ProductStore {
   setPages: (value: number) => void;
 }
 
+type Brand = {
+  id: string;
+  name: string;
+  image: string;
+};
+
 type BrandStore = {
-  selectedBrand: string;
-  setSelectedBrand: (brand: string) => void;
+  Brand: Brand;
+  setBrand: (brand: Brand) => void;
 };
 
 export const useBrandStore = create<BrandStore>((set) => ({
-  selectedBrand: '',
-  setSelectedBrand: (brand) => set(() => ({ selectedBrand: brand })),
+  Brand: { id: '', name: '', image: '' },
+  setBrand: (brand: Brand) => set({ Brand: brand }),
 }));
 
 export const useProductStore = create<ProductStore>((set) => ({

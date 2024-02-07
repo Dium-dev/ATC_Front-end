@@ -8,7 +8,7 @@ export function TopSellers() {
   const products = productos.slice(0, 10);
 
   return (
-    <div className="mb-8 w-full">
+    <div className="mb-10 w-full mt-10">
       <div className="grid place-content-center bg-[#13131D] text-white border-b-4 border-b-[#ff0000] py-5 mb-6 dark:border-t-4 dark:border-t-[#ff0000]">
         <h2 className="text-2xl">Los más vendidos</h2> 
       </div>

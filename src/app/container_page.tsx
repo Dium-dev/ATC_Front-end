@@ -5,6 +5,7 @@ import Categories from '~/components/categories/categories';
 import { usePathname } from 'next/navigation';
 import CookieConsent from '~/components/cookieConsent/CookieConsent';
 import ViewProducts from '~/components/viewProducts';
+import LoadingStore from '~/components/loading/loadingStore';
 
 type ContainerPageProps = {
     children: React.ReactNode;
@@ -20,8 +21,11 @@ export function ContainerPage({
     children,
 }: ContainerPageProps) {
   const pathname = usePathname();
+  const isLoading = false; // Reemplazar esto con el estado de loading real
+
   return (
     <>
+      <LoadingStore loading={isLoading} error={undefined} />
       {/* nav === true? */}
       {typeof nav === 'boolean' && nav ? <NavBar /> : nav}
       {header && header}
@@ -35,6 +39,6 @@ export function ContainerPage({
       {footer && <Footer />}
       {/* Renderizar en todas las páginas hasta que el usuario lo cierre. La condición debe estar almacenada en localStorage */}
       <CookieConsent />
-    </>
-  );
-}
+      </>
+     );
+   }

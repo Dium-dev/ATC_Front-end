@@ -59,3 +59,10 @@ export type CategoryProps = {
   image: string;
   name: string;
 };
+
+export type BrandProps = {
+  id: string;
+  image: string;
+  name: string;
+};
+
