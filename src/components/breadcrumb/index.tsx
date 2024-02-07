@@ -1,28 +1,20 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useBreadcrumb } from '~/hooks/useBreadcrumb';
-import { Category, CategoryProps } from '../../types/products';
+import { Category } from '../../types/products';
 import { useProductStore } from '~/store/productStore';
 import { useRouter } from 'next/navigation';
-
-interface BreadcrumbItem {
-  label: string;
-  path: string;
-}
 
 const Breadcrumb = ({categoryId}: {categoryId: string}) => {
   const router = useRouter();
   const updateBody = useProductStore((state) => state.updateBody);
-  const { breadcrumb } = useBreadcrumb();
-  const [selectedOption, setSelectedOption] = useState<BreadcrumbItem>(breadcrumb[0]);
   const [category, setCategory] = useState<String>()
 
   useEffect(()=> {
     const fetchBrand = async () => {
       const response = await fetch('http://localhost:3001/categories');
       const categories = await response.json();
-      const categoryFiltered = categories.find(
+      const categoryFiltered = categories.categories.find(
         (brand: Category) => brand.id === categoryId
       );
 

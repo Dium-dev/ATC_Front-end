@@ -23,8 +23,10 @@ interface NavBarProps {}
 const NavBar: FC<NavBarProps> = ({}) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [flagState, updateState] = useFlagState(false);
-  const {registerForm, setRegisterForm} = useDashboardUserStore((state) => state);
-  const {loginForm, setLoginForm} = useDashboardUserStore((state) => state);
+  const { registerForm, setRegisterForm } = useDashboardUserStore(
+    (state) => state
+  );
+  const { loginForm, setLoginForm } = useDashboardUserStore((state) => state);
 
   const { user, logout } = useAuth();
 
@@ -42,8 +44,6 @@ const NavBar: FC<NavBarProps> = ({}) => {
       searchBar.value = '';
     }
   };
-
-  user && console.log(user)
 
   const pathname = usePathname();
   return (
@@ -83,7 +83,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
                     width={200}
                     height={30}
                     alt="Your Company"
-                    className='w-52 h-9'
+                    className="w-52 h-9"
                   />
                 </Link>
               </div>

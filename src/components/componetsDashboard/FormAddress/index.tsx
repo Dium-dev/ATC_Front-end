@@ -1,11 +1,11 @@
 import { useState, useEffect, ChangeEvent } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { MainButton } from '~/components/button/button';
-import { Address, useDashboardUserStore } from '~/store/dashboardUserStore';
+import { useDashboardUserStore } from '~/store/dashboardUserStore';
 import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation';
 import Swal from 'sweetalert2';
-import { useAddresses } from '~/hooks/userDashboard/useDirections';
+import { useAddresses } from '~/hooks/userDashboard/useAddresses';
 
 interface AddressForm {
   type: string;
@@ -31,9 +31,7 @@ interface City {
 const FormAddress = () => {
   const { id } = useParams();
 
-  const { addresses, loading } = useAddresses(
-    '88ee78cc-f654-4497-a5d3-ee92a4e04127'
-  );
+  const { addresses, loading, update, create } = useAddresses();
   const address = addresses?.find((address) => address.id === id);
 
   const [departments, setDepartments] = useState<Departament[]>();
@@ -45,8 +43,6 @@ const FormAddress = () => {
   );
   const [notNumber, setNotNumber] = useState(false);
 
-  const addAddress = useDashboardUserStore((state) => state.addAddress);
-  const updateAddress = useDashboardUserStore((state) => state.updateAddress);
   const setFormAddress = useDashboardUserStore((state) => state.setFormAddress);
 
   const {
@@ -71,29 +67,32 @@ const FormAddress = () => {
       }
     }
     if (data.city !== 'Cargando...') {
-      const newAddress: Address = {
-        id: Math.random().toString(),
+      const newAddress = {
+        id,
         address: `${data.type} ${data.typeValue} ${
           data.number1 ? `#${data.number1}-${data.number2}` : 'S/N'
         }`,
-        department: {
-          name:
-            data.department === 'Cargando...'
-              ? 'Caquetá'
-              : data.department.split(',')[1] || data.department,
-          id: data.department.split(',')[0],
-        },
+        district:
+          data.department === 'Cargando...'
+            ? 'Caquetá'
+            : data.department.split(',')[1] || data.department,
         city: data.city,
         phone: data.phone,
-        barrio: data.barrio || '-',
-        references: data.references || '-',
+        neighborhood: data.barrio || '-',
+        addressReference: data.references || '',
       };
       if (id) {
-        updateAddress(id.toString(), newAddress);
+        update(newAddress);
         router.push('/dashboardUser/Direcciones');
       } else {
-        addAddress(newAddress);
-        setFormAddress(false);
+        const { id, ...newAddressWithoutId } = newAddress;
+        try {
+          create(newAddressWithoutId);
+          setFormAddress(false);
+          router.refresh();
+        } catch (error: any) {
+          alertErrors(error.message);
+        }
       }
     } else {
       alertErrors('La conexión a Internet es inestable');
@@ -133,7 +132,7 @@ const FormAddress = () => {
       if (address) {
         const [type, typeValue, numbers] = address.address.split(' ');
         const [number1, number2] = numbers.split('-');
-        // setValue('department', address.department.name);
+        setValue('department', address.department.name);
         setValue('city', address.city);
         setValue('barrio', address.barrio);
         setValue('type', type);
@@ -156,33 +155,25 @@ const FormAddress = () => {
   useEffect(() => {
     setCities([]);
     setLoadingCities(true);
-    if (!loading) {
-      if (id && idDepartment === address?.department.id) {
-        console.log('Addresses', addresses);
-        console.log('Address', address);
-        console.log('Address', address?.department?.id);
-
+    if (id && idDepartment === address?.department.id && !loading) {
+      fetch(
+        `https://api-colombia.com/api/v1/Department/${address?.department.id}/cities`
+      )
+        .then((res) => res.json())
+        .then((data) => setCities(data))
+        .then(() => setLoadingCities(false));
+    } else {
+      if (idDepartment) {
         fetch(
-          `https://api-colombia.com/api/v1/Department/${address?.department.id}/cities`
+          `https://api-colombia.com/api/v1/Department/${idDepartment}/cities`
         )
           .then((res) => res.json())
           .then((data) => setCities(data))
           .then(() => setLoadingCities(false));
-      } else {
-        if (idDepartment) {
-          console.log(idDepartment);
-          
-          fetch(
-            `https://api-colombia.com/api/v1/Department/${idDepartment}/cities`
-          )
-            .then((res) => res.json())
-            .then((data) => setCities(data))
-            .then(() => setLoadingCities(false));
-        }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idDepartment, loading]);
+  }, [idDepartment]);
 
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
     setNotNumber(event.target.checked);
@@ -228,18 +219,19 @@ const FormAddress = () => {
                     setIdDepartment(e.target.value.split(',')[0]);
                   }}
                   className="w-full"
-                  defaultValue={id && address?.department.name}
                 >
-                  {address?.department.id === idDepartment && (
+                  {loadingDepartments && <option>Cargando...</option>}
+                  {!loading && idDepartment && address && (
                     <option
                       value={[
-                        `${address?.department.id},${address?.department.name}`,
+                        `${address.department.id},${address.department.name}`,
                       ]}
+                      selected
+                      defaultChecked
                     >
-                      {address?.department.name}
+                      {address.department.name}
                     </option>
                   )}
-                  {loadingDepartments && <option>Cargando...</option>}
                   {id &&
                     departments
                       ?.filter(
@@ -250,6 +242,9 @@ const FormAddress = () => {
                         <option
                           key={department.id}
                           value={[`${department.id},${department.name}`]}
+                          selected={
+                            department.name === address?.department.name
+                          }
                         >
                           {department.name}
                         </option>
@@ -276,8 +271,8 @@ const FormAddress = () => {
                   })}
                 >
                   {loadingCities && <option defaultChecked>Cargando...</option>}
-                  {idDepartment === address?.department.id && address?.city && (
-                    <option value={address.city} defaultChecked>
+                  {idDepartment === address?.department.id && address && (
+                    <option value={address.city} selected>
                       {address.city}
                     </option>
                   )}

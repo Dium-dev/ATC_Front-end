@@ -1,10 +1,10 @@
-'use client'
+'use client';
 import React from 'react';
 import '~/assets/styles/tailwind.css';
 // import { Switch, Route, Redirect } from 'react-router-dom';
 
 // components
-
+import NavBar from '~/components/navBar/navBar';
 import Sidebar from '~/components/componetsDashboard//Sidebar/Sidebar.js';
 import FooterAdmin from '~/components/componetsDashboard//Footers/FooterAdmin.js';
 
@@ -22,21 +22,17 @@ type AdminProps = {
 };
 
 export default function Admin({ children }: AdminProps) {
-  const {contactForm, setContactForm} = useDashboardUserStore(state => state);
+  const { contactForm, setContactForm } = useDashboardUserStore(
+    (state) => state
+  );
   return (
     <>
+      <NavBar />
       <Sidebar />
       <div className="md:ml-64 bg-blueGray-100 min-h-screen">
         <div className="min-h-screen p-4 md:p-10 mx-auto w-full flex flex-col justify-around">
-        {contactForm && <Form updateState={setContactForm} />}
-          {children}
-          {/* <Switch>
-            <Route path="/admin/dashboard" exact component={Dashboard} />
-            <Route path="/admin/maps" exact component={Maps} />
-            <Route path="/admin/settings" exact component={Settings} />
-            <Route path="/admin/tables" exact component={Tables} />
-            <Redirect from="/admin" to="/admin/dashboard" />
-          </Switch> */}
+          {contactForm && <Form updateState={setContactForm} />}
+          <div className="mt-20">{children}</div>
           <FooterAdmin />
         </div>
       </div>
