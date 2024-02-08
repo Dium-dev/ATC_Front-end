@@ -7,6 +7,7 @@ import Heart from '~/assets/icons/Heart';
 import Link from 'next/link';
 import { useAuth } from '~/context/AuthContext';
 import { useDashboardUserStore } from '~/store/dashboardUserStore';
+import { useFavorites } from '~/hooks/userDashboard/useFavorites';
 
 export function ProductCard({
   title,
@@ -16,22 +17,19 @@ export function ProductCard({
   id
 }: ProductCardProps) {
   const { user } = useAuth()
+  const {add, remove, favorites} = useFavorites()
   const setLoginForm = useDashboardUserStore((state) => state.setLoginForm);
-  const favorites = useDashboardUserStore((state) => state.favorites);
-  const addFavorite = useDashboardUserStore((state) => state.addFavorite);
-  const deleteFavorite = useDashboardUserStore((state) => state.deleteFavorite)
-  const [favorite, setFavorite] = useState(false);
+  const [favorite, setFavorite] = useState(() => favorites?.some((fav) => fav.id === id));
   const handleFavorite = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     if (user) {
-      if(favorites.includes(id)){
-        console.log(user);
-        
-        deleteFavorite(id)
+      if(favorites?.some((fav) => fav.id === id)){
+        setFavorite(false)
+        remove(id)
       } else{
-        addFavorite(id)
+        add(id)
+        setFavorite(true)
       }
-      setFavorite((cur) => !cur);
     } else{
       setLoginForm(true)
     }

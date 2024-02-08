@@ -13,7 +13,7 @@ export const BuyDetail = ({product}: {product: ProductDetail}) => {
     const fetchBrand = async () => {
       const response = await fetch('http://localhost:3001/brands');
       const brands = await response.json();
-      const brandFiltered = brands.find(
+      const brandFiltered = brands.brands.find(
         (brand: Brand) => brand.id === product.brandId
       );
 

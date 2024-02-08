@@ -63,7 +63,11 @@ export const AuthContextProvider = ({
       },
     })
     .then(res => res.json())
-    .then(data => data.token && localStorage.setItem('token', data.token))
+    .then(data => {
+      console.log(data);
+      
+      data.token && localStorage.setItem('token', data.token)
+    })
     return signInWithEmailAndPassword(auth, email, password);
   };
 

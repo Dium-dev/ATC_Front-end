@@ -4,20 +4,17 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useAuth } from '~/context/AuthContext';
-
+import { usePathname } from 'next/navigation';
 import NotificationDropdown from '~/components/componetsDashboard/Dropdowns/NotificationDropdown.js';
 import UserDropdown from '~/components/componetsDashboard/Dropdowns/UserDropdown.js';
 
 import { Images } from '~/assets/img';
 import { redirect } from 'next/navigation';
-import { useDashboardUserStore } from '~/store/dashboardUserStore';
 
 export default function Sidebar() {
+  const currentPath = usePathname();
   const [collapseShow, setCollapseShow] = React.useState('hidden');
   const { user, logout } = useAuth();
-
-  const setContactForm = useDashboardUserStore((state) => state.setContactForm)
-
   const handleLogout = (e) => {
     // e.preventDefault();
     try {
@@ -125,21 +122,22 @@ export default function Sidebar() {
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <li className="items-center">
                 <Link
-                  className={
-                    'text-xs uppercase py-3 font-bold block ' +
-                    (window.location.href.indexOf('/dashboardUser') !== -1
-                      ? 'text-lightBlue-500 hover:text-lightBlue-600'
-                      : 'text-blueGray-700 hover:text-blueGray-500')
-                  }
+                  className={`text-xs uppercase py-3 font-bold block
+                    ${
+                      currentPath === '/dashboardUser'
+                        ? 'text-lightBlue-500 hover:text-lightBlue-600'
+                        : 'text-blueGray-700 hover:text-blueGray-500'
+                    }`}
                   href="/dashboardUser"
                 >
                   <i
-                    className={
-                      'fas fa-tv mr-2 text-sm ' +
-                      (window.location.href.indexOf('/admin/dashboard') !== -1
-                        ? 'opacity-75'
-                        : 'text-blueGray-300')
-                    }
+                    className={`fas fa-tv mr-2 text-sm
+                      ${
+                        currentPath === '/dashboardUser'
+                          ? 'opacity-75'
+                          : 'text-blueGray-300'
+                      }
+                      `}
                   ></i>{' '}
                   Pedidos
                 </Link>
@@ -147,24 +145,22 @@ export default function Sidebar() {
 
               <li className="items-center">
                 <Link
-                  className={
-                    'text-xs uppercase py-3 font-bold block ' +
-                    (window.location.href.indexOf('/dashboardUser/settings') !==
-                    -1
+                  className={`text-xs uppercase py-3 font-bold block
+                  ${
+                    currentPath === '/dashboardUser/Settings'
                       ? 'text-lightBlue-500 hover:text-lightBlue-600'
-                      : 'text-blueGray-700 hover:text-blueGray-500')
-                  }
+                      : 'text-blueGray-700 hover:text-blueGray-500'
+                  }`}
                   href="/dashboardUser/Settings"
                 >
                   <i
-                    className={
-                      'fas fa-tools mr-2 text-sm ' +
-                      (window.location.href.indexOf(
-                        '/dashboardUser/Settings'
-                      ) !== -1
-                        ? 'opacity-75'
-                        : 'text-blueGray-300')
-                    }
+                    className={`fas fa-tools mr-2 text-sm'
+                      ${
+                        currentPath === '/dashboardUser/Settings'
+                          ? 'opacity-75'
+                          : 'text-blueGray-300'
+                      }
+                      `}
                   ></i>{' '}
                   Datos personales
                 </Link>
@@ -172,23 +168,22 @@ export default function Sidebar() {
 
               <li className="items-center">
                 <Link
-                  className={
-                    'text-xs uppercase py-3 font-bold block ' +
-                    (window.location.href.indexOf('/admin/direcciones') !== -1
+                  className={`text-xs uppercase py-3 font-bold block
+                  ${
+                    currentPath === '/dashboardUser/Direcciones'
                       ? 'text-lightBlue-500 hover:text-lightBlue-600'
-                      : 'text-blueGray-700 hover:text-blueGray-500')
-                  }
+                      : 'text-blueGray-700 hover:text-blueGray-500'
+                  }`}
                   href="/dashboardUser/Direcciones"
                 >
                   <i
-                    className={
-                      'fas fa-table mr-2 text-sm ' +
-                      (window.location.href.indexOf(
-                        '/dashboardUser/Direcciones'
-                      ) !== -1
-                        ? 'opacity-75'
-                        : 'text-blueGray-300')
-                    }
+                    className={`fas fa-table mr-2 text-sm'
+                      ${
+                        currentPath === '/dashboardUser/Direcciones'
+                          ? 'opacity-75'
+                          : 'text-blueGray-300'
+                      }
+                      `}
                   ></i>{' '}
                   Direcciones
                 </Link>
@@ -196,41 +191,44 @@ export default function Sidebar() {
 
               <li className="items-center">
                 <Link
-                  className={
-                    'text-xs uppercase py-3 font-bold block ' +
-                    (window.location.href.indexOf('/admin/favoritos') !== -1
+                  className={`text-xs uppercase py-3 font-bold block
+                  ${
+                    currentPath === '/dashboardUser/Favoritos'
                       ? 'text-lightBlue-500 hover:text-lightBlue-600'
-                      : 'text-blueGray-700 hover:text-blueGray-500')
-                  }
+                      : 'text-blueGray-700 hover:text-blueGray-500'
+                  }`}
                   href="/dashboardUser/Favoritos"
                 >
                   <i
-                    className={
-                      'fa-solid fa-heart mr-2 text-sm ' +
-                      (window.location.href.indexOf('/dashboardUser/Favoritos') !==
-                      -1
-                        ? 'opacity-75'
-                        : 'text-blueGray-300')
-                    }
+                    className={`fa-solid fa-heart mr-2 text-sm
+                      ${
+                        currentPath === '/dashboardUser/Favoritos'
+                          ? 'opacity-75'
+                          : 'text-blueGray-300'
+                      }
+                    `}
                   ></i>{' '}
                   Favoritos
                 </Link>
               </li>
-              <li className="items-center" onClick={() => setContactForm(true)}>
+              <li className="items-center">
                 <Link
-                  className={
-                    'text-xs uppercase py-3 font-bold block'
-                  }
-                  href="/dashboardUser/Favoritos"
+                  className={`text-xs uppercase py-3 font-bold block
+                  ${
+                    currentPath === '/dashboardUser/Ayuda'
+                      ? 'text-lightBlue-500 hover:text-lightBlue-600'
+                      : 'text-blueGray-700 hover:text-blueGray-500'
+                  }`}
+                  href="/dashboardUser/Ayuda"
                 >
                   <i
-                    className={
-                      'fa-solid fa-question mr-2 text-sm ' +
-                      (window.location.href.indexOf('/dashboardUser/Favoritos') !==
-                      -1
-                        ? 'opacity-75'
-                        : 'text-blueGray-300')
-                    }
+                    className={`fa-solid fa-question mr-2 text-sm
+                      ${
+                        currentPath === '/dashboardUser/Ayuda'
+                          ? 'opacity-75'
+                          : 'text-blueGray-300'
+                      }
+                      `}
                   ></i>{' '}
                   Ayuda
                 </Link>

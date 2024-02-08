@@ -46,8 +46,6 @@ const NavBar: FC<NavBarProps> = ({}) => {
     }
   };
 
-  user && console.log(user);
-
   const pathname = usePathname();
   return (
     <nav className="sticky top-0 z-50">
