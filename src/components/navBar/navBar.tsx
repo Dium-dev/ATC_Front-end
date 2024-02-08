@@ -145,9 +145,9 @@ const NavBar: FC<NavBarProps> = ({}) => {
               </>
             ) : (
               <>
-                {/* <button onClick={() => setLoginForm(true)}>
+                <button onClick={() => setLoginForm(true)}>
                   <p>Iniciar Sesión</p>
-                </button> */}
+                </button>
                 <div className="h-[35px] w-[35px]">
                   <Icon icon="Login" />
                 </div>
