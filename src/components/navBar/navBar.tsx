@@ -203,7 +203,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
           updateStateRegister={setRegisterForm}
         />
       )}
-      <Categories />
+      {/* <Categories /> */}
     </nav>
   );
 };
