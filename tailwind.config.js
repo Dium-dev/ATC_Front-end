@@ -32,7 +32,7 @@ module.exports = {
     colors: {
       'background-lm': '#f1f1f1',
       'background-dm': '#13131d',
-      'primary-lm': '#8C0303',
+      'primary-lm': '#fe0000',
       'primary-dm': '#444444',
       'secondary-lm': '#F20505',
       'secondary-dm': '#555555',

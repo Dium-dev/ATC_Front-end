@@ -32,12 +32,12 @@ const Filters = () => {
     fetch('http://localhost:3001/categories')
       .then((response) => response.json())
       .then((data) => {
-        setCategories(data);
+        setCategories(data.categories);
       });
     fetch('http://localhost:3001/brands')
       .then((response) => response.json())
       .then((data) => {
-        setBrands(data);
+        setBrands(data.brands);
       });
   },[]);
 

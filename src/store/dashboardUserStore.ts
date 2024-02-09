@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { create } from 'zustand';
-import { Department } from '~/types/userDashboard';
+import { Department, Favorite } from '~/types/userDashboard';
 
 export interface Address {
   id: string;
@@ -25,12 +25,10 @@ interface DashboardUser {
   setFormAddress: (value: boolean) => void;
   addresses: Address[];
   departments: Department[];
-  favorites: string[];
+  favorites: Favorite[];
   addAddress: (value: Address) => void;
-  addFavorite: (id: string) => void;
-  updateAddress: (id: string, value: Partial<Address>) => void;
+  addAddresses: (addresses: any) => void;
   deleteAddress: (id: string) => void;
-  deleteFavorite: (id: string) => void;
 }
 
 export const useDashboardUserStore = create<DashboardUser>((set) => ({
@@ -38,52 +36,37 @@ export const useDashboardUserStore = create<DashboardUser>((set) => ({
   setContactForm(value) {
     set((state) => ({
       ...state,
-      contactForm: value
-    }))
+      contactForm: value,
+    }));
   },
   registerForm: false,
   setRegisterForm: (value) => {
     set((state) => ({
       ...state,
-      registerForm: value
-    }))
+      registerForm: value,
+    }));
   },
   loginForm: false,
   setLoginForm: (value) => {
     set((state) => ({
       ...state,
-      loginForm: value
-    }))
+      loginForm: value,
+    }));
   },
   isOpenFormAddress: false,
-  addresses: [
-    {
-      id: '2',
-      address: 'Carrera 1 #11-30',
-      department: {
-        name: 'Caquetá',
-        id: '9',
-      },
-      city: 'El Doncello',
-      phone: '3136299812',
-      barrio: '20 de abril',
-      references: 'A 1 cuadra de la tienda La Amistad'
-    },
-    {
-      id: '4',
-      address: 'Carrera 4 #12-34',
-      department: {
-        name: 'Caquetá',
-        id: '9',
-      },
-      city: 'El Doncello',
-      phone: '3124563478',
-      barrio: 'Abas Turbay',
-      references: 'Más abajo de Bocachico'
-    },
-  ],
+  addresses: [],
   departments: [],
-  favorites: ['21', '47', '25'],
+  favorites: [
+    {
+      id: '21',
+    },
+    {
+      id: '162',
+    },
+    {
+      id: '2'
+    }
+  ],
   setFormAddress: (value) => {
     set(() => ({
       isOpenFormAddress: value,
@@ -95,26 +78,11 @@ export const useDashboardUserStore = create<DashboardUser>((set) => ({
       addresses: [...state.addresses, value],
     }));
   },
-  addFavorite: (id) => {
+  addAddresses: (addresses) => {
     set((state) => ({
       ...state,
-      favorites: [...state.favorites, id]
-    }))
-  },
-  updateAddress: (id, value) => {
-    set((state) => {
-      const updateAddresses = state.addresses.map((address) => {
-        if (address.id === id) {
-          return { ...address, ...value };
-        }
-        return address;
-      });
-
-      return {
-        ...state,
-        addresses: [...updateAddresses],
-      };
-    });
+      addresses,
+    }));
   },
   deleteAddress: (id) => {
     set((state) => ({
@@ -122,10 +90,4 @@ export const useDashboardUserStore = create<DashboardUser>((set) => ({
       addresses: [...state.addresses.filter((address) => address.id !== id)],
     }));
   },
-  deleteFavorite: (id) => {
-    set((state) => ({
-      ...state,
-      favorites: [...state.favorites.filter((favorite) => favorite !== id)]
-    }))
-  }
 }));

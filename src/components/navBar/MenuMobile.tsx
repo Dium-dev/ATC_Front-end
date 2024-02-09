@@ -25,7 +25,7 @@ const MenuMobile: FC<MenuMobileProps> = ({ updateState }) => {
             }}
             key={item.url}
             href={item.url}
-            className="block p-4 transform  hover:scale-125"
+            className="block p-4 transform hover:scale-125 hover:text-primary-lm hover:font-bold"
             target={item.url === 'https://actualizatucarro.blogspot.com' ? '_blank' : '_self'}
           >
             {item.label}
@@ -33,7 +33,7 @@ const MenuMobile: FC<MenuMobileProps> = ({ updateState }) => {
         </>
       ))}
       <button
-        className="block p-4 transform  hover:scale-125"
+        className="block p-4 transform hover:scale-125 hover:text-primary-lm hover:font-bold"
         onClick={() => updateState(true)}
       >
         Contacto

@@ -20,9 +20,6 @@ export default function FormSupport({ setForm, id }: FormProp) {
 
   const handleForm: SubmitHandler<FormProps> = (data, event) => {
     event?.preventDefault();
-    if (!errors.message) {
-       
-    }
   };
 
   return (

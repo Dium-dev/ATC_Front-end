@@ -17,14 +17,17 @@ import { useAuth } from '~/context/AuthContext';
 import FormSignUp from '../form/FormSignUp';
 import FormLogin from '../form/FormLogin';
 import { useDashboardUserStore } from '~/store/dashboardUserStore';
+import Categories from '../categories/categories';
 
 interface NavBarProps {}
 
 const NavBar: FC<NavBarProps> = ({}) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [flagState, updateState] = useFlagState(false);
-  const {registerForm, setRegisterForm} = useDashboardUserStore((state) => state);
-  const {loginForm, setLoginForm} = useDashboardUserStore((state) => state);
+  const { registerForm, setRegisterForm } = useDashboardUserStore(
+    (state) => state
+  );
+  const { loginForm, setLoginForm } = useDashboardUserStore((state) => state);
 
   const { user, logout } = useAuth();
 
@@ -43,53 +46,54 @@ const NavBar: FC<NavBarProps> = ({}) => {
     }
   };
 
-  user && console.log(user)
-
   const pathname = usePathname();
   return (
-    <nav>
+    <nav className="sticky top-0 z-50">
       <div
-        className={`z-50 fixed top-0 bg-opacity-70 bg-white w-full backdrop-blur-sm flex-col ${
+        className={`z-50 bg-opacity-70 bg-white w-full backdrop-blur-sm flex-col ${
           pathname !== '/' ? 'shadow-none' : 'shadow-md'
         } dark:bg-primary-dm py-0.5`}
       >
         <div className="p-4 flex items-center h-[60px] xxxl:px-0 justify-between mx-auto max-w-[1920px] relative">
-          {isOpenMenu && (
-            <div
-              className="absolute top-[108px] md:top-[60px] left-0 w-screen xs:max-w-[303px] bg-white bg-opacity-95 shadow-sm z-50 flex justify-center items-center rounded-b-md dark:bg-primary-dm mt-3 md:mt-0"
-              onMouseLeave={toggleNavbar}
-            >
-              <MenuMobile updateState={updateState} />
-            </div>
-          )}
           {/* Contenedor lado izquierdo menu hamburguesa-imagenes*/}
           <div className="flex items-center gap-2">
             {/* Icono hamburguesa */}
-            <div className="flex items-center gap-2 xxxl:gap-0">
-              <MainButton onClick={toggleNavbar}>
+            <div className="flex items-center gap-2 xxxl:gap-0 ">
+              <MainButton
+                onClick={toggleNavbar}
+                onMouseOver={() => setIsOpenMenu(true)}
+              >
                 <div className={isOpenMenu ? 'h-14 w-14' : 'h-h-14 w-14'}>
                   <Icon
                     icon={isOpenMenu ? 'HamburguerClose' : 'HamburguerOpen'}
                   />
                 </div>
               </MainButton>
+              {isOpenMenu && (
+                <div
+                  className="absolute top-[108px] md:top-[60px] left-0 w-screen xs:max-w-[303px] bg-white bg-opacity-95 shadow-sm z-50 flex justify-center items-center rounded-b-md dark:bg-primary-dm mt-3 md:mt-0"
+                  onMouseLeave={toggleNavbar}
+                >
+                  <MenuMobile updateState={updateState} />
+                </div>
+              )}
             </div>
             <div>
               {/* imagenes tablet y desktop */}
               <div className="hidden md:flex justify-center items-center">
-                <Link href="/">
+                <Link href="/products">
                   <Image
                     src={Images.logos.LogoRedColor}
                     width={200}
                     height={30}
                     alt="Your Company"
-                    className='w-52 h-9'
+                    className="w-52 h-9"
                   />
                 </Link>
               </div>
               {/* imagen mobile */}
               <div className="md:hidden flex justify-center items-center">
-                <Link href="/">
+                <Link href="/products">
                   <Image
                     src={Images.logos.ActLogo}
                     width={55}
@@ -109,7 +113,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
                 id="searchBar"
                 type="text"
                 placeholder="Buscar productos"
-                className="w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm bg-white dark:bg-primary-dm"
+                className="w-full md:w-[400px] py-1.5 px-3 outline-none ml-5 mr-5 md:ml-10 md:mr-10 rounded-md text-secondary-dm bg-white dark:bg-primary-dm"
                 onChange={(event) => {
                   updateBody('name', event.target.value);
                   products.length && updateBody('page', 1);
@@ -151,7 +155,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
             )}
 
             <div className="h-[35px] w-[35px]">
-              <Link href={'#'}>
+              <Link href={'/carShoping'}>
                 <Icon icon="CarShoping" />
               </Link>
             </div>
@@ -166,7 +170,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
             id="searchBar"
             type="text"
             placeholder="Buscar productos"
-            className="w-full py-1.5 px-3 outline-none rounded-md text-secondary-dm dark:bg-primary-dm"
+            className="w-full md:w-[400px] py-1.5 px-3 outline-none ml-5 mr-5 md:ml-10 md:mr-10 rounded-md text-secondary-dm bg-white dark:bg-primary-dm"
             onChange={(event) => {
               updateBody('name', event.target.value);
               products.length && updateBody('page', 1);
@@ -199,6 +203,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
           updateStateRegister={setRegisterForm}
         />
       )}
+      {/* <Categories /> */}
     </nav>
   );
 };
