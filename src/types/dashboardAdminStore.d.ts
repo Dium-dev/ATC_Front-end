@@ -15,7 +15,9 @@ export type SetFunction<T> = (partial: Partial<T>) => void;
 export interface DashboardAdminStore {
     originalUsers: UsersInterface[];
     users: UsersInterface[];
-    updateUsers: (data: any) => void;
+    // updateUsers: (data: any) => void;
+    isUsersFetching: boolean;
+    fetchUsers: () => Promise<void>;
     filterUsersByName: (data: any) => void;
     filterUsersByEmail: (data: any) => void;
     filterUsersByPhone: (data: any) => void;
@@ -60,13 +62,17 @@ export interface DashboardAdminStore {
 // ----- USERS: -----
 export type UserStatus = "blocked" | "activated" | "deleted";
 export interface UsersInterface {
-    id: number,
-    name: string,
-    picture: string,
-    emailAddress: string,
-    status: UserStatus,
-    phone: string,
-    registerDate: string
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    phone: string;
+    rol: string;
+    isActive: boolean;
+    createdAt: string;
+    updatedAt: string;
+    deletedAt: string | null
 };
 
 // ----- PRODUCTS: -----
@@ -135,7 +141,7 @@ export interface OrdersInterface {
             city: string;
             streetAddress: string;
             neighborhood: string;
-            references: string; 
+            references: string;
         }
     }
 };

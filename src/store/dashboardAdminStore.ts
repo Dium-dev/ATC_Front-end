@@ -16,11 +16,31 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
     // ---------- USERS ----------:
     originalUsers: [],
     users: [],
-    updateUsers: (data: any) =>
-        set({
-            users: data,
-            originalUsers: data
-        }),
+    // updateUsers: (data: any) =>
+    //     set({
+    //         users: data,
+    //         originalUsers: data
+    //     }),
+    isUsersFetching: false,
+    fetchUsers: async () => {
+        try {
+            if (useDashboardAdminStore.getState().isUsersFetching) {
+                return;
+            } else {
+                set({ isUsersFetching: true });
+                const response = await fetch("http://localhost:3001/users?page=1&limit=25");
+                const data = await response.json();
+                set({
+                    users: data.users,
+                    originalUsers: data.users
+                });
+            };
+        } catch (error) {
+            console.error("Error fetching products:", error);
+        } finally {
+            set({ isUsersFetching: false });
+        };
+    },
     filterUsersByName: (input: string) => {
         const state = useDashboardAdminStore.getState();
         const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
