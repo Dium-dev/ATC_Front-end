@@ -22,7 +22,7 @@ export interface DashboardAdminStore {
     filterUsersByEmail: (data: any) => void;
     filterUsersByPhone: (data: any) => void;
     filterUsers: (options: UserFilterOptions | null) => void;
-    sortUsers: (clause: "id" | "name" | "emailAddress" | "status" | "phone" | "registerDate", type: "ascendant" | "descendant") => void;
+    sortUsers: (clause: "id" | "firstName" | "email" | "isActive" | "phone" | "createdAt", type: "ascendant" | "descendant") => void;
 
     originalProducts: ProductsInterface[];
     products: ProductsInterface[];
@@ -60,9 +60,9 @@ export interface DashboardAdminStore {
 }
 
 // ----- USERS: -----
-export type UserStatus = "blocked" | "activated" | "deleted";
+export type UserStatus = boolean;
 export interface UsersInterface {
-    id: number;
+    id: string;
     firstName: string;
     lastName: string;
     email: string;

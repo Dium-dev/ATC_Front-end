@@ -44,7 +44,7 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
     filterUsersByName: (input: string) => {
         const state = useDashboardAdminStore.getState();
         const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
-            user.name.toLowerCase().includes(input.toLowerCase().trim())
+            user.firstName.toLowerCase().includes(input.toLowerCase().trim())
         );
 
         set({ users: filteredUsers });
@@ -52,7 +52,7 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
     filterUsersByEmail: (input: string) => {
         const state = useDashboardAdminStore.getState();
         const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
-            user.emailAddress.toLowerCase().includes(input.toLowerCase().trim())
+            user.email.toLowerCase().includes(input.toLowerCase().trim())
         );
 
         set({ users: filteredUsers });
@@ -68,12 +68,12 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
     filterUsers: (options: UserFilterOptions | null) => {
         const state = useDashboardAdminStore.getState();
         if (options !== null) {
-            const { status, after, before } = options;
+            const { isActive, after, before } = options;
 
             const filteredUsers = state.originalUsers.filter((user: UsersInterface) => {
-                const userDateFormatted = convertDateFormat(user.registerDate);
+                const userDateFormatted = convertDateFormat(user.createdAt);
 
-                const statusFilter = status.length === 0 || status.includes(user.status);
+                const statusFilter = isActive === null || isActive === user.isActive;
 
                 const afterFilter = after.length === 0 || after < userDateFormatted;
                 const beforeFilter = before.length === 0 || before > userDateFormatted;
@@ -88,34 +88,32 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
             set({ users: state.originalUsers });
         };
     },
-    sortUsers: (clause: "id" | "name" | "emailAddress" | "status" | "phone" | "registerDate", type: "ascendant" | "descendant") => {
+    sortUsers: (clause: "id" | "firstName" | "email" | "isActive" | "phone" | "createdAt", type: "ascendant" | "descendant") => {
         const users = [...useDashboardAdminStore.getState().users];
         let sortedUsers;
 
         if (type === "ascendant") {
             sortedUsers = users.sort((a: UsersInterface, b: UsersInterface) => {
-                if (clause === "name" || clause === "emailAddress" || clause === "status" || clause === "phone") {
-                    // caso: "name", "emailAddress", "status", "phone", "registerDate". (string).
+                if (clause === "id" || clause === "firstName" || clause === "email" || clause === "phone") {
+                    // caso: "firstName", "email", "isActive", "phone", "createdAt". (string).
                     return (a[clause]).localeCompare((b[clause]));
-                } else if (clause === "registerDate") {
+                } else if (clause === "createdAt") {
                     return convertDateFormat(a[clause]).localeCompare(convertDateFormat(b[clause]));
-                } else if (clause === "id") {
-                    // caso: "id". (number).
-                    return a[clause] - b[clause];
+                } else if (clause === "isActive") {
+                    return a[clause] === b[clause] ? 0 : a[clause] ? -1 : 1;
                 }
                 // caso por defecto, sin cambios en el orden.
                 else return 0;
             });
         } else if (type === "descendant") {
             sortedUsers = users.sort((a: UsersInterface, b: UsersInterface) => {
-                if (clause === "name" || clause === "emailAddress" || clause === "status" || clause === "phone") {
-                    // caso: "name", "emailAddress", "status", "phone", "registerDate". (string).
+                if (clause === "id" || clause === "firstName" || clause === "email" || clause === "phone") {
+                    // caso: "firstName", "emailAddress", "isActive", "phone", "createdAt". (string).
                     return (b[clause]).localeCompare((a[clause]));
-                } else if (clause === "registerDate") {
+                } else if (clause === "isActive") {
+                    return a[clause] === b[clause] ? 0 : a[clause] ? 1 : -1;
+                } else if (clause === "createdAt") {
                     return convertDateFormat(b[clause]).localeCompare(convertDateFormat(a[clause]));
-                } else if (clause === "id") {
-                    // caso: "id". (number).
-                    return b[clause] - a[clause];
                 }
                 // caso por defecto, sin cambios en el orden.
                 else return 0;

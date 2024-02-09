@@ -21,9 +21,8 @@ import TableDropdown from '~/components/componetsDashboard/Dropdowns/TableDropdo
 // fetch(user/status/xxxxx) debería retornar un array de objetos.
 // Simula el array de los estados de usuarios obtenido después del fetch.
 const USER_STATUS: UserStatus[] = [
-    "blocked",
-    "activated",
-    "deleted"
+    true,
+    false
 ];
 
 // fetch(users/xxxxx) debería retornar un array de objetos.
@@ -74,7 +73,7 @@ export default function CardUsers() {
 
     // CONSTANTS:
     const FILTER_OPTIONS_EMPTY: UserFilterOptions = {
-        status: [],
+        isActive: null,
         after: "",
         before: ""
     };
@@ -88,25 +87,23 @@ export default function CardUsers() {
     const [filterMenu, setFilterMenu] = useState<boolean>(false);
     const [filterOptions, setFilterOptions] = useState<UserFilterOptions>(FILTER_OPTIONS_EMPTY);
 
-    const handleCheckboxChange = (status: UserStatus) => {
+    const handleRadioChange = (isActive: UserStatus) => {
         setFilterOptions((prevOptions: UserFilterOptions) => {
-            // Si el "status" ya está incluido en "filterOptions.status", quitarlo de ese array (toggle checkbox).
-            if (prevOptions.status.includes(status)) {
-                const filteredUsers = prevOptions.status.filter((statusItem) => statusItem !== status);
-                return {
-                    ...prevOptions,
-                    status: filteredUsers
-                };
-            } else {
-                // Si no está en el array "filterOptions.status", entonces agregarlo (toggle checkbox).
-                prevOptions.status.push(status)
-                return {
-                    ...prevOptions,
-                    status: prevOptions.status
-                };
+            return {
+                ...prevOptions,
+                isActive: isActive
             };
         });
     };
+
+    const handleRemoveRadioOption = () => {
+        setFilterOptions((prevOptions: UserFilterOptions) => {
+            return {
+                ...prevOptions,
+                isActive: null
+            };
+        });
+    }
 
     const handleInputDate = (event: ChangeEvent<HTMLInputElement>, property: "before" | "after") => {
         const inputValue = event.target.value;
@@ -129,9 +126,9 @@ export default function CardUsers() {
     };
 
     // Llama a la función de zustand "sortUsers" para manejar el orden el array. Espera 2 parámetros:
-    // "clause" => "id" | "name" | "emailAddress" | "status" | "phone" | "registerDate".
+    // "clause" => "id" | "firstName" | "email" | "isActive" | "phone" | "createdAt".
     // "type" => "ascendant" | "descendant".
-    const handleSort = (clause: "id" | "name" | "emailAddress" | "status" | "phone" | "registerDate", type: "ascendant" | "descendant") => {
+    const handleSort = (clause: "id" | "firstName" | "email" | "isActive" | "phone" | "createdAt", type: "ascendant" | "descendant") => {
         sortUsers(clause, type);
     };
 
@@ -165,17 +162,19 @@ export default function CardUsers() {
                         <div className="flex items-center">
                             <span>Estado:</span>
                             {
-                                USER_STATUS.map((status: UserStatus, idx) => (
-                                    <div key={status + idx} className="inline-flex items-center">
+                                USER_STATUS.map((isActive, idx) => (
+                                    <div>
                                         <input
-                                            className=""
-                                            type="checkbox"
-                                            checked={filterOptions.status.includes(status)}
-                                            onChange={() => handleCheckboxChange(status)}
-                                        /><label>{status}</label>
+                                            id={`${isActive}` + idx}
+                                            type="radio"
+                                            checked={filterOptions.isActive === isActive ?? false}
+                                            onChange={() => handleRadioChange(isActive)}
+                                        />
+                                        <label htmlFor={`${isActive}` + idx}>{isActive ? "Activo" : "Inactivo"}</label>
                                     </div>
                                 ))
                             }
+                            <button onClick={handleRemoveRadioOption}>Eliminar</button>
                         </div>
                         <div>
                             <span>Fecha de registro:</span>
@@ -204,29 +203,29 @@ export default function CardUsers() {
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
                                 Nombre
                                 <div className="flex justify-between">
-                                    <button onClick={() => handleSort("name", "ascendant")}>asc</button>
-                                    <button onClick={() => handleSort("name", "descendant")}>desc</button>
+                                    <button onClick={() => handleSort("firstName", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("firstName", "descendant")}>desc</button>
                                 </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700" >
                                 Correo electrónico
                                 <div className="flex justify-between">
-                                    <button onClick={() => handleSort("emailAddress", "ascendant")}>asc</button>
-                                    <button onClick={() => handleSort("emailAddress", "descendant")}>desc</button>
+                                    <button onClick={() => handleSort("email", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("email", "descendant")}>desc</button>
                                 </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700" >
                                 Estado
                                 <div className="flex justify-between">
-                                    <button onClick={() => handleSort("status", "ascendant")}>asc</button>
-                                    <button onClick={() => handleSort("status", "descendant")}>desc</button>
+                                    <button onClick={() => handleSort("isActive", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("isActive", "descendant")}>desc</button>
                                 </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700" >
                                 Fecha de registro
                                 <div className="flex justify-between">
-                                    <button onClick={() => handleSort("registerDate", "ascendant")}>asc</button>
-                                    <button onClick={() => handleSort("registerDate", "descendant")}>desc</button>
+                                    <button onClick={() => handleSort("createdAt", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("createdAt", "descendant")}>desc</button>
                                 </div>
                             </th>
                             <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700" >
