@@ -108,7 +108,7 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
         } else if (type === "descendant") {
             sortedUsers = users.sort((a: UsersInterface, b: UsersInterface) => {
                 if (clause === "id" || clause === "firstName" || clause === "email" || clause === "phone") {
-                    // caso: "firstName", "emailAddress", "isActive", "phone", "createdAt". (string).
+                    // caso: "firstName", "email", "isActive", "phone", "createdAt". (string).
                     return (b[clause]).localeCompare((a[clause]));
                 } else if (clause === "isActive") {
                     return a[clause] === b[clause] ? 0 : a[clause] ? 1 : -1;

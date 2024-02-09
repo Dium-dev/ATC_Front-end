@@ -10,7 +10,6 @@ import { UserStatus, UsersInterface, DashboardAdminStore } from '~/types/dashboa
 
 // Components:
 import SearchBar from '../SearchBar/SearchBar';
-import TableDropdown from '~/components/componetsDashboard/Dropdowns/TableDropdown';
 
 // Agregar un endpoint con:
 // - todos los "status" posibles para el usuario. (blocked | activated | deleted | etc). Estas opciones son renderizadas como etiquetas de los checkboxes que se usan para filtrar a los usuarios.
@@ -144,11 +143,11 @@ export default function CardUsers() {
 
     // COMPONENT:
     return (
-        <div className='relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded dark:bg-primary-dm dark:text-white'>
+        <div className='relative flex flex-col min-w-0 break-words w-[96%] mx-auto mb-6 shadow-lg rounded-xl bg-white border dark:bg-primary-dm dark:text-white text-black font-[Nunito]'>
             <div className="rounded-t mb-0 px-4 py-3 border-0">
                 <div className="flex flex-wrap items-center">
-                    <div className="relative flex items-center justify-between w-full px-4 max-w-full flex-grow flex-1">
-                        <h3 className="font-semibold text-lg dm:text-blueGray-700">
+                    <div className="relative flex items-center justify-between w-full max-w-full flex-grow flex-1">
+                        <h3 className="text-xl">
                             Usuarios
                         </h3>
                         <SearchBar section="user" setFilterMenu={setFilterMenu} />
@@ -157,7 +156,7 @@ export default function CardUsers() {
             </div>
             {
                 filterMenu ? (
-                    <div className="w-full px-8 text-xs">
+                    <div className="w-full px-8">
                         <h3>Filtros:</h3>
                         <div className="flex items-center">
                             <span>Estado:</span>
@@ -181,8 +180,6 @@ export default function CardUsers() {
                             <label>depués de:</label><input type="date" value={filterOptions.after} onChange={(e) => handleInputDate(e, "after")} />
                             <label>antes de:</label><input type="date" value={filterOptions.before} onChange={(e) => handleInputDate(e, "before")} />
                         </div>
-
-
                         <button onClick={handleFilter}>Aplicar filtros</button>
                         <button onClick={handleClearFilters}>Limpira filtros</button>
                     </div>
@@ -190,86 +187,93 @@ export default function CardUsers() {
             }
             <div className="block w-full overflow-x-auto">
                 {/* Projects table */}
-                <table className="items-center w-full bg-transparent border-collapse">
-                    <thead>
-                        <tr>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
+                <table className="table-fixed items-center w-full min-w-[1200px] bg-transparent border-collapse">
+                    <thead className='w-full'>
+                        <tr className='w-full text-[#555555]'>
+                            <th className="w-[10%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left">
                                 Id
                                 <div className="flex justify-between">
                                     <button onClick={() => handleSort("id", "ascendant")}>asc</button>
                                     <button onClick={() => handleSort("id", "descendant")}>desc</button>
                                 </div>
                             </th>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
+                            <th className="w-[20%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left">
                                 Nombre
                                 <div className="flex justify-between">
                                     <button onClick={() => handleSort("firstName", "ascendant")}>asc</button>
                                     <button onClick={() => handleSort("firstName", "descendant")}>desc</button>
                                 </div>
                             </th>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700" >
+                            <th className="w-[30%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left" >
                                 Correo electrónico
                                 <div className="flex justify-between">
                                     <button onClick={() => handleSort("email", "ascendant")}>asc</button>
                                     <button onClick={() => handleSort("email", "descendant")}>desc</button>
                                 </div>
                             </th>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700" >
+                            <th className="w-[15%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left" >
                                 Estado
                                 <div className="flex justify-between">
                                     <button onClick={() => handleSort("isActive", "ascendant")}>asc</button>
                                     <button onClick={() => handleSort("isActive", "descendant")}>desc</button>
                                 </div>
                             </th>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700" >
-                                Fecha de registro
+                            <th className="w-[15%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left" >
+                                Rol
                                 <div className="flex justify-between">
                                     <button onClick={() => handleSort("createdAt", "ascendant")}>asc</button>
                                     <button onClick={() => handleSort("createdAt", "descendant")}>desc</button>
                                 </div>
                             </th>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700" >
-                                Acciones
+                            <th className="w-[10%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left" >
+                                Acción
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="text-black">
                         {
                             Array.isArray(users) && users.map((USER: UsersInterface) => {
                                 const { id, firstName, lastName, email, phone, rol, isActive, createdAt } = USER;
-                                const startDate = createdAt.substring(0, 10);
+                                // const startDate = createdAt.substring(0, 10);
 
                                 return (
-                                    <tr key={id}>
-                                        <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                    <tr key={id} className="relative after:absolute after:content-[''] after:top-0 after:left-1/2 after:-translate-x-1/2 after:w-[96%] after:h-[.5px] after:bg-[#A0A0A0]">
+                                        <th className="overflow-hidden px-6 align-middle h-[80px] font-normal whitespace-nowrap font-mono">
                                             {id}
                                         </th>
-                                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                                            <span className="ml-3 font-bold text-blueGray-600 dm:text-white" >
+                                        <td className="overflow-hidden px-6 align-middle h-[80px] text-left whitespace-nowrap">
+                                            <span className="dm:text-white">
                                                 {firstName} {lastName}
                                             </span>
                                         </td>
-                                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                        <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
                                             {email}
                                         </td>
-                                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                            <i className={`fas fa-circle text-orange-500 mr-2 ${isActive ? "text-[#00FF00]" : "text-[#FF0000]"}`}></i> {isActive ? "activado" : "bloqueado"}
+                                        <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
+                                            <div className={`flex items-center w-fit p-[10px] px-4 rounded-[50px] ${isActive ? "bg-[#C9E2C9] text-[#00CC66]" : "bg-[#FFBABA] text-[#C43B3B]"}`}>
+                                                <i className={`fas fa-circle mr-2 text-xs`} />
+                                                {isActive ? "Activo" : "Inactivo"}
+                                            </div>
                                         </td>
-                                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                        <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
                                             <div className="flex items-center">
-                                                <span className="mr-2">{startDate}</span>
+                                                <span className="mr-2 capitalize">{rol === "user" ? "cliente" : "admin"}</span>
                                                 <div className="relative w-full">
-                                                    <div className="overflow-hidden h-2 text-xs flex rounded bg-red-200">
+                                                    <div className="overflow-hidden h-2 flex rounded bg-red-200">
                                                         <div
                                                             style={{ width: '60%' }}
-                                                            className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
+                                                            className="shadow-none flex flex-col text-center text-white justify-center bg-red-500"
                                                         ></div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                            <TableDropdown />
+                                        <td className="px-6 align-middle h-[80px] text-right">
+                                            <div className="w-fit p-[.4rem] m-auto border rounded-[10px] ">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                                                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                                                </svg>
+                                            </div>
                                         </td>
                                     </tr>
                                 )
