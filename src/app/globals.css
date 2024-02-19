@@ -45,3 +45,13 @@
   animation: carousel var(--duration) linear infinite;
   white-space: nowrap;
 }
+
+@keyframes mobile-menu-animate {
+  from {
+    margin-left: -100%;
+  }
+
+  to {
+    margin-left: 0%;
+  }
+}

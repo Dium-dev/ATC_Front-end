@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Images } from '~/assets/img';
 import Icon from '~/assets/icons/icon';
 import MenuMobile from './MenuMobile';
-import { ThemeModeButton } from '../ThemeMode';
+import { ThemeModeButton, ToggleTheme } from '../ThemeMode';
 import { MainButton } from '../button/button';
 import { useFlagState } from '~/hooks/useFlagState';
 import { usePathname } from 'next/navigation';
@@ -100,6 +100,9 @@ export default function NavBar() {
             ) : (
               <p className="hidden ms:block">{user.email}</p>
             )}
+            <div className='hidden ms:block'>
+              <ThemeModeButton />
+            </div>
             <button className="w-9 aspect- group hover:bg-primary-dm/20 p-1 rounded text-text-lm relative dark:text-text-dm">
               <span className="absolute bg-primary-lm rounded-full aspect-square w-4 text-xs grid place-content-center text-white group-hover:animate-bounce shadow -right-1 -top-1">
                 1

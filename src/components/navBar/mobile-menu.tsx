@@ -48,6 +48,9 @@ export function MobileMenu({
     { label: 'Blog', url: 'https://actualizatucarro.blogspot.com' },
     { label: 'Nosotros', url: '/about-us' },
   ];
+  const [animations, setAnimations] = useState({
+    openMenu: '1s mobile-menu-animate ',
+  });
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
@@ -60,10 +63,13 @@ export function MobileMenu({
       </button>
       {open && (
         <div
-          className="fixed top-0 left-0 h-screen bg-background-dm/70 w-full z-[60] transition-all ms:hidden"
+          className="fixed top-0 left-0 h-screen bg-background-dm/70 w-full z-[60] ms:hidden"
           onClick={handleOPen}
         >
           <div
+            style={{
+              animation: animations.openMenu,
+            }}
             className="h-full bg-background-lm max-w-[290px] p-3 gap-5 flex flex-col dark:bg-background-dm transition-all ease-in-out"
             onClick={(e) => e.stopPropagation()}
           >
@@ -75,7 +81,12 @@ export function MobileMenu({
                 alt="Your Company"
                 onClick={() => route.back()}
               />
-              <button className="w-10 aspect-square" onClick={handleOPen}>
+              <button
+                className="w-10 aspect-square"
+                onClick={() => {
+                  handleOPen();
+                }}
+              >
                 {' '}
                 <Icon icon="Close" />
               </button>
@@ -105,7 +116,10 @@ export function MobileMenu({
                     {sub && (
                       <MainButton
                         className="w-1/5"
-                        onClick={() => handleCurIndex(curIndex === 1 ? 0 : 1)}
+                        onClick={(evt) => {
+                          evt.stopPropagation();
+                          handleCurIndex(curIndex === 1 ? 0 : 1);
+                        }}
                       >
                         <FiChevronDown className="w-full h-full" />
                       </MainButton>
@@ -119,14 +133,18 @@ export function MobileMenu({
               ))}
               <div className="pt-6">
                 <hr className="border-secondary-dm/50 pb-6" />
-                <p className=" flex items-center justify-between font-medium">
+                <p className="pl-3 flex items-center justify-between font-medium">
                   Apariencia: {<ToggleTheme />}
                 </p>
               </div>
             </ul>
 
             <footer className="text-center flex flex-col items-center">
-              {user && <MainButton>Cerrar Sesión</MainButton>}
+              {user && (
+                <MainButton color="red" variant="tertiary">
+                  Cerrar Sesión
+                </MainButton>
+              )}
             </footer>
           </div>
         </div>
