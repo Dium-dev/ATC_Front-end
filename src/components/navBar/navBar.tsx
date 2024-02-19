@@ -17,11 +17,77 @@ import { useAuth } from '~/context/AuthContext';
 import FormSignUp from '../form/FormSignUp';
 import FormLogin from '../form/FormLogin';
 import { useDashboardUserStore } from '~/store/dashboardUserStore';
-import Categories from '../categories/categories';
-
+import { InputField } from '../inputs/InputField';
+import { MobileMenu } from './mobile-menu';
+import { FiChevronRight } from "react-icons/fi";
 interface NavBarProps {}
 
-const NavBar: FC<NavBarProps> = ({}) => {
+export default function NavBar() {
+  const [open, setOpen] = useState(false);
+  const handleOPen = () => setOpen((cur) => !cur);
+
+  return (
+    <div className="sticky top-0 z-50 backdrop-blur-sm bg-background-lm/90 dark:bg-background-dm/90 shadow rounded-b">
+      <nav className=" max-w-[1920px] mx-auto p-3 flex justify-between items-center ms:justify-start gap-6  ">
+        <MobileMenu
+          buttonValue={<Icon icon={'HamburguerOpen'} />}
+          open={open}
+          handleOPen={handleOPen}
+        />
+        <Image
+          src={'./images/logo/logoM.svg'}
+          width={50}
+          height={50}
+          alt="Your Company"
+          onClick={() => {}}
+          className="hidden ms:block md:hidden"
+        />
+        <Image
+          src={'./images/logo/logoD.svg'}
+          width={200}
+          height={30}
+          alt="Your Company"
+          onClick={() => {}}
+          className="hidden md:block"
+        />
+
+        <div className="flex-1 ms:max-w-sm lg:max-w-md">
+          <InputField
+            className=""
+            placeholder="Busca tu producto"
+            rightIcon={<Icon icon="SearchIcon" />}
+          />
+        </div>
+
+        <ul className="hidden ms:flex mx-auto xxxl:gap-10">
+          <li>
+            <MainButton>Productos</MainButton>
+          </li>
+          <li>
+            <MainButton>Blog</MainButton>
+          </li>
+          <li>
+            <MainButton className='hidden xl:block'>Nosotros</MainButton>
+          </li>
+          <li>
+            <MainButton className='flex gap-2 items-center'>Mas {<FiChevronRight />}</MainButton>
+          </li>
+        </ul>
+        <div className="ms:flex ms:ml-auto ms:gap-4">
+          <MainButton className="hidden ms:block">Ingresar</MainButton>
+          <button className="w-9 aspect- group hover:bg-primary-dm/20 p-1 rounded text-text-lm relative dark:text-text-dm">
+            <span className="absolute bg-primary-lm rounded-full aspect-square w-4 text-xs grid place-content-center text-white group-hover:animate-bounce shadow -right-1 -top-1">
+              1
+            </span>
+            <Icon icon="CarShoping" />
+          </button>
+        </div>
+      </nav>
+    </div>
+  );
+}
+
+const NavBars: FC<NavBarProps> = ({}) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [flagState, updateState] = useFlagState(false);
   const { registerForm, setRegisterForm } = useDashboardUserStore(
@@ -52,7 +118,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
       <div
         className={`z-50 bg-opacity-70 bg-white w-full backdrop-blur-sm flex-col ${
           pathname !== '/' ? 'shadow-none' : 'shadow-md'
-        } dark:bg-primary-dm py-0.5`}
+        } dark:bg-primary-dm/90 py-0.5`}
       >
         <div className="p-4 flex items-center h-[60px] xxxl:px-0 justify-between mx-auto max-w-[1920px] relative">
           {/* Contenedor lado izquierdo menu hamburguesa-imagenes*/}
@@ -207,5 +273,3 @@ const NavBar: FC<NavBarProps> = ({}) => {
     </nav>
   );
 };
-
-export default NavBar;
