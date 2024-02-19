@@ -10,11 +10,22 @@ import Link from 'next/link';
 interface Props {
   buttonValue: ReactNode;
   open: boolean;
+  user: undefined | User;
   handleOPen(): void;
-  user: undefined | string;
+  openSession(): void;
 }
 
-export function MobileMenu({ buttonValue, open, handleOPen, user }: Props) {
+type User = {
+  email: string;
+};
+
+export function MobileMenu({
+  buttonValue,
+  open,
+  handleOPen,
+  user,
+  openSession,
+}: Props) {
   const [curIndex, setCurIndex] = useState(0);
   const handleCurIndex = (index: number) => setCurIndex(index ? index : 0);
   const route = useRouter();
@@ -70,13 +81,10 @@ export function MobileMenu({ buttonValue, open, handleOPen, user }: Props) {
               </button>
             </header>
             {user ? (
-              <AvatarProfile
-                image="lola"
-                name="Yhonier Esteban caype alegria"
-              />
+              <AvatarProfile image="lola" name={user.email} />
             ) : (
               <MainButton
-                onClick={() => route.push('/session')}
+                onClick={openSession}
                 color="red"
                 className="w-full py-2 text-lg"
               >
@@ -160,7 +168,7 @@ function AvatarProfile({ image, name }: { image: string; name: string }) {
         width={50}
         height={50}
         alt={name}
-        className="border rounded-full border-primary-lm "
+        className="border rounded-full"
       />
       <MainButton className="flex flex-col line-clamp-1">
         <span title={name} className="whitespace-nowrap line-clamp-1 w-full">
