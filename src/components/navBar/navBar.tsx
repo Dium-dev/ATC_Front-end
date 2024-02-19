@@ -98,7 +98,7 @@ export default function NavBar() {
                 Ingresar
               </MainButton>
             ) : (
-              user.email
+              <p className="hidden ms:block">{user.email}</p>
             )}
             <button className="w-9 aspect- group hover:bg-primary-dm/20 p-1 rounded text-text-lm relative dark:text-text-dm">
               <span className="absolute bg-primary-lm rounded-full aspect-square w-4 text-xs grid place-content-center text-white group-hover:animate-bounce shadow -right-1 -top-1">
