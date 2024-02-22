@@ -1,11 +1,11 @@
 'use client';
 import Image from 'next/image';
-import React, { FC, useState } from 'react';
+import React, { FC, ReactNode, useState } from 'react';
 import Link from 'next/link';
 import { Images } from '~/assets/img';
 import Icon from '~/assets/icons/icon';
 import MenuMobile from './MenuMobile';
-import { ThemeModeButton, ToggleTheme } from '../ThemeMode';
+import { ThemeModeButton } from '../ThemeMode';
 import { MainButton } from '../button/button';
 import { useFlagState } from '~/hooks/useFlagState';
 import { usePathname } from 'next/navigation';
@@ -20,20 +20,20 @@ import { useDashboardUserStore } from '~/store/dashboardUserStore';
 import { InputField } from '../inputs/InputField';
 import { MobileMenu } from './mobile-menu';
 import { FiChevronRight } from 'react-icons/fi';
+import { FaUserCircle } from 'react-icons/fa';
+import { BiSolidUpArrow } from 'react-icons/bi';
+
 interface NavBarProps {}
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
   const handleOPen = () => setOpen((cur) => !cur);
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const [flagState, updateState] = useFlagState(false);
   const { registerForm, setRegisterForm } = useDashboardUserStore(
     (state) => state
   );
   const { loginForm, setLoginForm } = useDashboardUserStore((state) => state);
-
-  console.log(user);
-
   function openSession() {
     setLoginForm(true);
   }
@@ -47,6 +47,7 @@ export default function NavBar() {
             open={open}
             handleOPen={handleOPen}
             openSession={openSession}
+            logout={logout}
           />
           <Image
             src={'./images/logo/logoM.svg'}
@@ -73,7 +74,7 @@ export default function NavBar() {
             />
           </div>
 
-          <ul className="hidden ms:flex mx-auto xxxl:gap-10">
+          <ul className="hidden ms:flex mx-auto gap-5 xxxl:gap-10">
             <li>
               <MainButton>Productos</MainButton>
             </li>
@@ -83,27 +84,29 @@ export default function NavBar() {
             <li>
               <MainButton className="hidden xl:block">Nosotros</MainButton>
             </li>
-            <li>
-              <MainButton className="flex gap-2 items-center">
-                Mas {<FiChevronRight />}
+            <Popover title="Mas">
+              <MainButton className="xl:hidden ">Nosotros</MainButton>
+              <MainButton className="whitespace-nowrap">
+                Como Comprar
               </MainButton>
-            </li>
+            </Popover>
           </ul>
-          <div className="ms:flex ms:ml-auto ms:gap-4">
+          <div className="ms:flex ms:ml-auto ms:gap-2 items-center">
             {!user?.email ? (
               <MainButton
+              color='red'
                 onClick={() => setLoginForm(true)}
                 className="hidden ms:block"
               >
                 Ingresar
               </MainButton>
             ) : (
-              <p className="hidden ms:block">{user.email}</p>
+              <AvatarProfile image="" name={user?.email} logout={logout} />
             )}
-            <div className='hidden ms:block'>
+            <div className="hidden ms:block">
               <ThemeModeButton />
             </div>
-            <button className="w-9 aspect- group hover:bg-primary-dm/20 p-1 rounded text-text-lm relative dark:text-text-dm">
+            <button className="w-9 aspect- group hover:bg-primary-dm/20 p-1 rounded text-text-lm relative dark:text-text-dm transition-all ease-in-out">
               <span className="absolute bg-primary-lm rounded-full aspect-square w-4 text-xs grid place-content-center text-white group-hover:animate-bounce shadow -right-1 -top-1">
                 1
               </span>
@@ -127,6 +130,63 @@ export default function NavBar() {
         />
       )}
     </>
+  );
+}
+
+function AvatarProfile({
+  image,
+  name,
+  logout,
+}: {
+  image: string;
+  name: string;
+  logout(): void;
+}) {
+  return (
+    <div className="hidden ms:block group/user relative">
+      <MainButton className="hover:text-secondary-dm/50">
+        <FaUserCircle className="w-8 h-8" />
+      </MainButton>
+      <div
+        style={{ animation: 'popover-ani 0.5s alternate' }}
+        className="hidden absolute left-1/2 -translate-x-1/2 top-full group-hover/user:block"
+      >
+        <main className="relative bg-background-lm mt-3.5 rounded px-3 py-2 shadow dark:bg-background-dm">
+          <BiSolidUpArrow className="absolute bottom-full left-1/2 -translate-x-1/2  text-background-dm dark:text-background-lm animate-pulse " />
+          {name}
+          <hr className="my-2 border-secondary-dm/50" />
+          <MainButton className="flex flex-col">Perfil</MainButton>
+
+          <MainButton
+            className="whitespace-nowrap"
+            color="red"
+            variant="tertiary"
+            onClick={logout}
+          >
+            Cerrar Sesión
+          </MainButton>
+        </main>
+      </div>
+    </div>
+  );
+}
+
+function Popover({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div className="group/user relative">
+      <MainButton className=" flex items-center gap-2">
+        {title}
+        <FiChevronRight className="w-5 h-5 rotate-90  " />
+      </MainButton>
+      <div
+        style={{ animation: 'popover-ani 0.5s alternate' }}
+        className="hidden absolute left-1/2 -translate-x-1/2 top-full group-hover/user:block"
+      >
+        <main className="relative bg-background-lm mt-3.5 rounded px-3 py-2 shadow dark:bg-background-dm">
+          {children}
+        </main>
+      </div>
+    </div>
   );
 }
 

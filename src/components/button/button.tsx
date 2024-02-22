@@ -68,11 +68,11 @@ export const MainButton: React.FC<MainButtonProps> = ({
       ? `border ${color === 'red' ? 'border-primary-lm text-primary-lm' : ''}`
       : variant === 'tertiary'
       ? `${color === 'red' ? 'text-primary-lm' : ''}`
-      : `${color === 'red' ? 'bg-primary-lm text-white' : 'bg-none'}`;
+      : `${color === 'red' ? 'bg-primary-lm text-white hover:bg-[#B02E0C]' : 'bg-none hover:text-primary-lm hover:bg-primary-dm/20'}`;
 
   return (
     <button
-      className={`px-3 py-1 text-base font-medium rounded ${variant_style} ${className} xxxl:px-0`}
+      className={`px-3 py-1 text-base font-medium rounded transition-all ease-in-out ${variant_style} ${className} xxxl:px-0`}
       {...props}
     >
       {children}

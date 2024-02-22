@@ -13,6 +13,7 @@ interface Props {
   user: undefined | User;
   handleOPen(): void;
   openSession(): void;
+  logout(): void;
 }
 
 type User = {
@@ -25,6 +26,7 @@ export function MobileMenu({
   handleOPen,
   user,
   openSession,
+  logout,
 }: Props) {
   const [curIndex, setCurIndex] = useState(0);
   const handleCurIndex = (index: number) => setCurIndex(index ? index : 0);
@@ -48,9 +50,6 @@ export function MobileMenu({
     { label: 'Blog', url: 'https://actualizatucarro.blogspot.com' },
     { label: 'Nosotros', url: '/about-us' },
   ];
-  const [animations, setAnimations] = useState({
-    openMenu: '1s mobile-menu-animate ',
-  });
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
@@ -68,7 +67,7 @@ export function MobileMenu({
         >
           <div
             style={{
-              animation: animations.openMenu,
+              animation: '1s mobile-menu-animate',
             }}
             className="h-full bg-background-lm max-w-[290px] p-3 gap-5 flex flex-col dark:bg-background-dm transition-all ease-in-out"
             onClick={(e) => e.stopPropagation()}
@@ -95,7 +94,10 @@ export function MobileMenu({
               <AvatarProfile image="lola" name={user.email} />
             ) : (
               <MainButton
-                onClick={openSession}
+                onClick={() => {
+                  handleOPen();
+                  openSession();
+                }}
                 color="red"
                 className="w-full py-2 text-lg"
               >
@@ -141,7 +143,7 @@ export function MobileMenu({
 
             <footer className="text-center flex flex-col items-center">
               {user && (
-                <MainButton color="red" variant="tertiary">
+                <MainButton onClick={logout} color="red" variant="tertiary">
                   Cerrar Sesión
                 </MainButton>
               )}
