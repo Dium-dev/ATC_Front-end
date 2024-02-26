@@ -37,10 +37,6 @@ function ProductItem({ PRODUCT }: ProductItemProps) {
         setDetailsVisible((prev) => !prev);
     }
 
-    const formatDate = (date: string) => {
-        return date.substring(0, 10);
-    }
-
 
     // COMPONENT:
     return (

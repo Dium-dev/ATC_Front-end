@@ -10,6 +10,14 @@ interface OrderItemProps {
     ORDER: OrdersInterface
 }
 
+function ButtonEdit() {
+    return (
+        <button className="px-5 py-[8px] rounded-[10px] bg-secondary-lm text-white text-sm font-bold tracking-wider uppercase">
+            Editar
+        </button>
+    );
+}
+
 function OrderItem({ ORDER }: OrderItemProps) {
 
 
@@ -78,126 +86,152 @@ function OrderItem({ ORDER }: OrderItemProps) {
                 detailsVisible && (
                     <tr>
                         <td colSpan={7}>
-                            <div className="flex justify-between w-full">
-                                <div className="w-[30%] p-4 bg-white rounded-xl text-black">
-                                    <h3>CLIENTE</h3>
-                                    <table className="w-full">
-                                        <tbody>
-                                            <tr>
-                                                <th>USER ID:</th>
-                                                <td>{ORDER.customer.name}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>NOMBRE:</th>
-                                                <td>{ORDER.customer.name}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>CORREO:</th>
-                                                <td>{ORDER.customer.emailAddress}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>TELÉFONO:</th>
-                                                <td>{ORDER.customer.phoneNumber}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div className="w-[30%] p-4 bg-white rounded-2xl text-black">
-                                    <h3>ENVIAR A:</h3>
-                                    <table className="w-full">
-                                        <tbody>
-                                            <tr>
-                                                <th>NÚMERO</th>
-                                                <td>{ORDER.customer.address.phone}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>DEPARTAMENTO:</th>
-                                                <td>{ORDER.customer.address.department}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>CIUDAD:</th>
-                                                <td>{ORDER.customer.address.city}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>DIRECCIÓN DE LA CALLE:</th>
-                                                <td>{ORDER.customer.address.streetAddress}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>BARRIO:</th>
-                                                <td>{ORDER.customer.address.neighborhood}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>REFERENCIAS:</th>
-                                                <td>{ORDER.customer.address.references}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div className="w-[30%] p-4 bg-white rounded-2xl text-black">
-                                    <h3>PAGO:</h3>
-                                    <table className="w-full">
-                                        <tbody>
-                                            <tr>
-                                                <th>FECHA DE OP.:</th>
-                                                <td>{ORDER.payment.date}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>MÉTODO:</th>
-                                                <td>{ORDER.payment.method}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>ESTADO:</th>
-                                                <td>{ORDER.payment.status}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>NÚMERO DE APROBACIÓN:</th>
-                                                <td>{ORDER.payment.approvalNumber}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div className="flex justify-between w-full mt-8">
-                                <div className="w-[65%] p-4 bg-white rounded-2xl text-black">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>PRODUCTO</th>
-                                                <th>CANTIDAD</th>
-                                                <th>PRECIO UNITARIO</th>
-                                                <th>SUBTOTAL</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                ORDER.list.map((ORDER_ITEM, idx) => {
-                                                    // Aprovechando el map a la lista de items, sumar el subtotal de cada item.
-                                                    const subtotal = ORDER_ITEM.quantity * ORDER_ITEM.value;
-                                                    total += subtotal;
+                            <div className="flex justify-between gap-6 w-full p-6">
+                                {/* 1st Col */}
+                                <div className="flex flex-col gap-6 w-1/2">
+                                    <div className="flex items-center w-full h-[80px] p-4 bg-[#F5F5F5] rounded-xl">
+                                        <div className="text-[#555555]">ID: <span className="text-black font-mono">{ORDER.id}</span></div>
+                                    </div>
+                                    <div className="w-full px-4 bg-[#F5F5F5] rounded-xl">
+                                        <div className="flex items-center justify-between gap-8 w-full h-[80px] -mb-[20px]">
+                                            <div className="py-2 text-[#555555]">Número de orden: <span className="text-black">{ORDER.orderNumber ? ORDER.orderNumber : "No especificado"}</span></div>
+                                        </div>
+                                        <div className="flex items-center justify-between gap-8 w-full min-h-[80px]">
+                                            <div className="py-2 text-[#555555]">Fecha de creación: <span className="text-black">{ORDER.creationDate ? ORDER.creationDate : "No especificado"}</span></div>
+                                        </div>
+                                    </div>
+                                    <div className="w-full px-4 bg-[#F5F5F5] rounded-xl">
+                                        <span className="flex items-center h-[80px] -mb-[20px]">Cliente:</span>
+                                        <div className="flex items-center justify-between gap-8 w-full h-[80px] -mb-[20px]">
+                                            <div className="py-2 text-[#555555]">ID del cliente: <span className="text-black">{ORDER.customer.name ? ORDER.customer.address.phone : "No especificado"}</span></div>
+                                        </div>
+                                        <div className="flex items-center justify-between gap-8 w-full min-h-[80px] -mb-[20px]">
+                                            <div className="py-2 text-[#555555]">Nombre completo: <span className="text-black">{ORDER.customer.name ? ORDER.customer.name : "No especificado"}</span></div>
+                                        </div>
+                                        <div className="flex items-center justify-between gap-8 w-full min-h-[80px] -mb-[20px]">
+                                            <div className="py-2 text-[#555555]">Correo electrónico: <span className="text-black">{ORDER.customer.emailAddress ? ORDER.customer.emailAddress : "No especificado"}</span></div>
+                                        </div>
+                                        <div className="flex items-center justify-between gap-8 w-full min-h-[80px]">
+                                            <div className="py-2 text-[#555555]">Número telefónico:: <span className="text-black">{ORDER.customer.phoneNumber ? ORDER.customer.phoneNumber : "No especificado"}</span></div>
+                                        </div>
+                                    </div>
+                                    <div className="w-full px-4 bg-[#F5F5F5] rounded-xl">
+                                        <table className="table-fixed w-full">
+                                            <thead className="-mb-[20px]">
+                                                <tr>
+                                                    <th className="w-[10%] h-[80px] align-middle px-2 py-3 whitespace-nowrap font-normal text-left">ID</th>
+                                                    <th className="w-[30%] h-[80px] align-middle px-2 py-3 whitespace-nowrap font-normal text-left">Producto</th>
+                                                    <th className="w-[20%] h-[80px] align-middle px-2 py-3 whitespace-nowrap font-normal text-left">Cantidad</th>
+                                                    <th className="w-[20%] h-[80px] align-middle px-2 py-3 whitespace-nowrap font-normal text-left">Precio un.</th>
+                                                    <th className="w-[20%] h-[80px] align-middle px-2 py-3 whitespace-nowrap font-normal text-left">Subtotal</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {
+                                                    ORDER.list.map((ORDER_ITEM, idx) => {
+                                                        // Aprovechando el map a la lista de items, sumar el subtotal de cada item.
+                                                        const subtotal = ORDER_ITEM.quantity * ORDER_ITEM.value;
+                                                        total += subtotal;
 
-                                                    return (
-                                                        <tr key={ORDER_ITEM.name + idx}>
-                                                            {/* simular el ID. */}
-                                                            <th>{idx}</th>
-                                                            <td>{ORDER_ITEM.name}</td>
-                                                            <td>{ORDER_ITEM.quantity}</td>
-                                                            <td>{ORDER_ITEM.value}</td>
-                                                            <td>{subtotal}</td>
-                                                        </tr>
-                                                    )
-                                                })
-                                            }
-                                            <tr>
-                                                <th colSpan={4}>TOTAL</th>
-                                                <td>{total}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                        return (
+                                                            <tr key={ORDER_ITEM.name + idx} className="relative after:absolute after:content-[''] after:top-0 after:left-1/2 after:-translate-x-1/2 after:w-[96%] after:h-[.5px] after:bg-[#A0A0A0]">
+                                                                {/* simular el ID. */}
+                                                                <th className="overflow-hidden align-middle h-[60px] px-2 whitespace-nowrap font-normal">
+                                                                    <div className="relative w-full overflow-hidden text-left after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-[#F5F5F5] after:to-40% dm:text-white">
+                                                                        {idx}
+                                                                    </div>
+                                                                </th>
+                                                                <td className="overflow-hidden align-middle h-[60px] px-2 whitespace-nowrap font-normal">
+                                                                    <div className="relative w-full overflow-hidden text-left after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-[#F5F5F5] after:to-40% dm:text-white">
+                                                                        {ORDER_ITEM.name}
+                                                                    </div>
+                                                                </td>
+                                                                <td className="overflow-hidden align-middle h-[60px] px-2 whitespace-nowrap font-normal">
+                                                                    <div className="relative w-full overflow-hidden text-left after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-[#F5F5F5] after:to-40% dm:text-white">
+                                                                        {ORDER_ITEM.quantity}
+                                                                    </div>
+                                                                </td>
+                                                                <td className="overflow-hidden align-middle h-[60px] px-2 whitespace-nowrap font-normal">
+                                                                    <div className="relative w-full overflow-hidden text-left after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-[#F5F5F5] after:to-40% dm:text-white">
+                                                                        {ORDER_ITEM.value}
+                                                                    </div>
+                                                                </td>
+                                                                <td className="overflow-hidden align-middle h-[60px] px-2 whitespace-nowrap font-normal">
+                                                                    <div className="relative w-full overflow-hidden text-left after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-[#F5F5F5] after:to-40% dm:text-white">
+                                                                        {subtotal}
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    })
+                                                }
+                                                <tr className="relative after:absolute after:content-[''] after:top-0 after:left-1/2 after:-translate-x-1/2 after:w-[96%] after:h-[.5px] after:bg-[#A0A0A0]">
+                                                    <th className="overflow-hidden align-middle h-[80px] px-2 whitespace-nowrap text-right" colSpan={4}>Total:</th>
+                                                    <td className="overflow-hidden align-middle h-[80px] px-2 whitespace-nowrap font-normal">
+                                                        <div className="relative w-full overflow-hidden text-left after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-[#F5F5F5] after:to-40% dm:text-white">
+                                                            {total}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                                <div className="w-[30%] p-4 bg-white rounded-2xl text-black">
-                                    <h3>NOTAS</h3>
-                                    <textarea className="w-full bg-white" />
+                                {/* 2nd Col */}
+                                <div className="flex flex-col gap-6 w-1/2 px-4">
+                                    <div className="flex items-center justify-between w-full h-[80px] p-4 bg-[#F5F5F5] rounded-xl">
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-[#555555]">Estado:</span>
+                                            <div className={`flex items-center w-fit p-[10px] px-4 rounded-[50px] ${ORDER.status ? "bg-[#C9E2C9] text-[#00CC66]" : "bg-[#FFBABA] text-[#C43B3B]"}`}>
+                                                <i className={`fas fa-circle mr-2 text-xs`} />
+                                                {ORDER.status ? "Activo" : "Inactivo"}
+                                            </div>
+                                        </div>
+                                        <ButtonEdit />
+                                    </div>
+                                    <div className="w-full px-4 bg-[#F5F5F5] rounded-xl">
+                                        <span className="flex items-center h-[80px] -mb-[20px]">Pago:</span>
+                                        <div className="flex items-center justify-between gap-8 w-full h-[80px] -mb-[20px]">
+                                            <div className="py-2 text-[#555555]">Fecha de operación: <span className="text-black">{ORDER.payment.date ? ORDER.payment.date : "No especificado"}</span></div>
+                                        </div>
+                                        <div className="flex items-center justify-between gap-8 w-full min-h-[80px] -mb-[20px]">
+                                            <div className="py-2 text-[#555555]">Método: <span className="text-black">{ORDER.payment.method ? ORDER.payment.method : "No especificado"}</span></div>
+                                        </div>
+                                        <div className="flex items-center justify-between gap-8 w-full min-h-[80px] -mb-[20px]">
+                                            <div className="py-2 text-[#555555]">Estado: <span className="text-black">{ORDER.payment.status ? ORDER.payment.status : "No especificado"}</span></div>
+                                        </div>
+                                        <div className="flex items-center justify-between gap-8 w-full min-h-[80px]">
+                                            <div className="py-2 text-[#555555]">Número de aprobación: <span className="text-black">{ORDER.payment.approvalNumber ? ORDER.payment.approvalNumber : "No especificado"}</span></div>
+                                        </div>
+                                    </div>
+                                    <div className="w-full px-4 bg-[#F5F5F5] rounded-xl">
+                                        <span className="flex items-center h-[80px] -mb-[20px]">Enviar a:</span>
+                                        <div className="flex items-center justify-between gap-8 w-full h-[80px] -mb-[20px]">
+                                            <div className="py-2 text-[#555555]">Número: <span className="text-black">{ORDER.customer.address.phone ? ORDER.customer.address.phone : "No especificado"}</span></div>
+                                            <ButtonEdit />
+                                        </div>
+                                        <div className="flex items-center justify-between gap-8 w-full min-h-[80px] -mb-[20px]">
+                                            <div className="py-2 text-[#555555]">Departamento: <span className="text-black">{ORDER.customer.address.department ? ORDER.customer.address.department : "No especificado"}</span></div>
+                                            <ButtonEdit />
+                                        </div>
+                                        <div className="flex items-center justify-between gap-8 w-full min-h-[80px] -mb-[20px]">
+                                            <div className="py-2 text-[#555555]">Ciudad: <span className="text-black">{ORDER.customer.address.city ? ORDER.customer.address.city : "No especificado"}</span></div>
+                                            <ButtonEdit />
+                                        </div>
+                                        <div className="flex items-center justify-between gap-8 w-full min-h-[80px] -mb-[20px]">
+                                            <div className="py-2 text-[#555555]">Dirección de la calle: <span className="text-black">{ORDER.customer.address.streetAddress ? ORDER.customer.address.streetAddress : "No especificado"}</span></div>
+                                            <ButtonEdit />
+                                        </div>
+                                        <div className="flex items-center justify-between bg-transparent gap-8 w-full min-h-[80px]">
+                                            <div className="py-2 text-[#555555]">Referencias: <span className="text-black">{ORDER.customer.address.references ? ORDER.customer.address.references : "No especificado"}</span></div>
+                                            <ButtonEdit />
+                                        </div>
+                                    </div>
+                                    <div className="w-full px-4 pb-6 bg-[#F5F5F5] rounded-2xl text-black">
+                                        <span className="flex items-center h-[80px]">Notas:</span>
+                                        <textarea className="w-full min-h-[80px] mb-4 bg-[#F5F5F5]" />
+                                        <button className="w-full px-5 py-[8px] rounded-[10px] bg-secondary-lm text-white text-sm font-bold tracking-wider uppercase">Guardar</button>
+                                    </div>
                                 </div>
                             </div>
                         </td>

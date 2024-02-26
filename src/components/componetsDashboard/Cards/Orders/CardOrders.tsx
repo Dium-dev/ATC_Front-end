@@ -118,7 +118,7 @@ const ORDERS: OrdersInterface[] = [
                 city: "El Doncello",
                 streetAddress: "Carrera 1 #11-30",
                 neighborhood: "20 de abril",
-                references: "A 1 cuadra de la tienda La Amistad",
+                references: "A 1 cuadra de la tienda La Amistad A 1 cuadra de la tienda La Amistad A 1 cuadra de la tienda La Amistad A 1 cuadra de la tienda La Amistad A 1 cuadra de la tienda La Amistad A 1 cuadra de la tienda La Amistad ",
             }
         }
         // agregar "notas" al back.
@@ -432,7 +432,7 @@ export default function CardOrders() {
                                 </div>
                             </th>
                             <th className="w-[15%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left" >
-                                Método
+                                Método de pago
                                 <div className="flex justify-between">
                                     <button onClick={() => handleSort("method", "ascendant")}>asc</button>
                                     <button onClick={() => handleSort("method", "descendant")}>desc</button>
