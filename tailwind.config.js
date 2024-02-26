@@ -55,6 +55,21 @@ module.exports = {
       xxxl: '1920px'
     },
     extend: {
+      animation: {
+        drop: 'drop 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards',
+      },
+      keyframes: {
+        drop: {
+          'from': {
+            opacity: '0',
+            transform: 'translateY(-16px)'
+          },
+          'to': {
+            opacity: '1',
+            transform: 'translateY(0)'
+          }
+        }
+      },
       backgroundImage: {
         banner:
           'url("https://i0.wp.com/citymagazine.si/wp-content/uploads/2022/05/2023-audi-rs5-coupe-competition.jpg?fit=1920%2C1080&ssl=1")',

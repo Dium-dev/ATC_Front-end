@@ -192,14 +192,14 @@ export default function CardUsers() {
                     <thead className='w-full'>
                         <tr className='w-full text-[#555555]'>
                             <th className="w-[10%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left">
-                                Id
+                                ID
                                 <div className="flex justify-between">
                                     <button onClick={() => handleSort("id", "ascendant")}>asc</button>
                                     <button onClick={() => handleSort("id", "descendant")}>desc</button>
                                 </div>
                             </th>
                             <th className="w-[20%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left">
-                                Nombre
+                                Nombre completo
                                 <div className="flex justify-between">
                                     <button onClick={() => handleSort("firstName", "ascendant")}>asc</button>
                                     <button onClick={() => handleSort("firstName", "descendant")}>desc</button>
