@@ -92,7 +92,7 @@ function UserItem({ USER }: UserItemProps) {
                             <div className="flex justify-between gap-6 w-full p-6">
                                 {/* 1st Col */}
                                 <div className="flex flex-col gap-6 w-1/2">
-                                    <div className={`flex items-center w-full h-[80px] p-4 bg-[#F5F5F5] rounded-xl animate-drop`}>
+                                    <div className="flex items-center w-full h-[80px] p-4 bg-[#F5F5F5] rounded-xl animate-drop">
                                         <div className="text-[#555555]">ID: <span className="text-black font-mono">{USER.id}</span></div>
                                     </div>
                                     <div className="w-full py-2 px-4 bg-[#F5F5F5] rounded-xl animate-drop" style={{ animationDelay: '150ms' }}>
