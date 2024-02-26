@@ -40,33 +40,33 @@ function OrderItem({ ORDER }: OrderItemProps) {
     return (
         <>
             <tr className="relative after:absolute after:content-[''] after:top-0 after:left-1/2 after:-translate-x-1/2 after:w-[96%] after:h-[.5px] after:bg-[#A0A0A0]">
-                <th className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap font-normal font-mono">
+                <th className={`overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap font-normal font-mono ${detailsVisible ? "opacity-0" : "opacity-100"} transition-opacity duration-200`}>
                     <div className="relative w-full overflow-hidden text-left after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-white after:to-40% dm:text-white">
                         {ORDER.id}
                     </div>
                 </th>
-                <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
+                <td className={`overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap ${detailsVisible ? "opacity-0" : "opacity-100"} transition-opacity duration-200`}>
                     <div className="relative w-full overflow-hidden text-left after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-white after:to-40% dm:text-white">
                         {ORDER.orderNumber}
                     </div>
                 </td>
-                <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
+                <td className={`overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap ${detailsVisible ? "opacity-0" : "opacity-100"} transition-opacity duration-200`}>
                     <div className="relative w-full overflow-hidden text-left after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-white after:to-40% dm:text-white">
                         {ORDER.creationDate}
                     </div>
                 </td>
-                <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
+                <td className={`overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap ${detailsVisible ? "opacity-0" : "opacity-100"} transition-opacity duration-200`}>
                     <div className="relative w-full overflow-hidden text-left after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-white after:to-40% dm:text-white">
                         {ORDER.payment.method}
                     </div>
                 </td>
-                <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
+                <td className={`overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap ${detailsVisible ? "opacity-0" : "opacity-100"} transition-opacity duration-200`}>
                     <div className={`flex items-center w-fit p-[10px] px-4 rounded-[50px] ${ORDER.status ? "bg-[#C9E2C9] text-[#00CC66]" : "bg-[#FFBABA] text-[#C43B3B]"}`}>
                         <i className={`fas fa-circle mr-2 text-xs`} />
                         {ORDER.status ? "Activo" : "Inactivo"}
                     </div>
                 </td>
-                <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
+                <td className={`overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap ${detailsVisible ? "opacity-0" : "opacity-100"} transition-opacity duration-200`}>
                     {ORDER.total}
                 </td>
                 <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
@@ -89,10 +89,10 @@ function OrderItem({ ORDER }: OrderItemProps) {
                             <div className="flex justify-between gap-6 w-full p-6">
                                 {/* 1st Col */}
                                 <div className="flex flex-col gap-6 w-1/2">
-                                    <div className="flex items-center w-full h-[80px] p-4 bg-[#F5F5F5] rounded-xl">
+                                    <div className="flex items-center w-full h-[80px] p-4 bg-[#F5F5F5] rounded-xl animate-drop">
                                         <div className="text-[#555555]">ID: <span className="text-black font-mono">{ORDER.id}</span></div>
                                     </div>
-                                    <div className="w-full px-4 bg-[#F5F5F5] rounded-xl">
+                                    <div className="w-full px-4 bg-[#F5F5F5] rounded-xl animate-drop" style={{ animationDelay: '150ms' }}>
                                         <div className="flex items-center justify-between gap-8 w-full h-[80px] -mb-[20px]">
                                             <div className="py-2 text-[#555555]">Número de orden: <span className="text-black">{ORDER.orderNumber ? ORDER.orderNumber : "No especificado"}</span></div>
                                         </div>
@@ -100,8 +100,8 @@ function OrderItem({ ORDER }: OrderItemProps) {
                                             <div className="py-2 text-[#555555]">Fecha de creación: <span className="text-black">{ORDER.creationDate ? ORDER.creationDate : "No especificado"}</span></div>
                                         </div>
                                     </div>
-                                    <div className="w-full px-4 bg-[#F5F5F5] rounded-xl">
-                                        <span className="flex items-center h-[80px] -mb-[20px]">Cliente:</span>
+                                    <div className="w-full px-4 bg-[#F5F5F5] rounded-xl animate-drop" style={{ animationDelay: '300ms' }}>
+                                        <span className="flex items-center h-[80px] -mb-[20px] font-bold uppercase">Cliente:</span>
                                         <div className="flex items-center justify-between gap-8 w-full h-[80px] -mb-[20px]">
                                             <div className="py-2 text-[#555555]">ID del cliente: <span className="text-black">{ORDER.customer.name ? ORDER.customer.address.phone : "No especificado"}</span></div>
                                         </div>
@@ -115,7 +115,7 @@ function OrderItem({ ORDER }: OrderItemProps) {
                                             <div className="py-2 text-[#555555]">Número telefónico:: <span className="text-black">{ORDER.customer.phoneNumber ? ORDER.customer.phoneNumber : "No especificado"}</span></div>
                                         </div>
                                     </div>
-                                    <div className="w-full px-4 bg-[#F5F5F5] rounded-xl">
+                                    <div className="w-full px-4 bg-[#F5F5F5] rounded-xl animate-drop" style={{ animationDelay: '450ms' }}>
                                         <table className="table-fixed w-full">
                                             <thead className="-mb-[20px]">
                                                 <tr>
@@ -179,7 +179,7 @@ function OrderItem({ ORDER }: OrderItemProps) {
                                 </div>
                                 {/* 2nd Col */}
                                 <div className="flex flex-col gap-6 w-1/2 px-4">
-                                    <div className="flex items-center justify-between w-full h-[80px] p-4 bg-[#F5F5F5] rounded-xl">
+                                    <div className="flex items-center justify-between w-full h-[80px] p-4 bg-[#F5F5F5] rounded-xl animate-drop">
                                         <div className="flex items-center gap-2">
                                             <span className="text-[#555555]">Estado:</span>
                                             <div className={`flex items-center w-fit p-[10px] px-4 rounded-[50px] ${ORDER.status ? "bg-[#C9E2C9] text-[#00CC66]" : "bg-[#FFBABA] text-[#C43B3B]"}`}>
@@ -189,8 +189,8 @@ function OrderItem({ ORDER }: OrderItemProps) {
                                         </div>
                                         <ButtonEdit />
                                     </div>
-                                    <div className="w-full px-4 bg-[#F5F5F5] rounded-xl">
-                                        <span className="flex items-center h-[80px] -mb-[20px]">Pago:</span>
+                                    <div className="w-full px-4 bg-[#F5F5F5] rounded-xl animate-drop" style={{ animationDelay: '150ms' }}>
+                                        <span className="flex items-center h-[80px] -mb-[20px] font-bold uppercase">Información de pago:</span>
                                         <div className="flex items-center justify-between gap-8 w-full h-[80px] -mb-[20px]">
                                             <div className="py-2 text-[#555555]">Fecha de operación: <span className="text-black">{ORDER.payment.date ? ORDER.payment.date : "No especificado"}</span></div>
                                         </div>
@@ -204,8 +204,8 @@ function OrderItem({ ORDER }: OrderItemProps) {
                                             <div className="py-2 text-[#555555]">Número de aprobación: <span className="text-black">{ORDER.payment.approvalNumber ? ORDER.payment.approvalNumber : "No especificado"}</span></div>
                                         </div>
                                     </div>
-                                    <div className="w-full px-4 bg-[#F5F5F5] rounded-xl">
-                                        <span className="flex items-center h-[80px] -mb-[20px]">Enviar a:</span>
+                                    <div className="w-full px-4 bg-[#F5F5F5] rounded-xl animate-drop" style={{ animationDelay: '300ms' }}>
+                                        <span className="flex items-center h-[80px] -mb-[20px] font-bold uppercase">Enviar a:</span>
                                         <div className="flex items-center justify-between gap-8 w-full h-[80px] -mb-[20px]">
                                             <div className="py-2 text-[#555555]">Número: <span className="text-black">{ORDER.customer.address.phone ? ORDER.customer.address.phone : "No especificado"}</span></div>
                                             <ButtonEdit />
@@ -227,8 +227,8 @@ function OrderItem({ ORDER }: OrderItemProps) {
                                             <ButtonEdit />
                                         </div>
                                     </div>
-                                    <div className="w-full px-4 pb-6 bg-[#F5F5F5] rounded-2xl text-black">
-                                        <span className="flex items-center h-[80px]">Notas:</span>
+                                    <div className="w-full px-4 pb-6 bg-[#F5F5F5] rounded-xl animate-drop" style={{ animationDelay: '450ms' }}>
+                                        <span className="flex items-center h-[80px] font-bold uppercase">Notas:</span>
                                         <textarea className="w-full min-h-[80px] mb-4 bg-[#F5F5F5]" />
                                         <button className="w-full px-5 py-[8px] rounded-[10px] bg-secondary-lm text-white text-sm font-bold tracking-wider uppercase">Guardar</button>
                                     </div>
