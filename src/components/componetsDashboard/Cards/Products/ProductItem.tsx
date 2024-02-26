@@ -45,7 +45,7 @@ function ProductItem({ PRODUCT }: ProductItemProps) {
     // COMPONENT:
     return (
         <>
-            <tr key={PRODUCT.id} className={`relative after:absolute after:content-[''] ${detailsVisible ? "animate-fadeIn" : ""} after:top-0 after:left-1/2 after:-translate-x-1/2 after:w-[96%] after:h-[.5px] after:bg-[#A0A0A0]`}>
+            <tr className={`relative after:absolute after:content-[''] ${detailsVisible ? "animate-fadeIn" : ""} after:top-0 after:left-1/2 after:-translate-x-1/2 after:w-[96%] after:h-[.5px] after:bg-[#A0A0A0]`}>
                 <th className={`overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap font-normal font-mono ${detailsVisible ? "opacity-0" : "opacity-100"} transition-opacity duration-200`}>
                     <div className="relative w-full overflow-hidden text-left after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-white after:to-40% dm:text-white">
                         {PRODUCT.id}

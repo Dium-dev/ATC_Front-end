@@ -103,7 +103,7 @@ const ORDERS: OrdersInterface[] = [
         }],
         payment: {
             date: "27-10-2023",
-            method: "MercadoPago",
+            method: "cash",
             status: "approved",
             approvalNumber: 987654321
         },
@@ -282,11 +282,11 @@ export default function CardOrders() {
 
     // COMPONENT:
     return (
-        <div className='relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded dark:bg-primary-dm dark:text-white'>
+        <div className='relative flex flex-col min-w-0 break-words w-[96%] mx-auto mb-6 shadow-lg rounded-xl bg-white border dark:bg-primary-dm dark:text-white text-black font-inter'>
             <div className="rounded-t mb-0 px-4 py-3 border-0">
                 <div className="flex flex-wrap items-center">
-                    <div className="relative flex items-center justify-between w-full px-4 max-w-full flex-grow flex-1">
-                        <h3 className="font-semibold text-lg text-blueGray-700 dm:text-white">
+                    <div className="relative flex items-center justify-between w-full max-w-full flex-grow flex-1">
+                        <h3 className="text-xl">
                             Pedidos
                         </h3>
                         <SearchBar section="order" setFilterMenu={setFilterMenu} />
@@ -407,46 +407,53 @@ export default function CardOrders() {
                 ) : null
             }
             <div className="block w-full overflow-x-auto">
-                <table className="items-center w-full bg-transparent border-collapse">
-                    <thead>
-                        <tr>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
-                                Id
+                <table className="table-fixed items-center w-full min-w-[1200px] bg-transparent border-collapse">
+                    <thead className='w-full'>
+                        <tr className='w-full text-[#555555]'>
+                            <th className="w-[10%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left">
+                                ID
                                 <div className="flex justify-between">
                                     <button onClick={() => handleSort("id", "ascendant")}>asc</button>
                                     <button onClick={() => handleSort("id", "descendant")}>desc</button>
                                 </div>
                             </th>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
+                            <th className="w-[20%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left">
                                 Número de orden
                                 <div className="flex justify-between">
                                     <button onClick={() => handleSort("orderNumber", "ascendant")}>asc</button>
                                     <button onClick={() => handleSort("orderNumber", "descendant")}>desc</button>
                                 </div>
                             </th>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
+                            <th className="w-[15%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left" >
                                 Fecha de creación
                                 <div className="flex justify-between">
                                     <button onClick={() => handleSort("creationDate", "ascendant")}>asc</button>
                                     <button onClick={() => handleSort("creationDate", "descendant")}>desc</button>
                                 </div>
                             </th>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
+                            <th className="w-[15%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left" >
+                                Método
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("method", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("method", "descendant")}>desc</button>
+                                </div>
+                            </th>
+                            <th className="w-[15%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left" >
                                 Estado
                                 <div className="flex justify-between">
                                     <button onClick={() => handleSort("status", "ascendant")}>asc</button>
                                     <button onClick={() => handleSort("status", "descendant")}>desc</button>
                                 </div>
                             </th>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
+                            <th className="w-[15%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left" >
                                 Total
                                 <div className="flex justify-between">
                                     <button onClick={() => handleSort("total", "ascendant")}>asc</button>
                                     <button onClick={() => handleSort("total", "descendant")}>desc</button>
                                 </div>
                             </th>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
-                                Acciones
+                            <th className="w-[10%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left" >
+                                Acción
                             </th>
                         </tr>
                     </thead>

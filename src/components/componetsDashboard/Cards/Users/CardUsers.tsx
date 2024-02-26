@@ -233,7 +233,7 @@ export default function CardUsers() {
                     <tbody className="text-black">
                         {
                             Array.isArray(users) && users.map((USER: UsersInterface) => (
-                                <UserItem USER={USER} />
+                                <UserItem key={USER.id} USER={USER} />
                             ))
                         }
                     </tbody>

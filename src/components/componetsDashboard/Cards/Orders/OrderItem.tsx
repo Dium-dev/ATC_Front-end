@@ -14,7 +14,7 @@ function OrderItem({ ORDER }: OrderItemProps) {
 
 
     // LOCAL STATES:
-    const [showDetails, setShowDetails] = useState<boolean>(false);
+    const [detailsVisible, setDetailsVisible] = useState<boolean>(false);
 
 
     // CONSTANTS:
@@ -22,34 +22,62 @@ function OrderItem({ ORDER }: OrderItemProps) {
     let total = 0;
 
 
+    // FUNCTIONS:
+    const showDetails = () => {
+        setDetailsVisible((prev) => !prev);
+    }
+
+
     // COMPONENT:
     return (
         <>
-            <tr>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {ORDER.id}
+            <tr className="relative after:absolute after:content-[''] after:top-0 after:left-1/2 after:-translate-x-1/2 after:w-[96%] after:h-[.5px] after:bg-[#A0A0A0]">
+                <th className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap font-normal font-mono">
+                    <div className="relative w-full overflow-hidden text-left after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-white after:to-40% dm:text-white">
+                        {ORDER.id}
+                    </div>
                 </th>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {ORDER.orderNumber}
+                <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
+                    <div className="relative w-full overflow-hidden text-left after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-white after:to-40% dm:text-white">
+                        {ORDER.orderNumber}
+                    </div>
                 </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {ORDER.creationDate}
+                <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
+                    <div className="relative w-full overflow-hidden text-left after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-white after:to-40% dm:text-white">
+                        {ORDER.creationDate}
+                    </div>
                 </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    <i className="fas fa-circle text-orange-500 mr-2"></i> {ORDER.status}
+                <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
+                    <div className="relative w-full overflow-hidden text-left after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-white after:to-40% dm:text-white">
+                        {ORDER.payment.method}
+                    </div>
                 </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
+                    <div className={`flex items-center w-fit p-[10px] px-4 rounded-[50px] ${ORDER.status ? "bg-[#C9E2C9] text-[#00CC66]" : "bg-[#FFBABA] text-[#C43B3B]"}`}>
+                        <i className={`fas fa-circle mr-2 text-xs`} />
+                        {ORDER.status ? "Activo" : "Inactivo"}
+                    </div>
+                </td>
+                <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
                     {ORDER.total}
                 </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                    {/* <TableDropdown /> */}
-                    <button onClick={() => setShowDetails((prev) => !prev)}>mostrar detalles</button>
+                <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
+                    <button
+                        className="block w-fit p-[.4rem] m-auto border rounded-[10px]"
+                        onClick={showDetails}
+                    >
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                            </svg>
+                        </div>
+                    </button>
                 </td>
             </tr>
             {
-                showDetails && (
+                detailsVisible && (
                     <tr>
-                        <td colSpan={6}>
+                        <td colSpan={7}>
                             <div className="flex justify-between w-full">
                                 <div className="w-[30%] p-4 bg-white rounded-xl text-black">
                                     <h3>CLIENTE</h3>

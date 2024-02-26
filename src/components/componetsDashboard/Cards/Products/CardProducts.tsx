@@ -146,9 +146,6 @@ export default function CardProducts() {
         };
     }, [brands, fetchBrands, isBrandsFetching]);
 
-    useEffect(() => {
-        console.log(products)
-    }, [products])
 
     // COMPONENT:
     return (
@@ -296,7 +293,7 @@ export default function CardProducts() {
                     <tbody>
                         {
                             Array.isArray(products) && products.slice(indexOfFirstElement, indexOfLastElement).map((PRODUCT: ProductsInterface) => (
-                                <ProductItem PRODUCT={PRODUCT}/>
+                                <ProductItem key={PRODUCT.id} PRODUCT={PRODUCT} />
                             ))
                         }
                     </tbody>
