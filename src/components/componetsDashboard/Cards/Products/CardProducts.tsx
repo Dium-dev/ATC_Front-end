@@ -5,13 +5,13 @@ import { useEffect, useState, ChangeEvent } from 'react';
 import useDashboardAdminStore from '~/store/dashboardAdminStore';
 
 // Type definitions:
-import { ProductFilterOptions } from '../dashboardAdmin';
+import { ProductFilterOptions } from '../../dashboardAdmin';
 import { ProductsInterface } from '~/types/dashboardAdminStore';
 
 // Components:
-import SearchBar from '../SearchBar/SearchBar';
-import TableDropdown from '../Dropdowns/TableDropdown';
-import Pagination from '../Pagination/Pagination';
+import SearchBar from '../../SearchBar/SearchBar';
+import ProductItem from './ProductItem';
+import Pagination from '../../Pagination/Pagination';
 
 
 // --------------- MODULE ---------------
@@ -149,11 +149,11 @@ export default function CardProducts() {
 
     // COMPONENT:
     return (
-        <div className='relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded dark:bg-primary-dm dark:text-white'>
+        <div className='relative flex flex-col min-w-0 break-words w-[96%] mx-auto mb-6 shadow-lg rounded-xl bg-white border dark:bg-primary-dm dark:text-white text-black font-inter'>
             <div className="rounded-t mb-0 px-4 py-3 border-0">
                 <div className="flex flex-wrap items-center">
-                    <div className="relative flex items-center justify-between w-full px-4 max-w-full flex-grow flex-1">
-                        <h3 className="font-semibold text-lg text-blueGray-700 dm:text-white">
+                    <div className="relative flex items-center justify-between w-full max-w-full flex-grow flex-1">
+                        <h3 className="text-xl">
                             Productos
                         </h3>
                         <SearchBar section="product" setFilterMenu={setFilterMenu} />
@@ -233,91 +233,67 @@ export default function CardProducts() {
                 ) : null
             }
             <div className="block w-full overflow-x-auto">
-                <table className="items-center w-full bg-transparent border-collapse">
-                    <thead>
-                        <tr>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
-                                Id
+                <table className="table-fixed items-center w-full min-w-[1200px] bg-transparent border-collapse">
+                    <thead className='w-full'>
+                        <tr className='w-full text-[#555555]'>
+                            <th className="w-[10%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left">
+                                ID
                                 <div className="flex justify-between">
                                     <button onClick={() => handleSort("id", "ascendant")}>asc</button>
                                     <button onClick={() => handleSort("id", "descendant")}>desc</button>
                                 </div>
                             </th>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
+                            <th className="w-[25%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left">
                                 Nombre
                                 <div className="flex justify-between">
                                     <button onClick={() => handleSort("title", "ascendant")}>asc</button>
                                     <button onClick={() => handleSort("title", "descendant")}>desc</button>
                                 </div>
                             </th>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
-                                Categoría
-                                <div className="flex justify-between">
-                                    <button onClick={() => handleSort("category", "ascendant")}>asc</button>
-                                    <button onClick={() => handleSort("category", "descendant")}>desc</button>
-                                </div>
-                            </th>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
-                                Marca
-                                <div className="flex justify-between">
-                                    <button onClick={() => handleSort("brand", "ascendant")}>asc</button>
-                                    <button onClick={() => handleSort("brand", "descendant")}>desc</button>
-                                </div>
-                            </th>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
-                                Stock
-                                <div className="flex justify-between">
-                                    <button onClick={() => handleSort("stock", "ascendant")}>asc</button>
-                                    <button onClick={() => handleSort("stock", "descendant")}>desc</button>
-                                </div>
-                            </th>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
+                            <th className="w-[10%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left">
                                 Precio
                                 <div className="flex justify-between">
                                     <button onClick={() => handleSort("price", "ascendant")}>asc</button>
                                     <button onClick={() => handleSort("price", "descendant")}>desc</button>
                                 </div>
                             </th>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
-                                Acciones
+                            <th className="w-[10%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left">
+                                Categoría
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("category", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("category", "descendant")}>desc</button>
+                                </div>
+                            </th>
+                            <th className="w-[10%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left">
+                                Marca
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("brand", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("brand", "descendant")}>desc</button>
+                                </div>
+                            </th>
+                            <th className="w-[15%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left" >
+                                Estado
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("isActive", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("isActive", "descendant")}>desc</button>
+                                </div>
+                            </th>
+                            <th className="w-[10%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left">
+                                Stock
+                                <div className="flex justify-between">
+                                    <button onClick={() => handleSort("stock", "ascendant")}>asc</button>
+                                    <button onClick={() => handleSort("stock", "descendant")}>desc</button>
+                                </div>
+                            </th>
+                            <th className="w-[10%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left">
+                                Acción
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             Array.isArray(products) && products.slice(indexOfFirstElement, indexOfLastElement).map((PRODUCT: ProductsInterface) => (
-                                <tr key={PRODUCT.id}>
-                                    <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        {PRODUCT.id}
-                                    </th>
-                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                                        <img
-                                            src={PRODUCT.image[0]}
-                                            className="h-12 w-12 bg-white rounded-full border"
-                                            alt=""
-                                        ></img>
-                                        <span className="ml-3 font-bold text-blueGray-600 dm:text-white">
-                                            {PRODUCT.title}
-                                        </span>
-                                    </td>
-                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        {PRODUCT.category.name}
-                                    </td>
-                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        {PRODUCT.brand.name}
-                                    </td>
-                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        <i className={`fas fa-circle mr-2 ${PRODUCT.stock >= 10 ? "text-[#00FF00]" : PRODUCT.stock >= 5 ? "text-[#FFC107]" : "text-[#FF0000]"}`}></i> {PRODUCT.stock}
-                                    </td>
-                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        <div className="flex items-center">
-                                            <span className="mr-2">{PRODUCT.price}</span>
-                                        </div>
-                                    </td>
-                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                        <TableDropdown />
-                                    </td>
-                                </tr>
+                                <ProductItem key={PRODUCT.id} PRODUCT={PRODUCT} />
                             ))
                         }
                     </tbody>

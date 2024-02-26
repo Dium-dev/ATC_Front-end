@@ -16,15 +16,35 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
     // ---------- USERS ----------:
     originalUsers: [],
     users: [],
-    updateUsers: (data: any) =>
-        set({
-            users: data,
-            originalUsers: data
-        }),
+    // updateUsers: (data: any) =>
+    //     set({
+    //         users: data,
+    //         originalUsers: data
+    //     }),
+    isUsersFetching: false,
+    fetchUsers: async () => {
+        try {
+            if (useDashboardAdminStore.getState().isUsersFetching) {
+                return;
+            } else {
+                set({ isUsersFetching: true });
+                const response = await fetch("http://localhost:3001/users?page=1&limit=25");
+                const data = await response.json();
+                set({
+                    users: data.users,
+                    originalUsers: data.users
+                });
+            };
+        } catch (error) {
+            console.error("Error fetching products:", error);
+        } finally {
+            set({ isUsersFetching: false });
+        };
+    },
     filterUsersByName: (input: string) => {
         const state = useDashboardAdminStore.getState();
         const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
-            user.name.toLowerCase().includes(input.toLowerCase().trim())
+            user.firstName.toLowerCase().includes(input.toLowerCase().trim())
         );
 
         set({ users: filteredUsers });
@@ -32,7 +52,7 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
     filterUsersByEmail: (input: string) => {
         const state = useDashboardAdminStore.getState();
         const filteredUsers = state.originalUsers.filter((user: UsersInterface) =>
-            user.emailAddress.toLowerCase().includes(input.toLowerCase().trim())
+            user.email.toLowerCase().includes(input.toLowerCase().trim())
         );
 
         set({ users: filteredUsers });
@@ -48,12 +68,12 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
     filterUsers: (options: UserFilterOptions | null) => {
         const state = useDashboardAdminStore.getState();
         if (options !== null) {
-            const { status, after, before } = options;
+            const { isActive, after, before } = options;
 
             const filteredUsers = state.originalUsers.filter((user: UsersInterface) => {
-                const userDateFormatted = convertDateFormat(user.registerDate);
+                const userDateFormatted = convertDateFormat(user.createdAt);
 
-                const statusFilter = status.length === 0 || status.includes(user.status);
+                const statusFilter = isActive === null || isActive === user.isActive;
 
                 const afterFilter = after.length === 0 || after < userDateFormatted;
                 const beforeFilter = before.length === 0 || before > userDateFormatted;
@@ -68,34 +88,32 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
             set({ users: state.originalUsers });
         };
     },
-    sortUsers: (clause: "id" | "name" | "emailAddress" | "status" | "phone" | "registerDate", type: "ascendant" | "descendant") => {
+    sortUsers: (clause: "id" | "firstName" | "email" | "isActive" | "phone" | "createdAt", type: "ascendant" | "descendant") => {
         const users = [...useDashboardAdminStore.getState().users];
         let sortedUsers;
 
         if (type === "ascendant") {
             sortedUsers = users.sort((a: UsersInterface, b: UsersInterface) => {
-                if (clause === "name" || clause === "emailAddress" || clause === "status" || clause === "phone") {
-                    // caso: "name", "emailAddress", "status", "phone", "registerDate". (string).
+                if (clause === "id" || clause === "firstName" || clause === "email" || clause === "phone") {
+                    // caso: "firstName", "email", "isActive", "phone", "createdAt". (string).
                     return (a[clause]).localeCompare((b[clause]));
-                } else if (clause === "registerDate") {
+                } else if (clause === "createdAt") {
                     return convertDateFormat(a[clause]).localeCompare(convertDateFormat(b[clause]));
-                } else if (clause === "id") {
-                    // caso: "id". (number).
-                    return a[clause] - b[clause];
+                } else if (clause === "isActive") {
+                    return a[clause] === b[clause] ? 0 : a[clause] ? -1 : 1;
                 }
                 // caso por defecto, sin cambios en el orden.
                 else return 0;
             });
         } else if (type === "descendant") {
             sortedUsers = users.sort((a: UsersInterface, b: UsersInterface) => {
-                if (clause === "name" || clause === "emailAddress" || clause === "status" || clause === "phone") {
-                    // caso: "name", "emailAddress", "status", "phone", "registerDate". (string).
+                if (clause === "id" || clause === "firstName" || clause === "email" || clause === "phone") {
+                    // caso: "firstName", "email", "isActive", "phone", "createdAt". (string).
                     return (b[clause]).localeCompare((a[clause]));
-                } else if (clause === "registerDate") {
+                } else if (clause === "isActive") {
+                    return a[clause] === b[clause] ? 0 : a[clause] ? 1 : -1;
+                } else if (clause === "createdAt") {
                     return convertDateFormat(b[clause]).localeCompare(convertDateFormat(a[clause]));
-                } else if (clause === "id") {
-                    // caso: "id". (number).
-                    return b[clause] - a[clause];
                 }
                 // caso por defecto, sin cambios en el orden.
                 else return 0;
@@ -168,13 +186,13 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
 
         if (type === "ascendant") {
             sortedProducts = products.sort((a: ProductsInterface, b: ProductsInterface) => {
-                if (clause === "title") {
+                if (clause === "id" || clause === "title") {
                     // caso: "title". (string).
                     return a[clause].localeCompare(b[clause]);
                 } else if (clause === "category" || clause === "brand") {
-                    // caso: "category", "brand". (porque son objectos con una propiedad "name").
+                    // caso: "category", "brand". (porque son objectos con una propiedad "name" => category.name | brand.name).
                     return (a[clause].name.localeCompare(b[clause].name))
-                } else if (clause === "id" || clause === "stock" || clause === "price") {
+                } else if (clause === "stock" || clause === "price") {
                     // caso: "id", "stock", "price" ("number")
                     return a[clause] - b[clause];
                 }
@@ -183,13 +201,13 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
             })
         } else if (type === "descendant") {
             sortedProducts = products.sort((a: ProductsInterface, b: ProductsInterface) => {
-                if (clause === "title") {
+                if (clause === "id" || clause === "title") {
                     // caso: "title". (string.)
                     return b[clause].localeCompare(a[clause]);
                 } else if (clause === "category" || clause === "brand") {
-                    // caso: "category", "brand". (porque son objectos con una propiedad "name").
+                    // caso: "category", "brand". (porque son objectos con una propiedad "name" => category.name | brand.name).
                     return (b[clause].name.localeCompare(a[clause].name))
-                } else if (clause === "id" || clause === "stock" || clause === "price") {
+                } else if (clause === "stock" || clause === "price") {
                     // caso: "id", "stock", "price" ("number")
                     return b[clause] - a[clause];
                 }
@@ -358,24 +376,32 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
     },
     filterOrdersByUserAddress: (input: string) => {
         const state = useDashboardAdminStore.getState();
-        // La string debe tener 4 comas. Las comas separan un espacio que representa a: departamento, localidad, barrio y número.
-        const [departmentPlaceholder, localityPlaceholder, neighborhoodPlaceholder, number] = input.split(',').map((item) => item.trim());
-        const addressProperties: Record<string, any> = {
-            inputDepartment: departmentPlaceholder === "_" ? undefined : departmentPlaceholder,
-            inputLocality: localityPlaceholder === "_" ? undefined : localityPlaceholder,
-            inputNeighborhood: neighborhoodPlaceholder === "_" ? undefined : neighborhoodPlaceholder,
-            inputNumber: isNaN(Number(number)) ? undefined : number,
-        };
         const filteredOrders = state.originalOrders.filter((order: OrdersInterface) => {
-            const { inputDepartment, inputLocality, inputNeighborhood, inputNumber } = addressProperties;
-            const { department, locality, neighborhood, number } = order.customer.address;
+            // Remueve los espacios en blanco dejando solo las palabras.
+            // Ex: "  calle       el    bosque    " => ["calle", "el", "bosque"]
+            const regex = /\s+/;
+            const arr = input.split(regex);
+            const { phone, department, city, streetAddress, neighborhood, references } = order.customer.address;
 
-            const departmentMatch = !inputDepartment || department.toLocaleLowerCase().includes(inputDepartment.toLocaleLowerCase());
-            const localityMatch = !inputLocality || locality.toLocaleLowerCase().includes(inputLocality.toLocaleLowerCase());
-            const neighborhoodMatch = !inputNeighborhood || neighborhood.toLocaleLowerCase().includes(inputNeighborhood.toLocaleLowerCase());
-            const numberMatch = !inputNumber || number.toString().includes(inputNumber.toString());
+            // Objetivo: filtrar todos los productos según el input. TODAS las palabras del input deben coincidir
+            // con cualquiera de las propiedades de un MISMO predido. Si no se encuentra alguna palabra del input
+            // en ninguna propiedad del pedido, este se descartará.
 
-            return departmentMatch && localityMatch && neighborhoodMatch && numberMatch;
+            for (const prop of arr) {
+                const match = (
+                    phone.toLocaleLowerCase().includes(prop.toLocaleLowerCase()) ||
+                    department.toLocaleLowerCase().includes(prop.toLocaleLowerCase()) ||
+                    city.toLocaleLowerCase().includes(prop.toLocaleLowerCase()) ||
+                    streetAddress.toLocaleLowerCase().includes(prop.toLocaleLowerCase()) ||
+                    neighborhood.toLocaleLowerCase().includes(prop.toLocaleLowerCase()) ||
+                    references.toLocaleLowerCase().includes(prop.toLocaleLowerCase())
+                )
+                // Si alguna palabra no matchea con ninguna propiedad del pedido, se descarta.
+                if (!match) return false;
+            };
+
+            // Si todas las palabras coinciden, se incluye.
+            return true;
         });
 
         set({ orders: filteredOrders });
@@ -425,16 +451,20 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
             set({ orders: state.originalOrders });
         }
     },
-    sortOrders: (clause: "id" | "orderNumber" | "creationDate" | "status" | "total", type: "ascendant" | "descendant") => {
+    sortOrders: (clause: "id" | "orderNumber" | "creationDate" | "method" | "status" | "total", type: "ascendant" | "descendant") => {
         const orders = [...useDashboardAdminStore.getState().orders];
         let sortedOrders;
 
         if (type === "ascendant") {
             sortedOrders = orders.sort((a: OrdersInterface, b: OrdersInterface) => {
                 if (clause === "status") {
-                    // caso: "status", "creationDate".
+                    // caso: "status".
                     return a[clause].localeCompare(b[clause]);
+                } else if (clause === "method") {
+                    // caso: "method".
+                    return a.payment[clause].localeCompare(b.payment[clause]);
                 } else if (clause === "creationDate") {
+                    // caso: "creationDate".
                     return convertDateFormat(a[clause]).localeCompare(convertDateFormat(b[clause]));
                 } else if (clause === "id" || clause === "orderNumber" || clause === "total") {
                     // caso: "id", "orderNumber", "total".
@@ -448,6 +478,9 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
                 if (clause === "status") {
                     // caso: "status", "creationDate".
                     return b[clause].localeCompare(a[clause]);
+                } else if (clause === "method") {
+                    // caso: "method".
+                    return b.payment[clause].localeCompare(a.payment[clause]);
                 } else if (clause === "creationDate") {
                     return convertDateFormat(b[clause]).localeCompare(convertDateFormat(a[clause]));
                 } else if (clause === "id" || clause === "orderNumber" || clause === "total") {

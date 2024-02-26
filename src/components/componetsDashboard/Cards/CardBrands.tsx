@@ -9,11 +9,18 @@ import { BrandsInterface } from '~/types/dashboardAdminStore';
 
 // Components:
 import SearchBar from '../SearchBar/SearchBar';
-import TableDropdown from '~/components/componetsDashboard/Dropdowns/TableDropdown';
 import Pagination from '../Pagination/Pagination';
 
 
 // --------------- MODULE ---------------
+function ButtonEdit() {
+    return (
+        <button className="block m-auto px-5 py-[8px] rounded-[10px] bg-secondary-lm text-white text-sm font-bold tracking-wider uppercase">
+            Editar
+        </button>
+    );
+}
+
 export default function CardBrands() {
 
 
@@ -49,11 +56,11 @@ export default function CardBrands() {
 
     // COMPONENT:
     return (
-        <div className='relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded dark:bg-primary-dm dark:text-white'>
+        <div className='relative flex flex-col min-w-0 break-words w-[96%] mx-auto mb-6 shadow-lg rounded-xl bg-white border dark:bg-primary-dm dark:text-white text-black font-inter'>
             <div className="rounded-t mb-0 px-4 py-3 border-0">
                 <div className="flex flex-wrap items-center">
-                    <div className="relative flex items-center justify-between w-full px-4 max-w-full flex-grow flex-1">
-                        <h3 className="font-semibold text-lg text-blueGray-700 dm:text-white">
+                    <div className="relative flex items-center justify-between w-full max-w-full flex-grow flex-1">
+                        <h3 className="text-xl">
                             Marcas
                         </h3>
                         <SearchBar section="brand" />
@@ -61,25 +68,24 @@ export default function CardBrands() {
                 </div>
             </div>
             <div className="block w-full overflow-x-auto">
-                {/* Projects table */}
-                <table className="items-center w-full bg-transparent border-collapse">
-                    <thead>
-                        <tr>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
+                <table className="table-fixed items-center w-full min-w-[1200px] bg-transparent border-collapse">
+                    <thead className='w-full'>
+                        <tr className='w-full text-[#555555]'>
+                            <th className="w-[30%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left">
                                 Id
                                 <div className="flex justify-between">
                                     <button onClick={() => handleSort("id", "ascendant")}>asc</button>
                                     <button onClick={() => handleSort("id", "descendant")}>desc</button>
                                 </div>
                             </th>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
+                            <th className="w-[57%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left">
                                 Nombre
                                 <div className="flex justify-between">
                                     <button onClick={() => handleSort("name", "ascendant")}>asc</button>
                                     <button onClick={() => handleSort("name", "descendant")}>desc</button>
                                 </div>
                             </th>
-                            <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100 dm:bg-lightBlue-800 dm:text-lightBlue-300 dm:border-lightBlue-700">
+                            <th className="w-[13%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left" >
                                 Acciones
                             </th>
                         </tr>
@@ -88,14 +94,16 @@ export default function CardBrands() {
                         {
                             Array.isArray(brands) && brands?.slice(indexOfFirstElement, indexOfLastElement).map((BRAND: BrandsInterface) => (
                                 <tr key={BRAND.id}>
-                                    <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        {BRAND.id}
+                                    <th className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap font-normal font-mono transition-opacity duration-200">
+                                        <div className="relative w-full overflow-hidden text-left after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-white after:to-10% dm:text-white">
+                                            {BRAND.id}
+                                        </div>
                                     </th>
-                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                                    <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
                                         {BRAND.name}
                                     </td>
-                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                        <TableDropdown />
+                                    <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
+                                        <ButtonEdit />
                                     </td>
                                 </tr>
                             ))

@@ -5,7 +5,7 @@
 
 
 export type UserFilterOptions = {
-    status: string[];
+    isActive: boolean | null;
     after: string;
     before: string;
 };

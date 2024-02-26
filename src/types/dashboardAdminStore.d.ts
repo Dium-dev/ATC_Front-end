@@ -15,12 +15,14 @@ export type SetFunction<T> = (partial: Partial<T>) => void;
 export interface DashboardAdminStore {
     originalUsers: UsersInterface[];
     users: UsersInterface[];
-    updateUsers: (data: any) => void;
+    // updateUsers: (data: any) => void;
+    isUsersFetching: boolean;
+    fetchUsers: () => Promise<void>;
     filterUsersByName: (data: any) => void;
     filterUsersByEmail: (data: any) => void;
     filterUsersByPhone: (data: any) => void;
     filterUsers: (options: UserFilterOptions | null) => void;
-    sortUsers: (clause: "id" | "name" | "emailAddress" | "status" | "phone" | "registerDate", type: "ascendant" | "descendant") => void;
+    sortUsers: (clause: "id" | "firstName" | "email" | "isActive" | "phone" | "createdAt", type: "ascendant" | "descendant") => void;
 
     originalProducts: ProductsInterface[];
     products: ProductsInterface[];
@@ -58,26 +60,31 @@ export interface DashboardAdminStore {
 }
 
 // ----- USERS: -----
-export type UserStatus = "blocked" | "activated" | "deleted";
+export type UserStatus = boolean;
 export interface UsersInterface {
-    id: number,
-    name: string,
-    picture: string,
-    emailAddress: string,
-    status: UserStatus,
-    phone: string,
-    registerDate: string
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    phone: string;
+    rol: string;
+    isActive: boolean;
+    createdAt: string;
+    updatedAt: string;
+    deletedAt: string | null
 };
 
 // ----- PRODUCTS: -----
 export interface ProductsInterface {
-    id: number;
+    id: string;
     title: string;
     availability: number;
     condition: string;
     picture: string;
     image: string[];
     model: null;
+    mostSelled: boolean;
     state: string;
     category: {
         id: number,
@@ -130,11 +137,12 @@ export interface OrdersInterface {
         emailAddress: string,
         phoneNumber: string,
         address: {
-            department: string,
-            locality: string,
-            neighborhood: string,
-            number: number,
-            references: string
+            phone: string;
+            department: string;
+            city: string;
+            streetAddress: string;
+            neighborhood: string;
+            references: string;
         }
     }
 };
