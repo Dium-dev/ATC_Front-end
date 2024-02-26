@@ -144,7 +144,7 @@ export default function CardUsers() {
 
     // COMPONENT:
     return (
-        <div className='relative flex flex-col min-w-0 break-words w-[96%] mx-auto mb-6 shadow-lg rounded-xl bg-white border dark:bg-primary-dm dark:text-white text-black font-[Nunito]'>
+        <div className='relative flex flex-col min-w-0 break-words w-[96%] mx-auto mb-6 shadow-lg rounded-xl bg-white border dark:bg-primary-dm dark:text-white text-black font-inter'>
             <div className="rounded-t mb-0 px-4 py-3 border-0">
                 <div className="flex flex-wrap items-center">
                     <div className="relative flex items-center justify-between w-full max-w-full flex-grow flex-1">

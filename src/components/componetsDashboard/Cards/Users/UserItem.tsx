@@ -12,7 +12,7 @@ interface UserItemProps {
 
 function ButtonEdit() {
     return (
-        <button className="px-4 py-[6px] rounded-lg bg-secondary-lm text-white uppercase">
+        <button className="px-6 py-[10px] rounded-[10px] bg-secondary-lm text-white font-bold tracking-wide uppercase">
             Editar
         </button>
     );
