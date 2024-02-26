@@ -4,7 +4,7 @@ import CardSettings from "~/components/componetsDashboard/Cards/CardSettings";
 import NavBar from "~/components/navBar/navBar";
 import Navbar from "../../components/componetsDashboard/Navbars/AdminNavbar";
 import Sidebar from "~/components/componetsDashboard/Sidebar/Sidebar";
-import CardUsers from "~/components/componetsDashboard/Cards/CardUsers"
+import CardUsers from "~/components/componetsDashboard/Cards/Users/CardUsers"
 import CardProducts from "~/components/componetsDashboard/Cards/CardProducts";
 import CardOrders from "~/components/componetsDashboard/Cards/Orders/CardOrders";
 import CardCategories from "~/components/componetsDashboard/Cards/CardCategories";

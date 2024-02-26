@@ -5,11 +5,12 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import useDashboardAdminStore from '~/store/dashboardAdminStore';
 
 // Type definitions:
-import { UserFilterOptions } from '../dashboardAdmin';
+import { UserFilterOptions } from '../../dashboardAdmin';
 import { UserStatus, UsersInterface, DashboardAdminStore } from '~/types/dashboardAdminStore';
 
 // Components:
-import SearchBar from '../SearchBar/SearchBar';
+import SearchBar from '../../SearchBar/SearchBar';
+import UserItem from './UserItem';
 
 // Agregar un endpoint con:
 // - todos los "status" posibles para el usuario. (blocked | activated | deleted | etc). Estas opciones son renderizadas como etiquetas de los checkboxes que se usan para filtrar a los usuarios.
@@ -232,52 +233,9 @@ export default function CardUsers() {
                     </thead>
                     <tbody className="text-black">
                         {
-                            Array.isArray(users) && users.map((USER: UsersInterface) => {
-                                const { id, firstName, lastName, email, phone, rol, isActive, createdAt } = USER;
-                                // const startDate = createdAt.substring(0, 10);
-
-                                return (
-                                    <tr key={id} className="relative after:absolute after:content-[''] after:top-0 after:left-1/2 after:-translate-x-1/2 after:w-[96%] after:h-[.5px] after:bg-[#A0A0A0]">
-                                        <th className="overflow-hidden px-6 align-middle h-[80px] font-normal whitespace-nowrap font-mono">
-                                            {id}
-                                        </th>
-                                        <td className="overflow-hidden px-6 align-middle h-[80px] text-left whitespace-nowrap">
-                                            <span className="dm:text-white">
-                                                {firstName} {lastName}
-                                            </span>
-                                        </td>
-                                        <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
-                                            {email}
-                                        </td>
-                                        <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
-                                            <div className={`flex items-center w-fit p-[10px] px-4 rounded-[50px] ${isActive ? "bg-[#C9E2C9] text-[#00CC66]" : "bg-[#FFBABA] text-[#C43B3B]"}`}>
-                                                <i className={`fas fa-circle mr-2 text-xs`} />
-                                                {isActive ? "Activo" : "Inactivo"}
-                                            </div>
-                                        </td>
-                                        <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
-                                            <div className="flex items-center">
-                                                <span className="mr-2 capitalize">{rol === "user" ? "cliente" : "admin"}</span>
-                                                <div className="relative w-full">
-                                                    <div className="overflow-hidden h-2 flex rounded bg-red-200">
-                                                        <div
-                                                            style={{ width: '60%' }}
-                                                            className="shadow-none flex flex-col text-center text-white justify-center bg-red-500"
-                                                        ></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className="px-6 align-middle h-[80px] text-right">
-                                            <div className="w-fit p-[.4rem] m-auto border rounded-[10px] ">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                                                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                                                </svg>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )
-                            })
+                            Array.isArray(users) && users.map((USER: UsersInterface) => (
+                                <UserItem USER={USER} />
+                            ))
                         }
                     </tbody>
                 </table>
