@@ -38,16 +38,20 @@ function UserItem({ USER }: UserItemProps) {
     return (
         <>
             <tr key={USER.id} className={`relative after:absolute after:content-[''] ${detailsVisible ? "animate-fadeIn" : ""} after:top-0 after:left-1/2 after:-translate-x-1/2 after:w-[96%] after:h-[.5px] after:bg-[#A0A0A0]`}>
-                <th className={`overflow-hidden px-6 align-middle h-[80px] font-normal whitespace-nowrap font-mono ${detailsVisible ? "opacity-0" : "opacity-100"} transition-opacity duration-200`}>
+                <th className={`overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap font-normal font-mono ${detailsVisible ? "opacity-0" : "opacity-100"} transition-opacity duration-200`}>
                     <div className="relative w-full overflow-hidden after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-white after:to-40% dm:text-white">
                         {USER.id}
                     </div>
                 </th>
                 <td className={`overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap ${detailsVisible ? "opacity-0" : "opacity-100"} transition-opacity duration-200`}>
-                    {USER.firstName} {USER.lastName}
+                    <div className="relative w-full overflow-hidden after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-white after:to-40% dm:text-white">
+                        {USER.firstName} {USER.lastName}
+                    </div>
                 </td>
                 <td className={`overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap ${detailsVisible ? "opacity-0" : "opacity-100"} transition-opacity duration-200`}>
-                    {USER.email}
+                    <div className="relative w-full overflow-hidden after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-white after:to-40% dm:text-white">
+                        {USER.email}
+                    </div>
                 </td>
                 <td className={`overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap ${detailsVisible ? "opacity-0" : "opacity-100"} transition-opacity duration-200`}>
                     <div className={`flex items-center w-fit p-[10px] px-4 rounded-[50px] ${USER.isActive ? "bg-[#C9E2C9] text-[#00CC66]" : "bg-[#FFBABA] text-[#C43B3B]"}`}>
@@ -68,7 +72,7 @@ function UserItem({ USER }: UserItemProps) {
                         </div>
                     </div>
                 </td>
-                <td className="px-6 align-middle h-[80px] text-right">
+                <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
                     <button
                         className="block w-fit p-[.4rem] m-auto border rounded-[10px]"
                         onClick={showDetails}

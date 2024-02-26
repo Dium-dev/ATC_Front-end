@@ -187,7 +187,6 @@ export default function CardUsers() {
                 ) : null
             }
             <div className="block w-full overflow-x-auto">
-                {/* Projects table */}
                 <table className="table-fixed items-center w-full min-w-[1200px] bg-transparent border-collapse">
                     <thead className='w-full'>
                         <tr className='w-full text-[#555555]'>
