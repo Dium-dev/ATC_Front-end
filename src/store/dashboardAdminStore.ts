@@ -186,13 +186,13 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
 
         if (type === "ascendant") {
             sortedProducts = products.sort((a: ProductsInterface, b: ProductsInterface) => {
-                if (clause === "title") {
+                if (clause === "id" || clause === "title") {
                     // caso: "title". (string).
                     return a[clause].localeCompare(b[clause]);
                 } else if (clause === "category" || clause === "brand") {
-                    // caso: "category", "brand". (porque son objectos con una propiedad "name").
+                    // caso: "category", "brand". (porque son objectos con una propiedad "name" => category.name | brand.name).
                     return (a[clause].name.localeCompare(b[clause].name))
-                } else if (clause === "id" || clause === "stock" || clause === "price") {
+                } else if (clause === "stock" || clause === "price") {
                     // caso: "id", "stock", "price" ("number")
                     return a[clause] - b[clause];
                 }
@@ -201,13 +201,13 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
             })
         } else if (type === "descendant") {
             sortedProducts = products.sort((a: ProductsInterface, b: ProductsInterface) => {
-                if (clause === "title") {
+                if (clause === "id" || clause === "title") {
                     // caso: "title". (string.)
                     return b[clause].localeCompare(a[clause]);
                 } else if (clause === "category" || clause === "brand") {
-                    // caso: "category", "brand". (porque son objectos con una propiedad "name").
+                    // caso: "category", "brand". (porque son objectos con una propiedad "name" => category.name | brand.name).
                     return (b[clause].name.localeCompare(a[clause].name))
-                } else if (clause === "id" || clause === "stock" || clause === "price") {
+                } else if (clause === "stock" || clause === "price") {
                     // caso: "id", "stock", "price" ("number")
                     return b[clause] - a[clause];
                 }
