@@ -451,16 +451,20 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
             set({ orders: state.originalOrders });
         }
     },
-    sortOrders: (clause: "id" | "orderNumber" | "creationDate" | "status" | "total", type: "ascendant" | "descendant") => {
+    sortOrders: (clause: "id" | "orderNumber" | "creationDate" | "method" | "status" | "total", type: "ascendant" | "descendant") => {
         const orders = [...useDashboardAdminStore.getState().orders];
         let sortedOrders;
 
         if (type === "ascendant") {
             sortedOrders = orders.sort((a: OrdersInterface, b: OrdersInterface) => {
                 if (clause === "status") {
-                    // caso: "status", "creationDate".
+                    // caso: "status".
                     return a[clause].localeCompare(b[clause]);
+                } else if (clause === "method") {
+                    // caso: "method".
+                    return a.payment[clause].localeCompare(b.payment[clause]);
                 } else if (clause === "creationDate") {
+                    // caso: "creationDate".
                     return convertDateFormat(a[clause]).localeCompare(convertDateFormat(b[clause]));
                 } else if (clause === "id" || clause === "orderNumber" || clause === "total") {
                     // caso: "id", "orderNumber", "total".
@@ -474,6 +478,9 @@ const useDashboardAdminStore = create<DashboardAdminStore>((set: SetFunction<Das
                 if (clause === "status") {
                     // caso: "status", "creationDate".
                     return b[clause].localeCompare(a[clause]);
+                } else if (clause === "method") {
+                    // caso: "method".
+                    return b.payment[clause].localeCompare(a.payment[clause]);
                 } else if (clause === "creationDate") {
                     return convertDateFormat(b[clause]).localeCompare(convertDateFormat(a[clause]));
                 } else if (clause === "id" || clause === "orderNumber" || clause === "total") {
