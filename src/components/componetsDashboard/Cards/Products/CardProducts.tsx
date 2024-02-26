@@ -10,7 +10,7 @@ import { ProductsInterface } from '~/types/dashboardAdminStore';
 
 // Components:
 import SearchBar from '../../SearchBar/SearchBar';
-import TableDropdown from '../../Dropdowns/TableDropdown';
+import ProductItem from './ProductItem';
 import Pagination from '../../Pagination/Pagination';
 
 
@@ -146,6 +146,9 @@ export default function CardProducts() {
         };
     }, [brands, fetchBrands, isBrandsFetching]);
 
+    useEffect(() => {
+        console.log(products)
+    }, [products])
 
     // COMPONENT:
     return (
@@ -293,56 +296,7 @@ export default function CardProducts() {
                     <tbody>
                         {
                             Array.isArray(products) && products.slice(indexOfFirstElement, indexOfLastElement).map((PRODUCT: ProductsInterface) => (
-                                <tr key={PRODUCT.id}>
-                                    <th className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap font-normal font-mono">
-                                        <div className="relative w-full overflow-hidden after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-white after:to-40% dm:text-white">
-                                            {PRODUCT.id}
-                                        </div>
-                                    </th>
-                                    <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
-                                        <div className="flex items-center">
-                                            <img
-                                                src={PRODUCT.image[0]}
-                                                className="h-12 w-12 bg-white rounded-full border"
-                                                alt=""
-                                            ></img>
-                                            <div className="relative inline-block w-full overflow-hidden ml-3 after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-white after:to-40% dm:text-white">
-                                                {PRODUCT.title}
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
-                                        {PRODUCT.price}
-                                    </td>
-                                    <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
-                                        <div className="relative w-full overflow-hidden after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-white after:to-40% dm:text-white">
-                                            {PRODUCT.category.name}
-                                        </div>
-                                    </td>
-                                    <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
-                                        <div className="relative w-full overflow-hidden after:absolute after:pointer-events-none after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-l after:from-white after:to-40% dm:text-white">
-                                            {PRODUCT.brand.name}
-                                        </div>
-                                    </td>
-                                    <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
-                                        <div className={`flex items-center w-fit p-[10px] px-4 rounded-[50px] ${PRODUCT.state ? "bg-[#C9E2C9] text-[#00CC66]" : "bg-[#FFBABA] text-[#C43B3B]"}`}>
-                                            <i className={`fas fa-circle mr-2 text-xs`} />
-                                            {PRODUCT.state ? "Activo" : "Inactivo"}
-                                        </div>
-                                    </td>
-                                    <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
-                                        <i className={`fas fa-circle mr-2 ${PRODUCT.stock >= 10 ? "text-[#00FF00]" : PRODUCT.stock >= 5 ? "text-[#FFC107]" : "text-[#FF0000]"}`}></i> {PRODUCT.stock}
-                                    </td>
-                                    <td className="overflow-hidden px-6 align-middle h-[80px] whitespace-nowrap">
-                                        <button className="block w-fit p-[.4rem] m-auto border rounded-[10px]">
-                                            <div>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                                                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                                                </svg>
-                                            </div>
-                                        </button>
-                                    </td>
-                                </tr>
+                                <ProductItem PRODUCT={PRODUCT}/>
                             ))
                         }
                     </tbody>

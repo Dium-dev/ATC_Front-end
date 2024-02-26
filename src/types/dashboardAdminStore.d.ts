@@ -77,13 +77,14 @@ export interface UsersInterface {
 
 // ----- PRODUCTS: -----
 export interface ProductsInterface {
-    id: number;
+    id: string;
     title: string;
     availability: number;
     condition: string;
     picture: string;
     image: string[];
     model: null;
+    mostSelled: boolean;
     state: string;
     category: {
         id: number,
