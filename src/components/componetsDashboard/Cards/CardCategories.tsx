@@ -72,7 +72,7 @@ export default function CardCategories() {
                     <thead className='w-full'>
                         <tr className='w-full text-[#555555]'>
                             <th className="w-[30%] px-6 align-middle py-3 whitespace-nowrap font-normal text-left">
-                                Id
+                                ID
                                 <div className="flex justify-between">
                                     <button onClick={() => handleSort("id", "ascendant")}>asc</button>
                                     <button onClick={() => handleSort("id", "descendant")}>desc</button>
