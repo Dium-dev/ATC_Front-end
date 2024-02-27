@@ -46,3 +46,23 @@
   animation: carousel var(--duration) linear infinite;
   white-space: nowrap;
 }
+
+@keyframes mobile-menu-animate {
+  from {
+    margin-left: -100%;
+  }
+
+  to {
+    margin-left: 0%;
+  }
+}
+
+@keyframes popover-ani {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

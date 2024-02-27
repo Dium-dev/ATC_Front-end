@@ -13,4 +13,7 @@ export const api = {
   }) {
     return mainApi.get(`/products?page=${page}&limit=${limit}`);
   },
+  getCategories: function () {
+    return mainApi.get('/categories');
+  },
 };

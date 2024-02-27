@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import React, { FC, useState } from 'react';
+import React, { FC, ReactNode, useState } from 'react';
 import Link from 'next/link';
 import { Images } from '~/assets/img';
 import Icon from '~/assets/icons/icon';
@@ -17,11 +17,180 @@ import { useAuth } from '~/context/AuthContext';
 import FormSignUp from '../form/FormSignUp';
 import FormLogin from '../form/FormLogin';
 import { useDashboardUserStore } from '~/store/dashboardUserStore';
-import Categories from '../categories/categories';
+import { InputField } from '../inputs/InputField';
+import { MobileMenu } from './mobile-menu';
+import { FiChevronRight } from 'react-icons/fi';
+import { FaUserCircle } from 'react-icons/fa';
+import { BiSolidUpArrow } from 'react-icons/bi';
 
 interface NavBarProps {}
 
-const NavBar: FC<NavBarProps> = ({}) => {
+export default function NavBar() {
+  const [open, setOpen] = useState(false);
+  const handleOPen = () => setOpen((cur) => !cur);
+  const { user, logout } = useAuth();
+  const [flagState, updateState] = useFlagState(false);
+  const { registerForm, setRegisterForm } = useDashboardUserStore(
+    (state) => state
+  );
+  const { loginForm, setLoginForm } = useDashboardUserStore((state) => state);
+  function openSession() {
+    setLoginForm(true);
+  }
+  return (
+    <>
+      <div className="sticky top-0 z-50 backdrop-blur-sm bg-background-lm/90 dark:bg-background-dm/90 shadow rounded-b">
+        <nav className=" max-w-[1920px] mx-auto p-3 flex justify-between items-center ms:justify-start gap-6  ">
+          <MobileMenu
+            user={user}
+            buttonValue={<Icon icon={'HamburguerOpen'} />}
+            open={open}
+            handleOPen={handleOPen}
+            openSession={openSession}
+            logout={logout}
+          />
+          <Image
+            src={'./images/logo/logoM.svg'}
+            width={50}
+            height={50}
+            alt="Your Company"
+            onClick={() => {}}
+            className="hidden ms:block md:hidden"
+          />
+          <Image
+            src={'./images/logo/logoD.svg'}
+            width={200}
+            height={30}
+            alt="Your Company"
+            onClick={() => {}}
+            className="hidden md:block"
+          />
+
+          <div className="flex-1 ms:max-w-sm lg:max-w-md">
+            <InputField
+              className=""
+              placeholder="Busca tu producto"
+              rightIcon={<Icon icon="SearchIcon" />}
+            />
+          </div>
+
+          <ul className="hidden ms:flex mx-auto gap-5 xxxl:gap-10">
+            <li>
+              <MainButton>Productos</MainButton>
+            </li>
+            <li>
+              <MainButton>Blog</MainButton>
+            </li>
+            <li>
+              <MainButton className="hidden xl:block">Nosotros</MainButton>
+            </li>
+            <Popover title="Mas">
+              <MainButton className="xl:hidden ">Nosotros</MainButton>
+              <MainButton className="whitespace-nowrap">
+                Como Comprar
+              </MainButton>
+            </Popover>
+          </ul>
+          <div className="ms:flex ms:ml-auto ms:gap-2 items-center">
+            {!user?.email ? (
+              <MainButton
+              color='red'
+                onClick={() => setLoginForm(true)}
+                className="hidden ms:block"
+              >
+                Ingresar
+              </MainButton>
+            ) : (
+              <AvatarProfile image="" name={user?.email} logout={logout} />
+            )}
+            <div className="hidden ms:block">
+              <ThemeModeButton />
+            </div>
+            <button className="w-9 aspect- group hover:bg-primary-dm/20 p-1 rounded text-text-lm relative dark:text-text-dm transition-all ease-in-out">
+              <span className="absolute bg-primary-lm rounded-full aspect-square w-4 text-xs grid place-content-center text-white group-hover:animate-bounce shadow -right-1 -top-1">
+                1
+              </span>
+              <Icon icon="CarShoping" />
+            </button>
+          </div>
+        </nav>
+      </div>
+
+      {flagState && <Form updateState={updateState} />}
+      {registerForm && (
+        <FormSignUp
+          updateStateRegister={setRegisterForm}
+          updateState={setLoginForm}
+        />
+      )}
+      {loginForm && (
+        <FormLogin
+          updateState={setLoginForm}
+          updateStateRegister={setRegisterForm}
+        />
+      )}
+    </>
+  );
+}
+
+function AvatarProfile({
+  image,
+  name,
+  logout,
+}: {
+  image: string;
+  name: string;
+  logout(): void;
+}) {
+  return (
+    <div className="hidden ms:block group/user relative">
+      <MainButton className="hover:text-secondary-dm/50">
+        <FaUserCircle className="w-8 h-8" />
+      </MainButton>
+      <div
+        style={{ animation: 'popover-ani 0.5s alternate' }}
+        className="hidden absolute left-1/2 -translate-x-1/2 top-full group-hover/user:block"
+      >
+        <main className="relative bg-background-lm mt-3.5 rounded px-3 py-2 shadow dark:bg-background-dm">
+          <BiSolidUpArrow className="absolute bottom-full left-1/2 -translate-x-1/2  text-background-dm dark:text-background-lm animate-pulse " />
+          {name}
+          <hr className="my-2 border-secondary-dm/50" />
+          <MainButton className="flex flex-col">Perfil</MainButton>
+
+          <MainButton
+            className="whitespace-nowrap"
+            color="red"
+            variant="tertiary"
+            onClick={logout}
+          >
+            Cerrar Sesión
+          </MainButton>
+        </main>
+      </div>
+    </div>
+  );
+}
+
+function Popover({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div className="group/user relative">
+      <MainButton className=" flex items-center gap-2">
+        {title}
+        <FiChevronRight className="w-5 h-5 rotate-90  " />
+      </MainButton>
+      <div
+        style={{ animation: 'popover-ani 0.5s alternate' }}
+        className="hidden absolute left-1/2 -translate-x-1/2 top-full group-hover/user:block"
+      >
+        <main className="relative bg-background-lm mt-3.5 rounded px-3 py-2 shadow dark:bg-background-dm">
+          {children}
+        </main>
+      </div>
+    </div>
+  );
+}
+
+const NavBars: FC<NavBarProps> = ({}) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [flagState, updateState] = useFlagState(false);
   const { registerForm, setRegisterForm } = useDashboardUserStore(
@@ -52,7 +221,7 @@ const NavBar: FC<NavBarProps> = ({}) => {
       <div
         className={`z-50 bg-opacity-70 bg-white w-full backdrop-blur-sm flex-col ${
           pathname !== '/' ? 'shadow-none' : 'shadow-md'
-        } dark:bg-primary-dm py-0.5`}
+        } dark:bg-primary-dm/90 py-0.5`}
       >
         <div className="p-4 flex items-center h-[60px] xxxl:px-0 justify-between mx-auto max-w-[1920px] relative">
           {/* Contenedor lado izquierdo menu hamburguesa-imagenes*/}
@@ -207,5 +376,3 @@ const NavBar: FC<NavBarProps> = ({}) => {
     </nav>
   );
 };
-
-export default NavBar;
